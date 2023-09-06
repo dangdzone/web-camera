@@ -9,21 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.0",
+    "@chakra-ui/layout": "^2.3.0",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@livequery/client": "^1.0.51",
     "@livequery/react": "^1.0.37",
     "@livequery/rest": "^1.0.22",
+    "@livequery/types": "^1.0.79",
     "@types/node": "20.5.9",
-    "@types/react": "18.2.21",
+    "@types/react": "^18.2.21",
     "@types/react-dom": "18.2.7",
+    "dayjs": "^1.11.9",
     "eslint": "8.48.0",
-    "eslint-config-next": "13.4.19",
+    "eslint-config-next": "^13.4.19",
     "firebase": "^10.3.1",
     "framer-motion": "^10.16.4",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.46.1",
+    "react-icons": "^4.10.1",
+    "rxjs": "^7.8.1",
     "typescript": "5.2.2"
   }
 }
