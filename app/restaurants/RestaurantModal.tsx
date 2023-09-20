@@ -13,7 +13,7 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
             onClose={onClose}
         >
             <ModalOverlay />
-            <ModalContent bg='white' mx='2'>
+            <ModalContent  mx='2'>
                 <ModalHeader p='3' borderBottom='1px solid' borderColor='gray.200'>
                     Thêm chi nhánh
                 </ModalHeader>

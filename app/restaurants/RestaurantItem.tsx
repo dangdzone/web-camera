@@ -12,7 +12,7 @@ export const RestarantItem = ({ onClick }: RestarantItem) => {
         <HStack
             w='full'
             p={{base: '2', md: '4'}}
-            bg='#f0f1f1'
+            // bg='#f0f1f1'
             borderRadius='10px'
             _hover={{
                 bg: '#e5e5e5',

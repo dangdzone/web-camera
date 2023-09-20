@@ -15,7 +15,7 @@ export const Topbar = () => {
             zIndex='999'
             top='0'
             w='full'
-            bg='#ffffff'
+            bg='#FFFFFF'
             height='65px'
             px={{ base: 2, md: 4 }}
             borderBottom='1px'

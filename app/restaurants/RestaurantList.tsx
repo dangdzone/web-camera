@@ -3,6 +3,7 @@ import { RestarantItem } from "./RestaurantItem"
 import { useState } from "react"
 import { RestaurantModal } from "./RestaurantModal"
 import { Button } from "@chakra-ui/react"
+import { FiPlus } from "react-icons/fi"
 
 
 export const Restaurantlist = () => {
@@ -16,7 +17,7 @@ export const Restaurantlist = () => {
             }
             <HStack w='full' justifyContent='space-between'>
                 <Text fontWeight='600' color='blue.500'>Quản lý chi nhánh</Text>
-                <Button colorScheme='blue' size='sm' onClick={() => set_active_restaurant(true)}>Thêm chi nhánh</Button>
+                <Button leftIcon={<FiPlus />} colorScheme='blue' size='sm' onClick={() => set_active_restaurant(true)}>Thêm chi nhánh</Button>
             </HStack>
             <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>
                 {

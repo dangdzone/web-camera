@@ -26,17 +26,24 @@ export default function RestaurantLayout({ children }: { children: ReactNode }) 
             <Container
                 maxW='full'
                 pl='0' pr='0'
-                bg='#ffffff'
+                bg='#F0F1F1'
                 centerContent
             >
                 <Container
-                    centerContent
-                    maxW='8xl'
+                    maxW='6xl'
                     pr='0' pl='0'
                     minH='calc(100vh - 65px)'
-                    bg='#ffffff'
                 >
-                    {children}
+                    <Box
+                        w='full'
+                        // bg={styles.bg}
+                        minH='calc(100vh - 65px)'
+                        p={{ base: '2', md: '4' }}
+                        py={{ base: '6', md: '10' }}
+                        display={{ base: 'block', md: 'flex' }}
+                    >
+                        {children}
+                    </Box>
                 </Container>
             </Container>
         </Box>
