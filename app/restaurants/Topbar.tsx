@@ -35,11 +35,11 @@ export const Topbar = () => {
                     fontSize={{ base: 16, md: 20 }}
                 // color='#2193b0'
                 >
-                    Quản lý nhà hàng
+                    Menu điện tử cho nhà hàng
                 </Text>
             </HStack>
             <HStack>
-                <Box display={{ base: 'none', md: 'block' }}>
+                <Box>
                     <IconButton
                         fontSize='xl'
                         color={colorMode == 'dark' ? 'gray.400' : 'gray.600'}
