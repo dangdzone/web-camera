@@ -1,6 +1,6 @@
 
 import { VStack, HStack, Text } from "@chakra-ui/layout"
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, ModalFooter, Button, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, ModalFooter, Button, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react"
 import { FiPlus } from "react-icons/fi"
 
 export type MenuRestaurantModal = {
@@ -8,6 +8,9 @@ export type MenuRestaurantModal = {
 }
 
 export const MenuRestaurantModal = ({ onClose }: MenuRestaurantModal) => {
+
+    const { colorMode } = useColorMode()
+
     return (
         <Modal
             isOpen={true}
@@ -16,8 +19,8 @@ export const MenuRestaurantModal = ({ onClose }: MenuRestaurantModal) => {
             scrollBehavior={'inside'}
         >
             <ModalOverlay />
-            <ModalContent bg='white' mx='2'>
-                <ModalHeader p='3' borderBottom='1px solid' borderColor='gray.200'>
+            <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
+                <ModalHeader p='3'  borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
                     Thêm menu
                 </ModalHeader>
                 <ModalCloseButton borderRadius='full' mt='1' />
@@ -47,40 +50,7 @@ export const MenuRestaurantModal = ({ onClose }: MenuRestaurantModal) => {
                                 />
                             </HStack>
                         </VStack>
-                        <Tabs position="relative" w='full'>
-                            <TabList>
-                                <Tab>Danh mục món</Tab>
-                                <Tab>Món ăn</Tab>
-                            </TabList>
-                            <TabIndicator
-                                mt="-1.5px"
-                                height="2px"
-                                bg="blue.500"
-                                borderRadius="1px"
-                            />
-                            <TabPanels>
-                                <TabPanel>
-                                    <VStack w='full'>
-                                        <HStack w='full' justifyContent='space-between'>
-                                            <Text fontWeight='400'>Danh mục món</Text>
-                                            <Button leftIcon={<FiPlus />} size='sm' colorScheme='blue'>Thêm danh mục</Button>
-                                        </HStack>
-                                        <HStack w='full'>
-                                        </HStack>
-                                    </VStack>
-                                </TabPanel>
-                                <TabPanel>
-                                    <VStack w='full' spacing='4'>
-                                        <HStack w='full' justifyContent='space-between'>
-                                            <Text fontWeight='400'>Danh sách món</Text>
-                                            <Button leftIcon={<FiPlus />} size='sm' colorScheme='blue'>Thêm món</Button>
-                                        </HStack>
-                                        <HStack w='full'>
-                                        </HStack>
-                                    </VStack>
-                                </TabPanel>
-                            </TabPanels>
-                        </Tabs>
+                        
                     </VStack>
                 </ModalBody>
 

@@ -1,10 +1,17 @@
 'use client'
 
 import { ReactNode } from 'react';
-import { Box, Container } from '@chakra-ui/react';
+import { Box, Container, useColorMode } from '@chakra-ui/react';
 import { Topbar } from './Topbar';
 
 export default function RestaurantLayout({ children }: { children: ReactNode }) {
+
+    const { colorMode, toggleColorMode } = useColorMode()
+    const styles = {
+        bg: colorMode == 'dark' ? '#18191A' : '#F0F1F1',
+        bg_sx: colorMode == 'dark' ? '#2F3031' : '#c0c1c1'
+    }
+
     return (
         <Box
             minH="100vh"
@@ -26,7 +33,7 @@ export default function RestaurantLayout({ children }: { children: ReactNode }) 
             <Container
                 maxW='full'
                 pl='0' pr='0'
-                bg='#F0F1F1'
+                bg={styles.bg}
                 centerContent
             >
                 <Container
@@ -36,7 +43,7 @@ export default function RestaurantLayout({ children }: { children: ReactNode }) 
                 >
                     <Box
                         w='full'
-                        // bg={styles.bg}
+                        bg={styles.bg}
                         minH='calc(100vh - 65px)'
                         p={{ base: '2', md: '4' }}
                         py={{ base: '6', md: '10' }}

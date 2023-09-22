@@ -1,5 +1,5 @@
 import { HStack, Text, VStack } from "@chakra-ui/layout"
-import { Image, Tag } from "@chakra-ui/react"
+import { Image, Tag, useColorMode } from "@chakra-ui/react"
 import { FiMapPin } from "react-icons/fi"
 
 
@@ -8,6 +8,9 @@ export type RestarantItem = {
 }
 
 export const RestarantItem = ({ onClick }: RestarantItem) => {
+
+    const { colorMode } = useColorMode()
+
     return (
         <HStack
             w='full'
@@ -15,10 +18,12 @@ export const RestarantItem = ({ onClick }: RestarantItem) => {
             // bg='#f0f1f1'
             borderRadius='10px'
             _hover={{
-                bg: '#e5e5e5',
+                bg: colorMode == 'dark' ? '#4E4F50' : '#e5e5e5',
             }}
             cursor='pointer'
             onClick={onClick}
+            bg={colorMode == 'dark' ? '#2F3031' : 'white'}
+            boxShadow='md'
         >
             <Image boxSize='40px' src='https://cdn-icons-png.flaticon.com/512/5223/5223909.png' />
             <VStack w='full' align='start'>

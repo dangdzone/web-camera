@@ -15,8 +15,8 @@ export const MenuResraurantList = () => {
                     <MenuRestaurantModal onClose={() => set_active_menu(false)} />
                 )
             }
-            <HStack w='full' justifyContent='space-between'>
-                <Text fontWeight='600' color='blue.500'>Quản lý menu</Text>
+            <HStack w='full' justifyContent='flex-end' py='2'>
+                {/* <Text fontWeight='600' color='blue.500'>Quản lý menu</Text> */}
                 <Button colorScheme='blue' size='sm' onClick={() => set_active_menu(true)}>Thêm menu</Button>
             </HStack>
             <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>

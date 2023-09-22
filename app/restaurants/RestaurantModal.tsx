@@ -1,11 +1,14 @@
 import { VStack, SimpleGrid, HStack, Text } from "@chakra-ui/layout"
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, Textarea, ModalFooter, Button } from "@chakra-ui/react"
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, Textarea, ModalFooter, Button, useColorMode } from "@chakra-ui/react"
 
 export type RestaurantModal = {
     onClose: () => void
 }
 
 export const RestaurantModal = ({ onClose }: RestaurantModal) => {
+
+    const { colorMode } = useColorMode()
+
     return (
         <Modal
             isOpen={true}
@@ -13,8 +16,8 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
             onClose={onClose}
         >
             <ModalOverlay />
-            <ModalContent  mx='2'>
-                <ModalHeader p='3' borderBottom='1px solid' borderColor='gray.200'>
+            <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
+                <ModalHeader p='3'  borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
                     Thêm chi nhánh
                 </ModalHeader>
                 <ModalCloseButton borderRadius='full' mt='1' />
