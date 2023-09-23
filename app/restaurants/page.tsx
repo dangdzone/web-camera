@@ -1,9 +1,8 @@
 'use client'
 
-import { HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, VStack, useColorMode } from "@chakra-ui/react";
+import { Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, VStack, useColorMode } from "@chakra-ui/react";
 import { Restaurantlist } from "./RestaurantList";
 import { MenuResraurantList } from "./MenuRestaurantList";
-import { FiAirplay } from "react-icons/fi";
 
 
 export default function Page() {

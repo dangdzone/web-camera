@@ -22,7 +22,7 @@ export const MenuRestaurantItem = ({ onClick }: MenuRestaurantItem) => {
                 bg: colorMode == 'dark' ? '#4E4F50' : '#e5e5e5',
             }}
             cursor='pointer'
-            onClick={onClick}
+            // onClick={onClick}
             bg={colorMode == 'dark' ? '#2F3031' : 'white'}
             boxShadow='md'
         >

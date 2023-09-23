@@ -6,11 +6,12 @@ import { FiChevronDown, FiHome } from "react-icons/fi"
 import { MdLogout, MdOutlineModeNight } from "react-icons/md"
 import { BsSun } from "react-icons/bs"
 import { theme } from "@/theme"
+import { RiLoginCircleLine, RiLogoutCircleRLine } from "react-icons/ri"
 
 
 export const Topbar = () => {
 
-    const { fuser } = useFirebaseUserContext()
+    const firebase_ctx = useFirebaseUserContext()
     const { colorMode, toggleColorMode } = useColorMode()
 
     return (
@@ -51,15 +52,53 @@ export const Topbar = () => {
                     />
                 </Box>
                 <Menu>
-                    <MenuButton as={Button} rightIcon={<FiChevronDown />}>
-                        Actions
+                    <MenuButton
+                        as={Button}
+                        rightIcon={<FiChevronDown color={colorMode == 'dark' ? 'gray.400' : 'gray.600'} />}
+                        borderRadius='full'
+                        px='3'
+                    >
+                        {<Avatar size='xs' src={firebase_ctx.fuser?.photoURL ?? 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'} />}
                     </MenuButton>
-                    <MenuList>
-                        <MenuItem>Download</MenuItem>
-                        <MenuItem>Create a Copy</MenuItem>
-                        <MenuItem>Mark as Draft</MenuItem>
-                        <MenuItem>Delete</MenuItem>
-                        <MenuItem>Attend a Workshop</MenuItem>
+                    <MenuList bg={colorMode == 'dark' ? '#242526' : 'white'}>
+                        <VStack w='full' px='2'>
+                            <VStack
+                                spacing="2"
+                                w='full'
+                                my='2'
+                            >
+                                <Avatar
+                                    size={"lg"}
+                                    src={firebase_ctx.fuser?.photoURL ?? 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'}
+                                    mb='1'
+                                />
+                                <Text fontSize="sm" fontWeight="500">{firebase_ctx.fuser?.displayName}</Text>
+                                <Text fontSize="xs" color={colorMode == 'dark' ? 'gray.400' : 'gray.600'}>
+                                    {firebase_ctx.fuser?.email}
+                                </Text>
+                            </VStack>
+                            {
+                                firebase_ctx.fuser ?
+                                    <Button
+                                        display={{ base: 'none', md: 'block' }}
+                                        w='full'
+                                        leftIcon={<RiLogoutCircleRLine />}
+                                        borderRadius='full'
+                                        onClick={firebase_ctx.logout}
+                                    >
+                                        Đăng xuất
+                                    </Button> :
+                                    <Button
+                                        display={{ base: 'none', md: 'block' }}
+                                        w='full'
+                                        leftIcon={<RiLoginCircleLine />}
+                                        borderRadius='full'
+                                        onClick={firebase_ctx.open_login_modal}
+                                    >
+                                        Đăng nhập
+                                    </Button>
+                            }
+                        </VStack>
                     </MenuList>
                 </Menu>
             </HStack>

@@ -1,44 +1,56 @@
 
 
-import { Observable } from "rxjs";
 import { useEffect, useState } from "react";
 import { FirebaseAuth } from "../config/firebase";
 import { createContextFromHook } from "@livequery/react";
-import { onAuthStateChanged, onIdTokenChanged, User } from 'firebase/auth'
+import { onAuthStateChanged, onIdTokenChanged, signOut, User } from 'firebase/auth'
+import { useRouter } from "next/navigation";
+
+export type FirebaseUser = User & {
+    reloadUserInfo: {
+        customAttributes: string
+    }
+}
 
 export const [useFirebaseUserContext, FirebaseUserContextProvider] = createContextFromHook(() => {
 
     const [fuser, set_fuser] = useState<User & { $?: any } | null>() // fuser thông tin người dùng trên firebase
     const [loading, set_loading] = useState(true)
     const [claims, set_claims] = useState<any>({}) // claims quyền của người dùng
+    const [login_modal_visible, set_login_modal_visible] = useState<boolean>(false) // Modal login
+    useEffect(() => { fuser && set_login_modal_visible(false) }, [fuser])
 
     // Lắng nghe trạng thái đăng nhập hay chưa
-    useEffect(() => (
-        new Observable<User | null>(o => onAuthStateChanged(FirebaseAuth, o))
-            .subscribe(u => {
-                set_fuser(u)
-                set_loading(false)
-            })
-            .unsubscribe
-    ), [])
+    useEffect(() => {
+        onAuthStateChanged(FirebaseAuth, u => {
+            set_fuser(u as any as FirebaseUser)
+            set_loading(false)
+        }) 
+    }, [])
 
     // Lắng nghe sự thay đổi quyền hạn của người dùng mỗi khi set lại quyền
-    useEffect(() => (
-        new Observable<User | null>(o => onIdTokenChanged(FirebaseAuth, o))
-            .subscribe(idtoken => {
-                idtoken?.getIdTokenResult().then(c => set_claims(c.claims.$ || {}))
-            })
-            .unsubscribe
-    ), [])
+    useEffect(() => {
+        onIdTokenChanged(FirebaseAuth, idtoken => {
+            idtoken?.getIdTokenResult().then(c => set_claims(c.claims.$ || {}))
+        })
+    }, [])
 
     // Check lại quyền
     const reload_permissions = () => FirebaseAuth.currentUser?.getIdToken(true)
-
+    const router = useRouter()
+    const logout = async () => {
+        await signOut(FirebaseAuth)
+        router.push(`/login`)
+    }
 
     return {
         fuser, // Thông tin user trên firebase
         loading, // Chờ xử lý
-        claims, // Quyền
-        reload_permissions // Check lại quyền
+        claims,
+        logout, // Quyền
+        reload_permissions, // Check lại quyền
+        login_modal_visible,
+        open_login_modal: () => set_login_modal_visible(true),
+        close_login_modal: () => set_login_modal_visible(false)
     }
 })
