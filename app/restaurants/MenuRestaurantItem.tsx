@@ -26,16 +26,16 @@ export const MenuRestaurantItem = ({ onClick }: MenuRestaurantItem) => {
             bg={colorMode == 'dark' ? '#2F3031' : 'white'}
             boxShadow='md'
         >
-            <Image boxSize='40px' src='https://cdn-icons-png.flaticon.com/512/5223/5223909.png' />
+            <Image boxSize='40px' src='https://cdn-icons-png.flaticon.com/512/5470/5470133.png' />
             <VStack w='full' align='start'>
                 <HStack w='full' justifyContent='space-between'>
-                    <Text fontWeight='600'>Cơ sở 1</Text>
+                    <Text fontWeight='600'>VIP2</Text>
                     <Tag colorScheme='blue'>Hoạt động</Tag>
                 </HStack>
-                <HStack>
+                {/* <HStack>
                     <FiMapPin />
                     <Text opacity='0.9'>Số 1, Quang Trung, Hà Đông, HN</Text>
-                </HStack>
+                </HStack> */}
             </VStack>
         </HStack>
     )

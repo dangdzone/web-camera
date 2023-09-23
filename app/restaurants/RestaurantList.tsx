@@ -1,4 +1,5 @@
-import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
+
+import { HStack, SimpleGrid, VStack } from "@chakra-ui/layout"
 import { RestarantItem } from "./RestaurantItem"
 import { useState } from "react"
 import { RestaurantModal } from "./RestaurantModal"
@@ -21,7 +22,7 @@ export const Restaurantlist = () => {
             </HStack>
             <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>
                 {
-                    new Array(5).fill(1).map(() => (
+                    new Array(10).fill(1).map(() => (
                         <RestarantItem onClick={() => set_active_restaurant(true)} />
                     ))
                 }
