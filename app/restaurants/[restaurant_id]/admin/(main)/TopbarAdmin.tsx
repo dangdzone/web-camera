@@ -1,91 +1,93 @@
 'use client'
 
-import { Box, Flex, HStack, Stack, Text, VStack } from "@chakra-ui/layout"
-import { Button, Collapse, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, IconButton, useColorMode, useColorModeValue, useDisclosure } from "@chakra-ui/react"
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
-import { theme } from "@/theme"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
+import { HStack, Text, VStack } from "@chakra-ui/layout"
+import { Avatar, Button, IconButton, Menu, MenuButton, MenuList, useColorMode } from "@chakra-ui/react"
 import { BsSun } from "react-icons/bs"
-import { MdLogout, MdOutlineModeNight } from "react-icons/md"
-import { PropsWithChildren } from "react"
-
+import { FiChevronDown } from "react-icons/fi"
+import { MdOutlineModeNight } from "react-icons/md"
+import { RiLogoutCircleRLine, RiLoginCircleLine } from "react-icons/ri"
 
 export const TopbarAdmin = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const MenuList = ['Trang chủ', 'Đơn hàng', 'Bàn ăn']
+
     const { colorMode, toggleColorMode } = useColorMode()
+    const firebase_ctx = useFirebaseUserContext()
 
     return (
         <HStack
             w='full'
             h='65px'
             px={{ base: '2', md: '4' }}
-            bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
+            bg={colorMode == 'dark' ? '#03346a' : '#0665D0'}
             justifyContent='space-between'
+            color='white'
         >
-            <HStack as={'nav'} display={{ base: 'none', md: 'flex' }} spacing='10'>
+            <VStack w='full' align='flex-start' spacing='0'>
                 <Text fontWeight='600' textTransform='uppercase'>Cơ sở 1</Text>
-                <HStack>
-                    {MenuList.map((menu) => (
-                        <Button
-                            key={menu}
-                            variant='ghost'
-                            size='sm'
-                        >
-                            {menu}
-                        </Button>
-                    ))}
-                </HStack>
+                <Text opacity='0.8' fontSize='13px'>Số 5 Hà Đông, Hà Nội</Text>
+            </VStack>
+            <HStack>
+                <IconButton
+                    fontSize='xl'
+                    color={colorMode == 'dark' ? 'gray.400' : 'gray.300'}
+                    variant="ghost"
+                    borderRadius='full'
+                    aria-label='dark'
+                    icon={colorMode == 'dark' ? <BsSun /> : <MdOutlineModeNight />}
+                    onClick={toggleColorMode}
+                />
+                <Menu>
+                    <MenuButton
+                        as={Button}
+                        rightIcon={<FiChevronDown color={colorMode == 'dark' ? 'gray.400' : 'gray.600'} />}
+                        borderRadius='full'
+                        px='3'
+                    >
+                        {<Avatar size='xs' src={firebase_ctx.fuser?.photoURL ?? 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'} />}
+                    </MenuButton>
+                    <MenuList bg={colorMode == 'dark' ? '#242526' : 'white'}>
+                        <VStack w='full' px='2'>
+                            <VStack
+                                spacing="2"
+                                w='full'
+                                my='2'
+                            >
+                                <Avatar
+                                    size={"lg"}
+                                    src={firebase_ctx.fuser?.photoURL ?? 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'}
+                                    mb='1'
+                                />
+                                <Text fontSize="sm" fontWeight="500" color={colorMode == 'dark' ? 'gray.300' : 'gray.700'}>{firebase_ctx.fuser?.displayName}</Text>
+                                <Text fontSize="xs" color={colorMode == 'dark' ? 'gray.400' : 'gray.600'}>
+                                    {firebase_ctx.fuser?.email}
+                                </Text>
+                            </VStack>
+                            {
+                                firebase_ctx.fuser ?
+                                    <Button
+                                        display={{ base: 'none', md: 'block' }}
+                                        w='full'
+                                        leftIcon={<RiLogoutCircleRLine />}
+                                        borderRadius='full'
+                                        onClick={firebase_ctx.logout}
+                                    >
+                                        Đăng xuất
+                                    </Button> :
+                                    <Button
+                                        display={{ base: 'none', md: 'block' }}
+                                        w='full'
+                                        leftIcon={<RiLoginCircleLine />}
+                                        borderRadius='full'
+                                        onClick={firebase_ctx.open_login_modal}
+                                    >
+                                        Đăng nhập
+                                    </Button>
+                            }
+                        </VStack>
+                    </MenuList>
+                </Menu>
             </HStack>
-
-
-            <IconButton
-                size={'md'}
-                icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                aria-label={'Open Menu'}
-                display={{ md: 'none' }}
-                onClick={isOpen ? onClose : onOpen}
-            />
-            {
-                isOpen ? (
-                    <Drawer placement={'top'} onClose={onClose} isOpen={isOpen}>
-                        <DrawerOverlay />
-                        <DrawerContent bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}>
-                            <DrawerCloseButton />
-                            <DrawerBody>
-                                <VStack mt='7' align='flex-start' spacing='3'>
-                                    {MenuList.map((menu) => (
-                                        <Text key={menu}>{menu}</Text>
-                                    ))}
-                                </VStack>
-                            </DrawerBody>
-                        </DrawerContent>
-                    </Drawer>
-                ) : null
-            }
-            <IconButton
-                fontSize='xl'
-                color={colorMode == 'dark' ? 'gray.400' : 'gray.600'}
-                variant="ghost"
-                borderRadius='full'
-                aria-label='dark'
-                icon={colorMode == 'dark' ? <BsSun /> : <MdOutlineModeNight />}
-                onClick={toggleColorMode}
-            />
         </HStack >
     )
 }
 
-
-// const DrawerModal = (props: PropsWithChildren) => {
-//     const { isOpen, onOpen, onClose } = useDisclosure()
-//     return (
-//         <Drawer placement={'top'} onClose={onClose} isOpen={isOpen}>
-//             <DrawerOverlay />
-//             <DrawerContent>
-//                 <DrawerHeader borderBottomWidth='1px'>Basic Drawer</DrawerHeader>
-//                 <DrawerBody>
-//                 </DrawerBody>
-//             </DrawerContent>
-//         </Drawer>
-//     )
-// }
