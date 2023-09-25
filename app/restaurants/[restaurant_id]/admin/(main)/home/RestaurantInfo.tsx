@@ -23,15 +23,15 @@ export const RestaurantInfo = () => {
             <VStack w='full' px='4' pb='5' spacing='7'>
                 <VStack w='full' align='flex-start'>
                     <Text>Tên chi nhánh</Text>
-                    <Input value='Cơ sở 1' />
+                    <Input defaultValue='Cơ sở 1' />
                 </VStack>
                 <VStack w='full' align='flex-start'>
                     <Text>Địa chỉ</Text>
-                    <Input value='Số 5 Hà Đông, Hà Nội' />
+                    <Input defaultValue='Số 5 Hà Đông, Hà Nội' />
                 </VStack>
                 <VStack w='full' align='flex-start'>
                     <Text>Số điện thoại</Text>
-                    <Input value='0814201002' />
+                    <Input defaultValue='0814201002' />
                 </VStack>
                 <VStack w='full' align='flex-start'>
                     <Text>Trạng thái hoạt động</Text>

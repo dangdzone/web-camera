@@ -2,34 +2,12 @@ import { theme } from "@/theme"
 import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { Button, useColorMode } from "@chakra-ui/react"
 import { OrderItem } from "./OrderItem"
+import { OrderStatusMap } from "@/text"
 
 
 export const OrderList = () => {
 
     const { colorMode } = useColorMode()
-    const OrderStatusMap = [
-        {
-            name: 'Đã đặt đơn',
-            color: 'gray'
-        },
-        {
-            name: 'Chờ xác nhận',
-            color: 'blue'
-        },
-        {
-            name: 'Chờ lên bàn',
-            color: 'teal'
-        },
-        {
-            name: 'Đã lên bàn',
-            color: 'red'
-        },
-        {
-            name: 'Đã thanh toán',
-            color: 'pink'
-        },
-    ]
-
 
     return (
         <VStack w='full' spacing='5'>

@@ -3,30 +3,13 @@
 import { theme } from "@/theme";
 import { Box, HStack, Text, VStack } from "@chakra-ui/layout";
 import { Tabs, TabList, Tab, TabIndicator, TabPanels, TabPanel, useColorMode } from "@chakra-ui/react";
-import { FiHome, FiPieChart, FiShoppingCart } from "react-icons/fi";
-import { MdOutlineHistory, MdOutlineTableBar } from "react-icons/md";
 import { HomePage } from "./home/HomePage";
 import { OrderList } from "./orders/OrderList";
 import { TableList } from "./tables/TableList";
+import { HistoryList } from "./histories/HistoryList";
+import { TabListMap } from "@/text";
 
-const TabListMap = [
-    {
-        name: 'Trang chủ',
-        icon: <FiHome />
-    },
-    {
-        name: 'Đơn hàng',
-        icon: <FiShoppingCart />
-    },
-    {
-        name: 'Bàn ăn',
-        icon: <MdOutlineTableBar />
-    },
-    {
-        name: 'Lịch sử',
-        icon: <MdOutlineHistory />
-    }
-]
+
 
 export default function PageAdmin() {
 
@@ -93,6 +76,9 @@ export default function PageAdmin() {
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <TableList />
+                    </TabPanel>
+                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                        <HistoryList />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

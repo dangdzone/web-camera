@@ -55,6 +55,7 @@ export const HomePage = () => {
                                 MenuFillter.map((name, index) => (
                                     <MenuItem
                                         py='2'
+                                        key={index}
                                         onClick={() => {
                                             set_index(index)
                                         }}
