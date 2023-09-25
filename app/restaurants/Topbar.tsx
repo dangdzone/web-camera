@@ -14,26 +14,21 @@ export const Topbar = () => {
 
     return (
         <HStack
-            position='sticky'
             zIndex='999'
-            top='0'
             w='full'
-            bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
+            bg={colorMode == 'dark' ? '#03346a' : '#0665D0'}
             height='65px'
             px={{ base: 2, md: 4 }}
-            // borderBottom='1px'
-            // borderBottomColor='gray.200'
+            color='white'
             justifyContent='space-between'
+            py='3'
         >
             <HStack fontWeight='600' fontSize='20px' mr='4'>
                 <Image
                     src='https://cdn-icons-png.flaticon.com/512/1376/1376355.png'
-                    boxSize={{ base: '35px', md: '40px' }}
+                    boxSize={{ base: '25px', md: '40px' }}
                 />
-                <Text
-                    fontSize={{ base: 16, md: 20 }}
-                // color='#2193b0'
-                >
+                <Text fontSize={{ base: 14, md: 18 }}>
                     Menu điện tử cho nhà hàng
                 </Text>
             </HStack>
@@ -41,7 +36,7 @@ export const Topbar = () => {
                 <Box>
                     <IconButton
                         fontSize='xl'
-                        color={colorMode == 'dark' ? 'gray.400' : 'gray.600'}
+                        color={colorMode == 'dark' ? 'gray.400' : 'gray.300'}
                         variant="ghost"
                         borderRadius='full'
                         aria-label='dark'

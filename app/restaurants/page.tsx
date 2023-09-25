@@ -1,9 +1,11 @@
 'use client'
 
-import { Container, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, VStack, useColorMode } from "@chakra-ui/react";
+import { Box, Container, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react";
 import { Restaurantlist } from "./RestaurantList";
 import { MenuResraurantList } from "./MenuRestaurantList";
 import { Topbar } from "./Topbar";
+import { theme } from "@/theme";
+import { RestauranManager } from "@/text";
 
 
 export default function Page() {
@@ -18,44 +20,67 @@ export default function Page() {
     }
 
     return (
-        <VStack w='full' spacing='0'>
+        <VStack w='full' minH='100vh' spacing='0'>
             <Topbar />
-            <Container
-                maxW='8xl'
-                px={{ base: '2', md: '4' }}
-                py='6'
-                minH='calc(100vh - 65px)'
-                bg={colorMode == 'dark' ? '#18191A' : '#F0F1F1'}
-            >
-                <VStack
+            <Tabs w='full' position="relative" variant="unstyled" >
+                <Box
                     w='full'
-                    px={{ base: '2', md: '4' }}
-                    py='4'
-                    bg={colorMode == 'dark' ? '#242526' : 'white'}
-                    borderRadius='10px'
-                    boxShadow='md'
+                    pos='sticky'
+                    top='0'
+                    zIndex='99'
                 >
-                    <Tabs w='full' position="relative">
-                        <TabList>
-                            <Tab {...tb}>Quản lý nhà hàng</Tab>
-                            <Tab {...tb}>Quản lý Menu</Tab>
-                        </TabList>
-                        <TabIndicator
-                            mt="-3px"
-                            height="3px"
-                            bgGradient='linear(to-l, #2193b0, #005C97)'
-                        />
-                        <TabPanels >
-                            <TabPanel px='0'>
-                                <Restaurantlist />
-                            </TabPanel>
-                            <TabPanel px='0'>
-                                <MenuResraurantList />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
-                </VStack>
-            </Container>
+                    <TabList
+                        w='full'
+                        bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
+                        px='0'
+                        justifyContent='center'
+                        boxShadow='sm'
+                    >
+                        <HStack w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                            {
+                                RestauranManager.map(({ icon, name }, i) => (
+                                    <Tab
+                                        key={i}
+                                        p='5'
+                                        _selected={{
+                                            color: 'blue.500',
+                                            opacity: '1'
+                                        }}
+                                        opacity='0.7'
+                                        _hover={{
+                                            color: 'blue.500',
+                                            opacity: '1'
+                                        }}
+                                    >
+                                        <HStack>
+                                            <Box fontSize='xl'>{icon}</Box>
+                                            <Text
+                                                display={{ base: 'none', md: 'block' }}
+                                                fontWeight='600'
+                                                fontSize='18px'
+                                            >
+                                                {name}
+                                            </Text>
+                                        </HStack>
+                                    </Tab>
+                                ))
+                            }
+                        </HStack>
+                    </TabList>
+                    <TabIndicator
+                        height="3px"
+                        bg="blue.500"
+                    />
+                </Box>
+                <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>
+                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                        <Restaurantlist />
+                    </TabPanel>
+                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                        <MenuResraurantList />
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
         </VStack>
     )
 }
