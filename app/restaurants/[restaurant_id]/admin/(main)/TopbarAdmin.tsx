@@ -18,9 +18,11 @@ export const TopbarAdmin = () => {
             w='full'
             h='65px'
             px={{ base: '2', md: '4' }}
+            py='3'
             bg={colorMode == 'dark' ? '#03346a' : '#0665D0'}
             justifyContent='space-between'
             color='white'
+            zIndex='999999'
         >
             <VStack w='full' align='flex-start' spacing='0'>
                 <Text fontWeight='600' textTransform='uppercase'>Cơ sở 1</Text>
