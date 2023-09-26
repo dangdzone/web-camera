@@ -22,7 +22,7 @@ export default function PageAdmin() {
                     w='full'
                     pos='sticky'
                     top='0'
-                    zIndex='99999'
+                    zIndex='99'
                 >
                     <TabList
                         w='full'
@@ -69,16 +69,19 @@ export default function PageAdmin() {
                 </Box>
                 <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <HomePage />
-                    </TabPanel>
-                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <OrderList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <TableList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                        {/* <TableList /> */}
+                    </TabPanel>
+                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <HistoryList />
+                    </TabPanel>
+                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                        <HomePage />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

@@ -1,6 +1,6 @@
 
 import { DatePicker } from "@/components/common/DatePicker"
-import { OrderStatusMap } from "@/text"
+import { HistoryMap, OrderStatusMap } from "@/text"
 import { theme } from "@/theme"
 import { Button, HStack, SimpleGrid, Text, VStack, Wrap, useColorMode } from "@chakra-ui/react"
 import { useState } from "react"
@@ -34,7 +34,7 @@ export const HistoryList = () => {
                 </HStack>
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>
                     {
-                        OrderStatusMap.map(({ color, name }, i) => (
+                        HistoryMap.map(({ color, name }, i) => (
                             <Button size={{ base: 'sm', md: 'md' }} key={i} colorScheme={color}>{name}</Button>
                         ))
                     }

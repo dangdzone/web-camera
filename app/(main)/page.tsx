@@ -1,11 +1,13 @@
 'use client'
 
-import { Box, Container, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react";
+import { Box, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react";
 import { Restaurantlist } from "./RestaurantList";
 import { MenuResraurantList } from "./MenuRestaurantList";
 import { Topbar } from "./Topbar";
 import { theme } from "@/theme";
 import { RestauranManager } from "@/text";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 
 export default function Page() {
@@ -19,10 +21,14 @@ export default function Page() {
         pb: '3'
     }
 
+    const { push } = useRouter()
+    const params = useSearchParams()
+    const [i, s] = useState(Number(params.get('index') || 0))
+
     return (
         <VStack w='full' minH='100vh' spacing='0'>
             <Topbar />
-            <Tabs w='full' position="relative" variant="unstyled" >
+            <Tabs w='full' position="relative" variant="unstyled" index={i}>
                 <Box
                     w='full'
                     pos='sticky'
@@ -51,6 +57,7 @@ export default function Page() {
                                             color: 'blue.500',
                                             opacity: '1'
                                         }}
+                                        onClick={() => { s(i); push(`?index=${i}`) }}
                                     >
                                         <HStack>
                                             <Box fontSize='xl'>{icon}</Box>

@@ -1,52 +1,42 @@
+
 import { BiFoodMenu } from "react-icons/bi"
+import { AiOutlineShop } from "react-icons/ai"
 import { BsShop } from "react-icons/bs"
-import { FiHome, FiShoppingCart } from "react-icons/fi"
-import { MdOutlineHistory, MdOutlineTableBar, MdOutlineTableRestaurant } from "react-icons/md"
+import { FiPlusSquare } from "react-icons/fi"
+import { MdOutlineHistory, MdOutlineTableRestaurant } from "react-icons/md"
 
 export const OrderStatusMap = [
     {
-        name: 'Đã đặt đơn',
+        name: 'Chờ xác nhận',
         color: 'gray'
     },
     {
-        name: 'Chờ xác nhận',
+        name: 'Đã xác nhận',
         color: 'blue'
-    },
-    {
-        name: 'Chờ lên bàn',
-        color: 'teal'
-    },
-    {
-        name: 'Đã lên bàn',
-        color: 'orange'
-    },
-    {
-        name: 'Đã thanh toán',
-        color: 'pink'
-    },
-    {
-        name: 'Đã hủy',
-        color: 'red'
-    },
+    }
 ]
 
 export const TabListMap = [
     {
-        name: 'Trang chủ',
-        icon: <FiHome />
-    },
-    {
-        name: 'Đơn hàng',
-        icon: <FiShoppingCart />
+        name: 'Gọi món',
+        icon: <FiPlusSquare />
     },
     {
         name: 'Bàn ăn',
         icon: <MdOutlineTableRestaurant />
     },
     {
-        name: 'Lịch sử',
+        name: 'Menu',
+        icon: <BiFoodMenu />
+    },
+    {
+        name: 'Lịch sử đơn',
         icon: <MdOutlineHistory />
-    }
+    },
+    {
+        name: 'Nhà hàng',
+        icon: <AiOutlineShop />
+    },
 ]
 
 export const TableStatusMap = [
@@ -70,4 +60,16 @@ export const RestauranManager = [
         name: 'Quản lý menu',
         icon: <BiFoodMenu />
     }
+]
+
+
+export const HistoryMap = [
+    {
+        name: 'Đã thanh toán',
+        color: 'blue'
+    },
+    {
+        name: 'Đã hủy',
+        color: 'red'
+    },
 ]

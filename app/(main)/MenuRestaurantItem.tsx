@@ -23,7 +23,7 @@ export const MenuRestaurantItem = ({ onClick }: MenuRestaurantItem) => {
             border='1px'
             borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
         >
-            <Image boxSize={{base: '30px', md: '40px'}} src='https://cdn-icons-png.flaticon.com/512/5470/5470133.png' />
+            <Image boxSize={{base: '25px', md: '35px'}} src='https://cdn-icons-png.flaticon.com/512/5305/5305384.png' />
             <VStack w='full' align='start'>
                 <HStack w='full' justifyContent='space-between'>
                     <Text fontWeight='600'>VIP2</Text>

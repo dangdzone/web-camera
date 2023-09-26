@@ -27,7 +27,7 @@ export const OrderList = () => {
                     borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
                     justifyContent='space-between'
                 >
-                    <Text fontWeight='600'>Danh sách đơn hàng</Text>
+                    <Text fontWeight='600'>Gọi món</Text>
                     <Button size='sm'>Tạo đơn mới</Button>
                 </HStack>
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>

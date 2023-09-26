@@ -3,6 +3,7 @@ import { VStack, HStack, Text, Wrap, SimpleGrid } from "@chakra-ui/layout"
 import { Button, useColorMode } from "@chakra-ui/react"
 import { TableItem } from "./TableItem"
 import { TableStatusMap } from "@/text"
+import { TableQr } from "./TableQr"
 
 
 export const TableList = () => {
@@ -45,6 +46,7 @@ export const TableList = () => {
                     }
                 </SimpleGrid>
             </VStack>
+            <TableQr />
         </VStack>
     )
 }

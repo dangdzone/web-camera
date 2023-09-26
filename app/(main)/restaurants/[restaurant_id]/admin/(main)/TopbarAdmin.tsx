@@ -3,6 +3,7 @@
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Avatar, Button, IconButton, Menu, MenuButton, MenuList, useColorMode } from "@chakra-ui/react"
+import Link from "next/link"
 import { BsSun } from "react-icons/bs"
 import { FiChevronDown } from "react-icons/fi"
 import { MdOutlineModeNight } from "react-icons/md"
@@ -22,7 +23,7 @@ export const TopbarAdmin = () => {
             bg={colorMode == 'dark' ? '#03346a' : '#0665D0'}
             justifyContent='space-between'
             color='white'
-            zIndex='999999'
+            zIndex='999'
         >
             <VStack w='full' align='flex-start' spacing='0'>
                 <Text fontWeight='600' textTransform='uppercase'>Cơ sở 1</Text>
@@ -30,9 +31,9 @@ export const TopbarAdmin = () => {
             </VStack>
             <HStack>
                 <IconButton
-                    fontSize='xl'
-                    color={colorMode == 'dark' ? 'gray.400' : 'gray.300'}
-                    variant="ghost"
+                    fontSize='lg'
+                    // color={colorMode == 'dark' ? 'gray.400' : 'gray.300'}
+                    // variant="ghost"
                     borderRadius='full'
                     aria-label='dark'
                     icon={colorMode == 'dark' ? <BsSun /> : <MdOutlineModeNight />}
@@ -64,13 +65,18 @@ export const TopbarAdmin = () => {
                                     {firebase_ctx.fuser?.email}
                                 </Text>
                             </VStack>
+                            <Link href='/?index=0' style={{ width: '100%' }}>
+                                <Button w='full'>Danh sách nhà hàng</Button>
+                            </Link>
+                            <Link href='/?index=1' style={{ width: '100%' }}>
+                                <Button w='full'>Danh sách menu</Button>
+                            </Link>
                             {
                                 firebase_ctx.fuser ?
                                     <Button
                                         display={{ base: 'none', md: 'block' }}
                                         w='full'
                                         leftIcon={<RiLogoutCircleRLine />}
-                                        borderRadius='full'
                                         onClick={firebase_ctx.logout}
                                     >
                                         Đăng xuất
@@ -79,7 +85,6 @@ export const TopbarAdmin = () => {
                                         display={{ base: 'none', md: 'block' }}
                                         w='full'
                                         leftIcon={<RiLoginCircleLine />}
-                                        borderRadius='full'
                                         onClick={firebase_ctx.open_login_modal}
                                     >
                                         Đăng nhập

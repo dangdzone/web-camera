@@ -14,13 +14,13 @@ export const MenuRestaurantModal = ({ onClose }: MenuRestaurantModal) => {
     return (
         <Modal
             isOpen={true}
-            size={'4xl'}
+            size={'3xl'}
             onClose={onClose}
             scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
-                <ModalHeader p='3'  borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
+                <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
                     Thêm menu
                 </ModalHeader>
                 <ModalCloseButton borderRadius='full' mt='1' />
@@ -37,31 +37,26 @@ export const MenuRestaurantModal = ({ onClose }: MenuRestaurantModal) => {
                     }}
                 >
                     <VStack w='full' spacing='7'>
-                        <VStack w='full' spacing='4'>
-                            <HStack w='full'>
-                                <Text fontWeight='400'>Tên menu</Text>
-                            </HStack>
-                            <HStack w='full'>
-                                <Input
-                                    placeholder='Nhập tên menu...'
-                                    size='md'
-                                    // {...form.register('amount', { valueAsNumber: true })}
-                                    onFocus={e => e.target.select()}
-                                />
-                            </HStack>
+                        <VStack w='full' spacing='4' align='flex-start'>
+                            <Text fontWeight='400'>Tên menu</Text>
+                            <Input
+                                placeholder='Nhập tên menu...'
+                                size='md'
+                                // {...form.register('amount', { valueAsNumber: true })}
+                                onFocus={e => e.target.select()}
+                            />
                         </VStack>
-                        
                     </VStack>
                 </ModalBody>
 
                 <ModalFooter p={{ base: '2', md: '4' }}>
-                    <Button mr={3} onClick={onClose}>Thoát</Button>
+                    <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
                     <Button
                         variant='solid'
-                        colorScheme='teal'
+                        colorScheme='blue'
                         type="submit"
                     >
-                        Cập nhật
+                        Thêm mới
                     </Button>
                 </ModalFooter>
             </ModalContent>

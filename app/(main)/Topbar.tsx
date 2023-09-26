@@ -35,7 +35,7 @@ export const Topbar = () => {
                 <Box>
                     <IconButton
                         fontSize='lg'
-                        bg='whiteAlpha.200'
+                        // bg='whiteAlpha.200'
                         borderRadius='full'
                         aria-label='dark'
                         icon={colorMode == 'dark' ? <BsSun /> : <MdOutlineModeNight />}
@@ -46,7 +46,7 @@ export const Topbar = () => {
                     <MenuButton
                         as={Button}
                         rightIcon={<FiChevronDown color={colorMode == 'dark' ? 'gray.400' : 'gray.600'} />}
-                        bg='whiteAlpha.200'
+                        // bg='whiteAlpha.200'
                         borderRadius='full'
                         px='3'
                     >
@@ -75,7 +75,7 @@ export const Topbar = () => {
                                         display={{ base: 'none', md: 'block' }}
                                         w='full'
                                         leftIcon={<RiLogoutCircleRLine />}
-                                        borderRadius='full'
+                                        // borderRadius='full'
                                         onClick={firebase_ctx.logout}
                                     >
                                         Đăng xuất
@@ -84,7 +84,7 @@ export const Topbar = () => {
                                         display={{ base: 'none', md: 'block' }}
                                         w='full'
                                         leftIcon={<RiLoginCircleLine />}
-                                        borderRadius='full'
+                                        // borderRadius='full'
                                         onClick={firebase_ctx.open_login_modal}
                                     >
                                         Đăng nhập
