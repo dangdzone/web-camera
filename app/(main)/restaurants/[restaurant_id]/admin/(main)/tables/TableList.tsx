@@ -4,14 +4,22 @@ import { Button, useColorMode } from "@chakra-ui/react"
 import { TableItem } from "./TableItem"
 import { TableStatusMap } from "@/text"
 import { TableQr } from "./TableQr"
+import { useState } from "react"
+import { TableModal } from "./TableModal"
 
 
 export const TableList = () => {
 
     const { colorMode } = useColorMode()
+    const [active_table, set_active_table] = useState<undefined | null>(null)
 
     return (
         <VStack w='full' spacing='5'>
+            {
+                active_table !== null && (
+                    <TableModal onClose={() => set_active_table(null)} />
+                )
+            }
             <VStack
                 w='full'
                 bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
@@ -29,7 +37,7 @@ export const TableList = () => {
                     justifyContent='space-between'
                 >
                     <Text fontWeight='600'>Danh sách bàn</Text>
-                    <Button size='sm'>Tạo bàn mới</Button>
+                    <Button size='sm' onClick={() => set_active_table(undefined)}>Tạo bàn mới</Button>
                 </HStack>
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>
                     {

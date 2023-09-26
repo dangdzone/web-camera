@@ -68,9 +68,6 @@ export const TopbarAdmin = () => {
                             <Link href='/?index=0' style={{ width: '100%' }}>
                                 <Button w='full'>Danh sách nhà hàng</Button>
                             </Link>
-                            <Link href='/?index=1' style={{ width: '100%' }}>
-                                <Button w='full'>Danh sách menu</Button>
-                            </Link>
                             {
                                 firebase_ctx.fuser ?
                                     <Button

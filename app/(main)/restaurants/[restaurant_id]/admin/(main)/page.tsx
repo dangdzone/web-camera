@@ -8,6 +8,7 @@ import { OrderList } from "./orders/OrderList";
 import { TableList } from "./tables/TableList";
 import { HistoryList } from "./histories/HistoryList";
 import { TabListMap } from "@/text";
+import { MenuResraurantList } from "./menus/MenuRestaurantList";
 
 
 
@@ -75,7 +76,7 @@ export default function PageAdmin() {
                         <TableList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        {/* <TableList /> */}
+                        <MenuResraurantList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <HistoryList />

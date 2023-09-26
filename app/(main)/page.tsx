@@ -2,7 +2,7 @@
 
 import { Box, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react";
 import { Restaurantlist } from "./RestaurantList";
-import { MenuResraurantList } from "./MenuRestaurantList";
+import { MenuResraurantList } from "./restaurants/[restaurant_id]/admin/(main)/menus/MenuRestaurantList";
 import { Topbar } from "./Topbar";
 import { theme } from "@/theme";
 import { RestauranManager } from "@/text";
@@ -82,9 +82,6 @@ export default function Page() {
                 <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <Restaurantlist />
-                    </TabPanel>
-                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <MenuResraurantList />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

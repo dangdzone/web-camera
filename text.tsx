@@ -56,10 +56,10 @@ export const RestauranManager = [
         name: 'Quản lý nhà hàng',
         icon: <BsShop />
     },
-    {
-        name: 'Quản lý menu',
-        icon: <BiFoodMenu />
-    }
+    // {
+    //     name: 'Quản lý menu',
+    //     icon: <BiFoodMenu />
+    // }
 ]
 
 

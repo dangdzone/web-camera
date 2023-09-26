@@ -1,7 +1,7 @@
+
 import { Box, HStack, Text } from "@chakra-ui/layout"
 import { Tag, useColorMode } from "@chakra-ui/react"
 import { BsCheckCircleFill } from "react-icons/bs"
-
 
 export const TableItem = () => {
 

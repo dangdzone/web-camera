@@ -30,7 +30,7 @@ export const MenuResraurantList = () => {
                 justifyContent='space-between'
             >
                 <Text fontWeight='600'>Danh sách menu</Text>
-                <Button size='sm' leftIcon={<FiPlus />} onClick={() => set_active_menu(true)}>Tạo menu mới</Button>
+                <Button size='sm' onClick={() => set_active_menu(true)}>Tạo menu mới</Button>
             </HStack>
             {
                 active_menu != false && (
