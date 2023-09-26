@@ -38,13 +38,13 @@ export const RestarantItem = ({ onClick }: RestarantItem) => {
                 <VStack w='full' align='start'>
                     <HStack w='full' justifyContent='space-between'>
                         <Text fontWeight='600' lineHeight='1.2'>Cơ sở 1</Text>
-                        <Tag colorScheme='blue' size={{base: 'sm', md: 'md'}}>Hoạt động</Tag>
+                        <Tag colorScheme='blue' variant='outline' size={{base: 'sm', md: 'md'}}>Hoạt động</Tag>
                     </HStack>
+                    <Badge fontSize='sm' colorScheme='facebook'>0814201002</Badge>
                     <HStack>
                         <FiMapPin />
                         <Text opacity='0.9' lineHeight='1.2' fontSize='14px'>Số 1, Quang Trung, Hà Đông, HN</Text>
                     </HStack>
-                    <Badge fontSize='sm' colorScheme='facebook'>0814201002</Badge>
                 </VStack>
             </HStack>
         </Link>

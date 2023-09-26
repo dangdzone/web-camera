@@ -3,7 +3,6 @@ import { Avatar, Box, Button, HStack, IconButton, Image, Menu, MenuButton, MenuL
 import { FiChevronDown } from "react-icons/fi"
 import { MdOutlineModeNight } from "react-icons/md"
 import { BsSun } from "react-icons/bs"
-import { theme } from "@/theme"
 import { RiLoginCircleLine, RiLogoutCircleRLine } from "react-icons/ri"
 
 
@@ -23,10 +22,10 @@ export const Topbar = () => {
             justifyContent='space-between'
             py='3'
         >
-            <HStack fontWeight='600' fontSize='20px' mr='4'>
+            <HStack>
                 <Image
-                    src='https://cdn-icons-png.flaticon.com/512/1376/1376355.png'
-                    boxSize={{ base: '25px', md: '40px' }}
+                    src='https://cdn-icons-png.flaticon.com/512/1792/1792902.png'
+                    boxSize={{ base: '25px', md: '30px' }}
                 />
                 <Text fontSize={{ base: 14, md: 18 }}>
                     Menu điện tử cho nhà hàng
@@ -35,9 +34,8 @@ export const Topbar = () => {
             <HStack>
                 <Box>
                     <IconButton
-                        fontSize='xl'
-                        color={colorMode == 'dark' ? 'gray.400' : 'gray.300'}
-                        variant="ghost"
+                        fontSize='lg'
+                        bg='whiteAlpha.200'
                         borderRadius='full'
                         aria-label='dark'
                         icon={colorMode == 'dark' ? <BsSun /> : <MdOutlineModeNight />}
@@ -48,6 +46,7 @@ export const Topbar = () => {
                     <MenuButton
                         as={Button}
                         rightIcon={<FiChevronDown color={colorMode == 'dark' ? 'gray.400' : 'gray.600'} />}
+                        bg='whiteAlpha.200'
                         borderRadius='full'
                         px='3'
                     >
@@ -65,7 +64,7 @@ export const Topbar = () => {
                                     src={firebase_ctx.fuser?.photoURL ?? 'https://cdn-icons-png.flaticon.com/512/3177/3177440.png'}
                                     mb='1'
                                 />
-                                <Text fontSize="sm" fontWeight="500">{firebase_ctx.fuser?.displayName}</Text>
+                                <Text fontSize="sm" fontWeight="600" color={colorMode == 'dark' ? 'gray.300' : 'gray.600'}>{firebase_ctx.fuser?.displayName}</Text>
                                 <Text fontSize="xs" color={colorMode == 'dark' ? 'gray.400' : 'gray.600'}>
                                     {firebase_ctx.fuser?.email}
                                 </Text>

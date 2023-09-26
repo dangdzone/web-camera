@@ -32,7 +32,7 @@ export default function LoginPage() {
                 status: 'success',
                 duration: 3000,
             })
-            router.push(`/restaurants`)
+            router.push(`/`)
         }
     })
 
