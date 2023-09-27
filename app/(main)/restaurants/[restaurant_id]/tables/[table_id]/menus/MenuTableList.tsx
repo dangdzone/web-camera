@@ -1,9 +1,8 @@
 
-import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
+import { HStack, SimpleGrid, VStack, Wrap } from "@chakra-ui/layout"
 import { useState } from "react"
 import { Button, Input, useColorMode } from "@chakra-ui/react"
 import { theme } from "@/theme"
-import { FiPlus } from "react-icons/fi"
 import { MenuTableItem } from "./MenuTableItem"
 import { MenuTabbleModal } from "./MenuTableModal"
 
@@ -24,15 +23,6 @@ export const MenuTableList = () => {
             spacing='5'
             pb='5'
         >
-            {/* <HStack
-                w='full'
-                p='4'
-                borderBottom='1px'
-                borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
-                justifyContent='space-between'
-            >
-                <Text fontWeight='600'>Danh sách menu</Text>
-            </HStack> */}
             {
                 active_menu_table !== null && (
                     <MenuTabbleModal onClose={() => set_active_menu_table(null)} />

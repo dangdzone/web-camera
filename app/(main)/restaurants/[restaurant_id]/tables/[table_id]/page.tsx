@@ -6,6 +6,7 @@ import { OrderList } from "../../admin/(main)/orders/OrderList"
 import { TableList } from "../../admin/(main)/tables/TableList"
 import { theme } from "@/theme"
 import { MenuTableList } from "./menus/MenuTableList"
+import { OrderTableList } from "./orders/[order_id]/OrderTableList"
 
 
 export default function TablePage() {
@@ -69,7 +70,7 @@ export default function TablePage() {
                         <MenuTableList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        {/* <TableList /> */}
+                        <OrderTableList />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

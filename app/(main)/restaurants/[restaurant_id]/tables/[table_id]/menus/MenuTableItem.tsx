@@ -1,7 +1,8 @@
 
 
-import { HStack, Text, VStack } from "@chakra-ui/layout"
+import { Box, HStack, Text, VStack } from "@chakra-ui/layout"
 import { IconButton, Image, Tag, useColorMode } from "@chakra-ui/react"
+import { BiCartAdd } from "react-icons/bi"
 import { FiPlus } from "react-icons/fi"
 
 export type MenuTableItem = {
@@ -38,14 +39,14 @@ export const MenuTableItem = ({ onClick }: MenuTableItem) => {
             </VStack>
             <HStack w='full' px='2' justifyContent='space-between'>
                 <Tag colorScheme='red'>174.4993 đ</Tag>
-                <IconButton isRound={true} icon={<FiPlus />} aria-label={"plus"} colorScheme='teal' />
+                <IconButton
+                    isRound={true}
+                    icon={<BiCartAdd />}
+                    aria-label={"plus"}
+                    colorScheme='teal'
+                    size='sm'
+                />
             </HStack>
-            {/* <VStack w='full' align='start'>
-                <HStack w='full' justifyContent='space-between'>
-                    <Text fontWeight='600'>VIP2</Text>
-                    <Tag colorScheme='blue'>Hoạt động</Tag>
-                </HStack>
-            </VStack> */}
         </VStack>
     )
 }

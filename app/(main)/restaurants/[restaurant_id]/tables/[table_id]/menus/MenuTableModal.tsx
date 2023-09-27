@@ -1,5 +1,6 @@
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, ModalFooter, Button, useColorMode, Image, Tag, useNumberInput } from "@chakra-ui/react"
+import { BiCartAdd } from "react-icons/bi"
 
 export type MenuTabbleModal = {
     onClose: () => void
@@ -10,11 +11,8 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
     const { colorMode } = useColorMode()
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
         useNumberInput({
-            // step: 1,
             defaultValue: 1,
             min: 0,
-            // max: 100,
-            // precision: 2,
         })
     const inc = getIncrementButtonProps()
     const dec = getDecrementButtonProps()
@@ -68,6 +66,10 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
                                     <Button {...inc}>+</Button>
                                 </HStack>
                             </HStack>
+                            <HStack w='full' justifyContent='space-between'>
+                                <Text>Số tiền tạm tính</Text>
+                                <Tag colorScheme='orange'>102.300 đ</Tag>
+                            </HStack>
                         </VStack>
                     </SimpleGrid>
                 </ModalBody>
@@ -77,6 +79,7 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
                         variant='solid'
                         colorScheme='blue'
                         type="submit"
+                        leftIcon={<BiCartAdd />}
                     >
                         Thêm vào giỏ hàng
                     </Button>
