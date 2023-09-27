@@ -25,7 +25,7 @@ export const MenuTableItem = ({ onClick }: MenuTableItem) => {
             onClick={onClick}
             border='1px'
             borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
-            boxShadow='md'
+            boxShadow='sm'
         >
             <Image
                 borderTopRadius='10px'
@@ -35,7 +35,7 @@ export const MenuTableItem = ({ onClick }: MenuTableItem) => {
             />
             <VStack w='full' align='flex-start' px='2' spacing='0'>
                 <Text textTransform='uppercase' noOfLines={2}>Mẹt Bún Ninh Bình</Text>
-                <Text fontSize='12px' opacity='0.7' noOfLines={1}>Từ vùng quê Ning Bình </Text>
+                <Text fontSize='14px' opacity='0.7' noOfLines={1}>Từ vùng quê Ning Bình </Text>
             </VStack>
             <HStack w='full' px='2' justifyContent='space-between'>
                 <Tag colorScheme='red'>174.4993 đ</Tag>

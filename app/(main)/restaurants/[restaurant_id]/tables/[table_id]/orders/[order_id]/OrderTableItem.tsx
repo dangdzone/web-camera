@@ -26,14 +26,14 @@ export const OrderTableItem = () => {
                     <VStack w='full' align='flex-start'>
                         <HStack>
                             <HStack>
-                                <Button size={{ base: 'sm', md: 'md' }} {...dec}>-</Button>
-                                <Input size={{ base: 'sm', md: 'md' }} w='70px' {...input} />
-                                <Button size={{ base: 'sm', md: 'md' }} {...inc}>+</Button>
+                                <Button size='sm' {...dec}>-</Button>
+                                <Input size='sm' w='70px' borderRadius='5px' {...input} />
+                                <Button size='sm' {...inc}>+</Button>
                             </HStack>
                         </HStack>
                         <HStack>
-                            <Text>Tạm tính</Text>
-                            <Tag colorScheme='pink' size='sm'>174.4993 đ</Tag>
+                            <Text opacity='0.7'>Tạm tính</Text>
+                            <Tag colorScheme='orange' size='sm'>174.4993 đ</Tag>
                         </HStack>
                     </VStack>
                 </SimpleGrid>

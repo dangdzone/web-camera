@@ -53,7 +53,7 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
                         <VStack w='full' spacing='5'>
                             <VStack w='full' align='flex-start' spacing='2'>
                                 <Text textTransform='uppercase'>Mẹt Bún Ninh Bình</Text>
-                                <Text fontSize='12px' opacity='0.7'>Từ vùng quê Ning Bình </Text>
+                                <Text fontSize='14px' opacity='0.7'>Từ vùng quê Ning Bình </Text>
                             </VStack>
                             <HStack w='full'>
                                 <Tag colorScheme='red'>174.4993 đ</Tag>
@@ -61,9 +61,9 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
                             <HStack w='full' justifyContent='space-between'>
                                 <Text>Số lượng</Text>
                                 <HStack >
-                                    <Button {...dec}>-</Button>
-                                    <Input w='70px' {...input} />
-                                    <Button {...inc}>+</Button>
+                                    <Button size='sm' {...dec}>-</Button>
+                                    <Input size='sm' w='70px' borderRadius='5px' {...input} />
+                                    <Button size='sm' {...inc}>+</Button>
                                 </HStack>
                             </HStack>
                             <HStack w='full' justifyContent='space-between'>

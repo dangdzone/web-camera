@@ -33,7 +33,7 @@ export const OrderTableList = () => {
                 }
             </Stack>
             <VStack w='full' p='4' borderTop='1px' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'} spacing='5'>
-                <HStack w='full' justifyContent='space-between'>
+                <HStack w='full' justifyContent='space-between' pt='3'>
                     <Text as='b'>Tổng tiền:</Text>
                     <Text as='b' fontSize='20px'>1.002.000 đ</Text>
                 </HStack>
