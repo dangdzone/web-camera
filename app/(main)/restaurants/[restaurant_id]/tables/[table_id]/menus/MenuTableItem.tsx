@@ -1,7 +1,8 @@
 
 
 import { HStack, Text, VStack } from "@chakra-ui/layout"
-import { Image, Tag, useColorMode } from "@chakra-ui/react"
+import { IconButton, Image, Tag, useColorMode } from "@chakra-ui/react"
+import { FiPlus } from "react-icons/fi"
 
 export type MenuTableItem = {
     onClick?: () => void
@@ -32,11 +33,12 @@ export const MenuTableItem = ({ onClick }: MenuTableItem) => {
                 w='full'
             />
             <VStack w='full' align='flex-start' px='2' spacing='0'>
-                <Text textTransform='uppercase' noOfLines={2}>Mẹc Bún Ninh Bình</Text>
+                <Text textTransform='uppercase' noOfLines={2}>Mẹt Bún Ninh Bình</Text>
                 <Text fontSize='12px' opacity='0.7' noOfLines={1}>Từ vùng quê Ning Bình </Text>
             </VStack>
-            <HStack w='full' px='2'>
+            <HStack w='full' px='2' justifyContent='space-between'>
                 <Tag colorScheme='red'>174.4993 đ</Tag>
+                <IconButton isRound={true} icon={<FiPlus />} aria-label={"plus"} colorScheme='teal' />
             </HStack>
             {/* <VStack w='full' align='start'>
                 <HStack w='full' justifyContent='space-between'>
