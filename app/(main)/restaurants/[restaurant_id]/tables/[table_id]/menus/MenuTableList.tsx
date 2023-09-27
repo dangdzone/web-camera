@@ -5,11 +5,14 @@ import { Button, Input, useColorMode } from "@chakra-ui/react"
 import { theme } from "@/theme"
 import { FiPlus } from "react-icons/fi"
 import { MenuTableItem } from "./MenuTableItem"
+import { MenuTabbleModal } from "./MenuTableModal"
 
 const MenuTableMap = ['Tất cả', 'Món chính', 'Khai vị', 'Tránng miệng', 'Nước uống']
 
 export const MenuTableList = () => {
+
     const { colorMode } = useColorMode()
+    const [active_menu_table, set_active_menu_table] = useState<undefined | null>(null)
 
     return (
         <VStack
@@ -30,6 +33,11 @@ export const MenuTableList = () => {
             >
                 <Text fontWeight='600'>Danh sách menu</Text>
             </HStack> */}
+            {
+                active_menu_table !== null && (
+                    <MenuTabbleModal onClose={() => set_active_menu_table(null)} />
+                )
+            }
             <HStack w='full' pt='4' px='4' justifyContent='center'>
                 <Input w={{ base: '100%', md: '70%' }} placeholder="Tìm kiếm món..." />
             </HStack>
@@ -43,7 +51,7 @@ export const MenuTableList = () => {
             <SimpleGrid w='full' columns={[2, 3, 4, 4, 4]} spacing='4' px={{ base: '2', md: '4' }}>
                 {
                     new Array(5).fill(1).map(() => (
-                        <MenuTableItem />
+                        <MenuTableItem onClick={() => set_active_menu_table(undefined)} />
                     ))
                 }
             </SimpleGrid>

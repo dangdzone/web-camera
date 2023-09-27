@@ -21,10 +21,10 @@ export const MenuTableItem = ({ onClick }: MenuTableItem) => {
                 bg: colorMode == 'dark' ? '#2F3031' : '#f0f1f1'
             }}
             cursor='pointer'
-            // onClick={onClick}
+            onClick={onClick}
             border='1px'
             borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
-            boxShadow='lg'
+            boxShadow='md'
         >
             <Image
                 borderTopRadius='10px'
