@@ -2,7 +2,7 @@
 import { BiFoodMenu } from "react-icons/bi"
 import { AiOutlineShop } from "react-icons/ai"
 import { BsShop } from "react-icons/bs"
-import { FiPlusSquare } from "react-icons/fi"
+import { FiPlusSquare, FiShoppingCart } from "react-icons/fi"
 import { MdOutlineHistory, MdOutlineTableRestaurant } from "react-icons/md"
 
 export const OrderStatusMap = [
@@ -72,4 +72,15 @@ export const HistoryMap = [
         name: 'Đã hủy',
         color: 'red'
     },
+]
+
+export const TableCustomerMap = [
+    {
+        name: 'Menu',
+        icon: <BiFoodMenu />
+    },
+    {
+        name: 'Giỏ hàng',
+        icon: <FiShoppingCart />
+    }
 ]
