@@ -22,12 +22,12 @@ export const TabListMap = [
         icon: <FiPlusSquare />
     },
     {
-        name: 'Bàn ăn',
-        icon: <MdOutlineTableRestaurant />
-    },
-    {
         name: 'Menu',
         icon: <BiFoodMenu />
+    },
+    {
+        name: 'Bàn ăn',
+        icon: <MdOutlineTableRestaurant />
     },
     {
         name: 'Lịch sử đơn',

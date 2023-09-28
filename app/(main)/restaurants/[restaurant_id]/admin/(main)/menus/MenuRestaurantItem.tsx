@@ -3,7 +3,7 @@ import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Image, Tag, useColorMode } from "@chakra-ui/react"
 
 export type MenuRestaurantItem = {
-    onClick: () => void
+    onClick?: () => void
 }
 
 export const MenuRestaurantItem = ({ onClick }: MenuRestaurantItem) => {
@@ -19,7 +19,7 @@ export const MenuRestaurantItem = ({ onClick }: MenuRestaurantItem) => {
                 bg: colorMode == 'dark' ? '#2F3031' : '#f0f1f1'
             }}
             cursor='pointer'
-            // onClick={onClick}
+            onClick={onClick}
             border='1px'
             borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
         >

@@ -5,11 +5,12 @@ import { Button, useColorMode } from "@chakra-ui/react"
 import { MenuRestaurantModal } from "./MenuRestaurantModal"
 import { MenuRestaurantItem } from "./MenuRestaurantItem"
 import { theme } from "@/theme"
-import { FiPlus } from "react-icons/fi"
-
+import { MenuRestaurantDerail } from "./menudetail/MenuRestaurantDetail"
 
 export const MenuResraurantList = () => {
+
     const [active_menu, set_active_menu] = useState<boolean>(false)
+    const [active_menu_detail, set_active_menu_detail] = useState<boolean>(false)
     const { colorMode } = useColorMode()
 
     return (
@@ -37,10 +38,15 @@ export const MenuResraurantList = () => {
                     <MenuRestaurantModal onClose={() => set_active_menu(false)} />
                 )
             }
+            {
+                active_menu_detail !== false && (
+                    <MenuRestaurantDerail onClose={() => set_active_menu_detail(false)} />
+                )
+            }
             <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px={{base: '2', md: '4'}}>
                 {
                     new Array(5).fill(1).map(() => (
-                        <MenuRestaurantItem onClick={() => set_active_menu(true)} />
+                        <MenuRestaurantItem onClick={() => set_active_menu_detail(true)} />
                     ))
                 }
             </SimpleGrid>

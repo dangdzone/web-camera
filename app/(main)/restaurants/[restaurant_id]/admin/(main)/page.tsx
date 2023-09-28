@@ -73,10 +73,10 @@ export default function PageAdmin() {
                         <OrderList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <TableList />
+                        <MenuResraurantList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <MenuResraurantList />
+                        <TableList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <HistoryList />
