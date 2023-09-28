@@ -1,7 +1,5 @@
-
-import { MenuTableList } from "@/components/common/menus/MenuTableList"
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react"
-import { OrderCreateList } from "./OrderCreateList"
+import { OrderTableItem } from "@/components/common/OrderTableItem"
+import { Button, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, HStack, Stack, Tag, Text, VStack, useColorMode } from "@chakra-ui/react"
 
 export type OrderModal = {
     onClose: () => void
@@ -12,60 +10,40 @@ export const OrderModal = ({ onClose }: OrderModal) => {
     const { colorMode } = useColorMode()
 
     return (
-        <Modal
-            isOpen={true}
-            size={'3xl'}
-            onClose={onClose}
-            scrollBehavior={'inside'}
-        >
-            <ModalOverlay />
-            <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
-                <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
-                    Tạo đơn mới
-                </ModalHeader>
-                <ModalCloseButton borderRadius='full' mt='1' />
-                <ModalBody
-                    px={{ base: '2', md: '4' }} py='6'
-                    sx={{
-                        "::-webkit-scrollbar": {
-                            w: { base: 'none', md: '2' },
-                        },
-                        '&::-webkit-scrollbar-thumb': {
-                            borderRadius: '10',
-                            bg: '#c0c1c1',
-                        },
-                    }}
-                >
-                    <VStack w='full' spacing='7'>
-                        <VStack w='full' spacing='4' align='flex-start'>
-                            <Text fontWeight='400'>Tên người tạo đơn</Text>
-                            <Select>
-                                <option value='option1'>Chủ cửa hàng</option>
-                                <option value='option2'>Nhân viên</option>
-                            </Select>
+        <Drawer onClose={onClose} isOpen={true} placement='left' size='lg'>
+            <DrawerOverlay />
+            <DrawerContent bg={colorMode == "dark" ? "#242526" : "white"} maxW='4xl'>
+                <DrawerHeader borderBottomWidth='1px'>Đơn hàng</DrawerHeader>
+                <DrawerCloseButton mt='1.5' />
+                <DrawerBody py='4' px={{ base: '0', md: '4' }}>
+                    <VStack w='full' spacing='5'>
+                        <HStack
+                            w='full'
+                            p='4'
+                            borderBottom='1px'
+                            borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
+                            justifyContent='space-between'
+                        >
+                            <Text fontWeight='600'>Khách hàng</Text>
+                            <Tag colorScheme='red'>Bàn 3A</Tag>
+                        </HStack>
+                        <Stack w='full' divider={<Divider />} p='4'>
+                            {
+                                new Array(5).fill(1).map((_, i) => (
+                                    <OrderTableItem key={i} />
+                                ))
+                            }
+                        </Stack>
+                        <VStack w='full' p='4' borderTop='1px' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'} spacing='5'>
+                            <HStack w='full' justifyContent='space-between' pt='3'>
+                                <Text as='b'>Tổng tiền:</Text>
+                                <Text as='b' fontSize='20px'>1.002.000 đ</Text>
+                            </HStack>
+                            <Button colorScheme='teal' w='full'>Xác nhận</Button>
                         </VStack>
-                        <Tabs w='full' position="relative">
-                            <TabList>
-                                <Tab p='4' fontWeight='600'>Menu</Tab>
-                                <Tab p='4' fontWeight='600'>Giỏ hàng</Tab>
-                            </TabList>
-                            <TabIndicator
-                                mt="-1.5px"
-                                height="2px"
-                                bg="blue.500"
-                            />
-                            <TabPanels>
-                                <TabPanel px='0' py='7'>
-                                    <MenuTableList />
-                                </TabPanel>
-                                <TabPanel px='0' pt='7'>
-                                    <OrderCreateList />
-                                </TabPanel>
-                            </TabPanels>
-                        </Tabs>
                     </VStack>
-                </ModalBody>
-            </ModalContent>
-        </Modal >
+                </DrawerBody>
+            </DrawerContent>
+        </Drawer>
     )
 }

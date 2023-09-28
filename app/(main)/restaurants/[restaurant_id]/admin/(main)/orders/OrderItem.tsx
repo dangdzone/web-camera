@@ -2,7 +2,11 @@
 import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Tag, useColorMode } from "@chakra-ui/react"
 
-export const OrderItem = () => {
+export type OrderItem = {
+    onClick?: () => void
+}
+
+export const OrderItem = ({ onClick } : OrderItem) => {
 
     const { colorMode } = useColorMode()
 
@@ -17,6 +21,7 @@ export const OrderItem = () => {
                 bg: colorMode == 'dark' ? '#2F3031' : '#f0f1f1'
             }}
             spacing='4'
+            onClick={onClick}
         >
             <Tag variant='outline' borderRadius='full'>1</Tag>
             <VStack w='full' align='flex-start'>
