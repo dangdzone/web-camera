@@ -17,11 +17,11 @@ import {
 import { FoodList } from "./FoodList"
 import { CategoryList } from "./CategoryList"
 
-export type MenuRestaurantDerail = {
+export type MenuDerail = {
     onClose: () => void
 }
 
-export const MenuRestaurantDerail = ({ onClose }: MenuRestaurantDerail) => {
+export const MenuDerail = ({ onClose }: MenuDerail) => {
 
     const { colorMode } = useColorMode()
 
@@ -46,8 +46,7 @@ export const MenuRestaurantDerail = ({ onClose }: MenuRestaurantDerail) => {
                             <TabPanel px='0' py='7'>
                                 <FoodList />
                             </TabPanel>
-                            <TabPanel px='0' py='7'
->
+                            <TabPanel px='0' py='7'>
                                 <CategoryList />
                             </TabPanel>
                         </TabPanels>

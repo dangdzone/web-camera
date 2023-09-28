@@ -3,7 +3,11 @@ import { Box, HStack, Text } from "@chakra-ui/layout"
 import { Tag, useColorMode } from "@chakra-ui/react"
 import { BsCheckCircleFill } from "react-icons/bs"
 
-export const TableItem = () => {
+export type TableItem = {
+    onClick?: () => void
+}
+
+export const TableItem = ({ onClick } : TableItem) => {
 
     const { colorMode } = useColorMode()
 
@@ -18,6 +22,7 @@ export const TableItem = () => {
                 bg: colorMode == 'dark' ? '#2F3031' : '#f0f1f1'
             }}
             spacing='4'
+            onClick={onClick}
         >
             <Tag variant='outline' borderRadius='full'>1</Tag>
             <HStack w='full' justifyContent='space-between'>

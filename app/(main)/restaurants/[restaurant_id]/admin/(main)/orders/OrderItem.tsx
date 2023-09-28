@@ -1,6 +1,6 @@
+
 import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Tag, useColorMode } from "@chakra-ui/react"
-
 
 export const OrderItem = () => {
 

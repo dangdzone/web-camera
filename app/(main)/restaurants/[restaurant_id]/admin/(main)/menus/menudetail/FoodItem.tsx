@@ -2,7 +2,11 @@ import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Image, Tag, useColorMode } from "@chakra-ui/react"
 
 
-export const FoodItem = () => {
+export type FoodItem = {
+    onClick?: () => void
+}
+
+export const FoodItem = ({ onClick }: FoodItem) => {
 
     const { colorMode } = useColorMode()
 
@@ -15,7 +19,7 @@ export const FoodItem = () => {
                 bg: colorMode == 'dark' ? '#2F3031' : '#f0f1f1'
             }}
             cursor='pointer'
-            // onClick={onClick}
+            onClick={onClick}
             border='1px'
             borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
             boxShadow='sm'
@@ -32,7 +36,6 @@ export const FoodItem = () => {
             </VStack>
             <HStack w='full' px='2' justifyContent='space-between'>
                 <Tag colorScheme='red'>174.4993 đ</Tag>
-                <Text>100</Text>
             </HStack>
         </VStack>
     )

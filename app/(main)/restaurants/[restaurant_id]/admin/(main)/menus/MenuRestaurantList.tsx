@@ -5,7 +5,7 @@ import { Button, useColorMode } from "@chakra-ui/react"
 import { MenuRestaurantModal } from "./MenuRestaurantModal"
 import { MenuRestaurantItem } from "./MenuRestaurantItem"
 import { theme } from "@/theme"
-import { MenuRestaurantDerail } from "./menudetail/MenuRestaurantDetail"
+import { MenuDerail } from "./menudetail/MenuDetail"
 
 export const MenuResraurantList = () => {
 
@@ -40,7 +40,7 @@ export const MenuResraurantList = () => {
             }
             {
                 active_menu_detail !== false && (
-                    <MenuRestaurantDerail onClose={() => set_active_menu_detail(false)} />
+                    <MenuDerail onClose={() => set_active_menu_detail(false)} />
                 )
             }
             <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px={{base: '2', md: '4'}}>

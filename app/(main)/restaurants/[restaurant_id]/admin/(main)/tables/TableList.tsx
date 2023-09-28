@@ -49,7 +49,7 @@ export const TableList = () => {
                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px='4'>
                     {
                         new Array(10).fill(1).map((_, i) => (
-                            <TableItem key={i} />
+                            <TableItem key={i} onClick={() => set_active_table(undefined)} />
                         ))
                     }
                 </SimpleGrid>

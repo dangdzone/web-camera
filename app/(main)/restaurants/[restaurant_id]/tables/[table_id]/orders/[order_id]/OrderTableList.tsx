@@ -1,6 +1,7 @@
+
 import { theme } from "@/theme"
 import { Button, Divider, HStack, Stack, Text, VStack, useColorMode } from "@chakra-ui/react"
-import { OrderTableItem } from "./OrderTableItem"
+import { OrderTableItem } from "../../../../../../../../components/common/OrderTableItem"
 
 export const OrderTableList = () => {
 
@@ -23,7 +24,7 @@ export const OrderTableList = () => {
                 borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
                 justifyContent='space-between'
             >
-                <Text fontWeight='600'>Đơn hàng của bạn </Text>
+                <Text fontWeight='600'>Đơn hàng của bạn</Text>
             </HStack>
             <Stack w='full' divider={<Divider />} p='4'>
                 {

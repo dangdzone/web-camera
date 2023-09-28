@@ -3,14 +3,22 @@ import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { Button, useColorMode } from "@chakra-ui/react"
 import { OrderItem } from "./OrderItem"
 import { OrderStatusMap } from "@/text"
+import { useState } from "react"
+import { OrderModal } from "./OrderModal"
 
 
 export const OrderList = () => {
 
     const { colorMode } = useColorMode()
+    const [active_order, set_active_order] = useState<undefined | null>(null)
 
     return (
         <VStack w='full' spacing='5'>
+            {
+                active_order !== null && (
+                    <OrderModal onClose={() => set_active_order(null)} />
+                )
+            }
             <VStack
                 w='full'
                 bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
@@ -28,7 +36,7 @@ export const OrderList = () => {
                     justifyContent='space-between'
                 >
                     <Text fontWeight='600'>Gọi món</Text>
-                    <Button size='sm'>Tạo đơn mới</Button>
+                    <Button size='sm' onClick={() => set_active_order(undefined)}>Tạo đơn mới</Button>
                 </HStack>
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>
                     {

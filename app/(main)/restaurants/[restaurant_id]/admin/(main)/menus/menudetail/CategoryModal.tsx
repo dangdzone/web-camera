@@ -10,15 +10,14 @@ import {
     Input,
     ModalFooter,
     Button,
-    useColorMode,
-    Select
+    useColorMode
 } from "@chakra-ui/react"
 
-export type TableModal = {
+export type CategoryModal = {
     onClose: () => void
 }
 
-export const TableModal = ({ onClose }: TableModal) => {
+export const CategoryModal = ({ onClose }: CategoryModal) => {
 
     const { colorMode } = useColorMode()
 
@@ -27,34 +26,35 @@ export const TableModal = ({ onClose }: TableModal) => {
             isOpen={true}
             size={'3xl'}
             onClose={onClose}
+            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
                 <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
-                    Thêm bàn mới
+                    Thêm danh mục món
                 </ModalHeader>
                 <ModalCloseButton borderRadius='full' mt='1' />
-                <ModalBody px={{ base: '2', md: '4' }} py='6'>
-                    <VStack w='full' spacing='5'>
-                        <VStack w='full' spacing='5'>
-                            <VStack w='full' spacing='4' align='flex-start'>
-                                <Text fontWeight='400'>Tên bàn</Text>
-                                <Input
-                                    placeholder='Nhập tên bàn...'
-                                    size='md'
-                                    // {...form.register('amount', { valueAsNumber: true })}
-                                    onFocus={e => e.target.select()}
-                                />
-                            </VStack>
-                            <VStack w='full' spacing='4' align='flex-start'>
-                                <Text fontWeight='400'>Chọn kiểu menu</Text>
-                                <Select>
-                                    <option value='option1'>Menu 1</option>
-                                    <option value='option2'>Menu 2</option>
-                                    <option value='option3'>Menu 3</option>
-                                </Select>
-                            </VStack>
-
+                <ModalBody
+                    px={{ base: '2', md: '4' }} py='6'
+                    sx={{
+                        "::-webkit-scrollbar": {
+                            w: { base: 'none', md: '2' },
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            borderRadius: '10',
+                            bg: '#c0c1c1',
+                        },
+                    }}
+                >
+                    <VStack w='full' spacing='7'>
+                        <VStack w='full' spacing='4' align='flex-start'>
+                            <Text fontWeight='400'>Tên danh mục</Text>
+                            <Input
+                                placeholder='Nhập tên danh mục...'
+                                size='md'
+                                // {...form.register('amount', { valueAsNumber: true })}
+                                onFocus={e => e.target.select()}
+                            />
                         </VStack>
                     </VStack>
                 </ModalBody>
@@ -75,6 +75,6 @@ export const TableModal = ({ onClose }: TableModal) => {
                     </HStack>
                 </ModalFooter>
             </ModalContent>
-        </Modal>
+        </Modal >
     )
 }

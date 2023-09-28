@@ -1,8 +1,11 @@
 import { HStack, Text } from "@chakra-ui/layout"
 import { useColorMode } from "@chakra-ui/react"
 
+export type CategoryItem = {
+    onClick?: () => void
+}
 
-export const CategoryItem = () => {
+export const CategoryItem = ({ onClick }: CategoryItem) => {
 
     const { colorMode } = useColorMode()
 
@@ -18,8 +21,9 @@ export const CategoryItem = () => {
             borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
             boxShadow='sm'
             cursor='pointer'
+            onClick={onClick}
         >
-            <Text>Khai vị</Text>
+            <Text fontWeight='600'>Khai vị</Text>
         </HStack>
     )
 }
