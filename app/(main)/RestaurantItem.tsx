@@ -1,26 +1,22 @@
+
 import { Restaurant } from "@/types"
 import { Badge, HStack, Text, VStack } from "@chakra-ui/layout"
 import { Image, Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
-import { useDocumentData } from "@livequery/react"
 import Link from "next/link"
 import { FiMapPin } from "react-icons/fi"
 
 
 export type RestarantItem = {
-    onClick: () => void,
-    // restaurant_id?: string,
-    // restaurant?: SmartQueryItem<Restaurant>
+    restaurant?: SmartQueryItem<Restaurant>
 }
 
-export const RestarantItem = ({ onClick }: RestarantItem) => {
+export const RestarantItem = ({ restaurant }: RestarantItem) => {
 
     const { colorMode } = useColorMode()
-    // const $retaurant = useDocumentData<Restaurant>(restaurant_id && `restaurants/${restaurant_id}`)
-    // const r = restaurant || $retaurant.item || {}
 
     return (
-        <Link href={`/restaurants/restaurant_id/admin`}>
+        <Link href={`/restaurants/${restaurant?.id}/admin`}>
             <HStack
                 w='full'
                 p='4'
@@ -34,16 +30,22 @@ export const RestarantItem = ({ onClick }: RestarantItem) => {
                 borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
                 spacing='3'
             >
-                <Image boxSize={{base: '30px', md: '40px'}} src='https://cdn-icons-png.flaticon.com/512/5223/5223909.png' />
+                <Image boxSize={{ base: '30px', md: '40px' }} src='https://cdn-icons-png.flaticon.com/512/5223/5223909.png' />
                 <VStack w='full' align='start'>
                     <HStack w='full' justifyContent='space-between'>
-                        <Text fontWeight='600' lineHeight='1.2'>Cơ sở 1</Text>
-                        <Tag colorScheme='blue' variant='outline' size={{base: 'sm', md: 'md'}}>Hoạt động</Tag>
+                        <Text fontWeight='600' lineHeight='1.2'>{restaurant?.name}</Text>
+                        <Tag
+                            colorScheme={restaurant?.status == 'active' ? 'blue' : 'red'}
+                            variant='outline'
+                            size={{ base: 'sm', md: 'md' }}
+                        >
+                            {restaurant?.status == 'active' ? 'Đang hoạt động' : 'Ngưng hoạt động'}
+                        </Tag>
                     </HStack>
-                    <Badge fontSize='sm' colorScheme='facebook'>0814201002</Badge>
+                    <Badge fontSize='sm' colorScheme='facebook'>{restaurant?.phone}</Badge>
                     <HStack>
                         <FiMapPin />
-                        <Text opacity='0.9' lineHeight='1.2' fontSize='14px'>Số 1, Quang Trung, Hà Đông, HN</Text>
+                        <Text opacity='0.9' lineHeight='1.2' fontSize='14px'>{restaurant?.address}</Text>
                     </HStack>
                 </VStack>
             </HStack>

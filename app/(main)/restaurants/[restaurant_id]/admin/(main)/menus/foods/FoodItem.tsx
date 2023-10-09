@@ -1,12 +1,15 @@
+import { Food } from "@/types"
 import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Image, Tag, useColorMode } from "@chakra-ui/react"
+import { SmartQueryItem } from "@livequery/client"
 
 
 export type FoodItem = {
+    food?: SmartQueryItem<Food>
     onClick?: () => void
 }
 
-export const FoodItem = ({ onClick }: FoodItem) => {
+export const FoodItem = ({ onClick, food }: FoodItem) => {
 
     const { colorMode } = useColorMode()
 
@@ -26,16 +29,16 @@ export const FoodItem = ({ onClick }: FoodItem) => {
         >
             <Image
                 borderTopRadius='10px'
-                src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToDygOmQKcr4VkjRlVnULVsBCaRfM1c7rtSg&usqp=CAU'
+                src={food?.images}
                 maxH='200px'
                 w='full'
             />
             <VStack w='full' align='flex-start' px='2' spacing='0'>
-                <Text textTransform='uppercase' noOfLines={2}>Mẹt Bún Ninh Bình</Text>
-                <Text fontSize='14px' opacity='0.7' noOfLines={1}>Từ vùng quê Ning Bình </Text>
+                <Text textTransform='uppercase' noOfLines={2}>{food?.name}</Text>
+                <Text fontSize='14px' opacity='0.7' noOfLines={1}>{food?.description}</Text>
             </VStack>
             <HStack w='full' px='2' justifyContent='space-between'>
-                <Tag colorScheme='red'>174.4993 đ</Tag>
+                <Tag colorScheme='red'>{food?.price.toLocaleString()}đ</Tag>
             </HStack>
         </VStack>
     )

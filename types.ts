@@ -10,8 +10,6 @@ export declare class BaseEntity {
     };
 }
 
-
-
 export type WorkingTime = {
     start_hours: number;
     start_minutes: number;
@@ -25,8 +23,23 @@ export declare class Restaurant extends BaseEntity {
     address: string;
     phone: string;
     status: string;
-    working_times: WorkingTime[];
-    bank_name: string;
-    bank_number: string;
-    bank_account: string;
+}
+
+export declare class RestaurantTable extends BaseEntity {
+    name: string;
+    order_ids: string[];
+}
+
+export declare class Category extends BaseEntity {
+    restaurant_id: string;
+    name: string;
+}
+
+export declare class Food extends BaseEntity {
+    restaurant_id: string;
+    name: string;
+    category_id: string;
+    images: string;
+    price: number;
+    description: string;
 }

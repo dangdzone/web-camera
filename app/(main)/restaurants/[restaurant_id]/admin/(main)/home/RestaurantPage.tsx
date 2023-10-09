@@ -6,8 +6,13 @@ import { FiChevronDown, FiShoppingBag } from "react-icons/fi";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { RestaurantInfo } from "./RestaurantInfo";
 import { useState } from "react";
+import { Restaurant } from "@/types";
 
-export const HomePage = () => {
+export type RestaurantPage = {
+    restaurant: Restaurant
+}
+
+export const RestaurantPage = ({ restaurant }: RestaurantPage) => {
 
     const { colorMode } = useColorMode()
     const RepportListMap = {
@@ -30,7 +35,7 @@ export const HomePage = () => {
 
     return (
         <VStack w='full' spacing='5'>
-            <VStack
+            {/* <VStack
                 w='full'
                 bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
                 borderRadius='5px'
@@ -98,8 +103,8 @@ export const HomePage = () => {
                         ))
                     }
                 </SimpleGrid>
-            </VStack>
-            <RestaurantInfo />
+            </VStack> */}
+            <RestaurantInfo restaurant={restaurant as any} />
         </VStack>
     )
 }

@@ -1,12 +1,15 @@
+import { Food } from "@/types"
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Input, ModalFooter, Button, useColorMode, Image, Tag, useNumberInput } from "@chakra-ui/react"
+import { SmartQueryItem } from "@livequery/client"
 import { BiCartAdd } from "react-icons/bi"
 
 export type MenuTabbleModal = {
+    food?: Food
     onClose: () => void
 }
 
-export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
+export const MenuTabbleModal = ({ onClose, food }: MenuTabbleModal) => {
 
     const { colorMode } = useColorMode()
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
@@ -28,7 +31,7 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
             <ModalOverlay />
             <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
                 <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
-                    Thêm món
+                    Thêm vào giỏ hàng
                 </ModalHeader>
                 <ModalCloseButton borderRadius='full' mt='1' />
                 <ModalBody
@@ -46,17 +49,17 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
                     <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>
                         <Image
                             borderRadius='10px'
-                            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToDygOmQKcr4VkjRlVnULVsBCaRfM1c7rtSg&usqp=CAU'
+                            src={food?.images}
                             maxH='600px'
                             w='full'
                         />
                         <VStack w='full' spacing='5'>
                             <VStack w='full' align='flex-start' spacing='2'>
-                                <Text textTransform='uppercase'>Mẹt Bún Ninh Bình</Text>
-                                <Text fontSize='14px' opacity='0.7'>Từ vùng quê Ning Bình </Text>
+                                <Text textTransform='uppercase'>{food?.name}</Text>
+                                <Text fontSize='14px' opacity='0.7'>{food?.description}</Text>
                             </VStack>
                             <HStack w='full'>
-                                <Tag colorScheme='red'>174.4993 đ</Tag>
+                                <Tag colorScheme='red'>{food?.price.toLocaleString()} đ</Tag>
                             </HStack>
                             <HStack w='full' justifyContent='space-between'>
                                 <Text>Số lượng</Text>
@@ -68,7 +71,7 @@ export const MenuTabbleModal = ({ onClose }: MenuTabbleModal) => {
                             </HStack>
                             <HStack w='full' justifyContent='space-between'>
                                 <Text>Số tiền tạm tính</Text>
-                                <Tag colorScheme='orange'>102.300 đ</Tag>
+                                <Tag colorScheme='orange'>{food?.price.toLocaleString()} đ</Tag>
                             </HStack>
                         </VStack>
                     </SimpleGrid>

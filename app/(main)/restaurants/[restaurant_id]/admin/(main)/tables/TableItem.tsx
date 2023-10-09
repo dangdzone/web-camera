@@ -1,13 +1,16 @@
 
-import { Box, HStack, Text } from "@chakra-ui/layout"
+import { RestaurantTable } from "@/types"
+import { HStack, Text } from "@chakra-ui/layout"
 import { Tag, useColorMode } from "@chakra-ui/react"
-import { BsCheckCircleFill } from "react-icons/bs"
+import { SmartQueryItem } from "@livequery/client"
 
 export type TableItem = {
+    table: SmartQueryItem<RestaurantTable>,
     onClick?: () => void
+    index: number
 }
 
-export const TableItem = ({ onClick } : TableItem) => {
+export const TableItem = ({ onClick, table, index } : TableItem) => {
 
     const { colorMode } = useColorMode()
 
@@ -24,12 +27,10 @@ export const TableItem = ({ onClick } : TableItem) => {
             spacing='4'
             onClick={onClick}
         >
-            <Tag variant='outline' borderRadius='full'>1</Tag>
+            <Tag variant='outline' borderRadius='full'>{index}</Tag>
             <HStack w='full' justifyContent='space-between'>
-                <Text fontWeight='600'>Bàn 3A</Text>
-                <Box color='blue.500'>
-                    <BsCheckCircleFill />
-                </Box>
+                <Text fontWeight='600'>{table.name}</Text>
+                <Text>ID: {table.id}</Text>
             </HStack>
         </HStack>
     )

@@ -7,14 +7,26 @@ import { TableList } from "../../admin/(main)/tables/TableList"
 import { theme } from "@/theme"
 import { MenuTableList } from "../../../../../../components/common/menus/MenuTableList"
 import { OrderTableList } from "./orders/[order_id]/OrderTableList"
+import { useDocumentData } from "@livequery/react"
+import { Restaurant, RestaurantTable } from "@/types"
+import { TopbarTable } from "./TopbarTable"
 
-
-export default function TablePage() {
+export default function TablePage(props: {
+    params: {
+        restaurant_id: string,
+        table_id: string
+    }
+}) {
 
     const { colorMode } = useColorMode()
+    const $restaurant = useDocumentData<Restaurant>(`restaurants/${props.params.restaurant_id}`)
+    const $tables = useDocumentData<RestaurantTable>(`restaurants/${props.params.restaurant_id}/tables/${props.params.table_id}`)
+    const restaurant = $restaurant.item
+    const table = $tables.item
 
     return (
-        <VStack w='full'>
+        <VStack w='full' spacing='0'>
+            <TopbarTable restaurant={restaurant} table={table} />
             <Tabs w='full' position="relative" variant="unstyled" >
                 <Box
                     w='full'
@@ -75,9 +87,11 @@ export default function TablePage() {
                             borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
                             spacing='5'
                             pb='5'
-                            px={{base: '2', md: '4'}}
+                            px={{ base: '2', md: '4' }}
                         >
-                            <MenuTableList />
+                            {
+                                restaurant && <MenuTableList restaurant={restaurant} />
+                            }
                         </VStack>
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>

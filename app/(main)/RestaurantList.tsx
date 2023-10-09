@@ -6,11 +6,16 @@ import { RestaurantModal } from "./RestaurantModal"
 import { Button, useColorMode } from "@chakra-ui/react"
 import { FiPlus } from "react-icons/fi"
 import { theme } from "@/theme"
+import { useCollectionData } from "@livequery/react"
+import { Restaurant } from "@/types"
 
 
 export const Restaurantlist = () => {
+
     const { colorMode } = useColorMode()
     const [active_restaurant, set_active_restaurant] = useState<boolean>(false)
+    const $restaurants = useCollectionData<Restaurant>(`restaurants`)
+
     return (
         <VStack
             w='full'
@@ -38,8 +43,8 @@ export const Restaurantlist = () => {
             }
             <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px={{base: '2', md: '4'}}>
                 {
-                    new Array(10).fill(1).map(() => (
-                        <RestarantItem onClick={() => set_active_restaurant(true)} />
+                    $restaurants.items.map(restaurant => (
+                        <RestarantItem key={restaurant.id} restaurant={restaurant} />
                     ))
                 }
             </SimpleGrid>

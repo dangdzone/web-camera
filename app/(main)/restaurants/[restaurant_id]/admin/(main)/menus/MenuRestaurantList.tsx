@@ -1,55 +1,144 @@
 
-import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
+import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { useState } from "react"
 import { Button, useColorMode } from "@chakra-ui/react"
-import { MenuRestaurantModal } from "./MenuRestaurantModal"
-import { MenuRestaurantItem } from "./MenuRestaurantItem"
 import { theme } from "@/theme"
-import { MenuDerail } from "./menudetail/MenuDetail"
+import { CategoryModal } from "./categoties/CategoryModal"
+import { FoodModal } from "./foods/FoodModal"
+import { Category, Food, Restaurant } from "@/types"
+import { SmartQueryItem } from "@livequery/client"
+import { useCollectionData } from "@livequery/react"
+import { CategoryItem } from "./categoties/CategoryItem"
+import { FoodItem } from "./foods/FoodItem"
 
-export const MenuResraurantList = () => {
+export type MenuResraurantList = {
+    restaurant: Restaurant
+}
 
-    const [active_menu, set_active_menu] = useState<boolean>(false)
-    const [active_menu_detail, set_active_menu_detail] = useState<boolean>(false)
+export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
+
     const { colorMode } = useColorMode()
+    const [active_category, set_active_category] = useState<undefined | null | SmartQueryItem<Category>>(null)
+    const [active_food, set_active_food] = useState<undefined | null | SmartQueryItem<Food>>(null)
+
+    const $categories = useCollectionData<Category>(`restaurants/${restaurant.id}/categories`)
+    const $foods = useCollectionData<Food>(`restaurants/${restaurant.id}/foods`)
+    const { filters, filter } = $foods
 
     return (
-        <VStack
-            w='full'
-            bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
-            borderRadius='5px'
-            border='1px'
-            borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
-            spacing='5'
-            pb='5'
-        >
-            <HStack
+        <VStack w='full' spacing='5'>
+            {
+                active_category !== null && (
+                    <CategoryModal
+                        onClose={() => set_active_category(null)}
+                        restaurant_id={restaurant.id}
+                        category={active_category}
+                    />
+                )
+            }
+            {
+                active_food !== null && (
+                    <FoodModal
+                        onClose={() => set_active_food(null)}
+                        restaurant_id={restaurant.id}
+                        food={active_food}
+                        categories={$categories.items}
+                    />
+                )
+            }
+            <VStack
                 w='full'
-                p='4'
-                borderBottom='1px'
-                borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
-                justifyContent='space-between'
+                bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
+                borderRadius='5px'
+                border='1px'
+                borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
+                spacing='5'
+                pb='5'
             >
-                <Text fontWeight='600'>Danh sách menu</Text>
-                <Button size='sm' onClick={() => set_active_menu(true)}>Tạo menu mới</Button>
-            </HStack>
-            {
-                active_menu != false && (
-                    <MenuRestaurantModal onClose={() => set_active_menu(false)} />
-                )
-            }
-            {
-                active_menu_detail !== false && (
-                    <MenuDerail onClose={() => set_active_menu_detail(false)} />
-                )
-            }
-            <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px={{base: '2', md: '4'}}>
-                {
-                    new Array(5).fill(1).map(() => (
-                        <MenuRestaurantItem onClick={() => set_active_menu_detail(true)} />
-                    ))
-                }
-            </SimpleGrid>
+                <HStack
+                    w='full'
+                    p='4'
+                    borderBottom='1px'
+                    borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
+                    justifyContent='space-between'
+                >
+                    <Text fontWeight='600'>Danh mục món</Text>
+                    <Button size='sm' onClick={() => set_active_category(undefined)}>Tạo danh mục mới</Button>
+                </HStack>
+                <SimpleGrid w='full' columns={[2, 3, 4]} spacing='4' px='4'>
+                    {
+                        $categories.items.map(category => (
+                            <CategoryItem
+                                key={category.id}
+                                category={category}
+                                onClick={() => set_active_category(category)}
+                            />
+                        ))
+                    }
+                </SimpleGrid>
+            </VStack>
+
+            <VStack
+                w='full'
+                bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
+                borderRadius='5px'
+                border='1px'
+                borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
+                spacing='5'
+                pb='5'
+                align='flex-start'
+            >
+                <HStack
+                    w='full'
+                    p='4'
+                    borderBottom='1px'
+                    borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
+                    justifyContent='space-between'
+                >
+                    <Text fontWeight='600'>Danh sách món</Text>
+                    <Button size='sm' onClick={() => set_active_food(undefined)}>Tạo món mới</Button>
+                </HStack>
+                <Wrap spacing={4} px='4'>
+                    <Button
+                        colorScheme='red'
+                        size='sm'
+                        onClick={() => filter({
+                            ...filters,
+                            category_id: undefined
+                        })}
+                        variant={!filters.category_id ? 'solid' : 'outline'}
+                    >
+                        Tất cả
+                    </Button>
+                    {
+                        $categories.items.map(category => (
+                            <Button
+                                key={category.id}
+                                colorScheme='red'
+                                size='sm'
+                                onClick={() => filter({
+                                    ...filters,
+                                    category_id: category.id
+                                })}
+                                variant={category.id == filters.category_id ? 'solid' : 'outline'}
+                            >
+                                {category.name}
+                            </Button>
+                        ))
+                    }
+                </Wrap>
+                <SimpleGrid w='full' columns={[2, 3, 4, 4]} spacing='4' px='4'>
+                    {
+                        $foods.items.map(food => (
+                            <FoodItem
+                                key={food.id}
+                                onClick={() => set_active_food(food)}
+                                food={food}
+                            />
+                        ))
+                    }
+                </SimpleGrid>
+            </VStack>
         </VStack>
     )
 }

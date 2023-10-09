@@ -1,11 +1,14 @@
+import { Category } from "@/types"
 import { HStack, Text } from "@chakra-ui/layout"
 import { useColorMode } from "@chakra-ui/react"
+import { SmartQueryItem } from "@livequery/client"
 
 export type CategoryItem = {
+    category: SmartQueryItem<Category>
     onClick?: () => void
 }
 
-export const CategoryItem = ({ onClick }: CategoryItem) => {
+export const CategoryItem = ({ onClick, category }: CategoryItem) => {
 
     const { colorMode } = useColorMode()
 
@@ -23,7 +26,7 @@ export const CategoryItem = ({ onClick }: CategoryItem) => {
             cursor='pointer'
             onClick={onClick}
         >
-            <Text fontWeight='600'>Khai vị</Text>
+            <Text fontWeight='600'>{category.name}</Text>
         </HStack>
     )
 }

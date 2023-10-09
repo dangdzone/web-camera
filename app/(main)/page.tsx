@@ -2,7 +2,6 @@
 
 import { Box, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react";
 import { Restaurantlist } from "./RestaurantList";
-import { MenuResraurantList } from "./restaurants/[restaurant_id]/admin/(main)/menus/MenuRestaurantList";
 import { Topbar } from "./Topbar";
 import { theme } from "@/theme";
 import { RestauranManager } from "@/text";

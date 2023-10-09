@@ -1,5 +1,5 @@
 
-import { RestaurantTable } from "@/types"
+import { Category } from "@/types"
 import { VStack, Text, HStack } from "@chakra-ui/layout"
 import {
     Modal,
@@ -15,38 +15,38 @@ import {
 } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
-import Link from "next/link"
 import { useForm } from "react-hook-form"
 
-export type TableModal = {
-    table?: SmartQueryItem<RestaurantTable>
-    onClose: () => void
+export type CategoryModal = {
+    category?: SmartQueryItem<Category>
     restaurant_id: string
+    onClose: () => void
 }
 
-export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
+export const CategoryModal = ({ onClose, restaurant_id, category }: CategoryModal) => {
 
     const { colorMode } = useColorMode()
-    const { register, handleSubmit, watch, } = useForm<RestaurantTable>({
+
+    const { register, handleSubmit, watch, } = useForm<Category>({
         defaultValues: {
-            name: table?.name
+            name: category?.name
         }
     })
 
     const { transporter } = useLiveQueryContext()
 
-    async function onSubmit(data: RestaurantTable) {
-        if (table) {
-            table.__update(data)
+    async function onSubmit(data: Category) {
+        if (category) {
+            category.__update(data)
         } else {
-            await transporter.add(`restaurants/${restaurant_id}/tables`, data)
+            await transporter.add(`restaurants/${restaurant_id}/categories`, data)
 
         }
         onClose()
     }
 
     function remove() {
-        table?.__remove()
+        category?.__remove()
         onClose()
     }
 
@@ -55,27 +55,25 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
             isOpen={true}
             size={'3xl'}
             onClose={onClose}
+            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
-                        {table ? 'Cập nhật' : 'Tạo mới'}
+                        {category ? 'Cập nhật' : 'Tạo mới'}
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
-                    <ModalBody px={{ base: '2', md: '4' }} py='6'>
-                        <VStack w='full' spacing='5'>
-                            {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
-                            <VStack w='full' spacing='5'>
-                                <VStack w='full' spacing='4' align='flex-start'>
-                                    <Text fontWeight='400'>Tên bàn</Text>
-                                    <Input
-                                        placeholder='Nhập tên bàn...'
-                                        size='md'
-                                        {...register('name', { required: true })}
-                                        onFocus={e => e.target.select()}
-                                    />
-                                </VStack>
+                    <ModalBody px={{ base: '2', md: '4' }} py='6' >
+                        <VStack w='full' spacing='7'>
+                            <VStack w='full' spacing='4' align='flex-start'>
+                                <Text fontWeight='400'>Tên danh mục</Text>
+                                <Input
+                                    placeholder='Nhập tên danh mục...'
+                                    size='md'
+                                    {...register('name', { required: true })}
+                                    onFocus={e => e.target.select()}
+                                />
                             </VStack>
                         </VStack>
                     </ModalBody>
@@ -84,14 +82,8 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                         <HStack w='full' justifyContent='space-between'>
                             <HStack>
                                 {
-                                    table && (
-                                        <HStack>
-                                            <Button onClick={remove} variant='outline' colorScheme='red'>Xóa</Button>
-                                            <Link href={`/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
-                                                <Button variant='outline' colorScheme='red'>Mở</Button>
-                                            </Link>
-                                        </HStack>
-
+                                    category && (
+                                        <Button onClick={remove} variant='outline' colorScheme='red'>Xóa</Button>
                                     )
                                 }
                             </HStack>
@@ -102,13 +94,13 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                     colorScheme='blue'
                                     type="submit"
                                 >
-                                    {table ? 'Cập nhật' : 'Tạo mới'}
+                                    {category ? 'Cập nhật' : 'Tạo mới'}
                                 </Button>
                             </HStack>
                         </HStack>
                     </ModalFooter>
                 </form>
             </ModalContent>
-        </Modal>
+        </Modal >
     )
 }

@@ -8,7 +8,7 @@ import { TopbarTable } from "./TopbarTable";
 export default function LayoutTable(props: PropsWithChildren) {
     return (
         <VStack w='full' minH='100vh' spacing='0'>
-            <TopbarTable />
+            
             {props.children}
         </VStack>
     )

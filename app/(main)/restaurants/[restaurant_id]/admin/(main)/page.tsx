@@ -3,18 +3,26 @@
 import { theme } from "@/theme";
 import { Box, HStack, Text, VStack } from "@chakra-ui/layout";
 import { Tabs, TabList, Tab, TabIndicator, TabPanels, TabPanel, useColorMode } from "@chakra-ui/react";
-import { HomePage } from "./home/HomePage";
+import { RestaurantPage } from "./home/RestaurantPage";
 import { OrderList } from "./orders/OrderList";
 import { TableList } from "./tables/TableList";
 import { HistoryList } from "./histories/HistoryList";
 import { TabListMap } from "@/text";
 import { MenuResraurantList } from "./menus/MenuRestaurantList";
+import { Restaurant } from "@/types";
+import { useDocumentData } from "@livequery/react";
 
-
-
-export default function PageAdmin() {
+export default function PageAdmin(props: {
+    params: {
+        restaurant_id: string,
+    }
+}) {
 
     const { colorMode } = useColorMode()
+    const $restaurant = useDocumentData<Restaurant>(`restaurants/${props.params.restaurant_id}`)
+
+    const restaurant = $restaurant.item
+    // console.log({restaurant})
 
     return (
         <VStack w='full'>
@@ -73,16 +81,22 @@ export default function PageAdmin() {
                         <OrderList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <MenuResraurantList />
+                        {
+                            restaurant && <MenuResraurantList restaurant={restaurant} />
+                        }
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <TableList />
+                        {
+                            restaurant && <TableList restaurant={restaurant} />
+                        }
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <HistoryList />
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <HomePage />
+                        {
+                            restaurant && <RestaurantPage restaurant={restaurant} />
+                        }
                     </TabPanel>
                 </TabPanels>
             </Tabs>
