@@ -13,6 +13,8 @@ export const FoodItem = ({ onClick, food }: FoodItem) => {
 
     const { colorMode } = useColorMode()
 
+    console.log({ food })
+
     return (
         <VStack
             w='full'
@@ -30,7 +32,7 @@ export const FoodItem = ({ onClick, food }: FoodItem) => {
             <Image
                 borderTopRadius='10px'
                 src={food?.images}
-                maxH='200px'
+                h='170px'
                 w='full'
             />
             <VStack w='full' align='flex-start' px='2' spacing='0'>

@@ -1,5 +1,5 @@
 
-import { MenuTableList } from "@/components/common/menus/MenuTableList"
+import { MenuTableList } from "@/app/(main)/restaurants/[restaurant_id]/tables/[table_id]/menus/MenuTableList"
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react"
 import { OrderCreateList } from "./OrderCreateList"
 

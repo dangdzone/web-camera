@@ -4,7 +4,6 @@ import { Restaurant } from "@/types"
 import { HStack, Stack, Text, VStack } from "@chakra-ui/layout"
 import { Button, FormControl, Input, Radio, RadioGroup, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
-import { useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm } from "react-hook-form"
 
 export type RestaurantInfo = {
@@ -24,11 +23,10 @@ export const RestaurantInfo = ({ restaurant }: RestaurantInfo) => {
         }
     })
 
-    const { transporter } = useLiveQueryContext()
-
     async function onSubmit(data: Restaurant) {
+        console.log({ data })
         restaurant?.__update(data)
-        reset()
+        reset(data)
     }
 
     return (

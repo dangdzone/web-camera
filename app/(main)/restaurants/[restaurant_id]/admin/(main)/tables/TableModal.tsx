@@ -88,7 +88,7 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                         <HStack>
                                             <Button onClick={remove} variant='outline' colorScheme='red'>Xóa</Button>
                                             <Link href={`/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
-                                                <Button variant='outline' colorScheme='red'>Mở</Button>
+                                                <Button colorScheme='red'>Mở</Button>
                                             </Link>
                                         </HStack>
 

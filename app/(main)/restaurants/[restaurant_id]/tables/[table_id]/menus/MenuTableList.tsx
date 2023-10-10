@@ -1,13 +1,13 @@
 
-import { HStack, SimpleGrid, VStack, Wrap } from "@chakra-ui/layout"
-import { useEffect, useRef, useState } from "react"
-import { Button, Input, useColorMode } from "@chakra-ui/react"
+import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
+import { useRef, useState } from "react"
+import { Button, Input, Spinner, useColorMode } from "@chakra-ui/react"
 import { MenuTableItem } from "./MenuTableItem"
 import { MenuTabbleModal } from "./MenuTableModal"
 import { Category, Food, Restaurant } from "@/types"
 import { useCollectionData } from "@livequery/react"
 import { SmartQueryItem } from "@livequery/client"
-import { Subject, debounceTime } from "rxjs"
+import { Subject } from "rxjs"
 
 export type MenuTableList = {
     restaurant?: Restaurant
@@ -32,7 +32,7 @@ export const MenuTableList = ({ restaurant }: MenuTableList) => {
     // }, [$value.current])
 
     return (
-        <VStack w='full' spacing='5'>
+        <VStack w='full' spacing='7'>
             {
                 active_menu_table !== null && (
                     <MenuTabbleModal
@@ -41,17 +41,15 @@ export const MenuTableList = ({ restaurant }: MenuTableList) => {
                     />
                 )
             }
-            <HStack w='full' pt='4' justifyContent='center'>
+            <HStack w='full' justifyContent='center'>
                 <Input
                     w={{ base: '100%', md: '70%' }}
                     placeholder={'Tìm kiếm...'}
-                // onChange={(e) => $value.current.next(e.target.value)}
                 />
             </HStack>
             <Wrap spacing={4} w='full'>
                 <Button
                     colorScheme='red'
-                    size='sm'
                     onClick={() => filter({
                         ...filters,
                         category_id: undefined
@@ -65,7 +63,6 @@ export const MenuTableList = ({ restaurant }: MenuTableList) => {
                         <Button
                             key={category.id}
                             colorScheme='red'
-                            size='sm'
                             onClick={() => filter({
                                 ...filters,
                                 category_id: category.id
@@ -87,12 +84,13 @@ export const MenuTableList = ({ restaurant }: MenuTableList) => {
                         />
                     ))
                 }
-                {/* {
-                    new Array(5).fill(1).map(() => (
-                        <MenuTableItem onClick={() => set_active_menu_table(undefined)} />
-                    ))
-                } */}
             </SimpleGrid>
+            {
+                $foods.loading && <Spinner color="teal.500" size='lg' />
+            }
+            {
+                $foods.empty && <Text fontSize='18px' color="teal.500">Chưa có món...</Text>
+            }
         </VStack>
     )
 }

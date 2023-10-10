@@ -1,4 +1,5 @@
 
+import { FileUploader } from "@/components/common/FileUploader"
 import { Category, Food } from "@/types"
 import { VStack, Text, HStack } from "@chakra-ui/layout"
 import {
@@ -17,7 +18,7 @@ import {
 } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 
 export type FoodModal = {
     food?: SmartQueryItem<Food>
@@ -30,7 +31,7 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
 
     const { colorMode } = useColorMode()
 
-    const { register, handleSubmit, watch, } = useForm<Food>({
+    const { register, handleSubmit, watch, control } = useForm<Food>({
         defaultValues: {
             name: food?.name,
             images: food?.images,
@@ -116,13 +117,15 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
                             </VStack>
                             <VStack w='full' spacing='4' align='flex-start'>
                                 <Text fontWeight='400'>Ảnh</Text>
-                                <Input
-                                    placeholder='Nhập link ảnh...'
-                                    size='md'
-                                    {...register('images', { required: true })}
-                                    onFocus={e => e.target.select()}
-                                />
+                                <FormControl>
+                                    <Controller
+                                        name='images'
+                                        control={control}
+                                        render={FileUploader}
+                                    />
+                                </FormControl>
                             </VStack>
+
                             <VStack w='full' spacing='4' align='flex-start'>
                                 <Text fontWeight='400'>Ghi chú món ăn</Text>
                                 <Input
@@ -138,7 +141,7 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
                                     placeholder='Nhập số tiền...'
                                     size='md'
                                     type='number'
-                                    {...register('price', { required: true })}
+                                    {...register('price', { required: true, valueAsNumber: true })}
                                     onFocus={e => e.target.select()}
                                 />
                             </VStack>

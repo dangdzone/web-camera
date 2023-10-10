@@ -33,7 +33,7 @@ export const MenuTableItem = ({ onClick, food }: MenuTableItem) => {
             <Image
                 borderTopRadius='10px'
                 src={food?.images}
-                maxH='200px'
+                h='170px'
                 w='full'
             />
             <VStack w='full' align='flex-start' px='2' spacing='0'>

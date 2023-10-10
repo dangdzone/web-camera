@@ -1437,26 +1437,26 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@livequery/client@^1.0.29", "@livequery/client@^1.0.51":
-  version "1.0.51"
-  resolved "https://registry.yarnpkg.com/@livequery/client/-/client-1.0.51.tgz#b0b72ed6dbbdf8985542fdeecb5f9a67743ef01c"
-  integrity sha512-Z/nKGinP30KDxklIAww6N5zruNYEoYAcZD49pFUR6uuzKjVQo9TiYHe7T2hQnCPno6zdMhtCTg/pbbelzpYmBQ==
+"@livequery/client@^1.0.53", "@livequery/client@^1.0.85":
+  version "1.0.85"
+  resolved "https://registry.yarnpkg.com/@livequery/client/-/client-1.0.85.tgz#8b8de0496e55eaff0f90372e4fdaec873314e3d9"
+  integrity sha512-wU27aQ+4O/CjdxfY+fp9ZqICHQqc6du8ma6237kzYmXr6XYB3+cAXM2UtiP7wlu+OZfkyIfTEzmGAyQOsW1I6A==
   dependencies:
     rxjs "^7.1.0"
     typescript "^4.9.5"
     uuid "^8.3.2"
 
-"@livequery/react@^1.0.37":
-  version "1.0.37"
-  resolved "https://registry.yarnpkg.com/@livequery/react/-/react-1.0.37.tgz#e33d8e42abeca9c7625381e7feed7c1dd9e8218f"
-  integrity sha512-V35GMghLVepJHaBDRuGWTTfeEMAnqXEBMqFRAciYnWcvhEqN9azPKJxqoX+vTyE2q8yvLCGT6jPDikMrNw6riA==
+"@livequery/react@^1.0.85":
+  version "1.0.85"
+  resolved "https://registry.yarnpkg.com/@livequery/react/-/react-1.0.85.tgz#4b62898705b426920a8d396b6c645dd19be3e6ca"
+  integrity sha512-5t1jY/8kHCd/bLZAGpoQ03f7x4sjXF9Da0Vezq8xdT5JqweatV2VlQuga0IALyMoBV+YB1fHdDLOoegPE/rTdg==
   dependencies:
-    "@livequery/client" "^1.0.29"
+    "@livequery/client" "^1.0.53"
 
-"@livequery/rest@^1.0.22":
-  version "1.0.22"
-  resolved "https://registry.yarnpkg.com/@livequery/rest/-/rest-1.0.22.tgz#f82752feb31f2f7c8600f07130f80c96a7400603"
-  integrity sha512-V/Eu/oIzoZcr2H1gd75BGNjiMG0X6jglGxrwCAqvCxElsrc/KOx1LW5vJaP7hgNF46xH7osk+xPzVVPL/31Yew==
+"@livequery/rest@^1.0.85":
+  version "1.0.85"
+  resolved "https://registry.yarnpkg.com/@livequery/rest/-/rest-1.0.85.tgz#969abfc96e50d1ca17fe46b334187435ea309c60"
+  integrity sha512-z4jR6qbOpHghWxfA4E1TleJfQ0eql9ln0Ib/dsI7krJ0EjP53NCrYuJ5JRQ3l6Y79Jq/TqNMBD00udKoYStriQ==
   dependencies:
     "@types/uuid" "^8.3.0"
     query-string "^7.0.1"
@@ -1464,10 +1464,10 @@
     typescript "4.9.5"
     uuid "^8.3.2"
 
-"@livequery/types@^1.0.79":
-  version "1.0.79"
-  resolved "https://registry.yarnpkg.com/@livequery/types/-/types-1.0.79.tgz#3909d1297f37276cc35e77d806cc83d4e45d2460"
-  integrity sha512-IirCgdMnwW0z7wXOVTDWJheqfvqEvkpFALh2mzsILyKoUQGgS1qFTAotRNJl5gXfijChr+Ujy5Ed9/nl3EXh8g==
+"@livequery/types@^1.0.82":
+  version "1.0.82"
+  resolved "https://registry.yarnpkg.com/@livequery/types/-/types-1.0.82.tgz#5ba234b9be9599a843e3fe0c81030bf55e4f1ed3"
+  integrity sha512-k70s54NbBbwVCRmxG5XfLlTKXraedMnkp4AbiNwzxLPpYDduS+16O7UQzyoqZjFYVLOW6ki8YRm017Ps1gPP1w==
 
 "@next/env@13.4.19":
   version "13.4.19"

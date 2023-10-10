@@ -16,6 +16,8 @@ export const Restaurantlist = () => {
     const [active_restaurant, set_active_restaurant] = useState<boolean>(false)
     const $restaurants = useCollectionData<Restaurant>(`restaurants`)
 
+    // console.log({ $restaurants })
+
     return (
         <VStack
             w='full'
@@ -41,7 +43,7 @@ export const Restaurantlist = () => {
                     <RestaurantModal onClose={() => set_active_restaurant(false)} />
                 )
             }
-            <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px={{base: '2', md: '4'}}>
+            <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px={{ base: '2', md: '4' }}>
                 {
                     $restaurants.items.map(restaurant => (
                         <RestarantItem key={restaurant.id} restaurant={restaurant} />

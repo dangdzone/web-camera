@@ -1,6 +1,7 @@
 'use client'
 
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
+import { Restaurant } from "@/types"
 import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Avatar, Button, IconButton, Menu, MenuButton, MenuList, useColorMode } from "@chakra-ui/react"
 import Link from "next/link"
@@ -9,7 +10,11 @@ import { FiChevronDown } from "react-icons/fi"
 import { MdOutlineModeNight } from "react-icons/md"
 import { RiLogoutCircleRLine, RiLoginCircleLine } from "react-icons/ri"
 
-export const TopbarAdmin = () => {
+export type TopbarAdmin = {
+    restaurant?: Restaurant
+}
+
+export const TopbarAdmin = ({ restaurant }: TopbarAdmin) => {
 
     const { colorMode, toggleColorMode } = useColorMode()
     const firebase_ctx = useFirebaseUserContext()
@@ -26,8 +31,8 @@ export const TopbarAdmin = () => {
             zIndex='999'
         >
             <VStack w='full' align='flex-start' spacing='0'>
-                <Text fontWeight='600' textTransform='uppercase'>Cơ sở 1</Text>
-                <Text opacity='0.8' fontSize='13px'>Số 5 Hà Đông, Hà Nội</Text>
+                <Text fontWeight='600' textTransform='uppercase'>{restaurant?.name}</Text>
+                <Text opacity='0.8' fontSize='13px'>{restaurant?.address}</Text>
             </VStack>
             <HStack>
                 <IconButton

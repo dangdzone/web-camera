@@ -5,7 +5,7 @@ import { Box, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Tex
 import { OrderList } from "../../admin/(main)/orders/OrderList"
 import { TableList } from "../../admin/(main)/tables/TableList"
 import { theme } from "@/theme"
-import { MenuTableList } from "../../../../../../components/common/menus/MenuTableList"
+import { MenuTableList } from "./menus/MenuTableList"
 import { OrderTableList } from "./orders/[order_id]/OrderTableList"
 import { useDocumentData } from "@livequery/react"
 import { Restaurant, RestaurantTable } from "@/types"
@@ -77,7 +77,7 @@ export default function TablePage(props: {
                         bg="blue.500"
                     />
                 </Box>
-                <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>
+                <TabPanels w='full' px='0' display='flex' justifyContent='center'>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <VStack
                             w='full'
@@ -86,8 +86,8 @@ export default function TablePage(props: {
                             border='1px'
                             borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
                             spacing='5'
-                            pb='5'
                             px={{ base: '2', md: '4' }}
+                            py='10'
                         >
                             {
                                 restaurant && <MenuTableList restaurant={restaurant} />

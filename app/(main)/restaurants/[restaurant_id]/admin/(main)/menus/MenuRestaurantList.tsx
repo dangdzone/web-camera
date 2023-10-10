@@ -1,7 +1,7 @@
 
 import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { useState } from "react"
-import { Button, useColorMode } from "@chakra-ui/react"
+import { Button, Spinner, useColorMode } from "@chakra-ui/react"
 import { theme } from "@/theme"
 import { CategoryModal } from "./categoties/CategoryModal"
 import { FoodModal } from "./foods/FoodModal"
@@ -65,7 +65,7 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                     <Text fontWeight='600'>Danh mục món</Text>
                     <Button size='sm' onClick={() => set_active_category(undefined)}>Tạo danh mục mới</Button>
                 </HStack>
-                <SimpleGrid w='full' columns={[2, 3, 4]} spacing='4' px='4'>
+                <SimpleGrid w='full' columns={[2, 2, 2, 4, 4]} spacing='4' px='4'>
                     {
                         $categories.items.map(category => (
                             <CategoryItem
@@ -101,7 +101,6 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                 <Wrap spacing={4} px='4'>
                     <Button
                         colorScheme='red'
-                        size='sm'
                         onClick={() => filter({
                             ...filters,
                             category_id: undefined
@@ -115,7 +114,6 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                             <Button
                                 key={category.id}
                                 colorScheme='red'
-                                size='sm'
                                 onClick={() => filter({
                                     ...filters,
                                     category_id: category.id
@@ -127,7 +125,7 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                         ))
                     }
                 </Wrap>
-                <SimpleGrid w='full' columns={[2, 3, 4, 4]} spacing='4' px='4'>
+                <SimpleGrid w='full' columns={[2, 2, 4, 4]} spacing='4' px='4'>
                     {
                         $foods.items.map(food => (
                             <FoodItem
@@ -138,6 +136,14 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                         ))
                     }
                 </SimpleGrid>
+                <VStack w='full'>
+                    {
+                        $foods.loading && <Spinner color="teal.500" size='lg' />
+                    }
+                    {
+                        $foods.empty && <Text fontSize='18px' color="teal.500">Chưa có món...</Text>
+                    }
+                </VStack>
             </VStack>
         </VStack>
     )

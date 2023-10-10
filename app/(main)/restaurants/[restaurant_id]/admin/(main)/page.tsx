@@ -11,6 +11,7 @@ import { TabListMap } from "@/text";
 import { MenuResraurantList } from "./menus/MenuRestaurantList";
 import { Restaurant } from "@/types";
 import { useDocumentData } from "@livequery/react";
+import { TopbarAdmin } from "./TopbarAdmin";
 
 export default function PageAdmin(props: {
     params: {
@@ -22,10 +23,10 @@ export default function PageAdmin(props: {
     const $restaurant = useDocumentData<Restaurant>(`restaurants/${props.params.restaurant_id}`)
 
     const restaurant = $restaurant.item
-    // console.log({restaurant})
 
     return (
-        <VStack w='full'>
+        <VStack w='full' spacing='0'>
+            <TopbarAdmin restaurant={restaurant} />
             <Tabs w='full' position="relative" variant="unstyled" >
                 <Box
                     w='full'
