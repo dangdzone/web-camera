@@ -16,7 +16,9 @@ export const Restaurantlist = () => {
     const [active_restaurant, set_active_restaurant] = useState<boolean>(false)
     const $restaurants = useCollectionData<Restaurant>(`restaurants`)
 
-    // console.log({ $restaurants })
+    const aa = $restaurants.items
+
+    console.log({ aa })
 
     return (
         <VStack

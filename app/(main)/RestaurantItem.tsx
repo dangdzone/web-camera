@@ -39,7 +39,7 @@ export const RestarantItem = ({ restaurant }: RestarantItem) => {
                             variant='outline'
                             size={{ base: 'sm', md: 'md' }}
                         >
-                            {restaurant?.status == 'active' ? 'Đang hoạt động' : 'Ngưng hoạt động'}
+                            {restaurant?.status == 'active' ? 'Đang hoạt động' : 'Đóng cửa'}
                         </Tag>
                     </HStack>
                     <Badge fontSize='sm' colorScheme='facebook'>{restaurant?.phone}</Badge>
