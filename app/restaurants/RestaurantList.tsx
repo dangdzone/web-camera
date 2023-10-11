@@ -2,12 +2,12 @@
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { RestarantItem } from "./RestaurantItem"
 import { useState } from "react"
-import { RestaurantModal } from "./RestaurantModal"
 import { Button, useColorMode } from "@chakra-ui/react"
 import { FiPlus } from "react-icons/fi"
 import { theme } from "@/theme"
 import { useCollectionData } from "@livequery/react"
 import { Restaurant } from "@/types"
+import { RestaurantModal } from "./RestaurantModal"
 
 
 export const Restaurantlist = () => {

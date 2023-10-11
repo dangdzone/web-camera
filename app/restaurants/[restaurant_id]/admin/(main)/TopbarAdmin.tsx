@@ -70,7 +70,7 @@ export const TopbarAdmin = ({ restaurant }: TopbarAdmin) => {
                                     {firebase_ctx.fuser?.email}
                                 </Text>
                             </VStack>
-                            <Link href='/?index=0' style={{ width: '100%' }}>
+                            <Link href='/restaurants/?index=0' style={{ width: '100%' }}>
                                 <Button w='full'>Danh sách nhà hàng</Button>
                             </Link>
                             {

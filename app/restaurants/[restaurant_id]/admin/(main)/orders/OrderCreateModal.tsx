@@ -1,15 +1,25 @@
 
-import { MenuTableList } from "@/app/(main)/restaurants/[restaurant_id]/tables/[table_id]/menus/MenuTableList"
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react"
 import { OrderCreateList } from "./OrderCreateList"
+import { MenuTableList } from "../../../tables/[table_id]/menus/MenuTableList"
+import { useLiveQueryContext } from "@livequery/react"
+import { Restaurant } from "@/types"
 
 export type OrderCreateModal = {
+    restaurant?: Restaurant
     onClose: () => void
 }
 
-export const OrderCreateModal = ({ onClose }: OrderCreateModal) => {
+export const OrderCreateModal = ({ onClose, restaurant }: OrderCreateModal) => {
 
     const { colorMode } = useColorMode()
+
+    const { transporter } = useLiveQueryContext()
+    // const onSubmit: SubmitHandler<Partial<Order>> = async data => {
+    //     const new_order = await transporter.add<Order, { data: { item: Order } }>(`restaurants/${props.params.restaurant_id}/orders`, {
+    //         table_id: props.params.table_id
+    //     })
+    // }
 
     return (
         <Modal
@@ -56,7 +66,7 @@ export const OrderCreateModal = ({ onClose }: OrderCreateModal) => {
                             />
                             <TabPanels>
                                 <TabPanel px='0' py='7'>
-                                    <MenuTableList />
+                                    <MenuTableList restaurant={restaurant}  />
                                 </TabPanel>
                                 <TabPanel px='0' pt='7'>
                                     <OrderCreateList />

@@ -1,33 +1,28 @@
 'use client'
 
-import { theme } from "@/theme";
+import { TableCustomerMap } from "@/text";
 import { Box, HStack, Text, VStack } from "@chakra-ui/layout";
 import { Tabs, TabList, Tab, TabIndicator, TabPanels, TabPanel, useColorMode } from "@chakra-ui/react";
-import { RestaurantPage } from "./home/RestaurantPage";
-import { OrderList } from "./orders/OrderList";
-import { TableList } from "./tables/TableList";
-import { HistoryList } from "./histories/HistoryList";
-import { TabListMap } from "@/text";
-import { MenuResraurantList } from "./menus/MenuRestaurantList";
-import { Restaurant } from "@/types";
+import { MenuTableList } from "../../menus/MenuTableList";
+import { OrderTableList } from "./OrderTableList";
+import { theme } from "@/theme";
 import { useDocumentData } from "@livequery/react";
-import { TopbarAdmin } from "./TopbarAdmin";
+import { Restaurant } from "@/types";
 
-export default function PageAdmin(props: {
+
+export default function OrderPage(props: {
     params: {
         restaurant_id: string,
+        table_id: string
     }
 }) {
-
+    
     const { colorMode } = useColorMode()
     const $restaurant = useDocumentData<Restaurant>(`restaurants/${props.params.restaurant_id}`)
-
     const restaurant = $restaurant.item
 
     return (
-        <VStack w='full' spacing='0'>
-            <TopbarAdmin restaurant={restaurant} />
-            <Tabs w='full' position="relative" variant="unstyled" >
+        <Tabs w='full' position="relative" variant="unstyled" >
                 <Box
                     w='full'
                     pos='sticky'
@@ -43,7 +38,7 @@ export default function PageAdmin(props: {
                     >
                         <HStack w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                             {
-                                TabListMap.map(({ icon, name }, i) => (
+                                TableCustomerMap.map(({ icon, name }, i) => (
                                     <Tab
                                         key={i}
                                         p='5'
@@ -60,7 +55,7 @@ export default function PageAdmin(props: {
                                         <HStack>
                                             <Box fontSize='xl'>{icon}</Box>
                                             <Text
-                                                display={{ base: 'none', md: 'block' }}
+                                                // display={{ base: 'none', md: 'block' }}
                                                 fontWeight='600'
                                                 fontSize='18px'
                                             >
@@ -77,30 +72,27 @@ export default function PageAdmin(props: {
                         bg="blue.500"
                     />
                 </Box>
-                <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>
+                <TabPanels w='full' px='0' display='flex' justifyContent='center'>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <OrderList />
+                        <VStack
+                            w='full'
+                            bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
+                            borderRadius='5px'
+                            border='1px'
+                            borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
+                            spacing='5'
+                            px={{ base: '2', md: '4' }}
+                            py='10'
+                        >
+                            {
+                                restaurant && <MenuTableList restaurant={restaurant} />
+                            }
+                        </VStack>
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        {
-                            restaurant && <MenuResraurantList restaurant={restaurant} />
-                        }
-                    </TabPanel>
-                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        {
-                            restaurant && <TableList restaurant={restaurant} />
-                        }
-                    </TabPanel>
-                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <HistoryList />
-                    </TabPanel>
-                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        {
-                            restaurant && <RestaurantPage restaurant={restaurant} />
-                        }
+                        <OrderTableList />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-        </VStack >
     )
 }

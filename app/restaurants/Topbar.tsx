@@ -28,7 +28,7 @@ export const Topbar = () => {
                     boxSize={{ base: '25px', md: '30px' }}
                 />
                 <Text fontSize={{ base: 14, md: 18 }}>
-                    Menu điện tử cho nhà hàng
+                    Menu điện tử cho nhà hàng Nét Huế
                 </Text>
             </HStack>
             <HStack>

@@ -43,3 +43,28 @@ export declare class Food extends BaseEntity {
     price: number;
     description: string;
 }
+
+export declare class Order extends BaseEntity {
+    customer_id: string ;
+    restaurant_id: string;
+    customer_name: string;
+    table_id: string;
+    status: string;
+    total: number;
+    food_amount: number
+}
+
+export declare class OrderItem extends BaseEntity {
+    restaurant_id: string;
+    name: string;
+    price: number;
+    table_id: string;
+    creator_id: string;
+    creator_name: string;
+    food_id: string;
+    amount: number;
+    image: string;
+    order_id: string;
+    customer_id: string;
+    status: string
+}

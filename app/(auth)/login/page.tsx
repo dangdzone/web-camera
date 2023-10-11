@@ -12,7 +12,7 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react'; 
+import { useEffect } from 'react';
 import { useFirebaseUserContext } from '@/hooks/useFirebaseUser';
 import { LoginDetail } from './LoginDetail';
 
@@ -32,7 +32,7 @@ export default function LoginPage() {
                 status: 'success',
                 duration: 3000,
             })
-            router.push(`/`)
+            router.push(`/restaurants`)
         }
     })
 
@@ -72,7 +72,7 @@ export default function LoginPage() {
                             <Text fontWeight='400' fontSize='3xl'>Nhóm 10</Text>
                         </HStack>
                         <Text align={'center'} fontSize={{ base: 'sm', md: 'md' }} fontWeight='400' color={'gray.500'}>
-                            Chào mừng bạn đến với Menu cho nhà hàng...
+                            Chào mừng bạn đến với Menu cho nhà hàng Nét Huế
                         </Text>
                     </Stack>
                     <LoginDetail />

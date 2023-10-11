@@ -1,7 +1,7 @@
 
+import { OrderTableItem } from "@/components/common/OrderTableItem"
 import { theme } from "@/theme"
 import { Button, Divider, HStack, Stack, Text, VStack, useColorMode } from "@chakra-ui/react"
-import { OrderTableItem } from "../../../../../../../../components/common/OrderTableItem"
 
 export const OrderTableList = () => {
 

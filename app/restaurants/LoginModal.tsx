@@ -2,8 +2,8 @@
 import { Text } from "@chakra-ui/layout"
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, VStack, useColorMode, useToast } from "@chakra-ui/react"
 import { useEffect } from "react"
-import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { LoginDetail } from "../(auth)/login/LoginDetail"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 
 export type LoginModal = {
     onClose: () => void

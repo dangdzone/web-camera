@@ -1,3 +1,4 @@
+
 import { theme } from "@/theme"
 import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { Button, useColorMode } from "@chakra-ui/react"
@@ -6,19 +7,31 @@ import { OrderStatusMap } from "@/text"
 import { useState } from "react"
 import { OrderCreateModal } from "./OrderCreateModal"
 import { OrderModal } from "./OrderModal"
+import { useCollectionData } from "@livequery/react"
+import { Order, Restaurant } from "@/types"
+import { SmartQueryItem } from "@livequery/client"
 
+export type OrderList = {
+    restaurant: Restaurant
+}
 
-export const OrderList = () => {
+export const OrderList = ({ restaurant }: OrderList) => {
 
     const { colorMode } = useColorMode()
-    const [active_order_create, set_active_order_create] = useState<undefined | null>(null)
-    const [actice_order, set_active_order] = useState<undefined | null>(null)
+    const [active_order_create, set_active_order_create] = useState<undefined | null | SmartQueryItem<Restaurant>>(null)
+    const [actice_order, set_active_order] = useState<undefined | null | SmartQueryItem<Order>>(null)
+
+    const $orders = useCollectionData<Order>(`restaurants/${restaurant.id}/orders`)
+    const orders = $orders.items
 
     return (
         <VStack w='full' spacing='5'>
             {
                 active_order_create !== null && (
-                    <OrderCreateModal onClose={() => set_active_order_create(null)} />
+                    <OrderCreateModal
+                        onClose={() => set_active_order_create(null)}
+                        restaurant={active_order_create}
+                    />
                 )
             }
             {
@@ -54,8 +67,14 @@ export const OrderList = () => {
                 </Wrap>
                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px='4'>
                     {
-                        new Array(10).fill(1).map((_, i) => (
-                            <OrderItem key={i} onClick={() => set_active_order(undefined)} />
+                        orders.map((order, i) => (
+                            <OrderItem
+                                key={order.id}
+                                order={order}
+                                index={i + 1}
+                                onClick={() => set_active_order(order)}
+
+                            />
                         ))
                     }
                 </SimpleGrid>

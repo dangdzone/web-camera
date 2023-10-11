@@ -1,12 +1,13 @@
 'use client'
 
 import { Box, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react";
-import { Restaurantlist } from "./RestaurantList";
-import { Topbar } from "./Topbar";
 import { theme } from "@/theme";
 import { RestauranManager } from "@/text";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { TopbarAdmin } from "./[restaurant_id]/admin/(main)/TopbarAdmin";
+import { Restaurantlist } from "./RestaurantList";
+import { Topbar } from "./Topbar";
 
 
 export default function Page() {
