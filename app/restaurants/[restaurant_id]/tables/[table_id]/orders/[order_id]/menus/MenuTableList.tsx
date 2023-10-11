@@ -11,9 +11,10 @@ import { Subject } from "rxjs"
 
 export type MenuTableList = {
     restaurant?: Restaurant
+    order_id?: string
 }
 
-export const MenuTableList = ({ restaurant }: MenuTableList) => {
+export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
 
     const { colorMode } = useColorMode()
     const [active_menu_table, set_active_menu_table] = useState<undefined | null | SmartQueryItem<Food>>(null)
@@ -38,6 +39,8 @@ export const MenuTableList = ({ restaurant }: MenuTableList) => {
                     <MenuTabbleModal
                         onClose={() => set_active_menu_table(null)}
                         food={active_menu_table}
+                        restaurant={restaurant}
+                        order_id={order_id}
                     />
                 )
             }

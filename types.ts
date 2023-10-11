@@ -42,6 +42,7 @@ export declare class Food extends BaseEntity {
     images: string;
     price: number;
     description: string;
+    amount: number
 }
 
 export declare class Order extends BaseEntity {
@@ -67,4 +68,5 @@ export declare class OrderItem extends BaseEntity {
     order_id: string;
     customer_id: string;
     status: string
+    description: string;
 }
