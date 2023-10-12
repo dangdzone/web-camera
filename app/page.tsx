@@ -58,16 +58,12 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 export default function IndexPage() {
     const ListName = [
         {
-            name: 'TS.Lương Thị Bích Phượng',
+            name: 'ThS. Nguyễn Hồng Thanh',
             position: 'Giảng viên hướng dẫn'
         },
         {
             name: 'Nguyễn Văn Đang',
             position: 'Nhóm Trưởng'
-        },
-        {
-            name: 'Vũ Thu Hiền',
-            position: 'Thành viên'
         },
         {
             name: 'Bùi Hương Giang',
@@ -92,17 +88,14 @@ export default function IndexPage() {
                     lineHeight={'110%'}
                     px='2'
                 >
-                    Nghiên cứu khoa học CNTT{' - '}
+                   	Công nghệ Web{' - '}
                     <Text as={'span'} color={'teal.500'} lineHeight='1.5'>
-                        Phân tích thiết kế và xây dựng ứng dụng quản lý nhà hàng.
+                        Phân tích thiết kế và xây dựng menu cho nhà hàng Nét Huế.
                     </Text>
                 </Heading>
                 <Text color={'gray.500'} maxW={'5xl'} fontSize={{ base: 'lg', md: '2xl' }} fontWeight={500} px='2'>
-                    Giải pháp quét mã QR gọi món áp dụng trong các nhà hàng, vận hành hàng trăm yêu cầu gọi món cùng một lúc nhanh gọn, chính xác.
+                    Giải pháp thay thế menu trong các nhà hàng Nét Huế, vận hành hàng trăm yêu cầu gọi món cùng một lúc nhanh gọn, chính xác.
                 </Text>
-
-
-
                 <Stack spacing={3} direction={'row'}>
                     <Link href='/login'>
                         <Button
@@ -129,9 +122,9 @@ export default function IndexPage() {
                     />
                     <Feature
                         icon={<Icon as={FcMindMap} w={10} h={10} />}
-                        title={'Chia việc cho nhân viên tự động'}
+                        title={'Tạo nhiều chi nhánh, cửa hàng'}
                         text={
-                            'Sau khi nhận order món trên phần mềm, hệ thống tự động nhận diện món đó thuộc quầy nào, và sau đó chia sẽ tự động chia việc cho nhân viên thuộc quầy đó theo trạng thái món.'
+                            'Phần mềm hỗ trợ cho chủ cửa hàng có thể mở rộng chi nhánh, cửa hàng ngay lập tức, không mất thời gian về việc setup, tiết kiệm được thời gian, công sức, mang lại hiệu quả cao.'
                         }
                     />
                     <Feature
@@ -150,16 +143,16 @@ export default function IndexPage() {
                     />
                     <Feature
                         icon={<Icon as={FcOvertime} w={10} h={10} />}
-                        title={'Triển khai được nhiều quầy/bếp'}
+                        title={'Quản lý menu riêng cho từng cửa hàng'}
                         text={
-                            'Một nhà hàng có thể có một hoặc nhiều khu vực quầy/bếp để phục vụ cho khách hàng, và mỗi khu vực đó sẽ có một nhiệm vị riêng biệt, tạo sự linh hoạt, nhanh chóng.'
+                            'Mỗi nhà hàng có thể quản lý riêng menu để phục vụ cho khách hàng, tạo sự linh hoạt, nhanh chóng.'
                         }
                     />
                     <Feature
                         icon={<Icon as={FcCurrencyExchange} w={10} h={10} />}
-                        title={'Triển khai được nhiều cửa hàng'}
+                        title={'Có thể tạo được nhiều order trong bàn cùng lúc'}
                         text={
-                            'Phần mềm hỗ trợ cho chủ cửa hàng có thể mở rộng chi nhánh, cửa hàng ngay lập tức, không mất thời gian về việc setup, tiết kiệm được thời gian, công sức, mang lại hiệu quả cao.'
+                            'Mỗi bàn sẽ đều có 1 mã qr để tạo đơn hàng, đặc biệt có thể tạo được rất nhiều order trong bàn cùng 1 thời gian'
                         }
                     />
                 </SimpleGrid>

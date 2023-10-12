@@ -2,7 +2,7 @@
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { RestarantItem } from "./RestaurantItem"
 import { useState } from "react"
-import { Button, useColorMode } from "@chakra-ui/react"
+import { Button, Spinner, useColorMode } from "@chakra-ui/react"
 import { FiPlus } from "react-icons/fi"
 import { theme } from "@/theme"
 import { useCollectionData } from "@livequery/react"
@@ -52,6 +52,12 @@ export const Restaurantlist = () => {
                     ))
                 }
             </SimpleGrid>
+            {
+                $restaurants.loading && <Spinner color="teal.500" size='lg' />
+            }
+            {
+                $restaurants.empty && <Text fontSize='18px' color="teal.500">Chưa có nhà hàng nào...</Text>
+            }
         </VStack>
     )
 }

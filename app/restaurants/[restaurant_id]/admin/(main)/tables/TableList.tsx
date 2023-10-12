@@ -1,7 +1,7 @@
 
 import { theme } from "@/theme"
 import { VStack, HStack, Text, SimpleGrid } from "@chakra-ui/layout"
-import { Button, useColorMode } from "@chakra-ui/react"
+import { Button, Spinner, useColorMode } from "@chakra-ui/react"
 import { TableItem } from "./TableItem"
 import { TableQr } from "./TableQr"
 import { useState } from "react"
@@ -65,6 +65,12 @@ export const TableList = ({ restaurant }: TableList) => {
                         ))
                     }
                 </SimpleGrid>
+                {
+                    $tables.loading && <Spinner color="teal.500" size='lg' />
+                }
+                {
+                    $tables.empty && <Text fontSize='18px' color="teal.500">Chưa có bàn...</Text>
+                }
             </VStack>
             <VStack
                 w='full'

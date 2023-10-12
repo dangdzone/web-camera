@@ -27,7 +27,7 @@ export default function TablePage(props: {
     const onSubmit: SubmitHandler<Partial<Order>> = async data => {
         const new_order = await transporter.add<Order, { data: { item: Order } }>(`restaurants/${props.params.restaurant_id}/orders`, {
             table_id: props.params.table_id,
-            status: 'unpaid'
+            status: 'requested'
         })
         const order_id = new_order.data.item.id
         const ref = `/restaurants/${props.params.restaurant_id}/tables/${props.params.table_id}/orders/${order_id}`

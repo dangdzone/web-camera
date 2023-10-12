@@ -94,7 +94,9 @@ export default function PageAdmin(props: {
                         }
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                        <HistoryList />
+                        {
+                            restaurant && <HistoryList restaurant={restaurant} />
+                        }
                     </TabPanel>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         {

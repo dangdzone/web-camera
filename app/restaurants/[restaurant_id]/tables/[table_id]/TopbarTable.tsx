@@ -3,7 +3,8 @@
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Restaurant, RestaurantTable } from "@/types"
 import { HStack, Text, VStack } from "@chakra-ui/layout"
-import { IconButton, Tag, useColorMode } from "@chakra-ui/react"
+import { Button, IconButton, Tag, useColorMode } from "@chakra-ui/react"
+import Link from "next/link"
 import { BsSun } from "react-icons/bs"
 import { MdOutlineModeNight } from "react-icons/md"
 
@@ -34,6 +35,9 @@ export const TopbarTable = ({ restaurant, table }: TopbarTable) => {
             </VStack>
             <HStack>
                 <HStack>
+                    <Link href={`/restaurants/${restaurant?.id}/tables/${table?.id}`}>
+                        <Button variant='outline' size='sm' color='whiteAlpha.900' _hover={{bg: 'gray.500'}}>Tạo đơn mới</Button>
+                    </Link>
                     <Tag size='lg'>{table?.name}</Tag>
                 </HStack>
                 <IconButton

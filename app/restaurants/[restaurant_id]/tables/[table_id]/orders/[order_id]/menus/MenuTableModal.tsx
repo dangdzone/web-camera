@@ -101,7 +101,7 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
                     <ModalFooter p={{ base: '2', md: '4' }}>
                         <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
                         {
-                            status == 'unpaid' && (
+                            (status !== 'paid') && (status !== 'cancel') && (
                                 <Button
                                     variant='solid'
                                     colorScheme='blue'

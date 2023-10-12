@@ -76,6 +76,14 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                         ))
                     }
                 </SimpleGrid>
+                <VStack w='full'>
+                    {
+                        $categories.loading && <Spinner color="teal.500" size='lg' />
+                    }
+                    {
+                        $categories.empty && <Text fontSize='18px' color="teal.500">Chưa có danh mục món...</Text>
+                    }
+                </VStack>
             </VStack>
 
             <VStack

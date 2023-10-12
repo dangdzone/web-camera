@@ -73,7 +73,7 @@ export default function OrderPage(props: {
                     bg="blue.500"
                 />
             </Box>
-            <TabPanels w='full' px='0' display='flex' justifyContent='center'>
+            <TabPanels w='full' px='0' py='4' display='flex' justifyContent='center'>
                 <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                     <VStack
                         w='full'

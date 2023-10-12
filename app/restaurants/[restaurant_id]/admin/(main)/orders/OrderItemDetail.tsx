@@ -30,7 +30,14 @@ export const OrderItemDetail = (props: OrderItemDetail) => {
                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>
                     <VStack w='full' align='flex-start' spacing='2'>
                         <Text textTransform='uppercase'>{props.order_item?.name}</Text>
-                        <Tag colorScheme='red' size='sm'>{props.order_item?.price.toLocaleString()} đ</Tag>
+                        <HStack>
+                            <Tag colorScheme='red' size='sm'>{props.order_item?.price.toLocaleString()} đ</Tag>
+                            <Text
+                                color={props.order_item.status == 'confirm' ? 'blue.500' : 'red.500'}
+                            >
+                                ({props.order_item.status == 'confirm' ? 'Đã lên bàn' : 'Chưa lên bàn'})
+                            </Text>
+                        </HStack>
                     </VStack>
                     <VStack w='full' align='flex-start'>
                         <HStack>
@@ -38,7 +45,7 @@ export const OrderItemDetail = (props: OrderItemDetail) => {
                         </HStack>
                         <HStack>
                             <Text opacity='0.7'>Thành tiền</Text>
-                            <Tag colorScheme='orange' size='sm'>{(props.order_item?.price*props.order_item?.amount).toLocaleString()} đ</Tag>
+                            <Tag colorScheme='orange' size='sm'>{(props.order_item?.price * props.order_item?.amount).toLocaleString()} đ</Tag>
                         </HStack>
                     </VStack>
                 </SimpleGrid>

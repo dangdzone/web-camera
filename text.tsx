@@ -5,16 +5,35 @@ import { BsShop } from "react-icons/bs"
 import { FiPlusSquare, FiShoppingCart } from "react-icons/fi"
 import { MdOutlineHistory, MdOutlineTableRestaurant } from "react-icons/md"
 
-export const OrderStatusMap = [
-    {
-        name: 'Chờ xác nhận',
-        color: 'gray'
+export const OrderItemStatusMap = {
+    requested: {
+        name: 'Chưa lên bàn',
+        color: 'red'
     },
-    {
-        name: 'Chờ thanh toán',
+    confirm: {
+        name: 'Đã lên bàn',
         color: 'blue'
     }
-]
+}
+
+export const OrderStatusMap = {
+    requested: {
+        name: 'Đã yêu cầu',
+        color: 'green'
+    },
+    unpaid: {
+        name: 'Chờ thanh toán',
+        color: 'orange'
+    },
+    pay: {
+        name: 'Đã thanh toán',
+        color: 'blue'
+    },
+    cancel: {
+        name: 'Hủy',
+        color: 'red'
+    },
+}
 
 export const TabListMap = [
     {

@@ -4,6 +4,7 @@ import { Button, Divider, HStack, Spinner, Text, VStack, useColorMode } from "@c
 import { OrderTableItem } from "./OrderTableItem"
 import { Order, OrderItem } from "@/types"
 import { useCollectionData, useDocumentData } from "@livequery/react"
+import { OrderStatusMap } from "@/text"
 
 export type OrderTableList = {
     restaurant_id: string,
@@ -52,19 +53,37 @@ export const OrderTableList = (props: OrderTableList) => {
                     $order_items.loading && <Spinner color="teal.500" size='lg' />
                 }
             </VStack>
-            <VStack w='full' p='4' borderTop='1px' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'} spacing='5'>
-                <HStack w='full' justifyContent='space-between' pt='3'>
+            <VStack w='full' p='4' borderTop='1px' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'} spacing='7'>
+                <HStack w='full' justifyContent='space-between'>
                     <Text as='b'>Tổng tiền:</Text>
                     <Text as='b' fontSize='20px'>{$order.item?.total.toLocaleString()} đ</Text>
                 </HStack>
-                <Button
-                    colorScheme='teal'
-                    w='full'
-                    isDisabled={status == 'paid' || $order_items.empty}
-                    onClick={() => alert('Bạn vui lòng ra =thanh toán tại quầy thu ngân !')}
-                >
-                    {status == 'unpaid' ? 'Thanh toán' : 'Đã thanh toán'}
-                </Button>
+                <HStack w='full' justifyContent='space-between'>
+                    <Text as='b'>Trạng thái đơn hàng</Text>
+                    {
+                        Object.entries(OrderStatusMap).filter(([name_id,]) => status == name_id).map(([name_id, { name, color }]) => (
+                            <Button
+                                size='sm'
+                                key={name_id}
+                                colorScheme={color}
+                                variant={'outline'}
+                            >
+                                {name}
+                            </Button>
+                        ))
+                    }
+                </HStack>
+                {
+                    status == 'unpaid' && (
+                        <Text
+                            p='4'
+                            bg={colorMode == 'dark' ? 'blue.800' : 'blue.100'}
+                            borderRadius='10px'
+                        >
+                           Quý khách thanh toán tại quầy lễ tân !
+                        </Text>
+                    )
+                }
             </VStack>
         </VStack>
     )

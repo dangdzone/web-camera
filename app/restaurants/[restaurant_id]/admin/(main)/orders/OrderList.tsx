@@ -1,7 +1,7 @@
 
 import { theme } from "@/theme"
 import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
-import { Button, useColorMode } from "@chakra-ui/react"
+import { Button, Spinner, useColorMode } from "@chakra-ui/react"
 import { OrderListItem } from "./OrderListItem"
 import { OrderStatusMap } from "@/text"
 import { useState } from "react"
@@ -22,7 +22,8 @@ export const OrderList = ({ restaurant }: OrderList) => {
     const [actice_order, set_active_order] = useState<undefined | null | SmartQueryItem<Order>>(null)
 
     const $orders = useCollectionData<Order>(`restaurants/${restaurant.id}/orders`)
-    const orders = $orders.items
+    const orders = $orders.items.filter(a => (a.status !== 'pay') && (a.status !== 'cancel'))
+    const { filters, filter } = $orders
 
     return (
         <VStack w='full' spacing='5'>
@@ -62,9 +63,30 @@ export const OrderList = ({ restaurant }: OrderList) => {
                     <Button size='sm' onClick={() => set_active_order_create(undefined)}>Tạo đơn mới</Button>
                 </HStack>
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>
+                    <Button
+                        colorScheme='red'
+                        onClick={() => filter({
+                            ...filters,
+                            status: undefined
+                        })}
+                        variant={!filters.status ? 'solid' : 'outline'}
+                    >
+                        Tất cả
+                    </Button>
+
                     {
-                        OrderStatusMap.map(({ color, name }, i) => (
-                            <Button size={{ base: 'sm', md: 'md' }} key={i} colorScheme={color}>{name}</Button>
+                        Object.entries(OrderStatusMap).filter(([name_id, ]) => (name_id !== 'pay') && (name_id !== 'cancel')).map(([name_id, { name, color }]) => (
+                            <Button
+                                key={name_id}
+                                colorScheme={color}
+                                onClick={() => filter({
+                                    ...filters,
+                                    status: name_id
+                                })}
+                                variant={name_id == filters.status ? 'solid' : 'outline'}
+                            >
+                                {name}
+                            </Button>
                         ))
                     }
                 </Wrap>
@@ -80,6 +102,12 @@ export const OrderList = ({ restaurant }: OrderList) => {
                         ))
                     }
                 </SimpleGrid>
+                {
+                    $orders.loading && <Spinner color="teal.500" size='lg' />
+                }
+                {
+                    $orders.empty && <Text fontSize='18px' color="teal.500">Chưa có món...</Text>
+                }
             </VStack>
         </VStack>
     )
