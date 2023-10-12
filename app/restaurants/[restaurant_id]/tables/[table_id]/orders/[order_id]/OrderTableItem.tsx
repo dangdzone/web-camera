@@ -1,26 +1,30 @@
+
+import { OrderItem } from "@/types"
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
-import { Button, IconButton, Image, Input, Tag, useNumberInput } from "@chakra-ui/react"
-import { RiDeleteBinLine } from "react-icons/ri"
+import { Image, Tag } from "@chakra-ui/react"
+import { SmartQueryItem } from "@livequery/client"
 
+export type OrderTableItem = {
+    order_item: SmartQueryItem<OrderItem>
+}
 
-export const OrderTableItem = () => {
-
+export const OrderTableItem = (props: OrderTableItem) => {
 
     return (
         <HStack py='2' spacing='4' w='full'>
-            <Image alignSelf='flex-start' boxSize='80px' borderRadius='5px' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToDygOmQKcr4VkjRlVnULVsBCaRfM1c7rtSg&usqp=CAU' />
+            <Image alignSelf='flex-start' boxSize='80px' borderRadius='5px' src={props.order_item.image} />
             <SimpleGrid w='full' spacing='2' columns={[1, 1, 2, 2]}>
                 <VStack w='full' align='flex-start' spacing='2'>
-                    <Text textTransform='uppercase'>Mẹt Bún Ninh Bình</Text>
-                    <Tag colorScheme='red' size='sm'>174.4993 đ</Tag>
+                    <Text textTransform='uppercase'>{props.order_item.name}</Text>
+                    <Tag colorScheme='red' size='sm'>{props.order_item.price.toLocaleString()} đ</Tag>
                 </VStack>
                 <VStack w='full' align='flex-start'>
                     <HStack>
-                        <Text>Số lượng</Text>
+                        <Text>SL: {props.order_item.amount}</Text>
                     </HStack>
                     <HStack>
-                        <Text opacity='0.7'>Tạm tính</Text>
-                        <Tag colorScheme='orange' size='sm'>174.4993 đ</Tag>
+                        <Text opacity='0.7'>Tổng</Text>
+                        <Tag colorScheme='orange' size='sm'>{(props.order_item.price*props.order_item.amount).toLocaleString()} đ</Tag>
                     </HStack>
                 </VStack>
             </SimpleGrid>

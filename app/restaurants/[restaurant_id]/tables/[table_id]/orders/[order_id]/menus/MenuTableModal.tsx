@@ -29,6 +29,7 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
 
     const { transporter } = useLiveQueryContext()
     const onSubmit = useMonitor(async data => {
+        console.log({ data })
         await transporter.add(`restaurants/${restaurant?.id}/orders/${order_id}/order-items`, { ...data })
         onClose()
     })
@@ -103,6 +104,7 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
                             type="submit"
                             leftIcon={<BiCartAdd />}
                             isDisabled={watch('amount') == 0}
+                            isLoading={onSubmit.loading}
                         >
                             Đặt món ngay
                         </Button>

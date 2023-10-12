@@ -4,7 +4,7 @@ import { HistoryMap, OrderStatusMap } from "@/text"
 import { theme } from "@/theme"
 import { Button, HStack, SimpleGrid, Text, VStack, Wrap, useColorMode } from "@chakra-ui/react"
 import { useState } from "react"
-import { OrderItem } from "../orders/OrderItem"
+import { OrderListItem } from "../orders/OrderListItem"
 
 export const HistoryList = () => {
 
@@ -42,7 +42,7 @@ export const HistoryList = () => {
                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px='4'>
                     {
                         new Array(10).fill(1).map((_, i) => (
-                            <OrderItem key={i} />
+                            <OrderListItem key={i} />
                         ))
                     }
                 </SimpleGrid>

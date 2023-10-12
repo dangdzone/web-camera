@@ -1,5 +1,4 @@
 
-import { OrderTableItem } from "@/components/common/OrderTableItem"
 import { Button, Divider, HStack, Stack, Text, VStack, useColorMode } from "@chakra-ui/react"
 
 export const OrderCreateList = () => {
@@ -9,11 +8,11 @@ export const OrderCreateList = () => {
     return (
         <VStack w='full' spacing='5'>
             <Stack w='full' divider={<Divider />}>
-                {
+                {/* {
                     new Array(5).fill(1).map((_, i) => (
                         <OrderTableItem key={i} />
                     ))
-                }
+                } */}
             </Stack>
             <VStack w='full' py='4' borderTop='1px' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'} spacing='5'>
                 <HStack w='full' justifyContent='space-between' pt='3'>

@@ -11,7 +11,7 @@ export const OrderStatusMap = [
         color: 'gray'
     },
     {
-        name: 'Đã xác nhận',
+        name: 'Chờ thanh toán',
         color: 'blue'
     }
 ]

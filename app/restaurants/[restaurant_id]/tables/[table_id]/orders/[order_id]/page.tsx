@@ -22,9 +22,6 @@ export default function OrderPage(props: {
     const $restaurant = useDocumentData<Restaurant>(`restaurants/${props.params.restaurant_id}`)
     const restaurant = $restaurant.item
 
-    const $order_items = useCollectionData<OrderItem>(`restaurants/${props.params.restaurant_id}/orders/${props.params.order_id}/order-items`)
-    console.log('aaaa',  $order_items.items)
-
     return (
         <Tabs w='full' position="relative" variant="unstyled" >
             <Box
@@ -99,7 +96,10 @@ export default function OrderPage(props: {
                     </VStack>
                 </TabPanel>
                 <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                    <OrderTableList  />
+                    <OrderTableList
+                        restaurant_id={props.params.restaurant_id}
+                        order_id={props.params.order_id}
+                    />
                 </TabPanel>
             </TabPanels>
         </Tabs>

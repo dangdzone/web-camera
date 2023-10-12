@@ -1,11 +1,28 @@
 
 import { theme } from "@/theme"
-import { Button, Divider, HStack, Stack, Text, VStack, useColorMode } from "@chakra-ui/react"
+import { Button, Divider, HStack, Spinner, Stack, Text, VStack, useColorMode } from "@chakra-ui/react"
 import { OrderTableItem } from "./OrderTableItem"
+import { SmartQueryItem } from "@livequery/client"
+import { Order, OrderItem } from "@/types"
+import { useCollectionData, useDocumentData } from "@livequery/react"
 
-export const OrderTableList = () => {
+export type OrderTableList = {
+    restaurant_id: string,
+    order_id: string
+}
+
+export const OrderTableList = (props: OrderTableList) => {
 
     const { colorMode } = useColorMode()
+    const ref = `restaurants/${props.restaurant_id}/orders/${props.order_id}/order-items`
+    const $order_items = useCollectionData<OrderItem>(ref)
+    const order_items = $order_items.items
+
+    const $order = useDocumentData<Order>(`restaurants/${props.restaurant_id}/orders/${props.order_id}`)
+
+    // console.log({ ref })
+    console.log('$order ', $order)
+    console.log('order_id', props.order_id)
 
     return (
         <VStack
@@ -26,19 +43,32 @@ export const OrderTableList = () => {
             >
                 <Text fontWeight='600'>Đơn hàng của bạn</Text>
             </HStack>
-            <Stack w='full' divider={<Divider />} p='4'>
+            <VStack w='full' divider={<Divider />} p='4'>
                 {
-                    new Array(5).fill(1).map((_, i) => (
-                        <OrderTableItem key={i} />
+                    order_items.map((order_item, i) => (
+                        <OrderTableItem key={i} order_item={order_item} />
                     ))
                 }
-            </Stack>
+                {
+                    $order_items.empty && <Text>Chưa có món nào...</Text>
+                }
+                {
+                    $order_items.loading && <Spinner color="teal.500" size='lg' />
+                }
+            </VStack>
             <VStack w='full' p='4' borderTop='1px' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'} spacing='5'>
                 <HStack w='full' justifyContent='space-between' pt='3'>
                     <Text as='b'>Tổng tiền:</Text>
-                    <Text as='b' fontSize='20px'>1.002.000 đ</Text>
+                    <Text as='b' fontSize='20px'>{$order.item?.total.toLocaleString()} đ</Text>
                 </HStack>
-                <Button colorScheme='teal' w='full'>Gọi đồ ngay</Button>
+                <Button
+                    colorScheme='teal'
+                    w='full'
+                    isDisabled={$order_items.empty}
+                    onClick={() => alert('Bạn vui lòng ra =thanh toán tại quầy thu ngân !')}
+                >
+                    Thanh toán
+                </Button>
             </VStack>
         </VStack>
     )

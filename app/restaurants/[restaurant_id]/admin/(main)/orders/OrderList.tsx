@@ -2,7 +2,7 @@
 import { theme } from "@/theme"
 import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { Button, useColorMode } from "@chakra-ui/react"
-import { OrderItem } from "./OrderItem"
+import { OrderListItem } from "./OrderListItem"
 import { OrderStatusMap } from "@/text"
 import { useState } from "react"
 import { OrderCreateModal } from "./OrderCreateModal"
@@ -36,7 +36,10 @@ export const OrderList = ({ restaurant }: OrderList) => {
             }
             {
                 actice_order !== null && (
-                    <OrderModal onClose={() => set_active_order(null)} />
+                    <OrderModal
+                        onClose={() => set_active_order(null)}
+                        order={actice_order}
+                    />
                 )
             }
             <VStack
@@ -68,12 +71,11 @@ export const OrderList = ({ restaurant }: OrderList) => {
                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px='4'>
                     {
                         orders.map((order, i) => (
-                            <OrderItem
+                            <OrderListItem
                                 key={order.id}
                                 order={order}
                                 index={i + 1}
                                 onClick={() => set_active_order(order)}
-
                             />
                         ))
                     }

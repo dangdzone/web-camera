@@ -1,9 +1,14 @@
+import { OrderItem } from "@/types"
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { Button, IconButton, Image, Input, Tag, useNumberInput } from "@chakra-ui/react"
+import { SmartQueryItem } from "@livequery/client"
 import { RiDeleteBinLine } from "react-icons/ri"
 
+export type OrderItemDetail = {
+    order_item?: SmartQueryItem<OrderItem>
+}
 
-export const OrderTableItem = () => {
+export const OrderItemDetail = (props: OrderItemDetail) => {
 
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
         useNumberInput({

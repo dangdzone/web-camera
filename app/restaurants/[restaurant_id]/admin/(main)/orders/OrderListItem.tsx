@@ -1,20 +1,21 @@
 
-import { Order, Restaurant, RestaurantTable } from "@/types"
+import { Order, OrderItem, Restaurant, RestaurantTable } from "@/types"
 import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
-import { useDocumentData } from "@livequery/react"
+import { useCollectionData, useDocumentData } from "@livequery/react"
 
-export type OrderItem = {
+export type OrderListItem = {
     order?: SmartQueryItem<Order>
     onClick?: () => void
     index?: number
 }
 
-export const OrderItem = ({ onClick, order, index }: OrderItem) => {
+export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
 
     const { colorMode } = useColorMode()
     const $table = useDocumentData<RestaurantTable>(`restaurants/${order?.restaurant_id}/tables/${order?.table_id}`)
+    const $order_items = useCollectionData<OrderItem>(`restaurants/${order?.restaurant_id}/orders/${order?.id}/order-items`)
 
     return (
         <HStack
@@ -33,11 +34,11 @@ export const OrderItem = ({ onClick, order, index }: OrderItem) => {
             <VStack w='full' align='flex-start'>
                 <HStack w='full' justifyContent='space-between'>
                     <Text fontWeight='600' opacity='0.8'>{order?.customer_name}</Text>
-                    <Tag colorScheme='teal'>{order?.total}đ</Tag>
+                    <Tag colorScheme='teal'>{order?.total.toLocaleString()}đ</Tag>
                 </HStack>
                 <HStack w='full' justifyContent='space-between'>
                     <Text color='red.500'>{$table?.item?.name}</Text>
-                    <Tag variant='outline'>{order?.food_amount} món</Tag>
+                    <Tag variant='outline'>{$order_items.items.length || 0} món</Tag>
                 </HStack>
             </VStack>
         </HStack>
