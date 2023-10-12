@@ -1,48 +1,47 @@
 import { OrderItem } from "@/types"
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
-import { Button, IconButton, Image, Input, Tag, useNumberInput } from "@chakra-ui/react"
+import { Image, Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
-import { RiDeleteBinLine } from "react-icons/ri"
+import { useLiveQueryContext, useMonitor } from "@livequery/react"
 
 export type OrderItemDetail = {
-    order_item?: SmartQueryItem<OrderItem>
+    order_item: SmartQueryItem<OrderItem>
+    onClick?: () => void
 }
 
 export const OrderItemDetail = (props: OrderItemDetail) => {
 
-    const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-        useNumberInput({
-            defaultValue: 1,
-            min: 0,
-        })
-    const inc = getIncrementButtonProps()
-    const dec = getDecrementButtonProps()
-    const input = getInputProps()
+    const { colorMode } = useColorMode()
 
     return (
-        <HStack py='2' spacing='4' w='full'>
-            <Image alignSelf='flex-start' boxSize='80px' borderRadius='5px' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToDygOmQKcr4VkjRlVnULVsBCaRfM1c7rtSg&usqp=CAU' />
+        <HStack
+            py='2' px='4'
+            spacing='4'
+            w='full'
+            borderRadius='10px'
+            onClick={props.onClick}
+            _hover={{
+                cursor: 'pointer',
+                bg: colorMode == 'dark' ? '#2F3031' : '#f0f1f1'
+            }}
+        >
+            <Image alignSelf='flex-start' boxSize='80px' borderRadius='5px' src={props.order_item?.image} />
             <HStack w='full'>
                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>
                     <VStack w='full' align='flex-start' spacing='2'>
-                        <Text textTransform='uppercase'>Mẹt Bún Ninh Bình</Text>
-                        <Tag colorScheme='red' size='sm'>174.4993 đ</Tag>
+                        <Text textTransform='uppercase'>{props.order_item?.name}</Text>
+                        <Tag colorScheme='red' size='sm'>{props.order_item?.price.toLocaleString()} đ</Tag>
                     </VStack>
                     <VStack w='full' align='flex-start'>
                         <HStack>
-                            <HStack>
-                                <Button size='sm' {...dec}>-</Button>
-                                <Input size='sm' w='70px' borderRadius='5px' {...input} />
-                                <Button size='sm' {...inc}>+</Button>
-                            </HStack>
+                            <Text>SL: {props.order_item?.amount}</Text>
                         </HStack>
                         <HStack>
-                            <Text opacity='0.7'>Tạm tính</Text>
-                            <Tag colorScheme='orange' size='sm'>174.4993 đ</Tag>
+                            <Text opacity='0.7'>Thành tiền</Text>
+                            <Tag colorScheme='orange' size='sm'>{(props.order_item?.price*props.order_item?.amount).toLocaleString()} đ</Tag>
                         </HStack>
                     </VStack>
                 </SimpleGrid>
-                <IconButton aria-label="delete" variant='ghost' size='sm' icon={<RiDeleteBinLine />} />
             </HStack>
         </HStack>
     )

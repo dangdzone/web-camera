@@ -1,11 +1,10 @@
 
 
 import { Food } from "@/types"
-import { Box, HStack, Text, VStack } from "@chakra-ui/layout"
+import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { IconButton, Image, Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { BiCartAdd } from "react-icons/bi"
-import { FiPlus } from "react-icons/fi"
 
 export type MenuTableItem = {
     food?: SmartQueryItem<Food>

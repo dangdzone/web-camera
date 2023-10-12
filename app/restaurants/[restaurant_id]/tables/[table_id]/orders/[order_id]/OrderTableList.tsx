@@ -1,8 +1,7 @@
 
 import { theme } from "@/theme"
-import { Button, Divider, HStack, Spinner, Stack, Text, VStack, useColorMode } from "@chakra-ui/react"
+import { Button, Divider, HStack, Spinner, Text, VStack, useColorMode } from "@chakra-ui/react"
 import { OrderTableItem } from "./OrderTableItem"
-import { SmartQueryItem } from "@livequery/client"
 import { Order, OrderItem } from "@/types"
 import { useCollectionData, useDocumentData } from "@livequery/react"
 
@@ -19,10 +18,7 @@ export const OrderTableList = (props: OrderTableList) => {
     const order_items = $order_items.items
 
     const $order = useDocumentData<Order>(`restaurants/${props.restaurant_id}/orders/${props.order_id}`)
-
-    // console.log({ ref })
-    console.log('$order ', $order)
-    console.log('order_id', props.order_id)
+    const status = $order.item?.status
 
     return (
         <VStack
@@ -64,10 +60,10 @@ export const OrderTableList = (props: OrderTableList) => {
                 <Button
                     colorScheme='teal'
                     w='full'
-                    isDisabled={$order_items.empty}
+                    isDisabled={status == 'paid' || $order_items.empty}
                     onClick={() => alert('Bạn vui lòng ra =thanh toán tại quầy thu ngân !')}
                 >
-                    Thanh toán
+                    {status == 'unpaid' ? 'Thanh toán' : 'Đã thanh toán'}
                 </Button>
             </VStack>
         </VStack>

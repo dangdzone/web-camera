@@ -21,6 +21,7 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
 
     const $categories = useCollectionData<Category>(`restaurants/${restaurant?.id}/categories`)
     const $foods = useCollectionData<Food>(`restaurants/${restaurant?.id}/foods`)
+    const foods = $foods.items.filter(a => a.status == 'active')
     const { filters, filter } = $foods
 
     const $value = useRef(new Subject<string>())
@@ -79,7 +80,7 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
             </Wrap>
             <SimpleGrid w='full' columns={[2, 2, 3, 4, 4]} spacing='4'>
                 {
-                    $foods.items.map(food => (
+                    foods.map(food => (
                         <MenuTableItem
                             key={food.id}
                             onClick={() => set_active_menu_table(food)}

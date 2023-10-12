@@ -23,7 +23,7 @@ export const OrderTableItem = (props: OrderTableItem) => {
                         <Text>SL: {props.order_item.amount}</Text>
                     </HStack>
                     <HStack>
-                        <Text opacity='0.7'>Tổng</Text>
+                        <Text opacity='0.7'>Thành tiền</Text>
                         <Tag colorScheme='orange' size='sm'>{(props.order_item.price*props.order_item.amount).toLocaleString()} đ</Tag>
                     </HStack>
                 </VStack>

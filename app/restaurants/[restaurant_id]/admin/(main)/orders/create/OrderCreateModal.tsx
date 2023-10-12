@@ -1,7 +1,7 @@
 
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, VStack, useColorMode } from "@chakra-ui/react"
 import { OrderCreateList } from "./OrderCreateList"
-import { MenuTableList } from "../../../tables/[table_id]/orders/[order_id]/menus/MenuTableList"
+import { MenuTableList } from "../../../../tables/[table_id]/orders/[order_id]/menus/MenuTableList"
 import { useLiveQueryContext } from "@livequery/react"
 import { Restaurant } from "@/types"
 

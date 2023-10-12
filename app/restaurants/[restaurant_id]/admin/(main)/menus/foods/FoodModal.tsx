@@ -1,7 +1,8 @@
 
 import { FileUploader } from "@/components/common/FileUploader"
+import { FoodStatusMap } from "@/text"
 import { Category, Food } from "@/types"
-import { VStack, Text, HStack } from "@chakra-ui/layout"
+import { VStack, Text, HStack, Wrap } from "@chakra-ui/layout"
 import {
     Modal,
     ModalOverlay,
@@ -31,13 +32,14 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
 
     const { colorMode } = useColorMode()
 
-    const { register, handleSubmit, watch, control } = useForm<Food>({
+    const { register, handleSubmit, watch, control, formState } = useForm<Food>({
         defaultValues: {
             name: food?.name,
             images: food?.images,
             price: food?.price,
             description: food?.description,
-            category_id: food?.category_id
+            category_id: food?.category_id,
+            status: food?.status || 'active'
         }
     })
 
@@ -83,6 +85,7 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
                             },
                         }}
                     >
+                        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
                         <VStack w='full' spacing='7'>
                             <VStack w='full' spacing='4' align='flex-start'>
                                 <Text fontWeight='400'>Tên món</Text>
@@ -93,6 +96,39 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
                                     onFocus={e => e.target.select()}
                                 />
                             </VStack>
+                            <VStack w='full' spacing='4' align='flex-start'>
+                                <HStack w='full'>
+                                    <Text>Trạng thái</Text>
+                                </HStack>
+                                <FormControl>
+                                    <Controller
+                                        name={'status'}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Wrap spacing={4} w='full'>
+                                                {
+                                                    Object.entries(FoodStatusMap).map(([name_id, { name, color }]) => {
+                                                        const selected = field.value == name_id
+                                                        return (
+                                                            <Button
+                                                                key={name_id}
+                                                                variant={selected ? 'solid' : 'outline'}
+                                                                colorScheme={color}
+                                                                size='sm'
+                                                                px='5'
+                                                                onClick={() => field.onChange(name_id)}
+                                                            >
+                                                                {name}
+                                                            </Button>
+                                                        )
+                                                    }
+                                                    )
+                                                }
+                                            </Wrap>
+                                        )} />
+                                </FormControl>
+                            </VStack>
+
                             <VStack w='full' spacing='4' align='flex-start'>
                                 <Text fontWeight='400'>Danh mục món</Text>
                                 <FormControl isRequired>
@@ -162,6 +198,7 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
                                     variant='solid'
                                     colorScheme='blue'
                                     type="submit"
+                                    isLoading={formState.isSubmitting}
                                 >
                                     {food ? 'Cập nhật' : 'Tạo mới'}
                                 </Button>

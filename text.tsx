@@ -84,3 +84,15 @@ export const TableCustomerMap = [
         icon: <FiShoppingCart />
     }
 ]
+
+
+export const FoodStatusMap = {
+    active: {
+        name: 'Hiện',
+        color: 'blue'
+    },
+    inactive: {
+        name: 'Ẩn',
+        color: 'red'
+    }
+}

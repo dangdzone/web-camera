@@ -1,40 +1,50 @@
 
-import { Food, Order, Restaurant } from "@/types"
+import { Food, OrderItem } from "@/types"
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useColorMode, Image, Tag } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
-import { useDocumentData, useLiveQueryContext, useMonitor } from "@livequery/react"
+import { useCollectionData } from "@livequery/react"
 import { Controller, useForm } from "react-hook-form"
 import { BiCartAdd } from "react-icons/bi"
 
-export type MenuTabbleModal = {
-    food?: SmartQueryItem<Food>
-    restaurant?: Restaurant
-    order_id?: string
+export type OrderUpdateModal = {
     onClose: () => void
+    order_item?: SmartQueryItem<OrderItem>
+    restaurant_id?: string
 }
 
-export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTabbleModal) => {
+export const OrderUpdateModal = ({ onClose, order_item, restaurant_id }: OrderUpdateModal) => {
 
     const { colorMode } = useColorMode()
-    const $order = useDocumentData<Order>(`restaurants/${restaurant?.id}/orders/${order_id}`)
-    const status = $order.item?.status
+    const $foods = useCollectionData<Food>(`restaurants/${restaurant_id}/foods`)
+    const foods = $foods.items.filter(a => a.id == order_item?.food_id)
 
-    const { handleSubmit, watch, control } = useForm({
+    console.log({ foods })
+    console.log('food_id', order_item?.food_id)
+
+    const { handleSubmit, watch, control, formState } = useForm<OrderItem>({
         defaultValues: {
-            id: food?.id,
-            amount: 1,
-            image: food?.images,
-            name: food?.name,
-            description: food?.description,
+            id: order_item?.id,
+            amount: order_item?.amount,
+            food_id: order_item?.food_id,
+            ...order_item
         }
     })
 
-    const { transporter } = useLiveQueryContext()
-    const onSubmit = useMonitor(async data => {
-        await transporter.add(`restaurants/${restaurant?.id}/orders/${order_id}/order-items`, { ...data })
+    async function onSubmit(data: OrderItem) {
+        console.log({ data })
+        // await transporter.add(`restaurants/${restaurant?.id}/orders/${order_id}/order-items`, { ...data })
+        order_item?.__update({ ...data, price: order_item.price })
         onClose()
-    })
+    }
+
+    function remove() {
+        order_item?.__remove()
+        onClose()
+    }
+
+
+    console.log('food_id', order_item?.food_id)
 
     return (
         <Modal
@@ -45,9 +55,9 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
         >
             <ModalOverlay />
             <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
-                <form onSubmit={handleSubmit(onSubmit.excute)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
-                        Đặt món
+                        Cập nhật món
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
                     <ModalBody
@@ -65,17 +75,17 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
                         <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>
                             <Image
                                 borderRadius='10px'
-                                src={food?.images}
+                                src={order_item?.image}
                                 maxH='600px'
                                 w='full'
                             />
                             <VStack w='full' spacing='5'>
                                 <VStack w='full' align='flex-start' spacing='2'>
-                                    <Text textTransform='uppercase'>{food?.name}</Text>
-                                    <Text fontSize='14px' opacity='0.7'>{food?.description}</Text>
+                                    <Text textTransform='uppercase'>{order_item?.name}</Text>
+                                    <Text fontSize='14px' opacity='0.7'>{order_item?.description}</Text>
                                 </VStack>
                                 <HStack w='full'>
-                                    <Tag colorScheme='red'>{food?.price.toLocaleString()} đ</Tag>
+                                    <Tag colorScheme='red'>{order_item?.price.toLocaleString()} đ</Tag>
                                 </HStack>
                                 <HStack w='full' justifyContent='space-between'>
                                     <Text>Số lượng</Text>
@@ -93,27 +103,33 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
                                 </HStack>
                                 <HStack w='full' justifyContent='space-between'>
                                     <Text>Số tiền tạm tính</Text>
-                                    <Tag colorScheme='orange'>{food && (watch('amount') * food?.price).toLocaleString()} đ</Tag>
+                                    <Tag colorScheme='orange'>{order_item && (watch('amount') * order_item?.price).toLocaleString()} đ</Tag>
                                 </HStack>
                             </VStack>
                         </SimpleGrid>
                     </ModalBody>
                     <ModalFooter p={{ base: '2', md: '4' }}>
-                        <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
-                        {
-                            status == 'unpaid' && (
+                        <HStack w='full' justifyContent='space-between'>
+                            {
+                                order_item && (
+                                    <Button mr={3} colorScheme='red' onClick={remove}>Xóa</Button>
+                                )
+                            }
+                            <HStack>
+                                <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
                                 <Button
                                     variant='solid'
                                     colorScheme='blue'
                                     type="submit"
                                     leftIcon={<BiCartAdd />}
                                     isDisabled={watch('amount') == 0}
-                                    isLoading={onSubmit.loading}
+                                    isLoading={formState.isSubmitting}
                                 >
-                                    Đặt món ngay
+                                    Cập nhật
                                 </Button>
-                            )
-                        }
+                            </HStack>
+                        </HStack>
+
                     </ModalFooter>
                 </form>
             </ModalContent>

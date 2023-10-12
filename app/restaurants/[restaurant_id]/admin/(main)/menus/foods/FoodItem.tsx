@@ -28,6 +28,7 @@ export const FoodItem = ({ onClick, food }: FoodItem) => {
             border='1px'
             borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
             boxShadow='sm'
+            opacity={food?.status == 'active' ? '1' : '0.6'}
         >
             <Image
                 borderTopRadius='10px'
