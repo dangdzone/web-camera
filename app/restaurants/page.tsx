@@ -5,9 +5,9 @@ import { theme } from "@/theme";
 import { RestauranManager } from "@/text";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { TopbarAdmin } from "./[restaurant_id]/admin/(main)/TopbarAdmin";
 import { Restaurantlist } from "./RestaurantList";
 import { Topbar } from "./Topbar";
+import { usePermissionsContext } from "@/hooks/usePermissions";
 
 
 export default function Page() {
@@ -24,6 +24,8 @@ export default function Page() {
     const { push } = useRouter()
     const params = useSearchParams()
     const [i, s] = useState(Number(params.get('index') || 0))
+
+    const permissions = usePermissionsContext()
 
     return (
         <VStack w='full' minH='100vh' spacing='0'>
