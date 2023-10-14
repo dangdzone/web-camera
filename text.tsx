@@ -72,13 +72,13 @@ export const TableStatusMap = [
 
 export const RestauranManager = [
     {
-        name: 'Quản lý nhà hàng',
+        name: 'Hệ thống nhà hàng',
         icon: <BsShop />
     },
-    // {
-    //     name: 'Quản lý menu',
-    //     icon: <BiFoodMenu />
-    // }
+    {
+        name: 'Thông báo',
+        icon: <BiFoodMenu />
+    }
 ]
 
 

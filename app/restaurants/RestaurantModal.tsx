@@ -1,4 +1,5 @@
 
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Restaurant } from "@/types"
 import { VStack, HStack, Text } from "@chakra-ui/layout"
 import {
@@ -14,7 +15,7 @@ import {
     useColorMode
 } from "@chakra-ui/react"
 import { useLiveQueryContext } from "@livequery/react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 
 export type RestaurantModal = {
     onClose: () => void
@@ -24,13 +25,13 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
 
     const { colorMode } = useColorMode()
 
-    const { register, handleSubmit, watch } = useForm<Restaurant>()
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting }, control } = useForm<Restaurant>()
     const { transporter } = useLiveQueryContext()
-    // const { fuser, reload_permissions } = useFirebaseUserContext()
+    const { fuser, reload_permissions } = useFirebaseUserContext()
 
     async function onSubmit(data: Restaurant) {
-        console.log('data', data)
-        await transporter.add(`restaurants`, data)
+        await transporter.add(`owners/${fuser?.uid}/restaurants`, data)
+        await reload_permissions()
         onClose()
     }
 
@@ -44,7 +45,7 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
             <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
-                        Thêm chi nhánh
+                        Tạo chi nhánh
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
@@ -65,6 +66,7 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                                     <Input
                                         placeholder='Nhập số điện thoại...'
                                         size='md'
+                                        type="tel"
                                         {...register('phone', { valueAsNumber: true })}
                                         onFocus={e => e.target.select()}
                                     />
@@ -82,20 +84,24 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                                         />
                                     </HStack>
                                 </VStack>
-
                             </VStack>
                         </VStack>
                     </ModalBody>
 
                     <ModalFooter p={{ base: '2', md: '4' }}>
                         <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
-                        <Button
-                            variant='solid'
-                            colorScheme='blue'
-                            type="submit"
-                        >
-                            Thêm mới
-                        </Button>
+                        {
+                            fuser?.email == 'nguyenvandang.co@gmail.com' && (
+                                <Button
+                                    variant='solid'
+                                    colorScheme='blue'
+                                    type="submit"
+                                    isLoading={isSubmitting}
+                                >
+                                    Thêm mới
+                                </Button>
+                            )
+                        }
                     </ModalFooter>
                 </form>
             </ModalContent>

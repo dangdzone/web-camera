@@ -19,9 +19,6 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id }: OrderInfo
     const $foods = useCollectionData<Food>(`restaurants/${restaurant_id}/foods`)
     const foods = $foods.items.filter(a => a.id == order_item?.food_id)
 
-    console.log({ foods })
-    console.log('food_id', order_item?.food_id)
-
     const { handleSubmit, watch, control, formState } = useForm<OrderItem>({
         defaultValues: {
             id: order_item?.id,

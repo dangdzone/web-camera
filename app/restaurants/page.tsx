@@ -25,7 +25,7 @@ export default function Page() {
     const params = useSearchParams()
     const [i, s] = useState(Number(params.get('index') || 0))
 
-    const permissions = usePermissionsContext()
+    const p = usePermissionsContext()
 
     return (
         <VStack w='full' minH='100vh' spacing='0'>
@@ -84,6 +84,11 @@ export default function Page() {
                 <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>
                     <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                         <Restaurantlist />
+                    </TabPanel>
+                    <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                        <VStack>
+                            <Text>Đang cập nhật</Text>
+                        </VStack>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

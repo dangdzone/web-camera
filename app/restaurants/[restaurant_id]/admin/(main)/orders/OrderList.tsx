@@ -10,18 +10,16 @@ import { OrderModal } from "./OrderModal"
 import { useCollectionData } from "@livequery/react"
 import { Order, Restaurant } from "@/types"
 import { SmartQueryItem } from "@livequery/client"
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 
-export type OrderList = {
-    restaurant: Restaurant
-}
+export const OrderList = () => {
 
-export const OrderList = ({ restaurant }: OrderList) => {
-
+    const r = getRestaurantContext()
     const { colorMode } = useColorMode()
     const [active_order_create, set_active_order_create] = useState<undefined | null | SmartQueryItem<Restaurant>>(null)
     const [actice_order, set_active_order] = useState<undefined | null | SmartQueryItem<Order>>(null)
 
-    const $orders = useCollectionData<Order>(`restaurants/${restaurant.id}/orders`)
+    const $orders = useCollectionData<Order>(`restaurants/${r.id}/orders`)
     const orders = $orders.items.filter(a => (a.status !== 'pay') && (a.status !== 'cancel'))
     const { filters, filter } = $orders
 

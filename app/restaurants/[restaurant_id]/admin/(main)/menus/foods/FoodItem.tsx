@@ -13,8 +13,6 @@ export const FoodItem = ({ onClick, food }: FoodItem) => {
 
     const { colorMode } = useColorMode()
 
-    console.log({ food })
-
     return (
         <VStack
             w='full'

@@ -6,11 +6,13 @@ import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Button, IconButton, Tag, useColorMode } from "@chakra-ui/react"
 import Link from "next/link"
 import { BsSun } from "react-icons/bs"
+import { FiPlus } from "react-icons/fi"
 import { MdOutlineModeNight } from "react-icons/md"
 
 export type TopbarTable = {
-    restaurant?: Restaurant
-    table?: RestaurantTable
+    restaurant: Restaurant
+    table: RestaurantTable
+
 }
 
 export const TopbarTable = ({ restaurant, table }: TopbarTable) => {
@@ -36,7 +38,16 @@ export const TopbarTable = ({ restaurant, table }: TopbarTable) => {
             <HStack>
                 <HStack>
                     <Link href={`/restaurants/${restaurant?.id}/tables/${table?.id}`}>
-                        <Button variant='outline' size='sm' color='whiteAlpha.900' _hover={{bg: 'gray.500'}}>Tạo đơn mới</Button>
+                        <Button
+                            variant='outline'
+                            display={{ base: 'none', md: 'block' }}
+                            size='sm'
+                            color='whiteAlpha.900'
+                            _hover={{ bg: 'gray.500' }}
+                        >
+                            Tạo đơn mới
+                        </Button>
+                        <IconButton display={{ base: 'block', md: 'none' }} aria-label="add" icon={<FiPlus />} />
                     </Link>
                     <Tag size='lg'>{table?.name}</Tag>
                 </HStack>

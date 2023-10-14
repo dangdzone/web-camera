@@ -1,31 +1,28 @@
 
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { theme } from "@/theme"
 import { Restaurant } from "@/types"
 import { HStack, Stack, Text, VStack } from "@chakra-ui/layout"
 import { Button, FormControl, Input, Radio, RadioGroup, useColorMode } from "@chakra-ui/react"
-import { SmartQueryItem } from "@livequery/client"
+import { useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm } from "react-hook-form"
 
-export type RestaurantInfo = {
-    restaurant?: SmartQueryItem<Restaurant>
-}
-
-export const RestaurantInfo = ({ restaurant }: RestaurantInfo) => {
+export const RestaurantInfo = () => {
 
     const { colorMode } = useColorMode()
-    // const r = getRestaurantContext()
+    const r = getRestaurantContext()
+    const { transporter } = useLiveQueryContext()
     const { register, handleSubmit, watch, control, formState, reset } = useForm<Restaurant>({
         defaultValues: {
-            name: restaurant?.name,
-            address: restaurant?.address,
-            phone: restaurant?.phone,
-            status: restaurant?.status
+            name: r?.name,
+            address: r?.address,
+            phone: r?.phone,
+            status: r?.status
         }
     })
 
     async function onSubmit(data: Restaurant) {
-        console.log({ data })
-        restaurant?.__update(data)
+        await transporter.update(`restaurants/${r.id}`, data)
         reset(data)
     }
 

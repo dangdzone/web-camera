@@ -1,5 +1,6 @@
 
 import { FileUploader } from "@/components/common/FileUploader"
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { FoodStatusMap } from "@/text"
 import { Category, Food } from "@/types"
 import { VStack, Text, HStack, Wrap } from "@chakra-ui/layout"
@@ -24,12 +25,12 @@ import { Controller, useForm } from "react-hook-form"
 export type FoodModal = {
     food?: SmartQueryItem<Food>
     onClose: () => void
-    restaurant_id: string
     categories: Category[]
 }
 
-export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModal) => {
+export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
 
+    const r = getRestaurantContext()
     const { colorMode } = useColorMode()
 
     const { register, handleSubmit, watch, control, formState } = useForm<Food>({
@@ -49,7 +50,7 @@ export const FoodModal = ({ onClose, food, restaurant_id, categories }: FoodModa
         if (food) {
             food.__update(data)
         } else {
-            await transporter.add(`restaurants/${restaurant_id}/foods`, data)
+            await transporter.add(`restaurants/${r.id}/foods`, data)
         }
         onClose()
     }

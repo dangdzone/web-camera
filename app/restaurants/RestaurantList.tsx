@@ -8,17 +8,17 @@ import { theme } from "@/theme"
 import { useCollectionData } from "@livequery/react"
 import { Restaurant } from "@/types"
 import { RestaurantModal } from "./RestaurantModal"
+import { usePermissionsContext } from "@/hooks/usePermissions"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 
 
 export const Restaurantlist = () => {
 
     const { colorMode } = useColorMode()
     const [active_restaurant, set_active_restaurant] = useState<boolean>(false)
-    const $restaurants = useCollectionData<Restaurant>(`restaurants`)
-
-    const aa = $restaurants.items
-
-    console.log({ aa })
+    const { fuser } = useFirebaseUserContext()
+    const $restaurants = useCollectionData<Restaurant>(`owners/${fuser?.uid}/restaurants`)
+    const p = usePermissionsContext()
 
     return (
         <VStack

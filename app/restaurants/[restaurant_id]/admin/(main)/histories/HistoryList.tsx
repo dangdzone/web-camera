@@ -4,22 +4,21 @@ import { theme } from "@/theme"
 import { Button, HStack, SimpleGrid, Spinner, Text, VStack, Wrap, useColorMode } from "@chakra-ui/react"
 import { useState } from "react"
 import { OrderListItem } from "../orders/OrderListItem"
-import { Order, Restaurant } from "@/types"
+import { Order } from "@/types"
 import { useCollectionData } from "@livequery/react"
 import { SmartQueryItem } from "@livequery/client"
 import { HistoryModal } from "./HistoryModal"
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 
-export type HistoryList = {
-    restaurant: Restaurant
-}
 
-export const HistoryList = ({ restaurant }: HistoryList) => {
+export const HistoryList = () => {
 
+    const r = getRestaurantContext()
     const { colorMode } = useColorMode()
     const [date, setDate] = useState<Date>()
     const [actice_order, set_active_order] = useState<undefined | null | SmartQueryItem<Order>>(null)
 
-    const $orders = useCollectionData<Order>(`restaurants/${restaurant.id}/orders`)
+    const $orders = useCollectionData<Order>(`restaurants/${r.id}/orders`)
     const orders = $orders.items.filter(a => (a.status !== 'requested') && (a.status !== 'unpaid'))
     const { filters, filter } = $orders
 

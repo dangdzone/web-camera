@@ -1,7 +1,7 @@
 'use client'
 
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
-import { Restaurant } from "@/types"
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { HStack, Text, VStack } from "@chakra-ui/layout"
 import { Avatar, Button, IconButton, Menu, MenuButton, MenuList, useColorMode } from "@chakra-ui/react"
 import Link from "next/link"
@@ -10,12 +10,9 @@ import { FiChevronDown } from "react-icons/fi"
 import { MdOutlineModeNight } from "react-icons/md"
 import { RiLogoutCircleRLine, RiLoginCircleLine } from "react-icons/ri"
 
-export type TopbarAdmin = {
-    restaurant?: Restaurant
-}
+export const TopbarAdmin = () => {
 
-export const TopbarAdmin = ({ restaurant }: TopbarAdmin) => {
-
+    const r = getRestaurantContext()
     const { colorMode, toggleColorMode } = useColorMode()
     const firebase_ctx = useFirebaseUserContext()
 
@@ -31,8 +28,8 @@ export const TopbarAdmin = ({ restaurant }: TopbarAdmin) => {
             zIndex='999'
         >
             <VStack w='full' align='flex-start' spacing='0'>
-                <Text fontWeight='600' textTransform='uppercase'>{restaurant?.name}</Text>
-                <Text opacity='0.8' fontSize='13px'>{restaurant?.address}</Text>
+                <Text fontWeight='600' textTransform='uppercase'>{r.name}</Text>
+                <Text opacity='0.8' fontSize='13px'>{r.address}</Text>
             </VStack>
             <HStack>
                 <IconButton

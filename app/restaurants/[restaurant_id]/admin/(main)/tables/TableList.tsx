@@ -9,18 +9,16 @@ import { TableModal } from "./TableModal"
 import { useCollectionData } from "@livequery/react"
 import { Restaurant, RestaurantTable } from "@/types"
 import { SmartQueryItem } from "@livequery/client"
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 
 
-export type TableList = {
-    restaurant: Restaurant
-}
+export const TableList = () => {
 
-export const TableList = ({ restaurant }: TableList) => {
-
+    const r = getRestaurantContext()
     const { colorMode } = useColorMode()
     const [active_table, set_active_table] = useState<undefined | null | SmartQueryItem<RestaurantTable>>(null)
 
-    const $tables = useCollectionData<RestaurantTable>(`restaurants/${restaurant.id}/tables`)
+    const $tables = useCollectionData<RestaurantTable>(`restaurants/${r.id}/tables`)
 
 
     return (
@@ -30,7 +28,7 @@ export const TableList = ({ restaurant }: TableList) => {
                     <TableModal
                         onClose={() => set_active_table(null)}
                         table={active_table}
-                        restaurant_id={restaurant.id}
+                        restaurant_id={r.id}
                     />
                 )
             }
@@ -97,7 +95,6 @@ export const TableList = ({ restaurant }: TableList) => {
                             <TableQr
                                 key={table.id}
                                 table={table}
-                                restaurant_id={restaurant.id}
                             />
                         ))
                     }

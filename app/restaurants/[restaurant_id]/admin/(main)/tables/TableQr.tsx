@@ -1,15 +1,16 @@
 
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { RestaurantTable } from "@/types"
 import { HStack, Text, VStack, useColorMode } from "@chakra-ui/react"
 import QRCode from "react-qr-code"
 
 export type TableQr = {
     table: RestaurantTable
-    restaurant_id: string
 }
 
-export const TableQr = ({ table, restaurant_id }: TableQr) => {
+export const TableQr = ({ table }: TableQr) => {
 
+    const r = getRestaurantContext()
     const { colorMode } = useColorMode()
 
     return (
@@ -26,7 +27,7 @@ export const TableQr = ({ table, restaurant_id }: TableQr) => {
                 size={80}
                 level='L'
                 style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                value={`https://menu-v1.vercel.app/restaurants/${restaurant_id}/tables/${table.id}`}
+                value={`https://menu-v1.vercel.app/restaurants/${r.id}/tables/${table.id}`}
                 viewBox={`0 0 256 256`}
             />
             <HStack justifyContent='center' w='full'>

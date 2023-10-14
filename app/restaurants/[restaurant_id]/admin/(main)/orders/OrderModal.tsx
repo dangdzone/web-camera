@@ -32,7 +32,6 @@ export const OrderModal = (props: OrderModal) => {
     })
 
     async function onSubmit(data: Order) {
-        // console.log({ data })
         props.order?.__update({ ...data })
         reset(data)
     }

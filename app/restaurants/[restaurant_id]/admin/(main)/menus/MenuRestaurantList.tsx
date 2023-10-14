@@ -10,19 +10,18 @@ import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData } from "@livequery/react"
 import { CategoryItem } from "./categoties/CategoryItem"
 import { FoodItem } from "./foods/FoodItem"
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 
-export type MenuResraurantList = {
-    restaurant: Restaurant
-}
 
-export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
+export const MenuResraurantList = () => {
 
+    const r = getRestaurantContext()
     const { colorMode } = useColorMode()
     const [active_category, set_active_category] = useState<undefined | null | SmartQueryItem<Category>>(null)
     const [active_food, set_active_food] = useState<undefined | null | SmartQueryItem<Food>>(null)
 
-    const $categories = useCollectionData<Category>(`restaurants/${restaurant.id}/categories`)
-    const $foods = useCollectionData<Food>(`restaurants/${restaurant.id}/foods`)
+    const $categories = useCollectionData<Category>(`restaurants/${r.id}/categories`)
+    const $foods = useCollectionData<Food>(`restaurants/${r.id}/foods`)
     const { filters, filter } = $foods
 
     return (
@@ -31,7 +30,6 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                 active_category !== null && (
                     <CategoryModal
                         onClose={() => set_active_category(null)}
-                        restaurant_id={restaurant.id}
                         category={active_category}
                     />
                 )
@@ -40,7 +38,6 @@ export const MenuResraurantList = ({ restaurant }: MenuResraurantList) => {
                 active_food !== null && (
                     <FoodModal
                         onClose={() => set_active_food(null)}
-                        restaurant_id={restaurant.id}
                         food={active_food}
                         categories={$categories.items}
                     />

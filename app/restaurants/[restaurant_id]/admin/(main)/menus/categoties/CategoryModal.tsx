@@ -1,4 +1,5 @@
 
+import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { Category } from "@/types"
 import { VStack, Text, HStack } from "@chakra-ui/layout"
 import {
@@ -19,12 +20,12 @@ import { useForm } from "react-hook-form"
 
 export type CategoryModal = {
     category?: SmartQueryItem<Category>
-    restaurant_id: string
     onClose: () => void
 }
 
-export const CategoryModal = ({ onClose, restaurant_id, category }: CategoryModal) => {
+export const CategoryModal = ({ onClose, category }: CategoryModal) => {
 
+    const r = getRestaurantContext()
     const { colorMode } = useColorMode()
 
     const { register, handleSubmit, watch, } = useForm<Category>({
@@ -39,7 +40,7 @@ export const CategoryModal = ({ onClose, restaurant_id, category }: CategoryModa
         if (category) {
             category.__update(data)
         } else {
-            await transporter.add(`restaurants/${restaurant_id}/categories`, data)
+            await transporter.add(`restaurants/${r.id}/categories`, data)
 
         }
         onClose()
