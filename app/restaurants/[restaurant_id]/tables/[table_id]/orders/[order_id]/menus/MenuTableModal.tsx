@@ -44,8 +44,8 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
             scrollBehavior={'inside'}
         >
             <ModalOverlay />
-            <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
-                <form onSubmit={handleSubmit(onSubmit.excute)}>
+            <form onSubmit={handleSubmit(onSubmit.excute)}>
+                <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
                         Đặt món
                     </ModalHeader>
@@ -115,8 +115,8 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
                             )
                         }
                     </ModalFooter>
-                </form>
-            </ModalContent>
+                </ModalContent>
+            </form>
         </Modal >
     )
 }

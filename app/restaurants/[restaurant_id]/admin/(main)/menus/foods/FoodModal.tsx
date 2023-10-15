@@ -68,8 +68,8 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
             scrollBehavior={'inside'}
         >
             <ModalOverlay />
-            <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
-                <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+                <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
                         {food ? 'Cập nhật' : 'Tạo mới'}
                     </ModalHeader>
@@ -206,8 +206,8 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
                             </HStack>
                         </HStack>
                     </ModalFooter>
-                </form>
-            </ModalContent>
+                </ModalContent>
+            </form>
         </Modal >
     )
 }
