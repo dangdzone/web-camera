@@ -54,7 +54,7 @@ export default function LoginPage() {
                     <Image
                         borderRadius='10px'
                         // src='https://cdni.iconscout.com/illustration/premium/thumb/content-creator-making-live-session-with-fans-4743506-3943461.png?f=webp'
-                        src='https://dvdtuhoc.com/phan-mem-live-stream-ban-hang/imager_2_11822_700.jpg'
+                        src='https://nethue.com.vn/uploaded/tin-tuc-loigioithieu-1.png'
                     />
                 </VStack>
                 <VStack

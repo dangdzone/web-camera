@@ -95,7 +95,7 @@ export const HistoryList = () => {
                     $orders.loading && <Spinner color="teal.500" size='lg' />
                 }
                 {
-                    $orders.empty && <Text fontSize='18px' color="teal.500">Chưa có món...</Text>
+                    orders.length == 0 && <Text fontSize='18px' color="teal.500">Chưa có món...</Text>
                 }
             </VStack>
         </VStack>

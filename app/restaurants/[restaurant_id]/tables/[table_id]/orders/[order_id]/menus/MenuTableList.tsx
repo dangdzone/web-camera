@@ -53,12 +53,13 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
             </HStack>
             <Wrap spacing={4} w='full'>
                 <Button
-                    colorScheme='red'
+                    colorScheme={!filters.category_id ? 'orange' : 'gray'}
                     onClick={() => filter({
                         ...filters,
                         category_id: undefined
                     })}
                     variant={!filters.category_id ? 'solid' : 'outline'}
+                    px='7'
                 >
                     Tất cả
                 </Button>
@@ -66,12 +67,13 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
                     $categories.items.map(category => (
                         <Button
                             key={category.id}
-                            colorScheme='red'
+                            colorScheme={category.id == filters.category_id ? 'orange' : 'gray'}
                             onClick={() => filter({
                                 ...filters,
                                 category_id: category.id
                             })}
                             variant={category.id == filters.category_id ? 'solid' : 'outline'}
+                            px='7'
                         >
                             {category.name}
                         </Button>

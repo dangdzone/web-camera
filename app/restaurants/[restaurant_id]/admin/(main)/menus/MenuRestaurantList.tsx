@@ -105,7 +105,7 @@ export const MenuResraurantList = () => {
                 </HStack>
                 <Wrap spacing={4} px='4'>
                     <Button
-                        colorScheme='red'
+                        colorScheme={!filters.category_id ? 'orange' : 'gray'}
                         onClick={() => filter({
                             ...filters,
                             category_id: undefined
@@ -118,7 +118,7 @@ export const MenuResraurantList = () => {
                         $categories.items.map(category => (
                             <Button
                                 key={category.id}
-                                colorScheme='red'
+                                colorScheme={category.id == filters.category_id ? 'orange' : 'gray'}
                                 onClick={() => filter({
                                     ...filters,
                                     category_id: category.id

@@ -88,9 +88,9 @@ export default function IndexPage() {
                     lineHeight={'110%'}
                     px='2'
                 >
-                   	Công nghệ Web{' - '}
+                   	Công nghệ Web{' - '} Nhóm 10 {' - '}
                     <Text as={'span'} color={'teal.500'} lineHeight='1.5'>
-                        Phân tích thiết kế và xây dựng menu cho nhà hàng Nét Huế.
+                        Menu điện tử cho nhà hàng Nét Huế.
                     </Text>
                 </Heading>
                 <Text color={'gray.500'} maxW={'5xl'} fontSize={{ base: 'lg', md: '2xl' }} fontWeight={500} px='2'>
