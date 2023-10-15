@@ -12,10 +12,10 @@ import { MdOutlineModeNight } from "react-icons/md"
 export type TopbarTable = {
     restaurant: Restaurant
     table: RestaurantTable
-
+    order_id?: string
 }
 
-export const TopbarTable = ({ restaurant, table }: TopbarTable) => {
+export const TopbarTable = ({ restaurant, table, order_id }: TopbarTable) => {
 
     const { colorMode, toggleColorMode } = useColorMode()
     const firebase_ctx = useFirebaseUserContext()
@@ -26,30 +26,20 @@ export const TopbarTable = ({ restaurant, table }: TopbarTable) => {
             h='65px'
             px={{ base: '2', md: '4' }}
             py='3'
-            bg={colorMode == 'dark' ? '#03346a' : '#0665D0'}
+            bg={colorMode == 'dark' ? '#C46819' : '#F5821F'}
             justifyContent='space-between'
             color='white'
             zIndex='999'
         >
             <VStack align='flex-start' spacing='0'>
-                <Text fontWeight='600' textTransform='uppercase'>{restaurant?.name}</Text>
-                <Text opacity='0.8' fontSize='13px'>{restaurant?.address}</Text>
+                <Text fontWeight='600' textTransform='uppercase' noOfLines={1}>{restaurant?.name}</Text>
+                <Text opacity='0.8' fontSize='13px' lineHeight='1.1'>{restaurant?.address}</Text>
             </VStack>
             <HStack>
                 <HStack>
-                    <Link href={`/restaurants/${restaurant?.id}/tables/${table?.id}`}>
-                        <Button
-                            variant='outline'
-                            display={{ base: 'none', md: 'block' }}
-                            size='sm'
-                            color='whiteAlpha.900'
-                            _hover={{ bg: 'gray.500' }}
-                        >
-                            Tạo đơn mới
-                        </Button>
-                        <IconButton display={{ base: 'block', md: 'none' }} aria-label="add" icon={<FiPlus />} />
-                    </Link>
-                    <Tag size='lg'>{table?.name}</Tag>
+                    {
+                        table?.name && <Tag size='lg' whiteSpace='nowrap'>{table?.name}</Tag>
+                    }
                 </HStack>
                 <IconButton
                     fontSize='lg'

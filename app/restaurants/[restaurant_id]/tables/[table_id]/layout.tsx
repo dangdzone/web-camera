@@ -11,7 +11,8 @@ export default function LayoutTable(props: {
     children: React.ReactNode,
     params: {
         restaurant_id: string,
-        table_id: string
+        table_id: string,
+        order_id: string
     }
 }) {
 
@@ -23,7 +24,7 @@ export default function LayoutTable(props: {
 
     return (
         <VStack w='full' minH='100vh' spacing='0'>
-            <TopbarTable restaurant={restaurant} table={table} />
+            <TopbarTable restaurant={restaurant} table={table} order_id={props.params.order_id}  />
             {props.children}
         </VStack>
     )

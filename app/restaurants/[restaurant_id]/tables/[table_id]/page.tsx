@@ -51,8 +51,8 @@ export default function TablePage(props: {
                     alignItems='center'
                 >
                     {
-                        r.status == 'active' ? (
-                            <VStack w='full'>
+                        r.status == 'active' && props.params.table_id == table?.id ? (
+                            <VStack w='full' spacing='7'>
                                 <VStack w='full' spacing='5'>
                                     <Text
                                         fontWeight='600'
@@ -72,7 +72,7 @@ export default function TablePage(props: {
                                     <Button colorScheme="blue" w='full' type="submit">Có</Button>
                                 </HStack>
                             </VStack>
-                        ) : <Text>Nhà hàng đã đóng cửa !</Text>
+                        ) : <Text>Không tìm thấy bàn ?</Text>
                     }
                 </VStack>
             </form>

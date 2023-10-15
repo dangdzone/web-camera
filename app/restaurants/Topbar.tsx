@@ -15,7 +15,7 @@ export const Topbar = () => {
         <HStack
             zIndex='999'
             w='full'
-            bg={colorMode == 'dark' ? '#03346a' : '#0665D0'}
+            bg={colorMode == 'dark' ? '#C46819' : '#F5821F'}
             height='65px'
             px={{ base: 2, md: 4 }}
             color='white'
@@ -23,10 +23,12 @@ export const Topbar = () => {
             py='3'
         >
             <HStack>
-                <Image
-                    src='https://cdn-icons-png.flaticon.com/512/1792/1792902.png'
-                    boxSize={{ base: '25px', md: '30px' }}
-                />
+                <Box bg='white' borderRadius='10px' p='1'>
+                    <Image
+                        src='https://nethue.com.vn/uploaded/tin-tuc-loigioithieu-1.png'
+                        boxSize={{ base: '25px', md: '30px' }}
+                    />
+                </Box>
                 <Text fontSize={{ base: 14, md: 18 }}>
                     Menu điện tử cho nhà hàng Nét Huế
                 </Text>

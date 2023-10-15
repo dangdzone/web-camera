@@ -13,13 +13,6 @@ import { usePermissionsContext } from "@/hooks/usePermissions";
 export default function Page() {
 
     const { colorMode } = useColorMode()
-    const tb = {
-        fontWeight: '600',
-        _selected: { color: '#2193b0' },
-        _hover: { color: '#2193b0' },
-        color: colorMode == 'dark' ? 'gray.300' : 'gray.600',
-        pb: '3'
-    }
 
     const { push } = useRouter()
     const params = useSearchParams()
@@ -51,12 +44,12 @@ export default function Page() {
                                         key={i}
                                         p='5'
                                         _selected={{
-                                            color: 'blue.500',
+                                            color: '#F5821F',
                                             opacity: '1'
                                         }}
                                         opacity='0.7'
                                         _hover={{
-                                            color: 'blue.500',
+                                            color: '#F5821F',
                                             opacity: '1'
                                         }}
                                         onClick={() => { s(i); push(`?index=${i}`) }}
@@ -78,7 +71,7 @@ export default function Page() {
                     </TabList>
                     <TabIndicator
                         height="3px"
-                        bg="blue.500"
+                        bg="#F5821F"
                     />
                 </Box>
                 <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>

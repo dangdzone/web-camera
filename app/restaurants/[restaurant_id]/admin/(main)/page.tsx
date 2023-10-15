@@ -41,17 +41,17 @@ export default function PageAdmin() {
                                                 key={i}
                                                 p='5'
                                                 _selected={{
-                                                    color: 'blue.500',
+                                                    color: '#F5821F',
                                                     opacity: '1'
                                                 }}
                                                 opacity='0.7'
                                                 _hover={{
-                                                    color: 'blue.500',
+                                                    color: '#F5821F',
                                                     opacity: '1'
                                                 }}
                                             >
                                                 <HStack>
-                                                    <Box fontSize='xl'>{icon}</Box>
+                                                    <Box fontSize='xl' opacity='0.6'>{icon}</Box>
                                                     <Text
                                                         display={{ base: 'none', md: 'block' }}
                                                         fontWeight='600'
@@ -67,7 +67,7 @@ export default function PageAdmin() {
                             </TabList>
                             <TabIndicator
                                 height="3px"
-                                bg="blue.500"
+                                bg="#F5821F"
                             />
                         </Box>
                         <TabPanels w='full' py='4' px='0' display='flex' justifyContent='center'>

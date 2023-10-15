@@ -45,7 +45,6 @@ export const RestarantItem = ({ restaurant }: RestarantItem) => {
                 borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}
                 spacing='3'
             >
-                <Image boxSize={{ base: '30px', md: '40px' }} src='https://cdn-icons-png.flaticon.com/512/5223/5223909.png' />
                 <VStack w='full' align='start' spacing='3'>
                     <HStack w='full' justifyContent='space-between'>
                         <Text fontWeight='600' lineHeight='1.2' color='orange.500'>{restaurant?.name}</Text>

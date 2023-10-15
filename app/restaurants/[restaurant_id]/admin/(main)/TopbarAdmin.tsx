@@ -22,14 +22,14 @@ export const TopbarAdmin = () => {
             h='65px'
             px={{ base: '2', md: '4' }}
             py='3'
-            bg={colorMode == 'dark' ? '#03346a' : '#0665D0'}
+            bg={colorMode == 'dark' ? '#C46819' : '#F5821F'}
             justifyContent='space-between'
             color='white'
             zIndex='999'
         >
             <VStack w='full' align='flex-start' spacing='0'>
                 <Text fontWeight='600' textTransform='uppercase'>{r.name}</Text>
-                <Text opacity='0.8' fontSize='13px'>{r.address}</Text>
+                <Text opacity='0.8' fontSize='13px' lineHeight='1.1'>{r.address}</Text>
             </VStack>
             <HStack>
                 <IconButton

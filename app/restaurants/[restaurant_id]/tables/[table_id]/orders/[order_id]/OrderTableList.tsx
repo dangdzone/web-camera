@@ -5,10 +5,12 @@ import { OrderTableItem } from "./OrderTableItem"
 import { Order, OrderItem } from "@/types"
 import { useCollectionData, useDocumentData } from "@livequery/react"
 import { OrderStatusMap } from "@/text"
+import Link from "next/link"
 
 export type OrderTableList = {
     restaurant_id: string,
     order_id: string
+    table_id: string
 }
 
 export const OrderTableList = (props: OrderTableList) => {
@@ -39,6 +41,13 @@ export const OrderTableList = (props: OrderTableList) => {
                 justifyContent='space-between'
             >
                 <Text fontWeight='600'>Đơn hàng của bạn</Text>
+                {
+                    order_items.length !== 0 && (
+                        <Link href={`/restaurants/${props?.restaurant_id}/tables/${props.table_id}`}>
+                            <Button size='sm'>Tạo đơn mới</Button>
+                        </Link>
+                    )
+                }
             </HStack>
             <VStack w='full' divider={<Divider />} p='4'>
                 {
@@ -61,7 +70,7 @@ export const OrderTableList = (props: OrderTableList) => {
                 <HStack w='full' justifyContent='space-between'>
                     <Text as='b'>Trạng thái đơn hàng</Text>
                     {
-                        Object.entries(OrderStatusMap).filter(([name_id,]) => status == name_id).map(([name_id, { name, color }]) => (
+                        order_items.length !== 0 ? Object.entries(OrderStatusMap).filter(([name_id,]) => status == name_id).map(([name_id, { name, color }]) => (
                             <Button
                                 size='sm'
                                 key={name_id}
@@ -70,7 +79,7 @@ export const OrderTableList = (props: OrderTableList) => {
                             >
                                 {name}
                             </Button>
-                        ))
+                        )) : <Button variant='outline' size='sm'>Đã tạo đơn</Button>
                     }
                 </HStack>
                 {
@@ -80,7 +89,7 @@ export const OrderTableList = (props: OrderTableList) => {
                             bg={colorMode == 'dark' ? 'blue.800' : 'blue.100'}
                             borderRadius='10px'
                         >
-                           Quý khách thanh toán tại quầy lễ tân !
+                            Quý khách thanh toán tại quầy lễ tân !
                         </Text>
                     )
                 }

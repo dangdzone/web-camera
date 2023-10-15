@@ -7,7 +7,7 @@ import { MenuTableList } from "./menus/MenuTableList";
 import { OrderTableList } from "./OrderTableList";
 import { theme } from "@/theme";
 import { useCollectionData, useDocumentData } from "@livequery/react";
-import { OrderItem, Restaurant } from "@/types";
+import { Order, Restaurant, RestaurantTable } from "@/types";
 
 
 export default function OrderPage(props: {
@@ -20,8 +20,14 @@ export default function OrderPage(props: {
 
     const { colorMode } = useColorMode()
     const $restaurant = useDocumentData<Restaurant>(`restaurants/${props.params.restaurant_id}`)
+    const $order = useDocumentData<Order>(`restaurants/${props.params.restaurant_id}/orders/${props.params.order_id}`)
+    const $tables = useCollectionData<RestaurantTable>(`restaurants/${props.params.restaurant_id}/tables`)
     const restaurant = $restaurant.item
+    const order = $order.item
 
+    const table_check = $tables.items.map(a => a.id).includes(props.params.table_id) // Check xem bàn đó có ở trong nhà hàng không
+    const order_check = order?.table_id == props.params.table_id // Check xem đơn hàng đó có trong bàn đó không
+    const check_render = table_check && order_check
     return (
         <Tabs w='full' position="relative" variant="unstyled" >
             <Box
@@ -44,17 +50,17 @@ export default function OrderPage(props: {
                                     key={i}
                                     p='5'
                                     _selected={{
-                                        color: 'blue.500',
+                                        color: '#F5821F',
                                         opacity: '1'
                                     }}
                                     opacity='0.7'
                                     _hover={{
-                                        color: 'blue.500',
+                                        color: '#F5821F',
                                         opacity: '1'
                                     }}
                                 >
                                     <HStack>
-                                        <Box fontSize='xl'>{icon}</Box>
+                                        <Box fontSize='xl' opacity='0.6'>{icon}</Box>
                                         <Text
                                             // display={{ base: 'none', md: 'block' }}
                                             fontWeight='600'
@@ -70,38 +76,47 @@ export default function OrderPage(props: {
                 </TabList>
                 <TabIndicator
                     height="3px"
-                    bg="blue.500"
+                    bg="#F5821F"
                 />
             </Box>
-            <TabPanels w='full' px='0' py='4' display='flex' justifyContent='center'>
-                <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                    <VStack
-                        w='full'
-                        bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
-                        borderRadius='5px'
-                        border='1px'
-                        borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
-                        spacing='5'
-                        px={{ base: '2', md: '4' }}
-                        py='10'
-                    >
-                        {
-                            restaurant && (
-                                <MenuTableList
-                                    restaurant={restaurant}
-                                    order_id={props.params.order_id}
-                                />
-                            )
-                        }
+            {
+                check_render ? (
+                    <TabPanels w='full' px='0' py='4' display='flex' justifyContent='center'>
+                        <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                            <VStack
+                                w='full'
+                                bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
+                                borderRadius='5px'
+                                border='1px'
+                                borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
+                                spacing='5'
+                                px={{ base: '2', md: '4' }}
+                                py='10'
+                            >
+                                {
+                                    restaurant && (
+                                        <MenuTableList
+                                            restaurant={restaurant}
+                                            order_id={props.params.order_id}
+                                        />
+                                    )
+                                }
+                            </VStack>
+                        </TabPanel>
+                        <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
+                            <OrderTableList
+                                restaurant_id={props.params.restaurant_id}
+                                order_id={props.params.order_id}
+                                table_id={props.params.table_id}
+                            />
+                        </TabPanel>
+                    </TabPanels>
+                ) : (
+                    <VStack pt='10'>
+                        <Text>Đơn hàng không hợp lệ !</Text>
                     </VStack>
-                </TabPanel>
-                <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
-                    <OrderTableList
-                        restaurant_id={props.params.restaurant_id}
-                        order_id={props.params.order_id}
-                    />
-                </TabPanel>
-            </TabPanels>
+                )
+            }
         </Tabs>
     )
 }
