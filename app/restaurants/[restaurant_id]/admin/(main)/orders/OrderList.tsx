@@ -58,7 +58,7 @@ export const OrderList = () => {
                     justifyContent='space-between'
                 >
                     <Text fontWeight='600'>Gọi món</Text>
-                    <Button size='sm' onClick={() => set_active_order_create(undefined)}>Tạo đơn mới</Button>
+                    {/* <Button size='sm' onClick={() => set_active_order_create(undefined)}>Tạo đơn mới</Button> */}
                 </HStack>
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>
                     <Button
