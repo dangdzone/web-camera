@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, HStack, Text, VStack, useColorMode } from "@chakra-ui/react"
+import { Button, HStack, Spinner, Text, VStack, useColorMode } from "@chakra-ui/react"
 import { useDocumentData, useLiveQueryContext } from "@livequery/react"
 import { Order, Restaurant, RestaurantTable } from "@/types"
 import Link from "next/link"
@@ -39,19 +39,19 @@ export default function TablePage(props: {
 
     return (
         <VStack w='full' px={{ base: '4', md: '14' }} pt='14'>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <VStack
-                    h='full'
-                    w={{ base: 'full', md: '600px' }}
-                    p={{ base: '4', md: '10' }}
-                    bg={colorMode == 'dark' ? '#242526' : 'white'}
-                    borderRadius='10px'
-                    boxShadow='md'
-                    spacing='10'
-                    alignItems='center'
-                >
-                    {
-                        r.status == 'active' && props.params.table_id == table?.id ? (
+            {
+                r.status == 'active' && props.params.table_id == table?.id && (
+                    <VStack
+                        h='full'
+                        w={{ base: 'full', md: '600px' }}
+                        p={{ base: '4', md: '10' }}
+                        bg={colorMode == 'dark' ? '#242526' : 'white'}
+                        borderRadius='10px'
+                        boxShadow='md'
+                        spacing='10'
+                        alignItems='center'
+                    >
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <VStack w='full' spacing='7'>
                                 <VStack w='full' spacing='5'>
                                     <Text
@@ -72,10 +72,16 @@ export default function TablePage(props: {
                                     <Button colorScheme="blue" w='full' type="submit">Có</Button>
                                 </HStack>
                             </VStack>
-                        ) : <Text>Không tìm thấy bàn ?</Text>
-                    }
-                </VStack>
-            </form>
+                        </form>
+                    </VStack>
+                )
+            }
+            {
+                !(r.status == 'active' && props.params.table_id == table?.id) && <Text>Loading...</Text>
+            }
+            {
+                !(r.status == 'active' && props.params.table_id == table?.id) && !$tables.loading && <Text>Không tìm thấy bàn ?</Text>
+            }
         </VStack >
     )
 }

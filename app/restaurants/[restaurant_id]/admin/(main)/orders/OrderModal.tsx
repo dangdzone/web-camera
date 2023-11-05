@@ -8,6 +8,7 @@ import { useState } from "react"
 import { OrderInfoModal } from "./OrderInfoModal"
 import { Controller, useForm } from "react-hook-form"
 import { OrderStatusMap } from "@/text"
+import dayjs from "dayjs"
 
 export type OrderModal = {
     order?: SmartQueryItem<Order>
@@ -100,6 +101,10 @@ export const OrderModal = (props: OrderModal) => {
                                 <HStack w='full' justifyContent='space-between' >
                                     <Text as='b'>Tổng tiền:</Text>
                                     <Text as='b' fontSize='20px'>{props.order?.total.toLocaleString()} đ</Text>
+                                </HStack>
+                                <HStack w='full' justifyContent='space-between'>
+                                    <Text as='b'>Thời gian tạo đơn:</Text>
+                                    <Text as='b' fontSize='20px'>{dayjs(props.order?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
                                 </HStack>
                                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='5'>
                                     <Text as='b'>Trạng thái đơn hàng</Text>

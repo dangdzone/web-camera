@@ -5,6 +5,7 @@ import React, { PropsWithChildren } from "react";
 import { TopbarTable } from "./TopbarTable";
 import { useDocumentData } from "@livequery/react";
 import { Restaurant, RestaurantTable } from "@/types";
+import { Spinner } from "@chakra-ui/react";
 
 
 export default function LayoutTable(props: {
@@ -24,7 +25,11 @@ export default function LayoutTable(props: {
 
     return (
         <VStack w='full' minH='100vh' spacing='0'>
-            <TopbarTable restaurant={restaurant} table={table} order_id={props.params.order_id}  />
+            <TopbarTable
+                restaurant={restaurant}
+                table={table}
+                order_id={props.params.order_id}
+            />
             {props.children}
         </VStack>
     )

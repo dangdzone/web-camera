@@ -6,6 +6,7 @@ import { Order, OrderItem } from "@/types"
 import { useCollectionData, useDocumentData } from "@livequery/react"
 import { OrderStatusMap } from "@/text"
 import Link from "next/link"
+import dayjs from "dayjs"
 
 export type OrderTableList = {
     restaurant_id: string,
@@ -66,6 +67,10 @@ export const OrderTableList = (props: OrderTableList) => {
                 <HStack w='full' justifyContent='space-between'>
                     <Text as='b'>Tổng tiền:</Text>
                     <Text as='b' fontSize='20px'>{$order.item?.total.toLocaleString()} đ</Text>
+                </HStack>
+                <HStack w='full' justifyContent='space-between'>
+                    <Text as='b'>Thời gian tạo đơn:</Text>
+                    <Text as='b' fontSize='20px'>{dayjs($order.item?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
                 </HStack>
                 <HStack w='full' justifyContent='space-between'>
                     <Text as='b'>Trạng thái đơn hàng</Text>

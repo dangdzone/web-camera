@@ -7,7 +7,9 @@ import { Center, Text, VStack } from '@chakra-ui/layout';
 export default async function RestaurantContextLayout({ children, params }: { children: ReactNode, params: any }) {
 
     const url = `${process.env.NEXT_PUBLIC_API}/restaurants/${params.restaurant_id}`
-    const r = await fetch(url, { cache: 'no-store' }).then(r => r.json()) // fetch Lấy dữ liệu từ trên BE về server component(FE) convert thành JSON
+
+    // fetch Lấy dữ liệu từ trên BE về server component(FE) convert thành JSON
+    const r = await fetch(url, { cache: 'no-store' }).then(r => r.json()) 
     if (r.data?.item) {
         return (
             <RestaurantContextProvider value={r.data.item as any}>
