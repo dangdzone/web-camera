@@ -34,7 +34,9 @@ export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
             <Tag variant='outline' borderRadius='full'>{index}</Tag>
             <VStack w='full' align='flex-start'>
                 <HStack w='full' justifyContent='space-between'>
-                    <Text fontWeight='600' opacity='0.8'>{`${order?.customer_name} (${dayjs(order?.created_at).format('HH:mm/DD-MM')})`}</Text>
+                    <Text fontWeight='600' opacity='0.8'>
+                        {`${order?.customer_name} (${dayjs(order?.created_at).format('HH:mm/DD-MM')})`}
+                    </Text>
                     <Tag colorScheme='teal'>{order?.total.toLocaleString()}đ</Tag>
                 </HStack>
                 <HStack w='full' justifyContent='space-between'>

@@ -7,6 +7,7 @@ import { useState } from "react"
 import { OrderInfoModal } from "../orders/OrderInfoModal"
 import { OrderItemDetail } from "../orders/OrderItemDetail"
 import { OrderStatusMap } from "@/text"
+import dayjs from "dayjs"
 
 export type HistoryModal = {
     order?: SmartQueryItem<Order>
@@ -86,6 +87,10 @@ export const HistoryModal = (props: HistoryModal) => {
                                 <Text as='b'>Tổng tiền:</Text>
                                 <Text as='b' fontSize='20px'>{props.order?.total.toLocaleString()} đ</Text>
                             </HStack>
+                            <HStack w='full' justifyContent='space-between'>
+                                    <Text as='b'>Thời gian tạo đơn:</Text>
+                                    <Text as='b' fontSize='20px'>{dayjs(props.order?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
+                                </HStack>
                             <HStack w='full' justifyContent='space-between'>
                                 <Text as='b'>Trạng thái đơn hàng</Text>
                                 {

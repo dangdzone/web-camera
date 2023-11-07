@@ -45,12 +45,12 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
                     />
                 )
             }
-            <HStack w='full' justifyContent='center'>
+            {/* <HStack w='full' justifyContent='center'>
                 <Input
                     w={{ base: '100%', md: '70%' }}
                     placeholder={'Tìm kiếm...'}
                 />
-            </HStack>
+            </HStack> */}
             <Wrap spacing={4} w='full'>
                 <Button
                     colorScheme={!filters.category_id ? 'orange' : 'gray'}

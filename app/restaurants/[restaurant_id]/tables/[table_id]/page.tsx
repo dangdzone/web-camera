@@ -31,6 +31,7 @@ export default function TablePage(props: {
             table_id: props.params.table_id,
             status: 'requested'
         })
+        
         const order_id = new_order.data.item.id
         const ref = `/restaurants/${props.params.restaurant_id}/tables/${props.params.table_id}/orders/${order_id}`
 

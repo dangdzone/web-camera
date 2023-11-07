@@ -41,7 +41,6 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
             category.__update(data)
         } else {
             await transporter.add(`restaurants/${r.id}/categories`, data)
-
         }
         onClose()
     }
