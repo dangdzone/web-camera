@@ -10,14 +10,17 @@ import { Controller, useForm } from "react-hook-form"
 export type OrderInfoModal = {
     onClose: () => void
     order_item?: SmartQueryItem<OrderItem>
-    restaurant_id?: string
+    restaurant_id?: string,
+    order_id?: string
 }
 
-export const OrderInfoModal = ({ onClose, order_item, restaurant_id }: OrderInfoModal) => {
+export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }: OrderInfoModal) => {
 
     const { colorMode } = useColorMode()
     const $foods = useCollectionData<Food>(`restaurants/${restaurant_id}/foods`)
     const foods = $foods.items.filter(a => a.id == order_item?.food_id)
+    // const $order_items = useCollectionData<OrderItem>(`restaurants/${restaurant_id}/${order_id}/order-items`)
+    // console.log({ $order_items })
 
     const { handleSubmit, watch, control, formState } = useForm<OrderItem>({
         defaultValues: {
@@ -37,7 +40,6 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id }: OrderInfo
             isOpen={true}
             size={'3xl'}
             onClose={onClose}
-            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
@@ -46,18 +48,7 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id }: OrderInfo
                         Thông tin món
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
-                    <ModalBody
-                        px={{ base: '2', md: '4' }} py='6'
-                        sx={{
-                            "::-webkit-scrollbar": {
-                                w: { base: 'none', md: '2' },
-                            },
-                            '&::-webkit-scrollbar-thumb': {
-                                borderRadius: '10',
-                                bg: '#c0c1c1',
-                            },
-                        }}
-                    >
+                    <ModalBody px={{ base: '2', md: '4' }} py='6'>
                         <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4'>
                             <Image
                                 borderRadius='10px'
@@ -108,6 +99,9 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id }: OrderInfo
                                             </Wrap>
                                         )} />
                                 </HStack>
+                                {
+
+                                }
                             </VStack>
                         </SimpleGrid>
                     </ModalBody>

@@ -15,7 +15,7 @@ export const Topbar = () => {
         <HStack
             zIndex='999'
             w='full'
-            bg={colorMode == 'dark' ? '#C46819' : '#F5821F'}
+            bg={colorMode == 'dark' ? 'blue.700' : 'blue.500'}
             height='65px'
             px={{ base: 2, md: 4 }}
             color='white'
@@ -30,7 +30,7 @@ export const Topbar = () => {
                     />
                 </Box>
                 <Text fontSize={{ base: 14, md: 18 }}>
-                    Menu điện tử cho nhà hàng Nét Huế
+                    Ứng dụng gọi món bằng menu điện tử - Nét Huế
                 </Text>
             </HStack>
             <HStack>

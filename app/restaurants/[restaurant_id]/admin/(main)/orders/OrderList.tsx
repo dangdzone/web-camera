@@ -5,7 +5,6 @@ import { Button, Spinner, useColorMode } from "@chakra-ui/react"
 import { OrderListItem } from "./OrderListItem"
 import { OrderStatusMap } from "@/text"
 import { useState } from "react"
-import { OrderCreateModal } from "./create/OrderCreateModal"
 import { OrderModal } from "./OrderModal"
 import { useCollectionData } from "@livequery/react"
 import { Order, Restaurant } from "@/types"
@@ -25,14 +24,6 @@ export const OrderList = () => {
 
     return (
         <VStack w='full' spacing='5'>
-            {
-                active_order_create !== null && (
-                    <OrderCreateModal
-                        onClose={() => set_active_order_create(null)}
-                        restaurant={active_order_create}
-                    />
-                )
-            }
             {
                 actice_order !== null && (
                     <OrderModal
@@ -88,7 +79,7 @@ export const OrderList = () => {
                         ))
                     }
                 </Wrap>
-                <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px='4'>
+                <SimpleGrid w='full' columns={[1, 1, 1, 2]} spacing='4' px='4'>
                     {
                         orders.map((order, i) => (
                             <OrderListItem

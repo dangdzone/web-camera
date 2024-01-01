@@ -69,10 +69,10 @@ export default function LoginPage() {
                 >
                     <Stack align={'center'} spacing={3}>
                         <HStack color='teal.500'>
-                            <Text fontWeight='400' fontSize='3xl'>Nhóm 10</Text>
+                            <Text fontWeight='700' fontSize='3xl'>Nhóm 6</Text>
                         </HStack>
                         <Text align={'center'} fontSize={{ base: 'sm', md: 'md' }} fontWeight='400' color={'gray.500'}>
-                            Chào mừng bạn đến với Menu cho nhà hàng Nét Huế
+                            Ứng dụng gọi món bằng menu điện tử - Nét Huế
                         </Text>
                     </Stack>
                     <LoginDetail />

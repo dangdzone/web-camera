@@ -70,4 +70,5 @@ export declare class OrderItem extends BaseEntity {
     customer_id: string;
     status: string
     description: string;
+    status_detail: number;
 }

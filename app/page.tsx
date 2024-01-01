@@ -58,7 +58,7 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 export default function IndexPage() {
     const ListName = [
         {
-            name: 'ThS. Nguyễn Hồng Thanh',
+            name: 'ThS. Đào Ngọc Phong',
             position: 'Giảng viên hướng dẫn'
         },
         {
@@ -71,6 +71,14 @@ export default function IndexPage() {
         },
         {
             name: 'Đinh Thị Thu Phương',
+            position: 'Thành viên'
+        },
+        {
+            name: 'Nguyền Thành Toàn',
+            position: 'Thành viên'
+        },
+        {
+            name: 'Nguyền Thị Diệu My',
             position: 'Thành viên'
         },
     ]
@@ -88,10 +96,13 @@ export default function IndexPage() {
                     lineHeight={'110%'}
                     px='2'
                 >
-                   	Công nghệ Web{' - '} Nhóm 10 {' - '}
-                    <Text as={'span'} color={'teal.500'} lineHeight='1.5'>
-                        Menu điện tử cho nhà hàng Nét Huế.
-                    </Text>
+                    <VStack w='full'>
+                        <Text>Phần mềm hướng dịch vụ</Text>
+                        <Text mt='7'>Nhóm 6</Text>
+                        <Text as={'span'} color={'teal.500'} lineHeight='1.5'>
+                            Ứng dụng gọi món bằng menu điện tử - Nét Huế
+                        </Text>
+                    </VStack>
                 </Heading>
                 <Text color={'gray.500'} maxW={'5xl'} fontSize={{ base: 'lg', md: '2xl' }} fontWeight={500} px='2'>
                     Giải pháp thay thế menu trong các nhà hàng Nét Huế, vận hành hàng trăm yêu cầu gọi món cùng một lúc nhanh gọn, chính xác.

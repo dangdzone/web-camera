@@ -44,7 +44,7 @@ export const LoginDetail = () => {
                     Đăng nhập với Google
                 </Button>
             </VStack>
-            <Text
+            {/* <Text
                 cursor='pointer'
                 color='teal'
                 opacity='0.7'
@@ -53,7 +53,7 @@ export const LoginDetail = () => {
                 display={staff_login_active == true ? 'none' : 'block'}
             >
                 Đăng nhập với nhân viên ?
-            </Text>
+            </Text> */}
         </VStack>
     )
 }

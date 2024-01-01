@@ -45,6 +45,7 @@ export const OrderModal = (props: OrderModal) => {
                         onClose={() => set_order_update(null)}
                         order_item={order_update}
                         restaurant_id={props.order?.restaurant_id}
+                        order_id={props.order?.id as any}
                     />
                 )
             }

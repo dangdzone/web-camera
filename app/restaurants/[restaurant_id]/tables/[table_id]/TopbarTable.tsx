@@ -26,7 +26,7 @@ export const TopbarTable = ({ restaurant, table, order_id }: TopbarTable) => {
             h='65px'
             px={{ base: '2', md: '4' }}
             py='3'
-            bg={colorMode == 'dark' ? '#C46819' : '#F5821F'}
+            bg={colorMode == 'dark' ? 'blue.700' : 'blue.500'}
             justifyContent='space-between'
             color='white'
             zIndex='999'
