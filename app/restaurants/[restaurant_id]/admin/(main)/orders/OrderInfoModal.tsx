@@ -22,7 +22,7 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
     // const $order_items = useCollectionData<OrderItem>(`restaurants/${restaurant_id}/${order_id}/order-items`)
     // console.log({ $order_items })
 
-    const { handleSubmit, watch, control, formState } = useForm<OrderItem>({
+    const { handleSubmit, watch, control, formState, reset } = useForm<OrderItem>({
         defaultValues: {
             id: order_item?.id,
             status: order_item?.status,
@@ -32,6 +32,7 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
 
     async function onSubmit(data: OrderItem) {
         order_item?.__update({ ...data })
+        reset(data)
         onClose()
     }
 
@@ -108,14 +109,18 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
                     <ModalFooter p={{ base: '2', md: '4' }}>
                         <HStack w='full' justifyContent='flex-end'>
                             <Button onClick={onClose} variant='ghost' colorScheme='blue'>Thoát</Button>
-                            <Button
-                                variant='solid'
-                                colorScheme='blue'
-                                type="submit"
-                                isLoading={formState.isSubmitting}
-                            >
-                                Cập nhật
-                            </Button>
+                            {
+                                formState.isDirty && (
+                                    <Button
+                                        variant='solid'
+                                        colorScheme='blue'
+                                        type="submit"
+                                        isLoading={formState.isSubmitting}
+                                    >
+                                        Cập nhật
+                                    </Button>
+                                )
+                            }
                         </HStack>
                     </ModalFooter>
                 </form>
