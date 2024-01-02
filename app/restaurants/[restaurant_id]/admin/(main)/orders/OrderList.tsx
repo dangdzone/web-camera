@@ -10,6 +10,7 @@ import { useCollectionData } from "@livequery/react"
 import { Order, Restaurant } from "@/types"
 import { SmartQueryItem } from "@livequery/client"
 import { getRestaurantContext } from "@/hooks/useRestaurant"
+import { IoFileTrayFull } from "react-icons/io5";
 
 export const OrderList = () => {
 
@@ -50,10 +51,12 @@ export const OrderList = () => {
                 >
                     <Text fontWeight='600'>Gọi món</Text>
                     {/* <Button size='sm' onClick={() => set_active_order_create(undefined)}>Tạo đơn mới</Button> */}
+                    
                 </HStack>
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>
                     <Button
                         colorScheme='red'
+                        leftIcon={<IoFileTrayFull />}
                         onClick={() => filter({
                             ...filters,
                             status: undefined
@@ -64,10 +67,11 @@ export const OrderList = () => {
                     </Button>
 
                     {
-                        Object.entries(OrderStatusMap).filter(([name_id, ]) => (name_id !== 'pay') && (name_id !== 'cancel')).map(([name_id, { name, color }]) => (
+                        Object.entries(OrderStatusMap).filter(([name_id, ]) => (name_id !== 'pay') && (name_id !== 'cancel')).map(([name_id, { name, color, icon }]) => (
                             <Button
                                 key={name_id}
                                 colorScheme={color}
+                                leftIcon={icon}
                                 onClick={() => filter({
                                     ...filters,
                                     status: name_id

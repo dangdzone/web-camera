@@ -9,7 +9,7 @@ import { useCollectionData } from "@livequery/react"
 import { SmartQueryItem } from "@livequery/client"
 import { HistoryModal } from "./HistoryModal"
 import { getRestaurantContext } from "@/hooks/useRestaurant"
-
+import { IoFileTrayFull } from "react-icons/io5";
 
 export const HistoryList = () => {
 
@@ -54,6 +54,7 @@ export const HistoryList = () => {
                 <Wrap spacing={{ base: '2', md: '4' }} w='full' px='4'>
                     <Button
                         colorScheme='red'
+                        leftIcon={<IoFileTrayFull />}
                         onClick={() => filter({
                             ...filters,
                             status: undefined
@@ -64,10 +65,11 @@ export const HistoryList = () => {
                     </Button>
 
                     {
-                        Object.entries(OrderStatusMap).filter(([name_id,]) => (name_id !== 'requested') && (name_id !== 'unpaid')).map(([name_id, { name, color }]) => (
+                        Object.entries(OrderStatusMap).filter(([name_id,]) => (name_id !== 'requested') && (name_id !== 'unpaid')).map(([name_id, { name, color, icon }]) => (
                             <Button
                                 key={name_id}
                                 colorScheme={color}
+                                leftIcon={icon}
                                 onClick={() => filter({
                                     ...filters,
                                     status: name_id

@@ -6,7 +6,7 @@ import { ClientProviderList } from './ClientProviderList';
 import { Nunito_Sans } from 'next/font/google';
 
 const font = Nunito_Sans({
-  weight: '400',
+  style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap'
 })
@@ -15,7 +15,12 @@ const font = Nunito_Sans({
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={font.className} suppressHydrationWarning={true}>
+      <head>
+        <title>Ứng dụng gọi món bằng menu điện tử</title>
+        <meta name='description' content='Ứng dụng gọi món bằng menu điện tử' />
+        <link rel="icon" href="https://nethue.com.vn/uploaded/tin-tuc-loigioithieu-1.png" />
+      </head>
+      <body className={font.className} suppressHydrationWarning>
         <ClientProviderList>
           {children}
         </ClientProviderList>

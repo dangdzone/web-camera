@@ -1,7 +1,6 @@
 'use client'
 
 import {
-    Heading,
     Stack,
     Text,
     Button,
@@ -10,7 +9,6 @@ import {
     Icon,
     SimpleGrid,
     Center,
-    HStack,
 } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
@@ -56,57 +54,26 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 };
 
 export default function IndexPage() {
-    const ListName = [
-        {
-            name: 'ThS. Đào Ngọc Phong',
-            position: 'Giảng viên hướng dẫn'
-        },
-        {
-            name: 'Nguyễn Văn Đang',
-            position: 'Nhóm Trưởng'
-        },
-        {
-            name: 'Bùi Hương Giang',
-            position: 'Thành viên'
-        },
-        {
-            name: 'Đinh Thị Thu Phương',
-            position: 'Thành viên'
-        },
-        {
-            name: 'Nguyền Thành Toàn',
-            position: 'Thành viên'
-        },
-        {
-            name: 'Nguyền Thị Diệu My',
-            position: 'Thành viên'
-        },
-    ]
     return (
         <Stack
             textAlign={'center'}
             align={'center'}
             spacing={{ base: 8, md: 10 }}
             py={{ base: 20, md: 28 }}
+            h='100vh'
+            justifyContent='center'
         >
             <VStack w='full' spacing={10}>
-                <Heading
-                    fontWeight={900}
-                    fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
-                    lineHeight={'110%'}
-                    px='2'
-                >
-                    <VStack w='full'>
-                        <Text>Phần mềm hướng dịch vụ</Text>
-                        <Text mt='7'>Nhóm 6</Text>
-                        <Text as={'span'} color={'teal.500'} lineHeight='1.5'>
-                            Ứng dụng gọi món bằng menu điện tử - Nét Huế
-                        </Text>
-                    </VStack>
-                </Heading>
-                <Text color={'gray.500'} maxW={'5xl'} fontSize={{ base: 'lg', md: '2xl' }} fontWeight={500} px='2'>
-                    Giải pháp thay thế menu trong các nhà hàng Nét Huế, vận hành hàng trăm yêu cầu gọi món cùng một lúc nhanh gọn, chính xác.
-                </Text>
+                <VStack w='full' spacing='10'>
+                    <Text fontSize='35px' fontWeight='700' textAlign={'center'} textTransform='uppercase'>Phần mềm hướng dịch vụ</Text>
+                    
+                    <Text fontSize='35px' fontWeight='700'>Nhóm 6</Text>
+                    <Text as={'span'} color={'teal.500'} textAlign={'center'} lineHeight='1.5' fontSize='35px' fontWeight='700'>
+                        Ứng dụng gọi món bằng menu điện tử
+                    </Text>
+                </VStack>
+
+                
                 <Stack spacing={3} direction={'row'}>
                     <Link href='/login'>
                         <Button
@@ -121,6 +88,9 @@ export default function IndexPage() {
                         </Button>
                     </Link>
                 </Stack>
+                <Text color={'gray.500'} maxW={'5xl'} fontSize='30px' fontWeight={500} px='2'>
+                    Giải pháp thay thế menu trong các nhà hàng Nét Huế, vận hành hàng trăm yêu cầu gọi món cùng một lúc nhanh gọn, chính xác.
+                </Text>
             </VStack>
             <Box p={4} pt='10'>
                 <SimpleGrid columns={[1, 1, 2, 2, 3, 3]} spacing={10}>

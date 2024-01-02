@@ -1,9 +1,11 @@
 
-import { BiFoodMenu } from "react-icons/bi"
+import { BiFoodMenu, BiSolidCartAlt } from "react-icons/bi"
 import { AiOutlineShop } from "react-icons/ai"
 import { BsShop } from "react-icons/bs"
 import { FiPlusSquare, FiShoppingCart } from "react-icons/fi"
-import { MdOutlineHistory, MdOutlineTableRestaurant } from "react-icons/md"
+import { MdCancel, MdOutlineHistory, MdOutlineTableRestaurant } from "react-icons/md"
+import { FaCheckCircle } from "react-icons/fa";
+import { RiMoneyDollarCircleLine } from "react-icons/ri"
 
 export const OrderItemStatusMap = {
     requested: {
@@ -30,19 +32,23 @@ export const OrderStatusMapCheck = {
 export const OrderStatusMap = {
     requested: {
         name: 'Đã yêu cầu',
-        color: 'green'
+        color: 'green',
+        icon: <BiSolidCartAlt />
     },
     unpaid: {
         name: 'Chờ thanh toán',
-        color: 'orange'
+        color: 'orange',
+        icon: <RiMoneyDollarCircleLine />
     },
     pay: {
         name: 'Đã thanh toán',
-        color: 'blue'
+        color: 'blue',
+        icon: <FaCheckCircle />
     },
     cancel: {
         name: 'Hủy',
-        color: 'red'
+        color: 'red',
+        icon: <MdCancel />
     },
 }
 
