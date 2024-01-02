@@ -16,6 +16,17 @@ export const OrderItemStatusMap = {
     }
 }
 
+export const OrderStatusMapCheck = {
+    requested: {
+        name: 'Đã yêu cầu',
+        color: 'green'
+    },
+    cancel: {
+        name: 'Hủy',
+        color: 'red'
+    },
+}
+
 export const OrderStatusMap = {
     requested: {
         name: 'Đã yêu cầu',

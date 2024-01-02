@@ -7,7 +7,7 @@ import { OrderItemDetail } from "./OrderItemDetail"
 import { useState } from "react"
 import { OrderInfoModal } from "./OrderInfoModal"
 import { Controller, useForm } from "react-hook-form"
-import { OrderStatusMap } from "@/text"
+import { OrderStatusMap, OrderStatusMapCheck } from "@/text"
 import dayjs from "dayjs"
 
 export type OrderModal = {
@@ -22,7 +22,7 @@ export const OrderModal = (props: OrderModal) => {
     const $table = useDocumentData<RestaurantTable>(`restaurants/${props.order?.restaurant_id}/tables/${props.order?.table_id}`)
     const $order_items = useCollectionData<OrderItem>(`restaurants/${props.order?.restaurant_id}/orders/${props.order?.id}/order-items`)
 
-    const order_items = $order_items.items
+    const order_item = $order_items.items
 
     const { handleSubmit, watch, control, formState, reset } = useForm<Order>({
         defaultValues: {
@@ -83,7 +83,7 @@ export const OrderModal = (props: OrderModal) => {
                             </HStack>
                             <VStack w='full' divider={<Divider />} py='4'>
                                 {
-                                    order_items.map(order_item => (
+                                    order_item.map(order_item => (
                                         <OrderItemDetail
                                             key={order_item.id}
                                             order_item={order_item}
@@ -109,30 +109,59 @@ export const OrderModal = (props: OrderModal) => {
                                 </HStack>
                                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='5'>
                                     <Text as='b'>Trạng thái đơn hàng</Text>
-                                    <Controller
-                                        name={'status'}
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Wrap spacing={2}>
-                                                {
-                                                    Object.entries(OrderStatusMap).map(([name_id, { name, color }]) => {
-                                                        const selected = field.value == name_id
-                                                        return (
-                                                            <Button
-                                                                key={name_id}
-                                                                size='sm'
-                                                                variant={selected ? 'solid' : 'outline'}
-                                                                colorScheme={color}
-                                                                onClick={() => field.onChange(name_id)}
-                                                            >
-                                                                {name}
-                                                            </Button>
-                                                        )
-                                                    }
-                                                    )
-                                                }
-                                            </Wrap>
-                                        )} />
+                                    {
+                                        order_item.length == 0 ? (
+                                            <Controller
+                                                name={'status'}
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Wrap spacing={2}>
+                                                        {
+                                                            Object.entries(OrderStatusMapCheck).map(([name_id, { name, color }]) => {
+                                                                const selected = field.value == name_id
+                                                                return (
+                                                                    <Button
+                                                                        key={name_id}
+                                                                        size='sm'
+                                                                        variant={selected ? 'solid' : 'outline'}
+                                                                        colorScheme={color}
+                                                                        onClick={() => field.onChange(name_id)}
+                                                                    >
+                                                                        {name}
+                                                                    </Button>
+                                                                )
+                                                            }
+                                                            )
+                                                        }
+                                                    </Wrap>
+                                                )} />
+                                        ) : (
+                                            <Controller
+                                                name={'status'}
+                                                control={control}
+                                                render={({ field }) => (
+                                                    <Wrap spacing={2}>
+                                                        {
+                                                            Object.entries(OrderStatusMap).map(([name_id, { name, color }]) => {
+                                                                const selected = field.value == name_id
+                                                                return (
+                                                                    <Button
+                                                                        key={name_id}
+                                                                        size='sm'
+                                                                        variant={selected ? 'solid' : 'outline'}
+                                                                        colorScheme={color}
+                                                                        onClick={() => field.onChange(name_id)}
+                                                                    >
+                                                                        {name}
+                                                                    </Button>
+                                                                )
+                                                            }
+                                                            )
+                                                        }
+                                                    </Wrap>
+                                                )} />
+                                        )
+                                    }
                                 </SimpleGrid>
                                 <HStack w='full'>
                                     {

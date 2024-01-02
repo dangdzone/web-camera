@@ -1,11 +1,11 @@
 
-import { Order, OrderItem, Restaurant, RestaurantTable } from "@/types"
-import { Badge, Center, Divider, HStack, Text, VStack } from "@chakra-ui/layout"
-import { Button, Tag, useColorMode } from "@chakra-ui/react"
+import { Order, OrderItem, RestaurantTable } from "@/types"
+import { Badge, Divider, HStack, Text, VStack } from "@chakra-ui/layout"
+import { Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData, useDocumentData } from "@livequery/react"
 import dayjs from "dayjs"
-import { MdCheck, MdCheckCircle, MdFactCheck, MdOutlineClose, MdRadioButtonUnchecked } from "react-icons/md"
+import { MdCheckCircle, MdRadioButtonUnchecked } from "react-icons/md"
 
 export type OrderListItem = {
     order?: SmartQueryItem<Order>
