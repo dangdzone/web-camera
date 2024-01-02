@@ -100,20 +100,17 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
                     </ModalBody>
                     <ModalFooter p={{ base: '2', md: '4' }}>
                         <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
-                        {
-                            (status !== 'paid') && (status !== 'cancel') && (
-                                <Button
-                                    variant='solid'
-                                    colorScheme='blue'
-                                    type="submit"
-                                    leftIcon={<BiCartAdd />}
-                                    isDisabled={watch('amount') == 0}
-                                    isLoading={onSubmit.loading}
-                                >
-                                    Đặt món ngay
-                                </Button>
-                            )
-                        }
+                        <Button
+                            variant='solid'
+                            colorScheme='blue'
+                            type="submit"
+                            leftIcon={<BiCartAdd />}
+                            // isDisabled={watch('amount') == 0}
+                            isDisabled={status == 'pay' || status == 'cancel'}
+                            isLoading={onSubmit.loading}
+                        >
+                            Đặt món ngay
+                        </Button>
                     </ModalFooter>
                 </ModalContent>
             </form>

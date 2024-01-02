@@ -10,6 +10,7 @@ export type TableQr = {
 
 export const TableQr = ({ table }: TableQr) => {
 
+    // thông tin nhà hàng
     const r = getRestaurantContext()
     const { colorMode } = useColorMode()
 
