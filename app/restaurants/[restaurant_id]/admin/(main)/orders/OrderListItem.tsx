@@ -24,6 +24,11 @@ export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
     // Số món đã lê bàn
     const status_confirm = $order_items.items.filter(a => a.status == 'confirm').length
 
+    
+    const amount_total = $order_items.items.map(item => item.amount)
+    
+    console.log({ amount_total })
+    
     return (
         <HStack
             w='full'

@@ -95,7 +95,7 @@ export const OrderList = () => {
                     $orders.loading && <Spinner color="teal.500" size='lg' />
                 }
                 {
-                    orders.length == 0 && <Text fontSize='18px' color="teal.500">Chưa có món...</Text>
+                    orders.length == 0 && <Text fontSize='18px' color="teal.500">Chưa có...</Text>
                 }
             </VStack>
         </VStack>
