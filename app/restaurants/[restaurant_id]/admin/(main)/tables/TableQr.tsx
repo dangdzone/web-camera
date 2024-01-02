@@ -27,7 +27,7 @@ export const TableQr = ({ table }: TableQr) => {
                 size={80}
                 level='L'
                 style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                value={`https://menu-v1.vercel.app/restaurants/${r.id}/tables/${table.id}`}
+                value={`https://menudientu.vercel.app/restaurants/${r.id}/tables/${table.id}`}
                 viewBox={`0 0 256 256`}
             />
             <HStack justifyContent='center' w='full'>
