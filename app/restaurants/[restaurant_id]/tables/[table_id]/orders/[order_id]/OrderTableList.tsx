@@ -5,8 +5,9 @@ import { OrderTableItem } from "./OrderTableItem"
 import { Order, OrderItem } from "@/types"
 import { useCollectionData, useDocumentData } from "@livequery/react"
 import { OrderStatusMap } from "@/text"
-import Link from "next/link"
 import dayjs from "dayjs"
+import { useState } from "react"
+import { CreateOrderModal } from "./CreateOrderModal"
 
 export type OrderTableList = {
     restaurant_id: string,
@@ -24,6 +25,8 @@ export const OrderTableList = (props: OrderTableList) => {
     const $order = useDocumentData<Order>(`restaurants/${props.restaurant_id}/orders/${props.order_id}`)
     const status = $order.item?.status
 
+    const [active_create_order, set_active_create_order] = useState<boolean>(false)
+
     return (
         <VStack
             w='full'
@@ -34,6 +37,15 @@ export const OrderTableList = (props: OrderTableList) => {
             spacing='5'
             pb='5'
         >
+            {
+                active_create_order !== false && (
+                    <CreateOrderModal
+                        onClose={() => set_active_create_order(false)}
+                        restaurant_id={props.restaurant_id}
+                        table_id={props.table_id}
+                    />
+                )
+            }
             <HStack
                 w='full'
                 p='4'
@@ -42,13 +54,7 @@ export const OrderTableList = (props: OrderTableList) => {
                 justifyContent='space-between'
             >
                 <Text fontWeight='600'>Đơn hàng của bạn</Text>
-                {
-                    order_items.length !== 0 && (
-                        <Link href={`/restaurants/${props?.restaurant_id}/tables/${props.table_id}`}>
-                            <Button size='sm'>Tạo đơn mới</Button>
-                        </Link>
-                    )
-                }
+                <Button size='sm' onClick={() => set_active_create_order(true)}>Tạo đơn mới</Button>
             </HStack>
             <VStack w='full' divider={<Divider />} p='4'>
                 {
@@ -75,7 +81,7 @@ export const OrderTableList = (props: OrderTableList) => {
                 <HStack w='full' justifyContent='space-between'>
                     <Text as='b'>Trạng thái đơn hàng</Text>
                     {
-                        order_items.length !== 0 ? Object.entries(OrderStatusMap).filter(([name_id,]) => status == name_id).map(([name_id, { name, color }]) => (
+                        Object.entries(OrderStatusMap).filter(([name_id,]) => status == name_id).map(([name_id, { name, color }]) => (
                             <Button
                                 size='sm'
                                 key={name_id}
@@ -84,7 +90,7 @@ export const OrderTableList = (props: OrderTableList) => {
                             >
                                 {name}
                             </Button>
-                        )) : <Button variant='outline' size='sm'>Đã tạo đơn</Button>
+                        ))
                     }
                 </HStack>
                 {

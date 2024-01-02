@@ -2,7 +2,7 @@
 
 import { TableCustomerMap } from "@/text";
 import { Box, HStack, Text, VStack } from "@chakra-ui/layout";
-import { Tabs, TabList, Tab, TabIndicator, TabPanels, TabPanel, useColorMode } from "@chakra-ui/react";
+import { Tabs, TabList, Tab, TabIndicator, TabPanels, TabPanel, useColorMode, Spinner } from "@chakra-ui/react";
 import { MenuTableList } from "./menus/MenuTableList";
 import { OrderTableList } from "./OrderTableList";
 import { theme } from "@/theme";
@@ -28,6 +28,9 @@ export default function OrderPage(props: {
     const table_check = $tables.items.map(a => a.id).includes(props.params.table_id) // Check xem bàn đó có ở trong nhà hàng không
     const order_check = order?.table_id == props.params.table_id // Check xem đơn hàng đó có trong bàn đó không
     const check_render = table_check && order_check
+
+    const loading = $order.loading && $tables.loading
+
     return (
         <Tabs w='full' position="relative" variant="unstyled" >
             <Box
@@ -80,7 +83,7 @@ export default function OrderPage(props: {
                 />
             </Box>
             {
-                check_render ? (
+                check_render && (
                     <TabPanels w='full' px='0' py='4' display='flex' justifyContent='center'>
                         <TabPanel w='full' maxW='6xl' px={{ base: '2', md: '4' }}>
                             <VStack
@@ -111,11 +114,17 @@ export default function OrderPage(props: {
                             />
                         </TabPanel>
                     </TabPanels>
-                ) : (
+                )
+            }
+            {
+                !check_render && !loading && (
                     <VStack pt='10'>
                         <Text>Đơn hàng không hợp lệ !</Text>
                     </VStack>
                 )
+            }
+            {
+                loading && <VStack w='full' py='10'><Spinner color="teal.500" size='lg' /></VStack>
             }
         </Tabs>
     )

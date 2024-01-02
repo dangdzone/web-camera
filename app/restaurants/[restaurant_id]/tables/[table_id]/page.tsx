@@ -31,12 +31,17 @@ export default function TablePage(props: {
             table_id: props.params.table_id,
             status: 'requested'
         })
-        
+
         const order_id = new_order.data.item.id
         const ref = `/restaurants/${props.params.restaurant_id}/tables/${props.params.table_id}/orders/${order_id}`
 
         router.push(ref)
     }
+
+    const loading = $restaurant.loading && $tables.loading
+
+    // Check xem bàn này có trạng thái active và có trong cơ sở dữ liệu không
+    const active_table = r.status == 'active' && props.params.table_id == table?.id
 
     return (
         <VStack w='full' px={{ base: '4', md: '14' }} pt='14'>
@@ -64,7 +69,7 @@ export default function TablePage(props: {
                                         Chào mừng bạn đến với nhà hàng Nét Huế - {restaurant?.name} !
                                     </Text>
                                     <Text fontSize='18px' opacity='0.8' textAlign='center'>Bạn có muốn vào bàn gọi món không ?</Text>
-                                    <Text color='blue.500' fontWeight='600' fontSize='25px'>{table?.name}</Text>
+                                    <Text color='blue.500' fontWeight='600' fontSize='25px' py='5'>{table?.name}</Text>
                                 </VStack>
                                 <HStack w='full'>
                                     <Link href='/#' style={{ width: ' 100%' }}>
@@ -78,10 +83,10 @@ export default function TablePage(props: {
                 )
             }
             {
-                !(r.status == 'active' && props.params.table_id == table?.id) && <Text>Loading...</Text>
+                loading && <Spinner color="teal.500" size='lg' />
             }
             {
-                !(r.status == 'active' && props.params.table_id == table?.id) && !$tables.loading && <Text>Không tìm thấy bàn ?</Text>
+                !active_table && !loading && <Text fontSize='20px'>Không tìm thấy bàn này ?</Text>
             }
         </VStack >
     )

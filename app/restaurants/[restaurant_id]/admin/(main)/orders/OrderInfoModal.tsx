@@ -43,8 +43,8 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
             onClose={onClose}
         >
             <ModalOverlay />
-            <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
-                <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalContent bg={colorMode == "dark" ? "#242526" : "white"} mx='2'>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}>
                         Thông tin món
                     </ModalHeader>
@@ -123,8 +123,8 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
                             }
                         </HStack>
                     </ModalFooter>
-                </form>
-            </ModalContent>
+                </ModalContent>
+            </form>
         </Modal >
     )
 }
