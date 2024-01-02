@@ -1,11 +1,12 @@
 
 import { Order, OrderItem, RestaurantTable } from "@/types"
 import { Badge, Divider, HStack, Text, VStack } from "@chakra-ui/layout"
-import { Tag, useColorMode } from "@chakra-ui/react"
+import { Spinner, Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData, useDocumentData } from "@livequery/react"
 import dayjs from "dayjs"
 import { MdCheckCircle, MdRadioButtonUnchecked } from "react-icons/md"
+import { IoMdCloseCircle } from "react-icons/io";
 
 export type OrderListItem = {
     order?: SmartQueryItem<Order>
@@ -24,8 +25,11 @@ export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
     // Số món đã lê bàn
     const status_confirm = $order_items.items.filter(a => a.status == 'confirm').length
 
+    const status_cancel = $order_items.items.filter(a => a.status == 'cancel').length
+
+
     // const amount_total = $order_items.items.map(item => item.amount)
-    
+
     return (
         <HStack
             w='full'
@@ -61,8 +65,9 @@ export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
                 <HStack w='full' justifyContent='space-between'>
                     <Tag variant='outline'>{$order_items.items.length || 'Chưa có'} món</Tag>
                     <HStack>
-                        <Tag  colorScheme="blue"><MdCheckCircle />{status_confirm}</Tag>
-                        <Tag colorScheme="red"><MdRadioButtonUnchecked />{status_requested}</Tag>
+                        <Tag colorScheme="red"><IoMdCloseCircle />{status_cancel}</Tag>
+                        <Tag colorScheme="blue"><MdCheckCircle />{status_confirm}</Tag>
+                        <Tag colorScheme="orange"><Spinner size='xs' mr='1' /> {status_requested}</Tag>
                     </HStack>
                 </HStack>
             </VStack>

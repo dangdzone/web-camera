@@ -26,6 +26,7 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
         defaultValues: {
             id: order_item?.id,
             status: order_item?.status,
+            order_id,
             ...order_item
         }
     })
