@@ -1,4 +1,5 @@
 
+import { OrderItemStatusMap } from "@/text"
 import { OrderItem } from "@/types"
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { Image, Tag } from "@chakra-ui/react"
@@ -18,7 +19,11 @@ export const OrderTableItem = (props: OrderTableItem) => {
                     <Text textTransform='uppercase'>{props.order_item.name}</Text>
                     <HStack>
                         <Tag colorScheme='red' size='sm'>{props.order_item.price.toLocaleString()} đ</Tag>
-                        <Text color={props.order_item.status == 'confirm' ? 'blue.500' : 'red.500'}> ({props.order_item.status == 'confirm' ? 'Đã lên bàn' : 'Đợi lên bàn'})</Text>
+                        <Text
+                            color={`${OrderItemStatusMap[props.order_item.status as keyof typeof OrderItemStatusMap].color}.500`}
+                        >
+                            ({OrderItemStatusMap[props.order_item.status as keyof typeof OrderItemStatusMap].name})
+                        </Text>
                     </HStack>
                 </VStack>
                 <VStack w='full' align='flex-start'>

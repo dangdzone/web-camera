@@ -1,6 +1,7 @@
 
 import { VStack } from "@chakra-ui/layout";
 import { RestaurantInfo } from "./RestaurantInfo";
+import { RestaurantReport } from "./RestaurantReport";
 
 export const RestaurantPage = () => {
 

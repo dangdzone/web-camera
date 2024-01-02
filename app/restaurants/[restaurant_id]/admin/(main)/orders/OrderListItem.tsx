@@ -24,10 +24,7 @@ export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
     // Số món đã lê bàn
     const status_confirm = $order_items.items.filter(a => a.status == 'confirm').length
 
-    
-    const amount_total = $order_items.items.map(item => item.amount)
-    
-    console.log({ amount_total })
+    // const amount_total = $order_items.items.map(item => item.amount)
     
     return (
         <HStack
@@ -59,7 +56,7 @@ export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
                     <Text fontWeight='600' opacity='0.8'>
                         {order?.customer_name}
                     </Text>
-                    <Badge fontSize='md' colorScheme='green' variant='outline'>{order?.total.toLocaleString()}đ</Badge>
+                    <Badge fontSize='md' colorScheme='green' variant='outline'>{order?.total.toLocaleString()} đ</Badge>
                 </HStack>
                 <HStack w='full' justifyContent='space-between'>
                     <Tag variant='outline'>{$order_items.items.length || 'Chưa có'} món</Tag>

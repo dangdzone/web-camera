@@ -1,8 +1,9 @@
+
+import { OrderItemStatusMap } from "@/text"
 import { OrderItem } from "@/types"
 import { HStack, SimpleGrid, Text, VStack } from "@chakra-ui/layout"
 import { Image, Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
-import { useLiveQueryContext, useMonitor } from "@livequery/react"
 
 export type OrderItemDetail = {
     order_item: SmartQueryItem<OrderItem>
@@ -33,9 +34,9 @@ export const OrderItemDetail = (props: OrderItemDetail) => {
                         <HStack>
                             <Tag colorScheme='red' size='sm'>{props.order_item?.price.toLocaleString()} đ</Tag>
                             <Text
-                                color={props.order_item.status == 'confirm' ? 'blue.500' : 'red.500'}
+                                color={`${OrderItemStatusMap[props.order_item.status as keyof typeof OrderItemStatusMap].color}.500`}
                             >
-                                ({props.order_item.status == 'confirm' ? 'Đã lên bàn' : 'Chưa lên bàn'})
+                                ({OrderItemStatusMap[props.order_item.status as keyof typeof OrderItemStatusMap].name})
                             </Text>
                         </HStack>
                     </VStack>

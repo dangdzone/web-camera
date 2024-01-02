@@ -8,14 +8,18 @@ import { FaCheckCircle } from "react-icons/fa";
 import { RiMoneyDollarCircleLine } from "react-icons/ri"
 
 export const OrderItemStatusMap = {
-    requested: {
-        name: 'Chưa lên bàn',
+    cancel: {
+        name: 'Hủy',
         color: 'red'
+    },
+    requested: {
+        name: 'Đợi lên bàn',
+        color: 'green'
     },
     confirm: {
         name: 'Đã lên bàn',
         color: 'blue'
-    }
+    },
 }
 
 export const OrderStatusMapCheck = {

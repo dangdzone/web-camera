@@ -1,7 +1,7 @@
 
 import { OrderItemStatusMap } from "@/text"
 import { Food, OrderItem } from "@/types"
-import { HStack, SimpleGrid, Text, VStack, Wrap } from "@chakra-ui/layout"
+import { Divider, HStack, SimpleGrid, Stack, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useColorMode, Image, Tag } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData } from "@livequery/react"
@@ -57,24 +57,25 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
                                 maxH='600px'
                                 w='full'
                             />
-                            <VStack w='full' spacing='5'>
+                            <VStack w='full' spacing='5' divider={<Divider />}>
                                 <VStack w='full' align='flex-start' spacing='2'>
                                     <Text textTransform='uppercase'>{order_item?.name}</Text>
                                     <Text fontSize='14px' opacity='0.7'>{order_item?.description}</Text>
                                 </VStack>
-                                <HStack w='full'>
+                                <HStack w='full' justifyContent='space-between'>
+                                    <Text>Giá/sản phẩm:</Text>
                                     <Tag colorScheme='red'>{order_item?.price.toLocaleString()} đ</Tag>
                                 </HStack>
-                                <HStack w='full'>
+                                <HStack w='full' justifyContent='space-between'>
                                     <Text>Số lượng:</Text>
-                                    <Text>{order_item?.amount}</Text>
+                                    <Tag colorScheme='blue'>{order_item?.amount}</Tag>
                                 </HStack>
                                 <HStack w='full' justifyContent='space-between'>
                                     <Text>Số tiền tạm tính</Text>
                                     <Tag colorScheme='orange'>{order_item && (order_item?.amount * order_item?.price).toLocaleString()} đ</Tag>
                                 </HStack>
-                                <HStack w='full' justifyContent='space-between'>
-                                    <Text>Trạng thái món</Text>
+                                <Stack w='full' justifyContent='flex-start' spacing='4'>
+                                    <Text>Trạng thái:</Text>
                                     <Controller
                                         name={'status'}
                                         control={control}
@@ -99,7 +100,7 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
                                                 }
                                             </Wrap>
                                         )} />
-                                </HStack>
+                                </Stack>
                                 {
 
                                 }
