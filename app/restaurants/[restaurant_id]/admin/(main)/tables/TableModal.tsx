@@ -87,7 +87,7 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                     table && (
                                         <HStack>
                                             <Button onClick={remove} variant='outline' colorScheme='red'>Xóa</Button>
-                                            <Link href={`/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
+                                            <Link href={`https://menudientu.vercel.app/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
                                                 <Button colorScheme='red'>Mở</Button>
                                             </Link>
                                         </HStack>
