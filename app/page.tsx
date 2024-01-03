@@ -61,7 +61,6 @@ export default function IndexPage() {
             spacing={{ base: 8, md: 10 }}
             py={{ base: 20, md: 28 }}
             h='100vh'
-            justifyContent='center'
         >
             <VStack w='full' spacing={10}>
                 <VStack w='full' spacing='10'>
