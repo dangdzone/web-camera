@@ -92,6 +92,7 @@ export const OrderInfoModal = ({ onClose, order_item, restaurant_id, order_id }:
                                                                 variant={selected ? 'solid' : 'outline'}
                                                                 colorScheme={color}
                                                                 onClick={() => field.onChange(name_id)}
+                                                                isDisabled={name_id == 'cancel'}
                                                             >
                                                                 {name}
                                                             </Button>
