@@ -5,7 +5,7 @@ import { Spinner, Tag, useColorMode } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData, useDocumentData } from "@livequery/react"
 import dayjs from "dayjs"
-import { MdCheckCircle, MdRadioButtonUnchecked } from "react-icons/md"
+import { MdCheckCircle, MdOutlineRadioButtonUnchecked, MdRadioButtonUnchecked } from "react-icons/md"
 import { IoMdCloseCircle } from "react-icons/io";
 
 export type OrderListItem = {
@@ -67,7 +67,7 @@ export const OrderListItem = ({ onClick, order, index }: OrderListItem) => {
                     <HStack>
                         <Tag colorScheme="red"><IoMdCloseCircle />{status_cancel}</Tag>
                         <Tag colorScheme="blue"><MdCheckCircle />{status_confirm}</Tag>
-                        <Tag colorScheme="orange"><Spinner size='xs' mr='1' /> {status_requested}</Tag>
+                        <Tag colorScheme="orange"><MdOutlineRadioButtonUnchecked /> {status_requested}</Tag>
                     </HStack>
                 </HStack>
             </VStack>

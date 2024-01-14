@@ -8,6 +8,7 @@ import { Category, Food, Restaurant } from "@/types"
 import { useCollectionData } from "@livequery/react"
 import { SmartQueryItem } from "@livequery/client"
 import { Subject } from "rxjs"
+import { SearchBox } from "@/components/common/SearchBox"
 
 export type MenuTableList = {
     restaurant?: Restaurant
@@ -24,7 +25,7 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
     const foods = $foods.items.filter(a => a.status == 'active')
     const { filters, filter } = $foods
 
-    const $value = useRef(new Subject<string>())
+    // const $value = useRef(new Subject<string>())
 
     // useEffect(() => {
     //     const s = $value.current.pipe(
@@ -45,12 +46,17 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
                     />
                 )
             }
-            {/* <HStack w='full' justifyContent='center'>
-                <Input
-                    w={{ base: '100%', md: '70%' }}
-                    placeholder={'Tìm kiếm...'}
+            <HStack w={{ base: '100%', md: '70%' }}>
+                <SearchBox
+                    placeholder='Tìm kiếm món...'
+                    onSearch={value => $foods.filter({
+                        ...$foods.filters,
+                        // "search:like": value,
+                        // "note:like": value,
+                        // "from:like": value
+                    })}
                 />
-            </HStack> */}
+            </HStack>
             <Wrap spacing={4} w='full'>
                 <Button
                     colorScheme={!filters.category_id ? 'orange' : 'gray'}

@@ -64,18 +64,16 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
+                        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
                         <VStack w='full' spacing='5'>
-                            {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
-                            <VStack w='full' spacing='5'>
-                                <VStack w='full' spacing='4' align='flex-start'>
-                                    <Text fontWeight='400'>Tên bàn</Text>
-                                    <Input
-                                        placeholder='Nhập tên bàn...'
-                                        size='md'
-                                        {...register('name', { required: true })}
-                                        onFocus={e => e.target.select()}
-                                    />
-                                </VStack>
+                            <VStack w='full' spacing='4' align='flex-start'>
+                                <Text fontWeight='400'>Tên bàn</Text>
+                                <Input
+                                    placeholder='Nhập tên bàn...'
+                                    size='md'
+                                    {...register('name', { required: true })}
+                                    onFocus={e => e.target.select()}
+                                />
                             </VStack>
                         </VStack>
                     </ModalBody>
@@ -87,7 +85,8 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                     table && (
                                         <HStack>
                                             <Button onClick={remove} variant='outline' colorScheme='red'>Xóa</Button>
-                                            <Link href={`https://menudientu.vercel.app/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
+                                            // https://menudientu.vercel.app
+                                            <Link href={`/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank"> 
                                                 <Button colorScheme='red'>Mở</Button>
                                             </Link>
                                         </HStack>
