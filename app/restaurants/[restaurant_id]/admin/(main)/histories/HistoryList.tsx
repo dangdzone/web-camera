@@ -31,9 +31,13 @@ export const HistoryList = () => {
         }
     })
 
-    const filter = (group_by: 'by_yesterday' | 'by_day' | 'by_week' | 'by_month' | 'by_year') => {
+    const filter = (group_by: 'by_all' | 'by_yesterday' | 'by_day' | 'by_week' | 'by_month' | 'by_year') => {
 
         const today = new Date();
+
+        if (group_by == 'by_all') {
+            $orders.filter({})
+        }
 
         if (group_by == 'by_yesterday') {
 
@@ -141,6 +145,7 @@ export const HistoryList = () => {
                                 filter(e.target.value as any)
                             }}
                         >
+                            <option value='by_all' >Tất cả</option>
                             <option value='by_day' >Hôm nay</option>
                             <option value='by_yesterday'>Hôm qua</option>
                             <option value='by_week' >Tuần này</option>
