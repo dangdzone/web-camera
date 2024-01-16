@@ -51,9 +51,10 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
                     placeholder='Tìm kiếm món...'
                     onSearch={value => $foods.filter({
                         ...$foods.filters,
-                        // "search:like": value,
-                        // "note:like": value,
-                        // "from:like": value
+                        "status:like": value,
+                        "name:like": value,
+                        "description:like": value,
+                        "category_id:like": value,
                     })}
                 />
             </HStack>

@@ -5,13 +5,13 @@ import { Button, Spinner, useColorMode } from "@chakra-ui/react"
 import { theme } from "@/theme"
 import { CategoryModal } from "./categoties/CategoryModal"
 import { FoodModal } from "./foods/FoodModal"
-import { Category, Food, Restaurant } from "@/types"
+import { Category, Food } from "@/types"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData } from "@livequery/react"
 import { CategoryItem } from "./categoties/CategoryItem"
 import { FoodItem } from "./foods/FoodItem"
 import { getRestaurantContext } from "@/hooks/useRestaurant"
-
+import { SearchBox } from "@/components/common/SearchBox"
 
 export const MenuResraurantList = () => {
 
@@ -62,6 +62,15 @@ export const MenuResraurantList = () => {
                     <Text fontWeight='600'>Danh mục món</Text>
                     <Button size='sm' onClick={() => set_active_category(undefined)}>Tạo danh mục mới</Button>
                 </HStack>
+                <HStack w={{ base: '100%', md: '70%' }}>
+                    <SearchBox
+                        placeholder='Tìm kiếm danh mục...'
+                        onSearch={value => $categories.filter({
+                            ...$categories.filters,
+                            "name:like": value,
+                        })}
+                    />
+                </HStack>
                 <SimpleGrid w='full' columns={[2, 2, 2, 4, 4]} spacing='4' px='4'>
                     {
                         $categories.items.map(category => (
@@ -89,7 +98,7 @@ export const MenuResraurantList = () => {
                 borderRadius='5px'
                 border='1px'
                 borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
-                spacing='5'
+                spacing='7'
                 pb='5'
                 align='flex-start'
             >
@@ -103,6 +112,20 @@ export const MenuResraurantList = () => {
                     <Text fontWeight='600'>Danh sách món</Text>
                     <Button size='sm' onClick={() => set_active_food(undefined)}>Tạo món mới</Button>
                 </HStack>
+                <VStack w='full'>
+                    <HStack w={{ base: '100%', md: '70%' }}>
+                        <SearchBox
+                            placeholder='Tìm kiếm món...'
+                            onSearch={value => $foods.filter({
+                                ...$foods.filters,
+                                "status:like": value,
+                                "name:like": value,
+                                "description:like": value,
+                                "category_id:like": value,
+                            })}
+                        />
+                    </HStack>
+                </VStack>
                 <Wrap spacing={4} px='4'>
                     <Button
                         colorScheme={!filters.category_id ? 'orange' : 'gray'}

@@ -11,7 +11,8 @@ import {
     Input,
     ModalFooter,
     Button,
-    useColorMode
+    useColorMode,
+    useClipboard
 } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
@@ -34,6 +35,7 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
     })
 
     const { transporter } = useLiveQueryContext()
+    const { onCopy: onCopyAccNumber, hasCopied: copiedOne } = useClipboard(table?.id || '')
 
     async function onSubmit(data: RestaurantTable) {
         if (table) {
@@ -75,6 +77,17 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                     onFocus={e => e.target.select()}
                                 />
                             </VStack>
+                            {
+                                table && (
+                                    <VStack w='full' align='flex-start'>
+                                        <Text fontWeight='400'>ID bàn</Text>
+                                        <HStack w='full'>
+                                            <Input placeholder={table.id} isReadOnly  />
+                                            <Button onClick={onCopyAccNumber}>{copiedOne ? 'Đã copy' : 'Copy'}</Button>
+                                        </HStack>
+                                    </VStack>
+                                )
+                            }
                         </VStack>
                     </ModalBody>
 
@@ -86,7 +99,7 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                         <HStack>
                                             <Button onClick={remove} variant='outline' colorScheme='red'>Xóa</Button>
                                             // https://menudientu.vercel.app
-                                            <Link href={`/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank"> 
+                                            <Link href={`/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
                                                 <Button colorScheme='red'>Mở</Button>
                                             </Link>
                                         </HStack>

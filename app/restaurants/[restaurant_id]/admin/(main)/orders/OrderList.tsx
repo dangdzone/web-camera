@@ -1,7 +1,7 @@
 
 import { theme } from "@/theme"
 import { HStack, SimpleGrid, Stack, Text, VStack, Wrap } from "@chakra-ui/layout"
-import { Button, Spinner, useColorMode } from "@chakra-ui/react"
+import { Button, Select, Spinner, useColorMode } from "@chakra-ui/react"
 import { OrderListItem } from "./OrderListItem"
 import { OrderStatusMap } from "@/text"
 import { useState } from "react"
@@ -20,8 +20,77 @@ export const OrderList = () => {
     // const [active_order_create, set_active_order_create] = useState<undefined | null | SmartQueryItem<Restaurant>>(null)
     const [actice_order, set_active_order] = useState<undefined | null | SmartQueryItem<Order>>(null)
 
-    const $orders = useCollectionData<Order>(`restaurants/${r.id}/orders`)
-    const { filters, filter, items: orders } = $orders
+    const today = new Date()
+    const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime()
+    const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).getTime()
+
+    const $orders = useCollectionData<Order>(`restaurants/${r.id}/orders`, {
+        filters: {
+            "created_at:gte": startOfDay,
+            "created_at:lt": endOfDay,
+        }
+    })
+
+    const filter = (group_by: 'by_yesterday' | 'by_day' | 'by_week' | 'by_month' | 'by_year') => {
+
+        const today = new Date();
+
+        if (group_by == 'by_yesterday') {
+
+            $orders.filter({
+                "created_at:gte": startOfDay - 24 * 60 * 60 * 1000,
+                "created_at:lt": startOfDay,
+            })
+        }
+
+        if (group_by == 'by_day') {
+
+            $orders.filter({
+                "created_at:gte": startOfDay,
+                "created_at:lt": endOfDay,
+            })
+        }
+
+        if (group_by == 'by_week') {
+
+            // Tính toán thời gian bắt đầu của tuần
+            const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+            // Tính toán thời gian kết thúc của tuần
+            const endOfWeek = new Date(today.getFullYear(), today.getMonth(), startOfWeek.getDate() + 6);
+            $orders.filter({
+                "created_at:gte": startOfWeek.getTime(),
+                "created_at:lt": endOfWeek.getTime(),
+            })
+        }
+
+        if (group_by == 'by_month') {
+
+            // Lấy ngày đầu tiên của tháng
+            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            // Lấy ngày cuối cùng của tháng
+            const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            $orders.filter({
+                "created_at:gte": firstDayOfMonth.getTime(),
+                "created_at:lt": lastDayOfMonth.getTime(),
+            })
+        }
+
+        if (group_by == 'by_year') {
+
+            // Lấy thời gian đầu năm
+            const startOfYear = new Date(today.getFullYear(), 0, 1);
+            // Lấy thời gian cuối năm
+            const endOfYear = new Date(today.getFullYear(), 11, 31, 23, 59, 59, 999);
+
+            $orders.filter({
+                "created_at:gte": startOfYear.getTime(),
+                "created_at:lt": endOfYear.getTime(),
+            })
+        }
+
+    }
+
+    const { items: orders } = $orders
     const order_list = orders.filter(a => (a.status !== 'pay') && (a.status !== 'cancel'))
 
     // Tổng đơn
@@ -74,11 +143,25 @@ export const OrderList = () => {
                 </HStack>
 
                 <Stack w='full' py='5' p='4' spacing='5'>
-                    <Text fontWeight='600' textTransform='uppercase'>Thống kê</Text>
-                    <SimpleGrid w='full' columns={[1, 1, 2, 3, 4]} spacing={'4'} >
+                    <HStack w='full'>
+                        <Text w='full' fontWeight='600' textTransform='uppercase'>Thống kê</Text>
+                        <Select
+                            w={{ base: '60%', md: '30%' }}
+                            onChange={(e) => {
+                                filter(e.target.value as any)
+                            }}
+                        >
+                            <option value='by_day' >Hôm nay</option>
+                            <option value='by_yesterday'>Hôm qua</option>
+                            <option value='by_week' >Tuần này</option>
+                            <option value='by_month'>Tháng này</option>
+                            <option value='by_year'>Năm này</option>
+                        </Select>
+                    </HStack>
+                    <SimpleGrid w='full' columns={[1, 1, 2, 4]} spacing={'4'} >
                         {
                             order_status.map((item, i) => (
-                                <VStack w='full' bg={item.color} py='4' borderRadius='5px' spacing='0' color='white'>
+                                <VStack key={i} w='full' bg={item.color} py='4' borderRadius='5px' spacing='0' color='white'>
                                     <Text fontWeight='700' fontSize='20px'>{item.value}</Text>
                                     <Text>{item.name}</Text>
                                 </VStack>
@@ -90,12 +173,12 @@ export const OrderList = () => {
                     <Text w='full' fontWeight='600' textTransform='uppercase'>Đơn hàng</Text>
                     <HStack w={{ base: '100%', md: '70%' }}>
                         <SearchBox
-                            placeholder='Tìm kiếm món...'
+                            placeholder='Tìm kiếm đơn hàng...'
                             onSearch={value => $orders.filter({
                                 ...$orders.filters,
-                                // "search:like": value,
-                                // "note:like": value,
-                                // "from:like": value
+                                "status:like": value,
+                                "customer_name:like": value,
+                                "table_id:like": value
                             })}
                         />
                     </HStack>
@@ -103,11 +186,11 @@ export const OrderList = () => {
                         <Button
                             colorScheme='red'
                             leftIcon={<IoFileTrayFull />}
-                            onClick={() => filter({
-                                ...filters,
+                            onClick={() => $orders.filter({
+                                ...$orders.filters,
                                 status: undefined
                             })}
-                            variant={!filters.status ? 'solid' : 'outline'}
+                            variant={!$orders.filters.status ? 'solid' : 'outline'}
                         >
                             Tất cả
                         </Button>
@@ -118,11 +201,11 @@ export const OrderList = () => {
                                     key={name_id}
                                     colorScheme={color}
                                     leftIcon={icon}
-                                    onClick={() => filter({
-                                        ...filters,
+                                    onClick={() => $orders.filter({
+                                        ...$orders.filters,
                                         status: name_id
                                     })}
-                                    variant={name_id == filters.status ? 'solid' : 'outline'}
+                                    variant={name_id == $orders.filters.status ? 'solid' : 'outline'}
                                 >
                                     {name}
                                 </Button>

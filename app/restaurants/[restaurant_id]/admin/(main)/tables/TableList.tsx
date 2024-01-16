@@ -10,6 +10,7 @@ import { useCollectionData } from "@livequery/react"
 import { Restaurant, RestaurantTable } from "@/types"
 import { SmartQueryItem } from "@livequery/client"
 import { getRestaurantContext } from "@/hooks/useRestaurant"
+import { SearchBox } from "@/components/common/SearchBox"
 
 
 export const TableList = () => {
@@ -38,7 +39,7 @@ export const TableList = () => {
                 borderRadius='5px'
                 border='1px'
                 borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
-                spacing='5'
+                spacing='7'
                 pb='5'
             >
                 <HStack
@@ -50,6 +51,15 @@ export const TableList = () => {
                 >
                     <Text fontWeight='600'>Danh sách bàn</Text>
                     <Button size='sm' onClick={() => set_active_table(undefined)}>Tạo bàn mới</Button>
+                </HStack>
+                <HStack w={{ base: '100%', md: '70%' }}>
+                    <SearchBox
+                        placeholder='Tìm kiếm bàn...'
+                        onSearch={value => $tables.filter({
+                            ...$tables.filters,
+                            "name:like": value,
+                        })}
+                    />
                 </HStack>
                 <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px='4'>
                     {
@@ -76,7 +86,7 @@ export const TableList = () => {
                 borderRadius='5px'
                 border='1px'
                 borderColor={colorMode == 'dark' ? '#2F3031' : 'gray.200'}
-                spacing='5'
+                spacing='7'
                 pb='5'
             >
                 <HStack
