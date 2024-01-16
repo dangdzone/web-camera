@@ -1,7 +1,7 @@
 
 import { OrderStatusMap } from "@/text"
 import { theme } from "@/theme"
-import { Button, HStack, Select, SimpleGrid, Spinner, Text, VStack, Wrap, useColorMode } from "@chakra-ui/react"
+import { Button, HStack, Select, SimpleGrid, Spinner, Stack, Text, VStack, Wrap, useColorMode } from "@chakra-ui/react"
 import { useState } from "react"
 import { OrderListItem } from "../orders/OrderListItem"
 import { Order } from "@/types"
@@ -93,6 +93,16 @@ export const HistoryList = () => {
     const orders = $orders.items.filter(a => (a.status !== 'requested') && (a.status !== 'unpaid'))
     const { filters } = $orders
 
+    // Đã thanh toán 
+    const order_pay = orders.filter(order => order.status == 'pay').length
+    // Hủy
+    const order_cancel = orders.filter(order => order.status == 'cancel').length
+
+    const order_status = [
+        { name: 'Đã thanh toán', value: order_pay, color: 'blue.500' },
+        { name: 'Hủy đơn', value: order_cancel, color: 'red.500' },
+    ]
+
     return (
         <VStack w='full' spacing='5'>
             {
@@ -122,20 +132,33 @@ export const HistoryList = () => {
                     <Text fontWeight='600'>Lịch sử đơn hàng</Text>
                     {/* <DatePicker date={date} onChange={setDate} /> */}
                 </HStack>
-                <HStack w='full' justifyContent='flex-end' px='4'>
-                    <Select
-                        w={{ base: '60%', md: '30%' }}
-                        onChange={(e) => {
-                            filter(e.target.value as any)
-                        }}
-                    >
-                        <option value='by_day' >Hôm nay</option>
-                        <option value='by_yesterday'>Hôm qua</option>
-                        <option value='by_week' >Tuần này</option>
-                        <option value='by_month'>Tháng này</option>
-                        <option value='by_year'>Năm này</option>
-                    </Select>
-                </HStack>
+                <Stack w='full' py='5' p='4' spacing='5'>
+                    <HStack w='full'>
+                        <Text w='full' fontWeight='600' textTransform='uppercase'>Thống kê</Text>
+                        <Select
+                            w={{ base: '60%', md: '30%' }}
+                            onChange={(e) => {
+                                filter(e.target.value as any)
+                            }}
+                        >
+                            <option value='by_day' >Hôm nay</option>
+                            <option value='by_yesterday'>Hôm qua</option>
+                            <option value='by_week' >Tuần này</option>
+                            <option value='by_month'>Tháng này</option>
+                            <option value='by_year'>Năm này</option>
+                        </Select>
+                    </HStack>
+                    <SimpleGrid w='full' columns={[1, 1, 2, 4]} spacing={'4'} >
+                        {
+                            order_status.map((item, i) => (
+                                <VStack key={i} w='full' bg={item.color} py='4' borderRadius='5px' spacing='0' color='white'>
+                                    <Text fontWeight='700' fontSize='20px'>{item.value}</Text>
+                                    <Text>{item.name}</Text>
+                                </VStack>
+                            ))
+                        }
+                    </SimpleGrid>
+                </Stack>
                 <HStack w={{ base: '100%', md: '70%' }} px='4'>
                     <SearchBox
                         placeholder='Tìm kiếm đơn hàng...'
