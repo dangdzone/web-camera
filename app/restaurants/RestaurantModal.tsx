@@ -89,19 +89,15 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                     </ModalBody>
 
                     <ModalFooter p={{ base: '2', md: '4' }}>
-                        <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
-                        {
-                            fuser?.email == 'nguyenvandang.co@gmail.com' && (
-                                <Button
-                                    variant='solid'
-                                    colorScheme='blue'
-                                    type="submit"
-                                    isLoading={isSubmitting}
-                                >
-                                    Thêm mới
-                                </Button>
-                            )
-                        }
+                        <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>(
+                        <Button
+                            variant='solid'
+                            colorScheme='blue'
+                            type="submit"
+                            isLoading={isSubmitting}
+                        >
+                            Thêm mới
+                        </Button>
                     </ModalFooter>
                 </form>
             </ModalContent>
