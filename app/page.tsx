@@ -64,7 +64,7 @@ export default function IndexPage() {
         >
             <VStack w='full' spacing={10}>
                 <VStack w='full' spacing='10'>
-                    <Text fontSize='35px' fontWeight='700' textAlign={'center'} textTransform='uppercase'>Phần mềm hướng dịch vụ</Text>
+                    <Text fontSize='35px' fontWeight='700' textAlign={'center'} textTransform='uppercase'>Kiểm thử và đảm bảo chất lượng phần mềm</Text>
                     
                     <Text fontSize='35px' fontWeight='700'>Nhóm 6</Text>
                     <Text as={'span'} color={'teal.500'} textAlign={'center'} lineHeight='1.5' fontSize='35px' fontWeight='700'>
