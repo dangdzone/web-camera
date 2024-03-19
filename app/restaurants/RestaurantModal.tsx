@@ -12,7 +12,8 @@ import {
     Input,
     ModalFooter,
     Button,
-    useColorMode
+    useColorMode,
+    useToast
 } from "@chakra-ui/react"
 import { useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm } from "react-hook-form"
@@ -24,6 +25,7 @@ export type RestaurantModal = {
 export const RestaurantModal = ({ onClose }: RestaurantModal) => {
 
     const { colorMode } = useColorMode()
+    const toast = useToast()
 
     const { register, handleSubmit, watch, formState: { errors, isSubmitting }, control } = useForm<Restaurant>()
     const { transporter } = useLiveQueryContext()
@@ -32,6 +34,13 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
     async function onSubmit(data: Restaurant) {
         await transporter.add(`owners/${fuser?.uid}/restaurants`, data)
         await reload_permissions()
+        toast({
+            title: 'Tạo nhà hàng thành công !',
+            status: 'success',
+            position: 'top-right',
+            duration: 5000,
+            isClosable: true,
+        })
         onClose()
     }
 
@@ -89,7 +98,7 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                     </ModalBody>
 
                     <ModalFooter p={{ base: '2', md: '4' }}>
-                        <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>(
+                        <Button mr={3} onClick={onClose} variant='ghost' colorScheme='blue'>Hủy</Button>
                         <Button
                             variant='solid'
                             colorScheme='blue'
