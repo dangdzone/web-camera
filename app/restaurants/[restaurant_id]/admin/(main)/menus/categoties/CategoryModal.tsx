@@ -12,7 +12,9 @@ import {
     Input,
     ModalFooter,
     Button,
-    useColorMode
+    useColorMode,
+    Alert,
+    AlertIcon
 } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
@@ -28,7 +30,7 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
     const r = getRestaurantContext()
     const { colorMode } = useColorMode()
 
-    const { register, handleSubmit, watch, } = useForm<Category>({
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<Category>({
         defaultValues: {
             name: category?.name
         }
@@ -71,9 +73,24 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
                                 <Input
                                     placeholder='Nhập tên danh mục...'
                                     size='md'
-                                    {...register('name', { required: true })}
+                                    {...register('name', {
+                                        required: "Tên danh mục không được để trống",
+                                        minLength: { value: 8, message: "Tên phải có ít nhất 8 kí tự" },
+                                        pattern: {
+                                            value: /^(?=.*[a-zA-Z])[a-zA-Z0-9\sÀ-ỹ!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/,
+                                            message: "Tên danh mục phải chứa cả chữ"
+                                        }
+                                    })}
                                     onFocus={e => e.target.select()}
                                 />
+                                {
+                                    errors.name && (
+                                        <Alert status="error" p='2' borderRadius='10px'>
+                                            <AlertIcon />
+                                            {errors.name.message}
+                                        </Alert>
+                                    )
+                                }
                             </VStack>
                         </VStack>
                     </ModalBody>
@@ -93,6 +110,7 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
                                     variant='solid'
                                     colorScheme='blue'
                                     type="submit"
+                                    isLoading={isSubmitting}
                                 >
                                     {category ? 'Cập nhật' : 'Tạo mới'}
                                 </Button>

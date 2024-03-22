@@ -13,7 +13,10 @@ import {
     ModalFooter,
     Button,
     useColorMode,
-    useToast
+    useToast,
+    FormErrorMessage,
+    Alert,
+    AlertIcon
 } from "@chakra-ui/react"
 import { useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm } from "react-hook-form"
@@ -64,11 +67,27 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                                 <VStack w='full' spacing='4' align='flex-start'>
                                     <Text fontWeight='400'>Tên chi nhánh</Text>
                                     <Input
-                                        placeholder='Nhập tên chi nhánh...'
+                                        placeholder='Nhập tên nhà hàng...'
                                         size='md'
-                                        {...register('name', { required: true })}
+                                        {...register('name', {
+                                            required: "Tên nhà hàng không được để trống",
+                                            minLength: { value: 7, message: "Tên nhà hàng phải có ít nhất 7 kí tự" },
+                                            maxLength: { value: 50, message: "Tên nhà hàng không được quá 50 kí tự" },
+                                            pattern: {
+                                                value: /^(?=.*[a-zA-Z])[a-zA-Z0-9\sÀ-ỹ!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/,
+                                                message: "Tên nhà hàng phải chứa cả chữ và không chứa kí tự đặc biệt"
+                                            },
+                                        })}
                                         onFocus={e => e.target.select()}
                                     />
+                                    {
+                                        errors.name && (
+                                            <Alert status="error" p='2' borderRadius='10px'>
+                                                <AlertIcon />
+                                                {errors.name.message}
+                                            </Alert>
+                                        )
+                                    }
                                 </VStack>
                                 <VStack w='full' spacing='4' align='flex-start'>
                                     <Text fontWeight='400'>Số điện thoại</Text>
@@ -76,22 +95,49 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                                         placeholder='Nhập số điện thoại...'
                                         size='md'
                                         type="tel"
-                                        {...register('phone', { valueAsNumber: true })}
+                                        {...register('phone', {
+                                            required: "Số điện thoại không được để trống",
+                                            pattern: {
+                                                value: /^0\d{9}$/,
+                                                message: "Số điện thoại phải chứa số và bắt đầu bằng số 0"
+                                            },
+                                            minLength: { value: 10, message: "Số điện thoại phải có ít nhất 10 số" },
+                                            maxLength: { value: 15, message: "Số điện thoại không được quá 15 số" }
+                                        })}
                                         onFocus={e => e.target.select()}
                                     />
+                                    {
+                                        errors.phone && (
+                                            <Alert status="error" p='2' borderRadius='10px'>
+                                                <AlertIcon />
+                                                {errors.phone.message}
+                                            </Alert>
+                                        )
+                                    }
                                 </VStack>
                                 <VStack w='full' spacing='4'>
-                                    <HStack w='full'>
-                                        <Text fontWeight='400'>Địa chỉ</Text>
-                                    </HStack>
-                                    <HStack w='full'>
-                                        <Input
-                                            placeholder='Nhập địa chỉ...'
-                                            size='md'
-                                            {...register('address', { required: true })}
-                                            onFocus={e => e.target.select()}
-                                        />
-                                    </HStack>
+                                    <Text w='full' fontWeight='400'>Địa chỉ</Text>
+                                    <Input
+                                        placeholder='Nhập địa chỉ...'
+                                        size='md'
+                                        {...register('address', {
+                                            required: 'Địa chỉ nhà hàng không được bỏ trống',
+                                            minLength: { value: 15, message: "Tên nhà hàng phải có ít nhất 15 kí tự" },
+                                            pattern: {
+                                                value: /^(?=.*[a-zA-Z])[a-zA-Z0-9\sÀ-ỹ!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/,
+                                                message: "Địa chỉ nhà hàng phải chứa chữ cái"
+                                            },
+                                        })}
+                                        onFocus={e => e.target.select()}
+                                    />
+                                    {
+                                        errors.address && (
+                                            <Alert status="error" p='2' borderRadius='10px'>
+                                                <AlertIcon />
+                                                {errors.address.message}
+                                            </Alert>
+                                        )
+                                    }
                                 </VStack>
                             </VStack>
                         </VStack>

@@ -16,7 +16,9 @@ import {
     Button,
     useColorMode,
     FormControl,
-    Select
+    Select,
+    Alert,
+    AlertIcon
 } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
@@ -33,7 +35,7 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
     const r = getRestaurantContext()
     const { colorMode } = useColorMode()
 
-    const { register, handleSubmit, watch, control, formState } = useForm<Food>({
+    const { register, handleSubmit, watch, control, formState: { errors, isSubmitting } } = useForm<Food>({
         defaultValues: {
             name: food?.name,
             images: food?.images,
@@ -93,9 +95,25 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
                                 <Input
                                     placeholder='Nhập tên món...'
                                     size='md'
-                                    {...register('name', { required: true })}
+                                    {...register('name', {
+                                        required: 'Tên món không được để trống',
+                                        minLength: { value: 5, message: "Tên nhà hàng phải có ít nhất 5 kí tự" },
+                                        maxLength: { value: 50, message: "Tên nhà hàng không được quá 50 kí tự" },
+                                        pattern: {
+                                            value: /^(?=.*[a-zA-Z])[a-zA-Z0-9\sÀ-ỹ!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/,
+                                            message: "Tên món phải chứa cả chữ và không chứ kí tự đặc biệt"
+                                        }
+                                    })}
                                     onFocus={e => e.target.select()}
                                 />
+                                {
+                                    errors.name && (
+                                        <Alert status="error" p='2' borderRadius='10px'>
+                                            <AlertIcon />
+                                            {errors.name.message}
+                                        </Alert>
+                                    )
+                                }
                             </VStack>
                             <VStack w='full' spacing='4' align='flex-start'>
                                 <HStack w='full'>
@@ -168,7 +186,7 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
                                 <Input
                                     placeholder='Nhập tên ghi chú...'
                                     size='md'
-                                    {...register('description', { required: true })}
+                                    {...register('description', { required: "Thêm ghi chú món ăn" })}
                                     onFocus={e => e.target.select()}
                                 />
                             </VStack>
@@ -178,9 +196,25 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
                                     placeholder='Nhập số tiền...'
                                     size='md'
                                     type='number'
-                                    {...register('price', { required: true, valueAsNumber: true })}
+                                    {...register('price', {
+                                        required: "Số tiền không được để trống",
+                                        pattern: {
+                                            value: /^[0-9]+$/,
+                                            message: "Số tiền chỉ được nhập số"
+                                        },
+                                        minLength: { value: 4, message: "Số tiền phải có ít nhất 4 số" },
+                                        maxLength: { value: 8, message: "Số tiền không được vượt quá 8 số" }
+                                    })}
                                     onFocus={e => e.target.select()}
                                 />
+                                {
+                                    errors.price && (
+                                        <Alert status="error" p='2' borderRadius='10px'>
+                                            <AlertIcon />
+                                            {errors.price.message}
+                                        </Alert>
+                                    )
+                                }
                             </VStack>
                         </VStack>
                     </ModalBody>
@@ -199,7 +233,7 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
                                     variant='solid'
                                     colorScheme='blue'
                                     type="submit"
-                                    isLoading={formState.isSubmitting}
+                                    isLoading={isSubmitting}
                                 >
                                     {food ? 'Cập nhật' : 'Tạo mới'}
                                 </Button>

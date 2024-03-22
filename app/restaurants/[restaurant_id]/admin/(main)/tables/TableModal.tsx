@@ -73,7 +73,11 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                 <Input
                                     placeholder='Nhập tên bàn...'
                                     size='md'
-                                    {...register('name', { required: true })}
+                                    {...register('name', { 
+                                        required: "Tên bàn không được để trống",
+                                        minLength: { value: 5, message: "Số tiền phải có ít nhất 5 kí tự" },
+                                        maxLength: { value: 50, message: "Số tiền không được vượt quá 50 kí tự" }
+                                     })}
                                     onFocus={e => e.target.select()}
                                 />
                             </VStack>
@@ -98,7 +102,7 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                     table && (
                                         <HStack>
                                             <Button onClick={remove} variant='outline' colorScheme='red'>Xóa</Button>
-                                            <Link href={`https://menudientu.vercel.app/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
+                                            <Link href={`https://go-menu.online/restaurants/${restaurant_id}/tables/${table.id}`} target="_blank">
                                                 <Button colorScheme='red'>Mở</Button>
                                             </Link>
                                         </HStack>
