@@ -101,7 +101,7 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
                                         maxLength: { value: 50, message: "Tên nhà hàng không được quá 50 kí tự" },
                                         pattern: {
                                             value: /^(?=.*[a-zA-Z])[a-zA-Z0-9\sÀ-ỹ!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/,
-                                            message: "Tên món phải chứa cả chữ và không chứ kí tự đặc biệt"
+                                            message: "Tên món phải chứa cả chữ và không chứa kí tự đặc biệt"
                                         }
                                     })}
                                     onFocus={e => e.target.select()}

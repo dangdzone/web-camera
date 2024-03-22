@@ -125,7 +125,7 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                                             minLength: { value: 15, message: "Tên nhà hàng phải có ít nhất 15 kí tự" },
                                             pattern: {
                                                 value: /^(?=.*[a-zA-Z])[a-zA-Z0-9\sÀ-ỹ!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]+$/,
-                                                message: "Địa chỉ nhà hàng phải chứa chữ cái"
+                                                message: "Địa chỉ nhà hàng phải chứa cả chữ"
                                             },
                                         })}
                                         onFocus={e => e.target.select()}
