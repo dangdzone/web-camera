@@ -12,7 +12,9 @@ import {
     ModalFooter,
     Button,
     useColorMode,
-    useClipboard
+    useClipboard,
+    Alert,
+    AlertIcon
 } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
@@ -23,12 +25,15 @@ export type TableModal = {
     table?: SmartQueryItem<RestaurantTable>
     onClose: () => void
     restaurant_id: string
+    alert_check: () => void
+    alert_remove: () => void
 }
 
-export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
+export const TableModal = ({ onClose, table, restaurant_id, alert_check, alert_remove }: TableModal) => {
 
     const { colorMode } = useColorMode()
-    const { register, handleSubmit, watch, } = useForm<RestaurantTable>({
+
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<RestaurantTable>({
         defaultValues: {
             name: table?.name
         }
@@ -42,13 +47,14 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
             table.__update(data)
         } else {
             await transporter.add(`restaurants/${restaurant_id}/tables`, data)
-
         }
+        alert_check()
         onClose()
     }
 
     function remove() {
         table?.__remove()
+        alert_remove()
         onClose()
     }
 
@@ -73,20 +79,28 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                 <Input
                                     placeholder='Nhập tên bàn...'
                                     size='md'
-                                    {...register('name', { 
+                                    {...register('name', {
                                         required: "Tên bàn không được để trống",
                                         minLength: { value: 5, message: "Số tiền phải có ít nhất 5 kí tự" },
                                         maxLength: { value: 50, message: "Số tiền không được vượt quá 50 kí tự" }
-                                     })}
+                                    })}
                                     onFocus={e => e.target.select()}
                                 />
+                                {
+                                    errors.name && (
+                                        <Alert status="error" p='2' borderRadius='10px'>
+                                            <AlertIcon />
+                                            {errors.name.message}
+                                        </Alert>
+                                    )
+                                }
                             </VStack>
                             {
                                 table && (
                                     <VStack w='full' align='flex-start'>
                                         <Text fontWeight='400'>ID bàn</Text>
                                         <HStack w='full'>
-                                            <Input placeholder={table.id} isReadOnly  />
+                                            <Input placeholder={table.id} isReadOnly />
                                             <Button onClick={onCopyAccNumber}>{copiedOne ? 'Đã copy' : 'Copy'}</Button>
                                         </HStack>
                                     </VStack>
@@ -116,6 +130,7 @@ export const TableModal = ({ onClose, table, restaurant_id }: TableModal) => {
                                     variant='solid'
                                     colorScheme='blue'
                                     type="submit"
+                                    isLoading={isSubmitting}
                                 >
                                     {table ? 'Cập nhật' : 'Tạo mới'}
                                 </Button>

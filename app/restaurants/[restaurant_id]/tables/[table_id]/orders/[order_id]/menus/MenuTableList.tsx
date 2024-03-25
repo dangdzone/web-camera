@@ -9,6 +9,7 @@ import { useCollectionData } from "@livequery/react"
 import { SmartQueryItem } from "@livequery/client"
 import { Subject } from "rxjs"
 import { SearchBox } from "@/components/common/SearchBox"
+import { AlertModal } from "@/components/common/AlertModal"
 
 export type MenuTableList = {
     restaurant?: Restaurant
@@ -24,7 +25,7 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
     const $foods = useCollectionData<Food>(`restaurants/${restaurant?.id}/foods`)
     const foods = $foods.items.filter(a => a.status == 'active')
     const { filters, filter } = $foods
-
+    const [alert_order, set_alert_order] = useState<Boolean>(false)
     // const $value = useRef(new Subject<string>())
 
     // useEffect(() => {
@@ -43,9 +44,11 @@ export const MenuTableList = ({ restaurant, order_id }: MenuTableList) => {
                         food={active_menu_table}
                         restaurant={restaurant}
                         order_id={order_id}
+                        alert_check={() => set_alert_order(true)}
                     />
                 )
             }
+            { alert_order && <AlertModal onClose={() => set_alert_order(false)} title={'Thêm món ăn thành công !'} />}
             <HStack w={{ base: '100%', md: '70%' }}>
                 <SearchBox
                     placeholder='Tìm kiếm món...'

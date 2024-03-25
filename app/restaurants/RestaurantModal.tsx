@@ -1,4 +1,5 @@
 
+import { AlertModal } from "@/components/common/AlertModal"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Restaurant } from "@/types"
 import { VStack, HStack, Text } from "@chakra-ui/layout"
@@ -19,13 +20,15 @@ import {
     AlertIcon
 } from "@chakra-ui/react"
 import { useLiveQueryContext } from "@livequery/react"
+import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 
 export type RestaurantModal = {
     onClose: () => void
+    alert_check: () => void
 }
 
-export const RestaurantModal = ({ onClose }: RestaurantModal) => {
+export const RestaurantModal = ({ onClose, alert_check }: RestaurantModal) => {
 
     const { colorMode } = useColorMode()
     const toast = useToast()
@@ -37,13 +40,7 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
     async function onSubmit(data: Restaurant) {
         await transporter.add(`owners/${fuser?.uid}/restaurants`, data)
         await reload_permissions()
-        toast({
-            title: 'Tạo nhà hàng thành công !',
-            status: 'success',
-            position: 'top-right',
-            duration: 5000,
-            isClosable: true,
-        })
+        alert_check()
         onClose()
     }
 
@@ -98,11 +95,11 @@ export const RestaurantModal = ({ onClose }: RestaurantModal) => {
                                         {...register('phone', {
                                             required: "Số điện thoại không được để trống",
                                             pattern: {
-                                                value: /^0\d{9}$/,
+                                                value: /^0[0-9]{9,14}$/,
                                                 message: "Số điện thoại phải chứa số và bắt đầu bằng số 0"
                                             },
-                                            minLength: { value: 10, message: "Số điện thoại phải có ít nhất 10 số" },
-                                            maxLength: { value: 15, message: "Số điện thoại không được quá 15 số" }
+                                            minLength: { value: 10, message: "Số điện thoại phải có ít nhất 10 số và bắt đầu bằng số 0" },
+                                            maxLength: { value: 15, message: "Số điện thoại không được quá 15 số và bắt đầu bằng số 0" }
                                         })}
                                         onFocus={e => e.target.select()}
                                     />

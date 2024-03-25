@@ -1,10 +1,12 @@
 
+import { AlertModal } from "@/components/common/AlertModal"
 import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { theme } from "@/theme"
 import { Restaurant } from "@/types"
 import { HStack, Stack, Text, VStack } from "@chakra-ui/layout"
 import { Alert, AlertIcon, Button, FormControl, Input, Radio, RadioGroup, useColorMode } from "@chakra-ui/react"
 import { useLiveQueryContext } from "@livequery/react"
+import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 
 export const RestaurantInfo = () => {
@@ -12,6 +14,7 @@ export const RestaurantInfo = () => {
     const { colorMode } = useColorMode()
     const r = getRestaurantContext()
     const { transporter } = useLiveQueryContext()
+    const [alert_check, set_alert_check] = useState<Boolean>(false)
     const { register, handleSubmit, watch, control, formState: { errors, isSubmitting, isDirty }, reset } = useForm<Restaurant>({
         defaultValues: {
             name: r?.name,
@@ -23,6 +26,7 @@ export const RestaurantInfo = () => {
 
     async function onSubmit(data: Restaurant) {
         await transporter.update(`restaurants/${r.id}`, data)
+        set_alert_check(true)
         reset(data)
     }
 
@@ -37,6 +41,7 @@ export const RestaurantInfo = () => {
                 spacing='5'
                 pb='5'
             >
+                {alert_check && <AlertModal onClose={() => set_alert_check(false)} title={'Cập nhật nhà hàng thành công !'} />}
                 <HStack w='full' p='4' justifyContent='space-between' borderBottom='1px' borderColor={colorMode == 'dark' ? '#2F3031' : '#f0f1f1'}>
                     <Text fontWeight='600'>Thông tin cửa hàng</Text>
                     <HStack>
@@ -44,7 +49,7 @@ export const RestaurantInfo = () => {
                             isDirty && <Button size='sm' colorScheme='red' onClick={() => reset()}>Hủy</Button>
                         }
                         {
-                            isDirty && <Button size='sm' colorScheme='blue' type="submit">Lưu</Button>
+                            isDirty && <Button size='sm' colorScheme='blue' type="submit" isLoading={isSubmitting}>Lưu</Button>
                         }
                     </HStack>
                 </HStack>
@@ -108,11 +113,11 @@ export const RestaurantInfo = () => {
                             {...register('phone', {
                                 required: "Số điện thoại không được để trống",
                                 pattern: {
-                                    value: /^0\d{9}$/,
+                                    value: /^0[0-9]{9,14}$/,
                                     message: "Số điện thoại phải chứa số và bắt đầu bằng số 0"
                                 },
-                                minLength: { value: 10, message: "Số điện thoại phải có ít nhất 10 chữ số" },
-                                maxLength: { value: 15, message: "Số điện thoại không được quá 15 chữ số" }
+                                minLength: { value: 10, message: "Số điện thoại phải có ít nhất 10 số và bắt đầu bằng số 0" },
+                                maxLength: { value: 15, message: "Số điện thoại không được quá 15 số và bắt đầu bằng số 0" }
                             })}
                             onFocus={e => e.target.select()}
                         />

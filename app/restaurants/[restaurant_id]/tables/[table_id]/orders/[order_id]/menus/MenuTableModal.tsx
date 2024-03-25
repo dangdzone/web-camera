@@ -12,9 +12,10 @@ export type MenuTabbleModal = {
     restaurant?: Restaurant
     order_id?: string
     onClose: () => void
+    alert_check: () => void
 }
 
-export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTabbleModal) => {
+export const MenuTabbleModal = ({ onClose, food, order_id, restaurant, alert_check }: MenuTabbleModal) => {
 
     const { colorMode } = useColorMode()
     const $order = useDocumentData<Order>(`restaurants/${restaurant?.id}/orders/${order_id}`)
@@ -33,6 +34,7 @@ export const MenuTabbleModal = ({ onClose, food, order_id, restaurant }: MenuTab
     const { transporter } = useLiveQueryContext()
     const onSubmit = useMonitor(async data => {
         await transporter.add(`restaurants/${restaurant?.id}/orders/${order_id}/order-items`, { ...data })
+        alert_check()
         onClose()
     })
 

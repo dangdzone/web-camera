@@ -28,9 +28,11 @@ export type FoodModal = {
     food?: SmartQueryItem<Food>
     onClose: () => void
     categories: Category[]
+    alert_check: () => void
+    alert_remove: () => void
 }
 
-export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
+export const FoodModal = ({ onClose, food, categories, alert_check, alert_remove }: FoodModal) => {
 
     const r = getRestaurantContext()
     const { colorMode } = useColorMode()
@@ -54,11 +56,13 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
         } else {
             await transporter.add(`restaurants/${r.id}/foods`, data)
         }
+        alert_check()
         onClose()
     }
 
     function remove() {
         food?.__remove()
+        alert_remove()
         onClose()
     }
 
@@ -189,6 +193,14 @@ export const FoodModal = ({ onClose, food, categories }: FoodModal) => {
                                     {...register('description', { required: "Thêm ghi chú món ăn" })}
                                     onFocus={e => e.target.select()}
                                 />
+                                {
+                                    errors.description && (
+                                        <Alert status="error" p='2' borderRadius='10px'>
+                                            <AlertIcon />
+                                            {errors.description.message}
+                                        </Alert>
+                                    )
+                                }
                             </VStack>
                             <VStack w='full' spacing='4' align='flex-start'>
                                 <Text fontWeight='400'>Số tiền</Text>

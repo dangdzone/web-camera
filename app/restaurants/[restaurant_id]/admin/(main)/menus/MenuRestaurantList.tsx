@@ -12,6 +12,7 @@ import { CategoryItem } from "./categoties/CategoryItem"
 import { FoodItem } from "./foods/FoodItem"
 import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { SearchBox } from "@/components/common/SearchBox"
+import { AlertModal } from "@/components/common/AlertModal"
 
 export const MenuResraurantList = () => {
 
@@ -19,6 +20,12 @@ export const MenuResraurantList = () => {
     const { colorMode } = useColorMode()
     const [active_category, set_active_category] = useState<undefined | null | SmartQueryItem<Category>>(null)
     const [active_food, set_active_food] = useState<undefined | null | SmartQueryItem<Food>>(null)
+
+    const [alert_category, set_alert_category] = useState<boolean>(false)
+    const [alert_remove_category, set_alert_remove_category] = useState<boolean>(false)
+
+    const [alert_food, set_alert_food] = useState<boolean>(false)
+    const [alert_remove_food, set_alert_remove_food] = useState<boolean>(false)
 
     const $categories = useCollectionData<Category>(`restaurants/${r.id}/categories`)
     const $foods = useCollectionData<Food>(`restaurants/${r.id}/foods`)
@@ -31,18 +38,26 @@ export const MenuResraurantList = () => {
                     <CategoryModal
                         onClose={() => set_active_category(null)}
                         category={active_category}
+                        alert_check={() => set_alert_category(true)}
+                        alert_remove={() => set_alert_remove_category(true)}
                     />
                 )
             }
+            {alert_category && <AlertModal onClose={() => set_alert_category(false)} title={'Thêm danh mục món thành công !'} />}
+            {alert_remove_category && <AlertModal onClose={() => set_alert_remove_category(false)} title={'Xóa danh mục món thành công !'} />}
             {
                 active_food !== null && (
                     <FoodModal
                         onClose={() => set_active_food(null)}
                         food={active_food}
                         categories={$categories.items}
+                        alert_check={() => set_alert_food(true)}
+                        alert_remove={() => set_alert_remove_food(true)}
                     />
                 )
             }
+            {alert_food && <AlertModal onClose={() => set_alert_food(false)} title={'Thêm món ăn thành công !'} />}
+            {alert_remove_food && <AlertModal onClose={() => set_alert_remove_food(false)} title={'Xóa món ăn thành công !'} />}
             <VStack
                 w='full'
                 bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}

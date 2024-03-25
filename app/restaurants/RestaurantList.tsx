@@ -10,6 +10,7 @@ import { Restaurant } from "@/types"
 import { RestaurantModal } from "./RestaurantModal"
 import { usePermissionsContext } from "@/hooks/usePermissions"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
+import { AlertModal } from "@/components/common/AlertModal"
 
 
 export const Restaurantlist = () => {
@@ -18,6 +19,7 @@ export const Restaurantlist = () => {
     const [active_restaurant, set_active_restaurant] = useState<boolean>(false)
     const { fuser } = useFirebaseUserContext()
     const $restaurants = useCollectionData<Restaurant>(`owners/${fuser?.uid}/restaurants`)
+    const [alert_restaurant, set_alert_restaurant] = useState<Boolean>(false)
     const p = usePermissionsContext()
 
     return (
@@ -42,9 +44,13 @@ export const Restaurantlist = () => {
             </HStack>
             {
                 active_restaurant != false && (
-                    <RestaurantModal onClose={() => set_active_restaurant(false)} />
+                    <RestaurantModal
+                        onClose={() => set_active_restaurant(false)}
+                        alert_check={() => set_alert_restaurant(true)}
+                    />
                 )
             }
+            {alert_restaurant && <AlertModal onClose={() => set_alert_restaurant(false)} title={'Tạo nhà hàng thành công !'} />}
             <SimpleGrid w='full' columns={[1, 1, 2, 2]} spacing='4' px={{ base: '2', md: '4' }}>
                 {
                     $restaurants.items.map(restaurant => (

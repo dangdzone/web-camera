@@ -23,9 +23,11 @@ import { useForm } from "react-hook-form"
 export type CategoryModal = {
     category?: SmartQueryItem<Category>
     onClose: () => void
+    alert_check: () => void
+    alert_remove: () => void
 }
 
-export const CategoryModal = ({ onClose, category }: CategoryModal) => {
+export const CategoryModal = ({ onClose, category, alert_check, alert_remove }: CategoryModal) => {
 
     const r = getRestaurantContext()
     const { colorMode } = useColorMode()
@@ -44,11 +46,13 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
         } else {
             await transporter.add(`restaurants/${r.id}/categories`, data)
         }
+        alert_check()
         onClose()
     }
 
     function remove() {
         category?.__remove()
+        alert_remove()
         onClose()
     }
 

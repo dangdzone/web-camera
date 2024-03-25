@@ -11,6 +11,7 @@ import { Restaurant, RestaurantTable } from "@/types"
 import { SmartQueryItem } from "@livequery/client"
 import { getRestaurantContext } from "@/hooks/useRestaurant"
 import { SearchBox } from "@/components/common/SearchBox"
+import { AlertModal } from "@/components/common/AlertModal"
 
 
 export const TableList = () => {
@@ -18,9 +19,9 @@ export const TableList = () => {
     const r = getRestaurantContext()
     const { colorMode } = useColorMode()
     const [active_table, set_active_table] = useState<undefined | null | SmartQueryItem<RestaurantTable>>(null)
-
+    const [alert, setAlert] = useState<boolean>(false)
+    const [alert_remove, set_alert_remove] = useState<boolean>(false)
     const $tables = useCollectionData<RestaurantTable>(`restaurants/${r.id}/tables`)
-
 
     return (
         <VStack w='full' spacing='5'>
@@ -30,9 +31,13 @@ export const TableList = () => {
                         onClose={() => set_active_table(null)}
                         table={active_table}
                         restaurant_id={r.id}
+                        alert_check={() => setAlert(true)}
+                        alert_remove={() => set_alert_remove(true)}
                     />
                 )
             }
+            {alert && <AlertModal onClose={() => setAlert(false)} title={'Thêm bàn ăn thành công !'} />}
+            {alert_remove && <AlertModal onClose={() => set_alert_remove(false)} title={'Xóa bàn ăn thành công !'} />}
             <VStack
                 w='full'
                 bg={colorMode == 'dark' ? theme.backgrounds[200].dark : 'white'}
