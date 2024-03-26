@@ -190,17 +190,9 @@ export const FoodModal = ({ onClose, food, categories, alert_check, alert_remove
                                 <Input
                                     placeholder='Nhập tên ghi chú...'
                                     size='md'
-                                    {...register('description', { required: "Thêm ghi chú món ăn" })}
+                                    {...register('description')}
                                     onFocus={e => e.target.select()}
                                 />
-                                {
-                                    errors.description && (
-                                        <Alert status="error" p='2' borderRadius='10px'>
-                                            <AlertIcon />
-                                            {errors.description.message}
-                                        </Alert>
-                                    )
-                                }
                             </VStack>
                             <VStack w='full' spacing='4' align='flex-start'>
                                 <Text fontWeight='400'>Số tiền</Text>
