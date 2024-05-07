@@ -7,7 +7,7 @@ import { MdOutlinePhoneInTalk } from "react-icons/md"
 export const Topbar = () => {
     const { toggleColorMode } = useColorMode()
     return (
-        <HStack w='full' h='65px' bg='#1D4A81' color='white' justifyContent='space-between' px='4'>
+        <HStack w='full' h='65px' bg='cyan.800' color='white' justifyContent='space-between' px='4'>
             <HStack>
                 <Image maxH='50px' borderRadius='10px' src="https://i.imgur.com/2BgMXlp.jpeg" />
                 {/* <Input placeholder="Tìm kiếm..." /> */}
