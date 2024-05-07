@@ -6,7 +6,7 @@ import { MdClose } from "react-icons/md"
 import { debounceTime, Subject, tap } from "rxjs"
 
 export type SearchBox = {
-    placeholder: string
+    placeholder?: string
     onSearch?: (value?: string) => void
 }
 

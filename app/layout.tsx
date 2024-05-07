@@ -16,9 +16,9 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <head>
-        <title>Ứng dụng gọi món bằng menu điện tử</title>
-        <meta name='description' content='Ứng dụng gọi món bằng menu điện tử' />
-        <link rel="icon" href="https://nethue.com.vn/uploaded/tin-tuc-loigioithieu-1.png" />
+        <title>Camera - Thương mại điện tử</title>
+        <meta name='description' content='Camera - Thương mại điện tử' />
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/7779/7779866.png" />
       </head>
       <body className={font.className} suppressHydrationWarning>
         <ClientProviderList>

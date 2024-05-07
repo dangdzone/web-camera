@@ -2,14 +2,22 @@
 
 import { LivequeryHttpTransporter } from "@/config/livequery";
 import { FirebaseUserContextProvider } from "@/hooks/useFirebaseUser";
-import { ChakraProvider, Container } from "@chakra-ui/react";
+import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 import { LiveQueryContextProvider } from "@livequery/react";
 import { PropsWithChildren } from "react";
 
+const theme = extendTheme({
+    config: {
+      initialColorMode: "light",
+      useSystemColorMode: false,
+    },
+  });
+
+  
 export const ClientProviderList = (props: PropsWithChildren) => {
     return (
         <>
-            <ChakraProvider>
+            <ChakraProvider theme={theme}>
                 <FirebaseUserContextProvider>
                     <Container
                         maxW='full'
