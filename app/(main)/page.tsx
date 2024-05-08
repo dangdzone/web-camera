@@ -1,7 +1,8 @@
 'use client'
 import { SimpleGrid, Stack, Text, VStack, Wrap, WrapItem } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
-import { CameraList } from "./cameras/CameraList";
+import { CameraList } from "./category/CameraList";
+import Link from "next/link";
 
 export default function MainPage() {
 
@@ -27,17 +28,18 @@ export default function MainPage() {
                 <SimpleGrid w='full' spacing='2' columns={[4, 5, 6, 7, 8, 9]}>
                     {
                         CategoryCameraList.map((item, i) => (
-                            <Stack
-                                key={i}
-                                bgImage={item.img}
-                                borderRadius='10px'
-                                minH='125px' backgroundSize='cover'
-                                backgroundPosition='center -25px'
-                                backgroundRepeat='no-repeat'
-                                boxShadow='md'
-                            >
-                                <Text p='2' fontSize='14px' color='white' fontWeight='600'>{item.name}</Text>
-                            </Stack>
+                            <Link key={i} href={'/category/camera123'}>
+                                <Stack
+                                    bgImage={item.img}
+                                    borderRadius='10px'
+                                    minH='125px' backgroundSize='cover'
+                                    backgroundPosition='center -25px'
+                                    backgroundRepeat='no-repeat'
+                                    boxShadow='md'
+                                >
+                                    <Text p='2' fontSize='14px' color='white' fontWeight='600'>{item.name}</Text>
+                                </Stack>
+                            </Link>
                         ))
                     }
                 </SimpleGrid>
