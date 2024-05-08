@@ -1,24 +1,22 @@
 import { HStack, Stack, Text } from "@chakra-ui/layout"
-import { Button, Image, Input, useColorMode } from "@chakra-ui/react"
+import { Button, IconButton, Image, Input, useColorMode } from "@chakra-ui/react"
 import { BiCartAdd } from "react-icons/bi"
 import { FiMapPin } from "react-icons/fi"
-import { MdOutlinePhoneInTalk } from "react-icons/md"
+import { MdMenu, MdOutlinePhoneInTalk } from "react-icons/md"
+import { Categogy } from "./Category"
 
 export const Topbar = () => {
     const { toggleColorMode } = useColorMode()
     return (
-        <HStack w='full' h='65px' bg='cyan.800' color='white' justifyContent='space-between' px='4'>
-            <HStack>
-                <Image maxH='50px' borderRadius='10px' src="https://i.imgur.com/2BgMXlp.jpeg" />
-                {/* <Input placeholder="Tìm kiếm..." /> */}
+        <HStack w='full' h='60px' bg='cyan.800' color='white' justifyContent='space-between' position='sticky' top='0'>
+            <HStack spacing='4'>
+                <Categogy />
+                <Image maxH='50px' borderRadius='10px' src="https://www.flygo-aviation.com/wp-content/uploads/2021/08/flygo-logo-trp-big.png" />
             </HStack>
             <HStack spacing='5'>
                 <HStack>
                     <MdOutlinePhoneInTalk size='25px' />
-                    <Stack spacing='0' fontSize='14px'>
-                        <Text>Gọi mua hàng</Text>
-                        <Text fontWeight='700'>0814.200.200</Text>
-                    </Stack>
+                    <Text>Gọi mua hàng</Text>
                 </HStack>
                 <HStack>
                     <FiMapPin size='25px' />
@@ -26,8 +24,8 @@ export const Topbar = () => {
                         <Text>Hệ thống cửa hàng</Text>
                     </Stack>
                 </HStack>
-                <Button>Đăng nhập</Button>
-                <Button leftIcon={<BiCartAdd />} >Giỏ hàng</Button>
+                <Button size='sm'>Đăng nhập</Button>
+                <Button size='sm' leftIcon={<BiCartAdd />} >Giỏ hàng</Button>
             </HStack>
             {/* <Button onClick={toggleColorMode}>Sáng</Button> */}
         </HStack>
