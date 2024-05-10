@@ -1437,7 +1437,7 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@livequery/client@^1.0.53", "@livequery/client@^1.0.85":
+"@livequery/client@^1.0.85":
   version "1.0.85"
   resolved "https://registry.yarnpkg.com/@livequery/client/-/client-1.0.85.tgz#8b8de0496e55eaff0f90372e4fdaec873314e3d9"
   integrity sha512-wU27aQ+4O/CjdxfY+fp9ZqICHQqc6du8ma6237kzYmXr6XYB3+cAXM2UtiP7wlu+OZfkyIfTEzmGAyQOsW1I6A==
@@ -1446,12 +1446,21 @@
     typescript "^4.9.5"
     uuid "^8.3.2"
 
-"@livequery/react@^1.0.85":
-  version "1.0.85"
-  resolved "https://registry.yarnpkg.com/@livequery/react/-/react-1.0.85.tgz#4b62898705b426920a8d396b6c645dd19be3e6ca"
-  integrity sha512-5t1jY/8kHCd/bLZAGpoQ03f7x4sjXF9Da0Vezq8xdT5JqweatV2VlQuga0IALyMoBV+YB1fHdDLOoegPE/rTdg==
+"@livequery/client@^1.0.93":
+  version "1.0.93"
+  resolved "https://registry.yarnpkg.com/@livequery/client/-/client-1.0.93.tgz#93730bd4e317a77c353e09ceed19ba798da89953"
+  integrity sha512-W+ZjmSMceHKebbuQ2553dDO3TTIf2GpgCZw+ZBos29/xFNqimSrB08Sd28pmwUYxmUTCL7jm7VM41NM08s861Q==
   dependencies:
-    "@livequery/client" "^1.0.53"
+    rxjs "^7.1.0"
+    typescript "^4.9.5"
+    uuid "^8.3.2"
+
+"@livequery/react@^1.0.111":
+  version "1.0.111"
+  resolved "https://registry.yarnpkg.com/@livequery/react/-/react-1.0.111.tgz#741b05c0e38090d89791ace5ccb9a1aea8cd88c9"
+  integrity sha512-DQgX7Jc4Cgfsi5vt8nVVVHcYluWznajb9i6bMBy/Pp2xIWn+x21KLRvCJgcA+8UGXLDTlbMWZ9ZTE26Gg3qHbA==
+  dependencies:
+    "@livequery/client" "^1.0.93"
 
 "@livequery/rest@^1.0.85":
   version "1.0.85"

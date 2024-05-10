@@ -15,7 +15,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@livequery/client": "^1.0.85",
-    "@livequery/react": "^1.0.85",
+    "@livequery/react": "^1.0.111",
     "@livequery/rest": "^1.0.85",
     "@livequery/types": "^1.0.82",
     "@types/node": "20.5.9",

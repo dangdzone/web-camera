@@ -2,7 +2,6 @@
 import { useRef, useState } from 'react';
 import { Box, HStack, IconButton, Image, Input, Skeleton } from '@chakra-ui/react';
 import { FiPlus } from 'react-icons/fi';
-import { Controller, useFormContext } from 'react-hook-form';
 import { storage } from '../../config/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
