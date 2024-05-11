@@ -33,3 +33,19 @@ export declare class Brand extends BaseEntity {
     name: string;
     image: string;
 }
+
+export declare class Product extends BaseEntity {
+    name: string;
+    image: string // Ảnh
+    cost: number // Giá nhập 
+    price: number // Giá bán
+    advertising_price: number // Giá quảng cáo
+    brand_id: string // Thương hiệu
+    code: string // Mã sản phẩm
+    description: string // Ghi chú
+    resolution_id: string // độ phân giải 
+    amount: number // số lượng
+    specifications: Array<Object> // Thông số kĩ thuật
+    category_id: string // Danh mục sản phẩm
+    option: Array<Object> // Tùy chọn thêm
+}

@@ -16,7 +16,6 @@ export const CategoryItem = ({ category, onClick}: CategoryItem) => {
             backgroundSize='cover'
             backgroundPosition='center'
             backgroundRepeat='no-repeat'
-            boxShadow='md'
             _hover={{
                 cursor: 'pointer',
                 transform: 'scale(1.02)',
