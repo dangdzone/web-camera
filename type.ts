@@ -22,3 +22,14 @@ export declare class Category extends BaseEntity {
     image: string;
     href: string;
 }
+
+export declare class Resolution extends BaseEntity {
+    name: string;
+    size: string;
+    note: string
+}
+
+export declare class Brand extends BaseEntity {
+    name: string;
+    image: string;
+}

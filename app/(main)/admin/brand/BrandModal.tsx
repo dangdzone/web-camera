@@ -1,36 +1,37 @@
+
+
 import { FileUploader } from "@/components/common/FileUploader"
-import { Category } from "@/type"
+import { Brand } from "@/type"
 import { Button, FormControl, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm } from "react-hook-form"
 
-export type CategoryModal = {
-    category?: SmartQueryItem<Category>
+export type BrandModal = {
+    brand?: SmartQueryItem<Brand>
     onClose: () => void
 }
 
-export const CategoryModal = ({ onClose, category }: CategoryModal) => {
+export const BrandModal = ({ onClose, brand }: BrandModal) => {
 
     const { transporter } = useLiveQueryContext()
-    const { register, handleSubmit, watch, control, formState } = useForm<Category>({
+    const { register, handleSubmit, control, formState } = useForm<Brand>({
         defaultValues: {
-            name: category?.name,
-            href: category?.href,
-            image: category?.image
+            name: brand?.name,
+            image: brand?.image
         }
     })
-    async function onSubmit(data: Category) {
-        if (category) {
-            category.__update(data)
+    async function onSubmit(data: Brand) {
+        if (brand) {
+            brand.__update(data)
         } else {
-            await transporter.add(`categories`, data)
+            await transporter.add(`brands`, data)
         }
         onClose()
     }
 
     function remove() {
-        category?.__remove()
+        brand?.__remove()
         onClose()
     }
 
@@ -45,24 +46,16 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
             <ModalContent mx='2'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={'gray.200'}>
-                        {category ? 'Cập nhật danh mục' : 'Tạo danh mục mới'}
+                        {brand ? 'Cập nhật thương hiệu' : 'Tạo thương hiệu mới'}
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
                         <Stack w='full' spacing='7'>
                             <Stack w='full' spacing='3'>
-                                <Text>Tên danh mục</Text>
+                                <Text>Tên thương hiệu</Text>
                                 <Input
-                                    placeholder='Nhập tên danh mục...'
+                                    placeholder='Nhập tên thương hiệu...'
                                     {...register('name', { required: true })}
-                                    onFocus={e => e.target.select()}
-                                />
-                            </Stack>
-                            <Stack w='full' spacing='3'>
-                                <Text>Đường dẫn</Text>
-                                <Input
-                                    placeholder='Nhập đường dẫn...'
-                                    {...register('href', { required: true })}
                                     onFocus={e => e.target.select()}
                                 />
                             </Stack>
@@ -82,7 +75,7 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
                         <HStack w='full' justifyContent='space-between'>
                             <HStack>
                                 {
-                                    category && (
+                                    brand && (
                                         <Button onClick={remove} variant='ghost' colorScheme='red'>Xóa</Button>
                                     )
                                 }
@@ -95,7 +88,7 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
                                     type="submit"
                                     isLoading={formState.isSubmitting}
                                 >
-                                    {category ? 'Cập nhật' : 'Tạo mới'}
+                                    {brand ? 'Cập nhật' : 'Tạo mới'}
                                 </Button>
                             </HStack>
                         </HStack>

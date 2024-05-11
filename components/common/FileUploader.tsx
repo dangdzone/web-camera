@@ -51,10 +51,11 @@ export const FileUploader = (props: { field: FileUploader }) => {
                             <Image
                                 src={image_link}
                                 alt="Uploaded Image"
-                                boxSize={'170px'}
+                                maxH='200px'
                                 objectFit="cover"
                                 borderRadius='10px'
                                 _hover={{ border: '1px solid gray' }}
+                                border='1px dashed'
                             />
                         ) : (
                             <IconButton

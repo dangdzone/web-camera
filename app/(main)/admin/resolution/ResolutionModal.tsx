@@ -1,36 +1,36 @@
-import { FileUploader } from "@/components/common/FileUploader"
-import { Category } from "@/type"
-import { Button, FormControl, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react"
+
+import { Resolution } from "@/type"
+import { Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useLiveQueryContext } from "@livequery/react"
-import { Controller, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 
-export type CategoryModal = {
-    category?: SmartQueryItem<Category>
+export type ResolutionModal = {
+    resolution?: SmartQueryItem<Resolution>,
     onClose: () => void
 }
 
-export const CategoryModal = ({ onClose, category }: CategoryModal) => {
+export const ResolutionModal = ({ resolution, onClose }: ResolutionModal) => {
 
     const { transporter } = useLiveQueryContext()
-    const { register, handleSubmit, watch, control, formState } = useForm<Category>({
+    const { register, handleSubmit, watch, control, formState } = useForm<Resolution>({
         defaultValues: {
-            name: category?.name,
-            href: category?.href,
-            image: category?.image
+            name: resolution?.name,
+            size: resolution?.size,
+            note: resolution?.note
         }
     })
-    async function onSubmit(data: Category) {
-        if (category) {
-            category.__update(data)
+    async function onSubmit(data: Resolution) {
+        if (resolution) {
+            resolution.__update(data)
         } else {
-            await transporter.add(`categories`, data)
+            await transporter.add(`resolutions`, data)
         }
         onClose()
     }
 
     function remove() {
-        category?.__remove()
+        resolution?.__remove()
         onClose()
     }
 
@@ -45,36 +45,34 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
             <ModalContent mx='2'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <ModalHeader p='3' borderBottom='1px solid' borderColor={'gray.200'}>
-                        {category ? 'Cập nhật danh mục' : 'Tạo danh mục mới'}
+                        {resolution ? 'Cập nhật độ phân giải' : 'Tạo độ phân giải mới'}
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
                         <Stack w='full' spacing='7'>
                             <Stack w='full' spacing='3'>
-                                <Text>Tên danh mục</Text>
+                                <Text>Tên độ phân giải</Text>
                                 <Input
-                                    placeholder='Nhập tên danh mục...'
+                                    placeholder='Nhập tên độ phân giải...'
                                     {...register('name', { required: true })}
                                     onFocus={e => e.target.select()}
                                 />
                             </Stack>
                             <Stack w='full' spacing='3'>
-                                <Text>Đường dẫn</Text>
+                                <Text>Kích thước</Text>
                                 <Input
-                                    placeholder='Nhập đường dẫn...'
-                                    {...register('href', { required: true })}
+                                    placeholder='Nhập kích thước...'
+                                    {...register('size', { required: true })}
                                     onFocus={e => e.target.select()}
                                 />
                             </Stack>
                             <Stack w='full' spacing='3'>
-                                <Text fontWeight='400'>Ảnh</Text>
-                                <FormControl>
-                                    <Controller
-                                        name='image'
-                                        control={control}
-                                        render={FileUploader}
-                                    />
-                                </FormControl>
+                                <Text>Ghi chú</Text>
+                                <Textarea
+                                    placeholder='Nhập ghi chú...'
+                                    {...register('note')}
+                                    onFocus={e => e.target.select()}
+                                />
                             </Stack>
                         </Stack>
                     </ModalBody>
@@ -82,7 +80,7 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
                         <HStack w='full' justifyContent='space-between'>
                             <HStack>
                                 {
-                                    category && (
+                                    resolution && (
                                         <Button onClick={remove} variant='ghost' colorScheme='red'>Xóa</Button>
                                     )
                                 }
@@ -95,7 +93,7 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
                                     type="submit"
                                     isLoading={formState.isSubmitting}
                                 >
-                                    {category ? 'Cập nhật' : 'Tạo mới'}
+                                    {resolution ? 'Cập nhật' : 'Tạo mới'}
                                 </Button>
                             </HStack>
                         </HStack>
