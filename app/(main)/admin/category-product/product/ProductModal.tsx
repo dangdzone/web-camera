@@ -1,9 +1,11 @@
 import { FileUploader } from "@/components/common/FileUploader"
 import { Brand, Category, Product, Resolution } from "@/type"
-import { Button, FormControl, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, SimpleGrid, Stack, Text } from "@chakra-ui/react"
+import { Button, FormControl, HStack, IconButton, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, SimpleGrid, Stack, Text, Textarea } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData, useLiveQueryContext } from "@livequery/react"
-import { Controller, useForm } from "react-hook-form"
+import { Controller, useForm, useFieldArray } from "react-hook-form"
+import { MdAdd, MdClose } from "react-icons/md"
+
 export type ProductModal = {
     product?: SmartQueryItem<Product>
     onClose: () => void
@@ -15,11 +17,32 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
     const { items: brands } = useCollectionData<Brand>('brands')
     const { items: categories } = useCollectionData<Category>('categories')
     const { items: resolutions } = useCollectionData<Resolution>('resolutions')
-    const { register, handleSubmit, watch, control, formState } = useForm<Product>({
+
+    const { register, handleSubmit, watch, control, formState, setValue, resetField } = useForm<Product>({
         defaultValues: {
             name: product?.name,
         }
     })
+
+    // product_info
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'product_info',
+    });
+
+    const appendTechnical = (index: number) => {
+        const updatedProductInfo = [...fields];
+        updatedProductInfo[index].technicals.push({ name: '', content: '' });
+        setValue('product_info', updatedProductInfo);
+    };
+
+    const removeTechnical = (productIndex: number, technicalIndex: number) => {
+        const updatedProductInfo = [...fields];
+        updatedProductInfo[productIndex].technicals.splice(technicalIndex, 1);
+        setValue('product_info', updatedProductInfo);
+    };
+
+    // submit
     async function onSubmit(data: Product) {
         if (product) {
             product.__update(data)
@@ -29,7 +52,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
         onClose()
     }
 
-    function remove() {
+    function onRemove() {
         product?.__remove()
         onClose()
     }
@@ -168,7 +191,6 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                     type="number"
                                 />
                             </Stack>
-
                             <Stack w='full' spacing='3'>
                                 <Text fontWeight='400'>Ảnh</Text>
                                 <FormControl>
@@ -179,6 +201,46 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                     />
                                 </FormControl>
                             </Stack>
+
+                            <Stack w='full' spacing='3'>
+                                <Text>Thống số kĩ thuật</Text>
+                                <Stack w='full'>
+                                    {
+                                        fields.map((field, index) => (
+                                            <HStack w='full' key={field.id}>
+                                                <Stack w='full' spacing='0' borderRadius='10px' border='1px' borderColor={'blackAlpha.200'}>
+                                                    <HStack p='3' borderBottom='1px' borderColor='blackAlpha.50' borderTopRadius='10px' bg='blackAlpha.50' >
+                                                        <Input {...register(`product_info.${index}.name` as const)} variant='unstyled' placeholder='Nhập tên bảng...' />
+                                                    </HStack>
+                                                    <Stack w='full' p='3'>
+                                                        {field.technicals.map((technical, technicalIndex) => (
+                                                            <Stack w='full' key={index} flexDirection='row'>
+                                                                <Input
+                                                                    {...register(
+                                                                        `product_info.${index}.technicals.${technicalIndex}.name` as const
+                                                                    )}
+                                                                    placeholder='Nhập tên thông số...'
+                                                                />
+                                                                <Textarea
+                                                                    {...register(
+                                                                        `product_info.${index}.technicals.${technicalIndex}.content` as const
+                                                                    )}
+                                                                    placeholder='Nhập nội dung...'
+                                                                />
+                                                                <IconButton aria-label="close" onClick={() => removeTechnical(index, technicalIndex)} icon={<MdClose />} />
+                                                            </Stack>
+                                                        )
+                                                        )}
+                                                        <Button leftIcon={<MdAdd />} onClick={() => appendTechnical(index)}>Add Technical</Button>
+                                                    </Stack>
+                                                </Stack>
+                                                <IconButton aria-label="close" onClick={() => remove(index)} icon={<MdClose />} />
+                                            </HStack>
+                                        ))
+                                    }
+                                    <Button leftIcon={<MdAdd />} onClick={() => append({ name: '', technicals: [{ name: '', content: '' }] })}>Add Product Info</Button>
+                                </Stack>
+                            </Stack>
                         </Stack>
                     </ModalBody>
                     <ModalFooter p={{ base: '2', md: '4' }}>
@@ -186,7 +248,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                             <HStack>
                                 {
                                     product && (
-                                        <Button onClick={remove} variant='ghost' colorScheme='red'>Xóa</Button>
+                                        <Button onClick={onRemove} variant='ghost' colorScheme='red'>Xóa</Button>
                                     )
                                 }
                             </HStack>

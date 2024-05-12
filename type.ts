@@ -45,6 +45,10 @@ export declare class Product extends BaseEntity {
     description: string // Ghi chú
     resolution_id: string // độ phân giải 
     amount: number // số lượng
+    product_info: Array<{
+        name: string,
+        technicals: Array<{ name: string, content: string }>
+    }> // Thông tin sản phẩm
     specifications: Array<Object> // Thông số kĩ thuật
     category_id: string // Danh mục sản phẩm
     option: Array<Object> // Tùy chọn thêm
