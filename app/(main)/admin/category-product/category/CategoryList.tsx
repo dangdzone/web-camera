@@ -13,7 +13,7 @@ export const CategoryList = () => {
     const $categories = useCollectionData<Category>('categories')
 
     return (
-        <SimpleGrid w='full' spacing='4' columns={[4, 5, 6, 7, 8]}>
+        <SimpleGrid w='full' spacing='4' columns={[3, 4, 6, 7, 8]}>
             {
                 active_category !== null && <CategoryModal category={active_category} onClose={() => set_active_category(null)} />
             }

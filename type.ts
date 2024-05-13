@@ -53,3 +53,10 @@ export declare class Product extends BaseEntity {
     category_id: string // Danh mục sản phẩm
     option: Array<Object> // Tùy chọn thêm
 }
+
+export declare class Store extends BaseEntity {
+    name: string
+    image: string
+    contact: number
+    store_list: Array<{ name: string, address: string}>
+}

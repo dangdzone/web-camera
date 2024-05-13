@@ -1,5 +1,5 @@
 'use client'
-import { Tabs, TabList, Tab, TabPanels, TabPanel, TabIndicator } from "@chakra-ui/react";
+import { Tabs, TabList, Tab, TabPanels, TabPanel, TabIndicator, HStack } from "@chakra-ui/react";
 import { StatisticalPage } from "./statistical/StatisticalPage";
 import CategoryProductPage from "./category-product/CategoryProductPage";
 import { ResolutionPage } from "./resolution/ResolutionPage";
@@ -7,18 +7,42 @@ import { BrandPage } from "./brand/BrandPage";
 import { OrderPage } from "./orders/OrderPage";
 import { PaymentPage } from "./payments.tsx/PaymentPage";
 import { StoreInfoPage } from "./store-info/StoreInfoPage";
+import { useEffect, useState } from "react";
 
 export default function AdminPage() {
+
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    const [loadedFromStorage, setLoadedFromStorage] = useState(false);
+
+    useEffect(() => {
+        const tabFromStorage = localStorage.getItem('selectedTabIndex');
+        if (tabFromStorage !== null) {
+            setSelectedTabIndex(parseInt(tabFromStorage));
+            setLoadedFromStorage(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (loadedFromStorage) {
+            localStorage.setItem('selectedTabIndex', selectedTabIndex.toString());
+            window.history.replaceState(null, "", `?tab=${selectedTabIndex}`);
+        }
+    }, [selectedTabIndex, loadedFromStorage]);
+
+    const handleTabChange = (index: number) => {
+        setSelectedTabIndex(index);
+    };
+
     return (
-        <Tabs w='full' variant='unstyled' position='relative'>
-            <TabList pt='5'>
-                <Tab fontWeight='600'>Thống kê</Tab>
-                <Tab fontWeight='600'>Danh mục & sản phẩm</Tab>
-                <Tab fontWeight='600'>Độ phân giải</Tab>
-                <Tab fontWeight='600'>Thương hiệu</Tab>
-                <Tab fontWeight='600'>Đơn hàng</Tab>
-                <Tab fontWeight='600'>Thanh toán</Tab>
-                <Tab fontWeight='600'>Thông tin cửa hàng</Tab>
+        <Tabs w='full' variant='unstyled' position='relative' index={selectedTabIndex} onChange={handleTabChange}>
+            <TabList pt='5' w='full' minW='10px' overflowX={{ base: 'scroll', md: 'auto' }}>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Thống kê</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Danh mục & sản phẩm</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Độ phân giải</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Thương hiệu</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Đơn hàng</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Thanh toán</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Thông tin cửa hàng</Tab>
             </TabList>
             <TabIndicator mt='-1.5px' height='3px' bg='teal.500' borderRadius='full' />
             <TabPanels p='0'>

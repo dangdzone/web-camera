@@ -10,7 +10,7 @@ export const StoreItem = () => {
             spacing='0'
             borderRadius='10px'
             border='1px'
-            borderColor='blackAlpha.300'
+            borderColor='blackAlpha.200'
             _hover={{
                 bg: 'blackAlpha.100'
             }}
