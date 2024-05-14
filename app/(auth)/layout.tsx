@@ -1,29 +1,44 @@
-"use client"
+'use client'
+import { Stack, VStack } from "@chakra-ui/layout";
+import { ReactNode } from "react";
+import { Topbar } from "../(main)/Topbar";
 
-import { Box, Button, HStack, useColorMode } from '@chakra-ui/react';
-import Link from 'next/link';
-import { FiChevronsLeft } from 'react-icons/fi';
-
-export default function SimpleCard({ children }: React.PropsWithChildren) {
-  const { colorMode } = useColorMode()
-  return (
-    <Box minH='100vh' minW='full' bg={colorMode == 'dark' ? '#18191A' : '#F0F1F1'} >
-      <HStack w='full' maxW='820px' p='4'>
-        <Link href='/'>
-          <Button
-            size='sm'
-            colorScheme='teal'
-            variant='ghost'
-            aria-label='icon'
-            borderBottomRadius='0'
-            leftIcon={<FiChevronsLeft />}
-            borderBottom='2px'
-          >
-            Trang chủ
-          </Button>
-        </Link>
-      </HStack>
-      {children}
-    </Box>
-  );
+export default function AuthLayout({ children }: { children: ReactNode }) {
+    return (
+        <VStack
+            h='100vh'
+            spacing='0'
+            sx={{
+                "::-webkit-scrollbar": { w: { base: 'none', md: '2' } },
+                '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '5',
+                    bg: 'blackAlpha.300'
+                },
+                "::-webkit-scrollbar-track": {
+                    background: 'white'
+                },
+                "::-webkit-scrollbar-thumb:hover": {
+                    bg: 'blackAlpha.400'
+                }
+            }}
+            overflowY='auto'
+            overflowX='hidden'
+        >
+            <VStack minH='60px' w='full' bg='cyan.800' position='sticky' top='0px' zIndex='999'>
+                <VStack w='full' maxW='6xl' px='4'>
+                    <Topbar />
+                </VStack>
+            </VStack>
+            <Stack
+                minH='calc(100vh - 60px)'
+                w='full'
+                maxW='6xl'
+                flexDirection='row'
+                spacing='5'
+                px='4'
+            >
+                {children}
+            </Stack>
+        </VStack>
+    )
 }

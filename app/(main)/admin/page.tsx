@@ -6,8 +6,8 @@ import { ResolutionPage } from "./resolution/ResolutionPage";
 import { BrandPage } from "./brand/BrandPage";
 import { OrderPage } from "./orders/OrderPage";
 import { PaymentPage } from "./payments.tsx/PaymentPage";
-import { StoreInfoPage } from "./store-info/StoreInfoPage";
 import { useEffect, useState } from "react";
+import { StorePage } from "./stores/StoreInfoPage";
 
 export default function AdminPage() {
 
@@ -42,7 +42,7 @@ export default function AdminPage() {
                 <Tab fontWeight='600' whiteSpace='nowrap'>Thương hiệu</Tab>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Đơn hàng</Tab>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Thanh toán</Tab>
-                <Tab fontWeight='600' whiteSpace='nowrap'>Thông tin cửa hàng</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Hệ thống cửa hàng</Tab>
             </TabList>
             <TabIndicator mt='-1.5px' height='3px' bg='teal.500' borderRadius='full' />
             <TabPanels p='0'>
@@ -65,7 +65,7 @@ export default function AdminPage() {
                     <PaymentPage />
                 </TabPanel>
                 <TabPanel py='7' px='4'>
-                    <StoreInfoPage />
+                    <StorePage />
                 </TabPanel>
             </TabPanels>
         </Tabs>

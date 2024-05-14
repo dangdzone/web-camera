@@ -1,57 +1,42 @@
-import { Product } from "@/type";
-import { HStack, Stack } from "@chakra-ui/layout"
-import { Button, FormControl, FormLabel, IconButton, Input, Textarea } from "@chakra-ui/react"
-import { UseFormRegister, useForm, useFormContext } from "react-hook-form"
-import { MdClose } from "react-icons/md"
+import { Stack } from "@chakra-ui/layout"
+import { Button, IconButton, Input, Textarea } from "@chakra-ui/react"
+import { useFieldArray, useFormContext } from "react-hook-form"
+import { MdAdd, MdClose } from "react-icons/md"
 
 export type TechnicalsProps = {
-    index: number;
-    remove: () => void;
-    technicals: any[];
-    setTechnicals: (index: number, value: any[]) => void;
-    register: UseFormRegister<Product>;
+    name: `specifications.${number}`
 };
 
-export const TechnicalProps = ({ index, remove, technicals, setTechnicals, register }: TechnicalsProps) => {
+export const TechnicalProps = ({ name }: TechnicalsProps) => {
 
-    const handleAddTechnical = () => {
-        setTechnicals(index, [...technicals, { name: '', content: '' }]);
-    };
-
-    const handleRemoveTechnical = (techIndex: number) => {
-        setTechnicals(index, technicals.filter((_, i) => i !== techIndex));
-    };
+    const { control, register } = useFormContext()
+    const { fields, remove, append } = useFieldArray({
+        control,
+        name: `${name}.technicals`,
+    });
 
     return (
-        // <FormProvider {...form}>
-        <Stack w='full'>
+        <Stack w='full' p='3' spacing='3'>
             {
-                technicals.map((technical, techIndex) => (
-                    <HStack w='full' key={`${index}-${techIndex}`}>
-                        <FormControl>
-                            <FormLabel>Technical Name</FormLabel>
-                            <Input
-                                {...register(
-                                    `product_info.${index}.technicals.${techIndex}.name` as const
-                                )}
-                                placeholder='Nhập tên thông số...'
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>Content</FormLabel>
-                            <Textarea
-                                {...register(
-                                    `product_info.${index}.technicals.${techIndex}.content` as const
-                                )}
-                                placeholder='Nhập nội dung...'
-                            />
-                        </FormControl>
-                        <IconButton aria-label="close" onClick={() => handleRemoveTechnical(techIndex)} icon={<MdClose />} />
-                    </HStack>
+                fields.map((technical, techIndex) => (
+                    <Stack w='full' key={technical.id} flexDirection='row'>
+                        <Input
+                            {...register(
+                                `${name}.technicals.${techIndex}.name`
+                            )}
+                            placeholder='Nhập tên thông số...'
+                        />
+                        <Textarea
+                            {...register(
+                                `${name}.technicals.${techIndex}.content`
+                            )}
+                            placeholder='Nhập nội dung...'
+                        />
+                        <IconButton size='sm' aria-label="close" onClick={() => confirm('Bạn chắc chắn xóa không !') && remove(techIndex)} icon={<MdClose />} />
+                    </Stack>
                 ))
             }
-            {/* <Button leftIcon={<MdClose />} onClick={handleAddTechnical}>Thêm technical</Button> */}
+            <Button leftIcon={<MdAdd />} onClick={() => append({ name: '', content: '' })}>Add technicals</Button>
         </Stack>
-        // </FormProvider>
     )
 }

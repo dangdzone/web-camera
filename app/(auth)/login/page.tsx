@@ -16,10 +16,8 @@ import { useEffect } from 'react';
 import { useFirebaseUserContext } from '@/hooks/useFirebaseUser';
 import { LoginDetail } from './LoginDetail';
 
-
 export default function LoginPage() {
 
-    const { colorMode } = useColorMode()
     const toast = useToast()
     const router = useRouter()
     const { fuser, loading } = useFirebaseUserContext()
@@ -32,52 +30,19 @@ export default function LoginPage() {
                 status: 'success',
                 duration: 3000,
             })
-            router.push(`/restaurants`)
+            router.push(`/`)
         }
     })
 
     return (
-        <Center minH={'100vh'} bg={colorMode == 'dark' ? '#18191A' : '#f0f1f1'}  >
-            <SimpleGrid
-                columns={[1, 1, 2, 2]}
-                maxW='820px'
-                minH='400px'
-                spacing='0'
-                bg={colorMode == 'dark' ? '#242526' : 'white'}
-                borderRadius='20px'
-                m='2'
-                px='2'
-                // border='1px solid #38cab3'
-                boxShadow='md'
-            >
-                <VStack alignSelf='center' display={{ base: 'none', md: 'block' }} pl='10'>
-                    <Image
-                        borderRadius='10px'
-                        // src='https://cdni.iconscout.com/illustration/premium/thumb/content-creator-making-live-session-with-fans-4743506-3943461.png?f=webp'
-                        src='https://nethue.com.vn/uploaded/tin-tuc-loigioithieu-1.png'
-                    />
-                </VStack>
-                <VStack
-                    h='full'
-                    w='full'
-                    px='2'
-                    py='10'
-                    borderRightRadius='10px'
-                    align={'center'}
-                    justify={'center'}
-                    spacing='8'
-                >
-                    <Stack align={'center'} spacing={3}>
-                        <HStack color='teal.500'>
-                            <Text fontWeight='700' fontSize='3xl'>Nhóm 6</Text>
-                        </HStack>
-                        <Text align={'center'} fontSize={{ base: 'sm', md: 'md' }} fontWeight='400' color={'gray.500'}>
-                            Ứng dụng gọi món bằng menu điện tử - Nét Huế
-                        </Text>
-                    </Stack>
+        <Stack w='full' justifyContent='center' flexDirection='row'>
+            <VStack w='full' maxW='xl' pt='20' spacing='10'>
+                <Image maxH='150px' src='https://www.certifiedfinancialguardian.com/images/blog-wp-login.png' />
+                <VStack w='full' spacing='7'>
+                    <Text fontSize='25px' fontWeight='700'>Đăng nhập</Text>
                     <LoginDetail />
                 </VStack>
-            </SimpleGrid>
-        </Center>
+            </VStack>
+        </Stack>
     );
 }
