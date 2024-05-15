@@ -25,18 +25,20 @@ export const TechnicalProps = ({ name }: TechnicalsProps) => {
                                 `${name}.technicals.${techIndex}.name`
                             )}
                             placeholder='Nhập tên thông số...'
+                            size='sm'
                         />
                         <Textarea
                             {...register(
                                 `${name}.technicals.${techIndex}.content`
                             )}
                             placeholder='Nhập nội dung...'
+                            size='sm'
                         />
                         <IconButton size='sm' aria-label="close" onClick={() => confirm('Bạn chắc chắn xóa không !') && remove(techIndex)} icon={<MdClose />} />
                     </Stack>
                 ))
             }
-            <Button leftIcon={<MdAdd />} onClick={() => append({ name: '', content: '' })}>Add technicals</Button>
+            <Button size='sm' leftIcon={<MdAdd />} onClick={() => append({ name: '', content: '' })}>Thêm tính năng</Button>
         </Stack>
     )
 }

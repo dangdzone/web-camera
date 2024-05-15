@@ -1,5 +1,5 @@
 import { HStack, SimpleGrid, Stack } from "@chakra-ui/layout"
-import { Button } from "@chakra-ui/react"
+import { Button, Input } from "@chakra-ui/react"
 import { FiPlus } from "react-icons/fi"
 import { ProductItem } from "./ProductItem"
 import { useState } from "react"
@@ -16,6 +16,7 @@ export const ProductList = () => {
     return (
         <Stack w='full' spacing='7'>
             <HStack w='full'>
+                <Input borderRadius='10px' w='50%' placeholder="Tìm kiếm mã sản phẩm" />
                 <Button variant='outline' borderRadius='10px'>Giá giảm dần</Button>
                 <Button variant='outline' borderRadius='10px'>Giá tăng dần</Button>
                 <Button variant='outline' borderRadius='10px' leftIcon={<FiPlus />} onClick={() => set_active_product(undefined)}>Thêm sản phẩm</Button>
@@ -25,7 +26,7 @@ export const ProductList = () => {
                     <ProductModal onClose={() => set_active_product(null)} product={active_product} />
                 )
             }
-            <SimpleGrid w='full' spacing='4' columns={[2, 3, 4, 5]}>
+            <SimpleGrid w='full' spacing='4' columns={[2, 3]}>
                 {
                     $products.items.map(product => (
                         <ProductItem key={product.id} product={product} onClick={() => set_active_product(product)} />

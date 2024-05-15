@@ -6,6 +6,7 @@ import { useCollectionData, useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm, useFieldArray, FormProvider } from "react-hook-form"
 import { MdAdd, MdClose } from "react-icons/md"
 import { TechnicalProps } from "./TechnicalsProps"
+import { ProductInfoList } from "@/text"
 
 export type ProductModal = {
     product?: SmartQueryItem<Product>
@@ -15,21 +16,38 @@ export type ProductModal = {
 export const ProductModal = ({ onClose, product }: ProductModal) => {
 
     const { transporter } = useLiveQueryContext()
-    const { items: brands } = useCollectionData<Brand>('brands')
-    const { items: categories } = useCollectionData<Category>('categories')
-    const { items: resolutions } = useCollectionData<Resolution>('resolutions')
+    const $brands = useCollectionData<Brand>('brands')
+    const $categories = useCollectionData<Category>('categories')
+    const $resolutions = useCollectionData<Resolution>('resolutions')
 
     const form = useForm<Product>({
         defaultValues: {
             name: product?.name,
+            amount: product?.amount,
+            cost: product?.cost,
+            code: product?.code,
+            price: product?.price,
+            advertising_price: product?.advertising_price,
+            brand_id: product?.brand_id,
+            specifications: product?.specifications,
+            infos: product?.infos,
+            category_id: product?.category_id,
+            image: product?.image,
+            resolution_id: product?.resolution_id,
         }
     })
+
     const { register, handleSubmit, watch, control, formState, setValue, resetField } = form
 
     // product_info
-    const { fields: specifications, append, remove } = useFieldArray({
+    const $specifications = useFieldArray({
         control,
         name: 'specifications',
+    });
+
+    const $infos = useFieldArray({
+        control,
+        name: 'infos',
     });
 
     // submit
@@ -63,7 +81,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                         <ModalCloseButton borderRadius='full' mt='1' />
                         <ModalBody px={{ base: '2', md: '4' }} py='6'>
                             <Stack w='full' spacing='7'>
-                                <pre>{JSON.stringify(watch(), null, 2)}</pre>
+                                {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
                                 <Stack w='full' spacing='3'>
                                     <Text>Tên sản phẩm</Text>
                                     <Input
@@ -83,73 +101,85 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
 
                                 <Stack w='full' spacing='3'>
                                     <Text>Danh mục sản phẩm</Text>
-                                    <FormControl isRequired>
-                                        <Select
-                                            alignSelf='center'
-                                            variant='outline'
-                                            {...register("category_id")}
-                                        >
-                                            {
-                                                categories.map(brand => (
-                                                    <option
-                                                        value={brand.id}
-                                                        key={brand.id}
-                                                    >
-                                                        {brand.name}
-                                                    </option>
-                                                ))
-                                            }
-                                        </Select>
-                                    </FormControl>
+                                    {
+                                        !$categories.loading && (
+                                            <FormControl isRequired>
+                                                <Select
+                                                    alignSelf='center'
+                                                    variant='outline'
+                                                    {...register("category_id")}
+                                                >
+                                                    {
+                                                        $categories.items.map(brand => (
+                                                            <option
+                                                                value={brand.id}
+                                                                key={brand.id}
+                                                            >
+                                                                {brand.name}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                </Select>
+                                            </FormControl>
+                                        )
+                                    }
                                 </Stack>
                                 <Stack w='full' spacing='3'>
                                     <Text>Thương hiệu</Text>
-                                    <FormControl isRequired>
-                                        <Select
-                                            alignSelf='center'
-                                            variant='outline'
-                                            {...register("brand_id")}
-                                        >
-                                            {
-                                                brands.map(brand => (
-                                                    <option
-                                                        value={brand.id}
-                                                        key={brand.id}
-                                                    >
-                                                        {brand.name}
-                                                    </option>
-                                                ))
-                                            }
-                                        </Select>
-                                    </FormControl>
+                                    {
+                                        !$brands.loading && (
+                                            <FormControl isRequired>
+                                                <Select
+                                                    alignSelf='center'
+                                                    variant='outline'
+                                                    {...register("brand_id", { required: true })}
+                                                >
+                                                    {
+                                                        $brands.items.map(brand => (
+                                                            <option
+                                                                value={brand.id}
+                                                                key={brand.id}
+                                                            >
+                                                                {brand.name}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                </Select>
+                                            </FormControl>
+                                        )
+                                    }
                                 </Stack>
                                 <Stack w='full' spacing='3'>
                                     <Text>Độ phân giải</Text>
-                                    <FormControl isRequired>
-                                        <Select
-                                            alignSelf='center'
-                                            variant='outline'
-                                            {...register("resolution_id")}
-                                        >
-                                            {
-                                                resolutions.map(brand => (
-                                                    <option
-                                                        value={brand.id}
-                                                        key={brand.id}
-                                                    >
-                                                        {brand.name}
-                                                    </option>
-                                                ))
-                                            }
-                                        </Select>
-                                    </FormControl>
+                                    {
+                                        !$resolutions.loading && (
+                                            <FormControl isRequired>
+                                                <Select
+                                                    alignSelf='center'
+                                                    variant='outline'
+                                                    {...register("resolution_id")}
+                                                >
+                                                    {
+                                                        $resolutions.items.map(brand => (
+                                                            <option
+                                                                value={brand.id}
+                                                                key={brand.id}
+                                                            >
+                                                                {brand.name}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                </Select>
+                                            </FormControl>
+                                        )
+                                    }
                                 </Stack>
                                 <SimpleGrid w='full' columns={[3]} spacing='3'>
                                     <Stack w='full' spacing='3'>
                                         <Text>Giá nhập</Text>
                                         <Input
                                             placeholder='Nhập giá nhập...'
-                                            {...register('cost', { required: true })}
+                                            {...register('cost', { required: true, valueAsNumber: true })}
                                             onFocus={e => e.target.select()}
                                             type="number"
                                         />
@@ -158,7 +188,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                         <Text>Giá bán</Text>
                                         <Input
                                             placeholder='Nhập giá bán...'
-                                            {...register('price', { required: true })}
+                                            {...register('price', { required: true, valueAsNumber: true })}
                                             onFocus={e => e.target.select()}
                                             type="number"
                                         />
@@ -167,7 +197,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                         <Text>Giá quảng cáo</Text>
                                         <Input
                                             placeholder='Nhập quảng cáo...'
-                                            {...register('advertising_price', { required: true })}
+                                            {...register('advertising_price', { required: true, valueAsNumber: true })}
                                             onFocus={e => e.target.select()}
                                             type="number"
                                         />
@@ -177,7 +207,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                     <Text>Số lượng</Text>
                                     <Input
                                         placeholder='Nhập số lượng...'
-                                        {...register('amount', { required: true })}
+                                        {...register('amount', { required: true, valueAsNumber: true })}
                                         onFocus={e => e.target.select()}
                                         type="number"
                                     />
@@ -197,24 +227,53 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                     <Text>Thống số kĩ thuật</Text>
                                     <Stack w='full'>
                                         {
-                                            specifications.map((specification, index) => (
+                                            $specifications.fields.map((specification, index) => (
                                                 <HStack w='full' key={specification.id}>
                                                     <Stack w='full' spacing='0' borderRadius='10px' border='1px' borderColor={'blackAlpha.200'}>
-                                                        <HStack p='3' borderBottom='1px' borderColor='blackAlpha.50' borderTopRadius='10px' bg='blackAlpha.50' justifyContent='space-between'>
-                                                            <Input {...register(`specifications.${index}.name` as const)} variant='unstyled' placeholder='Nhập tên bảng...' />
-                                                            <IconButton size='sm' aria-label="close" onClick={() => confirm('Bạn chắc chắn xóa không !') && remove(index)} icon={<MdClose />} />
+                                                        <HStack p='2' borderBottom='1px' borderColor='blackAlpha.50' borderTopRadius='10px' bg='blackAlpha.50' justifyContent='space-between'>
+                                                            <Input {...register(`specifications.${index}.name`)} variant='unstyled' placeholder='Nhập tên bảng...' />
+                                                            <IconButton size='sm' aria-label="close" onClick={() => confirm('Bạn chắc chắn xóa không !') && $specifications.remove(index)} icon={<MdClose />} />
                                                         </HStack>
                                                         <TechnicalProps name={`specifications.${index}`} />
                                                     </Stack>
                                                 </HStack>
                                             ))
                                         }
-                                        <Button leftIcon={<MdAdd />} onClick={() => append({ name: '', technicals: [{ name: '', content: '' }] })}>Add Product Info</Button>
+                                        <Button size='sm' leftIcon={<MdAdd />} onClick={() => $specifications.append({ name: '', technicals: [{ name: '', content: '' }] })}>Thêm bảng mới</Button>
                                     </Stack>
                                 </Stack>
 
                                 <Stack w='full' spacing='3'>
                                     <Text>Thông tin sản phẩm</Text>
+                                    <Stack w='full'>
+                                        {
+                                            $infos.fields.map((info, i) => (
+                                                <Stack w='full' key={info.id} flexDirection='row'>
+                                                    <FormControl w='40%'>
+                                                        <Select
+                                                            alignSelf='center'
+                                                            {...register(`infos.${i}.name`)}
+                                                            size='sm'
+                                                        >
+                                                            {
+                                                                Object.entries(ProductInfoList).map(([name_id, { name, icon }]) => (
+                                                                    <option
+                                                                        value={name_id}
+                                                                        key={name_id}
+                                                                    >
+                                                                        {name}
+                                                                    </option>
+                                                                ))
+                                                            }
+                                                        </Select>
+                                                    </FormControl>
+                                                    <Textarea size='sm' {...register(`infos.${i}.content`)} placeholder='Nhập nội dung...' />
+                                                    <IconButton size='sm' aria-label="close" onClick={() => confirm('Bạn chắc chắn xóa không !') && $infos.remove(i)} icon={<MdClose />} />
+                                                </Stack>
+                                            ))
+                                        }
+                                        <Button size='sm' leftIcon={<MdAdd />} onClick={() => $infos.append({ name: '', content: '' })}>Thêm thông tin mới</Button>
+                                    </Stack>
                                 </Stack>
                             </Stack>
                         </ModalBody>

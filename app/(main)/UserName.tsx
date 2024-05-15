@@ -5,6 +5,7 @@ import { signOut } from "firebase/auth"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FaRegCircleUser } from "react-icons/fa6"
+import { MdOutlineAdminPanelSettings } from "react-icons/md"
 import { RiLogoutCircleRLine } from "react-icons/ri"
 export const UserName = () => {
 
@@ -68,6 +69,16 @@ export const UserName = () => {
                             justifyContent='flex-start'
                         >
                             Thông tin cá nhân
+                        </Button>
+                    </Link>
+                    <Link href={`/admin`} style={{ width: '100%' }}>
+                        <Button
+                            w='full'
+                            leftIcon={<MdOutlineAdminPanelSettings />}
+                            variant='ghost'
+                            justifyContent='flex-start'
+                        >
+                            Admin
                         </Button>
                     </Link>
                     {

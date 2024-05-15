@@ -49,7 +49,7 @@ export declare class Product extends BaseEntity {
         name: string,
         technicals: Array<{ name: string, content: string }>
     }> // Thông số kĩ thuật
-    product_info: Array<{
+    infos: Array<{
         name: string,
         content: string
     }> // Thông tin sản phẩm 

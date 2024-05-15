@@ -1,14 +1,23 @@
-import { Product } from "@/type"
+import { Brand, Category, Product, Resolution } from "@/type"
 import { HStack, Stack, Text } from "@chakra-ui/layout"
-import { Image } from "@chakra-ui/react"
+import { Image, Tag } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
+import { useCollectionData } from "@livequery/react"
 
 export type ProductItem = {
     product: SmartQueryItem<Product>,
     onClick?: () => void
 }
 
-export const ProductItem = ({ product, onClick}: ProductItem) => {
+export const ProductItem = ({ product, onClick }: ProductItem) => {
+
+    const $brands = useCollectionData<Brand>('brands')
+    const $categories = useCollectionData<Category>('categories')
+    const $resolutions = useCollectionData<Resolution>('resolutions')
+    const brand_name = $brands.items.filter(a => a.id == product.brand_id).map(a => a.name)
+    const category_name = $categories.items.filter(a => a.id == product.category_id).map(a => a.name)
+    const resolution_name = $resolutions.items.filter(a => a.id == product.resolution_id).map(a => a.name)
+
     return (
         <Stack
             w='full'
@@ -23,16 +32,25 @@ export const ProductItem = ({ product, onClick}: ProductItem) => {
             borderColor='blackAlpha.200'
             onClick={onClick}
         >
-            <Image maxH='300px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/c/a/camera-ip-wifi-ezviz-h8c-1080p-full-color.png' />
+            <Stack w='full' flexDirection='row' spacing='3'>
+                <Image p='2' borderRadius='10px' border='1px' borderColor='blackAlpha.100' maxH='150px' src={product.image} />
+                <Stack fontSize='14px' spacing='3' justifyContent='center'>
+                    <Stack spacing='1'>
+                        <HStack><Text>Mã:</Text><Text fontWeight='bold'>{product?.code}</Text></HStack>
+                        <HStack><Text>Còn lại:</Text><Text fontWeight='bold'>{product?.amount.toLocaleString()} (chiếc)</Text></HStack>
+                        <HStack><Text>Giá nhập:</Text><Text fontWeight='bold'>{product?.cost.toLocaleString()} đ</Text></HStack>
+                        <HStack><Text>Giá bán:</Text><Text fontWeight='bold'>{product?.price.toLocaleString()} đ</Text></HStack>
+                        <HStack><Text>Giá quảng cáo:</Text><Text fontWeight='bold' textDecoration='line-through'>{product?.advertising_price.toLocaleString()} đ</Text></HStack>
+                    </Stack>
+                </Stack>
+            </Stack>
             <Stack w='full'>
                 <Text lineHeight='1.3' fontWeight='700' fontSize='14px'>{product.name}</Text>
-                <HStack w='full' justifyContent='space-between' fontWeight='700' >
-                    <Text color='red.500'>{product.price}</Text>
-                    <Text fontSize='14px' opacity='0.5' textDecoration='line-through'>{product.advertising_price}</Text>
+                <HStack flexWrap='wrap' spacing='1'>
+                    <Tag size='sm' colorScheme="red">{category_name}</Tag>
+                    <Tag size='sm' colorScheme="orange">{brand_name}</Tag>
+                    <Tag size='sm' colorScheme="green">{resolution_name}</Tag>
                 </HStack>
-                <Text p='2' fontSize='14px' bg='blackAlpha.100' borderRadius='5px'>
-                    Dễ dàng lắp đặt, sử dụng. Có cung cấp dịch vụ lắp đặt tại nhà
-                </Text>
             </Stack>
         </Stack>
     )
