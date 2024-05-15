@@ -32,12 +32,6 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
         name: 'specifications',
     });
 
-    const appendTechnical = (index: number) => {
-        const updatedProductInfo = [...specifications];
-        updatedProductInfo[index].technicals.push({ name: '', content: '' });
-        setValue('product_info', updatedProductInfo);
-    };
-
     // submit
     async function onSubmit(data: Product) {
         if (product) {
@@ -217,6 +211,10 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                         }
                                         <Button leftIcon={<MdAdd />} onClick={() => append({ name: '', technicals: [{ name: '', content: '' }] })}>Add Product Info</Button>
                                     </Stack>
+                                </Stack>
+
+                                <Stack w='full' spacing='3'>
+                                    <Text>Thông tin sản phẩm</Text>
                                 </Stack>
                             </Stack>
                         </ModalBody>

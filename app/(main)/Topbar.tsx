@@ -38,7 +38,7 @@ export const Topbar = () => {
                     <HStack _hover={{bg: 'blackAlpha.300'}} p='3' borderRadius='10px' cursor='pointer'>
                         <BiCartAdd size='25px' />
                         <Stack spacing='0' fontWeight='700'>
-                            <Text>Giỏ hàng</Text>
+                            <Text whiteSpace='nowrap'>Giỏ hàng</Text>
                         </Stack>
                     </HStack>
                     {!fuser && (
