@@ -6,6 +6,7 @@ import { useState } from "react"
 import { BrandModal } from "./BrandModal"
 import { BrandItem } from "./BrandItem"
 import { FiPlus } from "react-icons/fi"
+import { Skeleton } from "@chakra-ui/react"
 
 
 export const BrandPage = () => {
@@ -27,18 +28,24 @@ export const BrandPage = () => {
                         <BrandItem key={brand.id} brand={brand} onClick={() => set_active_brand(brand)} />
                     ))
                 }
-                <Center
-                    minH='100px'
-                    bg='blackAlpha.50'
-                    borderRadius='10px'
-                    border='1px dashed'
-                    borderColor='blackAlpha.200'
-                    _hover={{ bg: 'blackAlpha.200' }}
-                    onClick={() => set_active_brand(undefined)}
-                    cursor='pointer'
-                >
-                    <FiPlus />
-                </Center>
+                {
+                    $brands.loading ? new Array(5).fill(0).map((_, i) => (
+                        <Skeleton key={i} borderRadius='10px' height='100px' />
+                    )) : (
+                        <Center
+                            minH='100px'
+                            bg='blackAlpha.50'
+                            borderRadius='10px'
+                            border='1px dashed'
+                            borderColor='blackAlpha.200'
+                            _hover={{ bg: 'blackAlpha.200' }}
+                            onClick={() => set_active_brand(undefined)}
+                            cursor='pointer'
+                        >
+                            <FiPlus />
+                        </Center>
+                    )
+                }
             </SimpleGrid>
         </Stack>
     )

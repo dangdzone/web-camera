@@ -31,7 +31,7 @@ export const SearchBox = (props: SearchBox) => {
                 <SearchIcon />
             </InputLeftElement>
             <Input
-                borderRadius='5px'
+                borderRadius='10px'
                 placeholder={props.placeholder}
                 value={v}
                 onChange={(e) => $value.current.next(e.target.value)}
@@ -40,7 +40,7 @@ export const SearchBox = (props: SearchBox) => {
             {
                 v && v.length > 0 && (
                     <InputRightElement>
-                        <MdClose onClick={() => {
+                        <MdClose cursor='pointer' onClick={() => {
                             u('')
                             props.onSearch?.()
                         }} />

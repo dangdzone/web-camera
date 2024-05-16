@@ -1,5 +1,5 @@
 import { SimpleGrid, Stack, Text } from "@chakra-ui/layout"
-import { Button } from "@chakra-ui/react"
+import { Button, Skeleton } from "@chakra-ui/react"
 import { useState } from "react"
 import { StoreModal } from "./StoreModal"
 import { SmartQueryItem } from "@livequery/client"
@@ -25,6 +25,11 @@ export const StorePage = () => {
                 {
                     $stores.items.map(store => (
                         <StoreItem key={store.id} store={store} onClick={() => set_store_active(store)} />
+                    ))
+                }
+                {
+                    $stores.loading && new Array(5).fill(0).map((_, i) => (
+                        <Skeleton key={i} borderRadius='10px' height='100px' />
                     ))
                 }
             </SimpleGrid>

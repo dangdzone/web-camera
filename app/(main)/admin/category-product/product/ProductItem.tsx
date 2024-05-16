@@ -1,6 +1,6 @@
 import { Brand, Category, Product, Resolution } from "@/type"
-import { HStack, Stack, Text } from "@chakra-ui/layout"
-import { Image, Tag } from "@chakra-ui/react"
+import { Box, HStack, Stack, Text } from "@chakra-ui/layout"
+import { Image, Skeleton, Tag } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData } from "@livequery/react"
 

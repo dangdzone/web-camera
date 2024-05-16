@@ -1,5 +1,5 @@
-import { HStack, SimpleGrid, Stack } from "@chakra-ui/layout"
-import { Button, Input } from "@chakra-ui/react"
+import { HStack, SimpleGrid, Stack, VStack } from "@chakra-ui/layout"
+import { Button, Skeleton } from "@chakra-ui/react"
 import { FiPlus } from "react-icons/fi"
 import { ProductItem } from "./ProductItem"
 import { useState } from "react"
@@ -7,6 +7,7 @@ import { SmartQueryItem } from "@livequery/client"
 import { Product } from "@/type"
 import { useCollectionData } from "@livequery/react"
 import { ProductModal } from "./ProductModal"
+import { SearchBox } from "@/components/common/SearchBox"
 
 export const ProductList = () => {
 
@@ -16,7 +17,17 @@ export const ProductList = () => {
     return (
         <Stack w='full' spacing='7'>
             <HStack w='full'>
-                <Input borderRadius='10px' w='50%' placeholder="Tìm kiếm mã sản phẩm" />
+                <HStack w='40%'>
+                    <SearchBox
+                        placeholder={'Tìm kiếm sản phẩm...'}
+                        onSearch={value => $products.filter({
+                            ...$products.filters,
+                            "_id:like": value,
+                            "name:like": value,
+                            "code:like": value,
+                        })}
+                    />
+                </HStack>
                 <Button variant='outline' borderRadius='10px'>Giá giảm dần</Button>
                 <Button variant='outline' borderRadius='10px'>Giá tăng dần</Button>
                 <Button variant='outline' borderRadius='10px' leftIcon={<FiPlus />} onClick={() => set_active_product(undefined)}>Thêm sản phẩm</Button>
@@ -33,6 +44,11 @@ export const ProductList = () => {
                     ))
                 }
             </SimpleGrid>
+            <VStack w='full'>
+                {$products.loading && new Array(5).fill(0).map((_, i) => (
+                    <Skeleton w='full' key={i} borderRadius='10px' height='30px' />
+                ))}
+            </VStack>
         </Stack>
     )
 }

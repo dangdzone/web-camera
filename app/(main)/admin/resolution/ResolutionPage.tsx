@@ -7,6 +7,7 @@ import { useState } from "react"
 import { ResolutionItem } from "./ResolutionItem"
 import { ResolutionModal } from "./ResolutionModal"
 import { FiPlus } from "react-icons/fi"
+import { Skeleton } from "@chakra-ui/react"
 
 export const ResolutionPage = () => {
 
@@ -27,18 +28,25 @@ export const ResolutionPage = () => {
                         <ResolutionItem key={resolution.id} resolution={resolution} onClick={() => set_active_resolution(resolution)} />
                     ))
                 }
-                <Center
-                    minH='125px'
-                    bg='blackAlpha.50'
-                    borderRadius='10px'
-                    border='1px dashed'
-                    borderColor='blackAlpha.200'
-                    _hover={{ bg: 'blackAlpha.200' }}
-                    onClick={() => set_active_resolution(undefined)}
-                    cursor='pointer'
-                >
-                    <FiPlus />
-                </Center>
+                {
+                    $resolutions.loading ? new Array(5).fill(0).map((_, i) => (
+                        <Skeleton key={i} borderRadius='10px' height='125px' />
+                    )) : (
+                        <Center
+                            minH='125px'
+                            bg='blackAlpha.50'
+                            borderRadius='10px'
+                            border='1px dashed'
+                            borderColor='blackAlpha.200'
+                            _hover={{ bg: 'blackAlpha.200' }}
+                            onClick={() => set_active_resolution(undefined)}
+                            cursor='pointer'
+                        >
+                            <FiPlus />
+                        </Center>
+                    )
+                }
+
             </SimpleGrid>
         </Stack>
     )
