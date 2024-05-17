@@ -1,7 +1,10 @@
 import { IoMdPhonePortrait } from "react-icons/io";
-import { LuBox } from "react-icons/lu";
+import { LuBox, LuUser2 } from "react-icons/lu";
 import { BsShieldCheck } from "react-icons/bs";
-import { RiBankCardLine } from "react-icons/ri";
+import { RiBankCardLine, RiHome5Line } from "react-icons/ri";
+import { GrServicePlay } from "react-icons/gr";
+import { BiCartAdd, BiShoppingBag } from "react-icons/bi";
+import { FiGrid } from "react-icons/fi";
 
 export const ProductInfoList = {
     accessory: {
@@ -19,5 +22,33 @@ export const ProductInfoList = {
     vat: {
         name: 'Thuế',
         icon: <RiBankCardLine />
+    }
+}
+
+export const NavLinkList = {
+    home: {
+        name: 'Trang chủ',
+        icon: <RiHome5Line />,
+        href: ''
+    },
+    products: {
+        name: 'Sản phẩm',
+        icon: <FiGrid />,
+        href: 'products'
+    },
+    orders: {
+        name: 'Đơn hàng',
+        icon: <BiShoppingBag />,
+        href: 'orders'
+    },
+    carts: {
+        name: 'Giỏ hàng',
+        icon: <BiCartAdd />,
+        href: 'carts'
+    },
+    user: {
+        name: 'Tài khoản',
+        icon: <LuUser2 />,
+        href: 'user'
     }
 }

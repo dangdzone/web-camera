@@ -34,6 +34,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
             category_id: product?.category_id,
             image: product?.image,
             resolution_id: product?.resolution_id,
+            description: product?.description
         }
     })
 
@@ -210,6 +211,14 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                         {...register('amount', { required: true, valueAsNumber: true })}
                                         onFocus={e => e.target.select()}
                                         type="number"
+                                    />
+                                </Stack>
+                                <Stack w='full' spacing='3'>
+                                    <Text>Ghi chú</Text>
+                                    <Textarea
+                                        placeholder='Nhập ghi chú...'
+                                        {...register('description')}
+                                        onFocus={e => e.target.select()}
                                     />
                                 </Stack>
                                 <Stack w='full' spacing='3'>
