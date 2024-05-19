@@ -22,7 +22,7 @@ export const ProductItemBox = ({ product }: ProductItemBox) => {
             border='1px'
             borderColor='blackAlpha.200'
         >
-            <VStack >
+            <VStack minH='200px'>
                 <Image p='2' maxH='200px' src={product.image} />
             </VStack>
             <Text lineHeight='1.3' fontWeight='700'>{product.name}</Text>
