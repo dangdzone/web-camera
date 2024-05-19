@@ -12,7 +12,7 @@ export default function MainPage() {
     const $products = useCollectionData<Product>('products')
 
     return (
-        <VStack w='full' py='5' spacing='7'>
+        <VStack w='full' spacing='7'>
             <SimpleGrid w='full' spacing='2' columns={[2]}>
                 <Image borderRadius='5px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r50.png' />
                 <Image borderRadius='5px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r100.png' />

@@ -31,12 +31,12 @@ export default function MainLayout({ children }: { children: ReactNode }) {
                 </VStack>
             </VStack>
             <Stack
-                minH='calc(100vh - 60px)'
+                // minH='calc(100vh - 60px)'
                 w='full'
                 maxW='6xl'
                 flexDirection='row'
                 spacing='5'
-                px='4'
+                px='4' py='5'
             >
                 {/* <NavLink /> */}
                 {children}
