@@ -2,6 +2,7 @@ import { Product } from "@/type"
 import { HStack, Stack, Text, VStack } from "@chakra-ui/layout"
 import { Image } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
+import Link from "next/link"
 
 export type ProductItemBox = {
     product: SmartQueryItem<Product>,
@@ -10,6 +11,7 @@ export type ProductItemBox = {
 export const ProductItemBox = ({ product }: ProductItemBox) => {
 
     return (
+        <Link href={`/products/${product.id}`}>
         <Stack
             w='full'
             p='2'
@@ -32,5 +34,6 @@ export const ProductItemBox = ({ product }: ProductItemBox) => {
             </HStack>
             <Text fontSize='14px' p='2' bg='blackAlpha.50' borderRadius='10px' border='1px' borderColor='blackAlpha.100'>{product.description}</Text>
         </Stack>
+        </Link>
     )
 }

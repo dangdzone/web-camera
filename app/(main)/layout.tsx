@@ -36,7 +36,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
                 maxW='6xl'
                 flexDirection='row'
                 spacing='5'
-                px='4' py='5'
+                px='4'
             >
                 {/* <NavLink /> */}
                 {children}

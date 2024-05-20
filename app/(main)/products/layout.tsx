@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 export default function CamaraTrongNha({ children }: { children: ReactNode }) {
 
     return (
-        <VStack w='full'>
+        <VStack w='full' py='5'>
             {children}
         </VStack>
     )
