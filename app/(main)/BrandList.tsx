@@ -1,6 +1,5 @@
 import { Brand, Product } from "@/type"
 import { HStack, Stack, Text } from "@chakra-ui/layout"
-import { SmartQueryItem } from "@livequery/client"
 import { CollectionData, useCollectionData } from "@livequery/react"
 
 export type BrandList = {

@@ -1,11 +1,12 @@
 'use client'
 import { SimpleGrid, Text, VStack } from "@chakra-ui/layout";
-import { Image, Spinner } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import { useCollectionData } from "@livequery/react";
 import { Product } from "@/type";
 import { ProductItemBox } from "@/app/(main)/ProductItemBox";
 import { BrandList } from "./BrandList";
 import { CategoryList } from "./CategoryList";
+import { MainPageLoading } from "@/components/loading/MainPageLoading";
 
 export default function MainPage() {
 
@@ -19,6 +20,10 @@ export default function MainPage() {
             </SimpleGrid>
             <CategoryList products={$products} />
             <BrandList products={$products} />
+
+            {$products.loading && <MainPageLoading />}
+            {$products.empty && <Text fontWeight='500'>Chưa có sản phẩm...</Text>}
+            
             <SimpleGrid w='full' spacing='4' columns={[1, 2, 3, 4]}>
                 {
                     $products.items.map(product => (
@@ -26,10 +31,6 @@ export default function MainPage() {
                     ))
                 }
             </SimpleGrid>
-            <VStack w='full' spacing='5'>
-                {$products.loading && <Spinner color="teal.500" size='lg' />}
-                {$products.empty && <Text fontWeight='500'>Chưa có sản phẩm...</Text>}
-            </VStack>
         </VStack>
     )
 }

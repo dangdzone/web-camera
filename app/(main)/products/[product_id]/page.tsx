@@ -1,8 +1,7 @@
 'use client'
 import { DirectionalLink } from "@/components/common/DirectionalLink";
-import { ProductInfoList } from "@/text";
 import { Product } from "@/type";
-import { Box, Center, Divider, HStack, List, ListItem, Stack, Text, UnorderedList, VStack } from "@chakra-ui/layout";
+import { Center, Divider, HStack, ListItem, Stack, Text, UnorderedList, VStack } from "@chakra-ui/layout";
 import { Button, Image } from "@chakra-ui/react";
 import { useDocumentData } from "@livequery/react";
 import { useParams } from "next/navigation";
@@ -10,11 +9,14 @@ import { BiCartAdd } from "react-icons/bi";
 import { RiHome2Line } from "react-icons/ri";
 import { ProductInfo } from "./ProductInfo";
 import { ProductSpecification } from "./ProductSpecification";
+import { ProductIdPageLoading } from "@/components/loading/ProductIdPageLoading";
 
 export default function ProductIdPage() {
 
     const params = useParams()
     const product = useDocumentData<Product>(`products/${params.product_id}`)
+
+    if (product.loading) return <ProductIdPageLoading />
 
     return (
         <Stack w='full' spacing='5'>
@@ -43,7 +45,7 @@ export default function ProductIdPage() {
                         <Button w='full' size='lg' colorScheme="red" borderRadius='10px' p='7'>
                             <VStack spacing='1'>
                                 <Text fontSize='15px' fontWeight='700'>MUA NGAY</Text>
-                                <Text fontSize='14px' fontWeight='400'>Thanh toán online và giao hàng trong 2 giờ</Text>
+                                <Text fontSize='14px' fontWeight='400'>Thanh toán online và giao hàng trong ngày</Text>
                             </VStack>
                         </Button>
                         <Button size='lg' p='6' variant='outline' colorScheme="red" border='2px' borderColor='red.500' borderRadius='10px'>
