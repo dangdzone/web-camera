@@ -54,6 +54,7 @@ export declare class Product extends BaseEntity {
         content: string
     }> // Thông tin sản phẩm 
     category_id: string // Danh mục sản phẩm
+    outstandings: Array<{ name: string}> // Đặc điểm nổi bật
     option: Array<Object> // Tùy chọn thêm
 }
 

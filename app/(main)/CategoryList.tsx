@@ -59,6 +59,7 @@ export const CategoryList = ({ products }: CategoryList) => {
                                 ...products.filters,
                                 category_id: category.id
                             })}
+                            key={category.id}
                         >
                             <HStack w='full' color='white' px='2' bg={'blackAlpha.600'} borderTopRadius='10px' justifyContent='space-between'>
                                 <Text fontSize='14px' py='2' fontWeight='600'>{category.name}</Text>

@@ -1,6 +1,6 @@
 import { FileUploader } from "@/components/common/FileUploader"
 import { Brand, Category, Product, Resolution } from "@/type"
-import { Button, FormControl, HStack, IconButton, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, SimpleGrid, Stack, Text, Textarea } from "@chakra-ui/react"
+import { Button, FormControl, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, SimpleGrid, Stack, Text, Textarea } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData, useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm, useFieldArray, FormProvider } from "react-hook-form"
@@ -34,7 +34,8 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
             category_id: product?.category_id,
             image: product?.image,
             resolution_id: product?.resolution_id,
-            description: product?.description
+            description: product?.description,
+            outstandings: product?.outstandings
         }
     })
 
@@ -49,6 +50,11 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
     const $infos = useFieldArray({
         control,
         name: 'infos',
+    });
+
+    const $outstandings = useFieldArray({
+        control,
+        name: 'outstandings',
     });
 
     // submit
@@ -231,21 +237,36 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                         />
                                     </FormControl>
                                 </Stack>
-
+                                <Stack w='full' spacing='3'>
+                                    <Text>Đặc điểm nổi bật</Text>
+                                    <Stack w='full'>
+                                        {
+                                            $outstandings.fields.map((outstanding, index) => (
+                                                <InputGroup w='full' key={outstanding.id}>
+                                                    <InputRightElement onClick={() => confirm('Bạn chắc chắn xóa không !') && $outstandings.remove(index)} cursor='pointer'>
+                                                        <MdClose />
+                                                    </InputRightElement>
+                                                    <Input {...register(`outstandings.${index}.name`)} placeholder='Nhập đặc điểm nổi bật...' />
+                                                </InputGroup>
+                                            ))
+                                        }
+                                        <Button size='sm' leftIcon={<MdAdd />} onClick={() => $outstandings.append({ name: '' })}>Thêm đặc điểm nổi bật</Button>
+                                    </Stack>
+                                </Stack>
                                 <Stack w='full' spacing='3'>
                                     <Text>Thống số kĩ thuật</Text>
                                     <Stack w='full'>
                                         {
                                             $specifications.fields.map((specification, index) => (
-                                                <HStack w='full' key={specification.id}>
-                                                    <Stack w='full' spacing='0' borderRadius='10px' border='1px' borderColor={'blackAlpha.200'}>
-                                                        <HStack p='2' borderBottom='1px' borderColor='blackAlpha.50' borderTopRadius='10px' bg='blackAlpha.50' justifyContent='space-between'>
-                                                            <Input {...register(`specifications.${index}.name`)} variant='unstyled' placeholder='Nhập tên bảng...' />
-                                                            <IconButton size='sm' aria-label="close" onClick={() => confirm('Bạn chắc chắn xóa không !') && $specifications.remove(index)} icon={<MdClose />} />
-                                                        </HStack>
-                                                        <TechnicalProps name={`specifications.${index}`} />
-                                                    </Stack>
-                                                </HStack>
+                                                <Stack w='full' key={specification.id} spacing='0' borderRadius='10px' border='1px' borderColor={'blackAlpha.200'}>
+                                                    <InputGroup w='full' p='2' borderBottom='1px' borderColor='blackAlpha.50' borderTopRadius='10px' bg='blackAlpha.50'>
+                                                        <InputRightElement onClick={() => confirm('Bạn chắc chắn xóa không !') && $specifications.remove(index)} cursor='pointer'>
+                                                            <MdClose />
+                                                        </InputRightElement>
+                                                        <Input variant='unstyled' {...register(`specifications.${index}.name`)} placeholder='Nhập tên bảng...' />
+                                                    </InputGroup>
+                                                    <TechnicalProps name={`specifications.${index}`} />
+                                                </Stack>
                                             ))
                                         }
                                         <Button size='sm' leftIcon={<MdAdd />} onClick={() => $specifications.append({ name: '', technicals: [{ name: '', content: '' }] })}>Thêm bảng mới</Button>
