@@ -20,13 +20,11 @@ export default function ProductIdPage() {
 
     return (
         <Stack w='full' spacing='5'>
-            <HStack>
-                <DirectionalLink directional={[
-                    { name: 'Trang chủ', href: '/', icon: <RiHome2Line /> },
-                    { name: 'Sản phẩm', href: '/' },
-                    { name: `${product.item?.code}` },
-                ]} />
-            </HStack>
+            <DirectionalLink directional={[
+                { name: 'Trang chủ', href: '/', icon: <RiHome2Line /> },
+                { name: 'Sản phẩm', href: '/' },
+                { name: `${product.item?.code}` },
+            ]} />
             <Text fontSize='18px' fontWeight='700'>{product.item?.name}</Text>
             <Stack w='full' spacing='5' flexDirection='row'>
                 <Center w='full' py='10' borderRadius='20px' border='1px' borderColor='blackAlpha.200'>
