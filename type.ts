@@ -64,7 +64,7 @@ export declare class Store extends BaseEntity {
     link_map: string
 }
 
-export declare class Orders extends BaseEntity {
+export declare class Order extends BaseEntity {
     customer_id: string
     customer_name: string
     status: string
@@ -72,13 +72,8 @@ export declare class Orders extends BaseEntity {
     product_amount: number
 }
 
-export declare class Carts extends BaseEntity {
-    product_list: Array<CartItem>
-}
-
-export declare class CartItem extends BaseEntity {
+export declare class Cart extends BaseEntity {
     product_id: string
     amount: number
-    price: number
     select: boolean
 }

@@ -1,5 +1,5 @@
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
-import { HStack, Text } from "@chakra-ui/layout"
+import { Badge, HStack, Text } from "@chakra-ui/layout"
 import { Button, Image, useColorMode } from "@chakra-ui/react"
 import { BiCartAdd } from "react-icons/bi"
 import { FiMapPin } from "react-icons/fi"
@@ -7,16 +7,18 @@ import { MdOutlinePhoneInTalk } from "react-icons/md"
 import { UserName } from "./UserName"
 import Link from "next/link"
 import { FaShippingFast } from "react-icons/fa";
+import { useCollectionData } from "@livequery/react"
+import { Cart } from "@/type"
 
 export const Topbar = () => {
 
     const { toggleColorMode } = useColorMode()
     const { fuser } = useFirebaseUserContext()
+    const { items: $carts} = useCollectionData<Cart>('carts')
 
     return (
         <HStack w='full' h='60px' bg='blue.400' color='white' justifyContent='space-between' position='sticky' top='0'>
             <HStack spacing='4'>
-                {/* <Categogy /> */}
                 <Image maxH='50px' borderRadius='10px' src="https://www.flygo-aviation.com/wp-content/uploads/2021/08/flygo-logo-trp-big.png" />
             </HStack>
             <HStack spacing='5'>
@@ -33,10 +35,13 @@ export const Topbar = () => {
                     <Text fontSize='14px' lineHeight='1.3'>Tra cứu <br /> đơn hàng</Text>
                 </HStack>
                 <HStack>
-                    <HStack _hover={{ bg: 'blackAlpha.300' }} px='3' py='1' borderRadius='10px' cursor='pointer'>
-                        <BiCartAdd size='25px' />
-                        <Text whiteSpace='nowrap' lineHeight='1.3' fontSize='14px'>Giỏ <br /> hàng</Text>
-                    </HStack>
+                    <Link href={'/cart'}>
+                        <HStack _hover={{ bg: 'blackAlpha.300' }} px='3' py='1' borderRadius='10px' cursor='pointer'>
+                            <BiCartAdd size='25px' />
+                            <Badge fontSize='xs' ml='-13px' mt='-16px' borderRadius='10px' colorScheme='green'>{$carts.length}</Badge>
+                            <Text whiteSpace='nowrap' lineHeight='1.3' fontSize='14px'>Giỏ <br /> hàng</Text>
+                        </HStack>
+                    </Link>
                     {!fuser && (
                         <Link href={'/login'} style={{ width: '100%' }}>
                             <Button size='sm' >Đăng nhập</Button>
