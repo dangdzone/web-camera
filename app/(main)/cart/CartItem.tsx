@@ -24,19 +24,21 @@ export const CartItem = ({ cart }: CartItem) => {
             id: cart.id,
             amount: cart.amount ?? 1,
             product_id: cart.product_id,
+            select: false
         }
     })
 
-    // Cập nhật lại cart khi thay đổi số lượng
+    // Cập nhật lại cart khi thay đổi
     const amount = watch('amount');
+    const select = watch('select')
     useEffect(() => {
         if (amount !== undefined) {
             const updateAmount = async () => {
-                await cart.__update({ amount: amount, product_id: cart.product_id })
+                await cart.__update({ amount, product_id: cart.product_id, select })
             }
             updateAmount()
         }
-    }, [amount])
+    }, [amount, select])
 
     // Thêm và cập nhật thông tin
     async function onSubmit(data: Cart) {
@@ -49,20 +51,37 @@ export const CartItem = ({ cart }: CartItem) => {
 
     // Xóa thông tin
     function remove() {
-        cart?.__remove()
-        toast({
-            title: 'Đã xóa !',
-            description: `Sản phẩm ${product.code} đã được xóa.`,
-            status: 'success',
-            duration: 2000,
-            variant: 'subtle',
-            position: 'top-right'
-        })
+        confirm('Bạn chắc chắn muốn xóa không ?') && cart?.__remove() &&
+            toast({
+                title: 'Đã xóa !',
+                description: `Sản phẩm ${product.code} đã được xóa.`,
+                status: 'success',
+                duration: 2000,
+                variant: 'subtle',
+                position: 'top-right'
+            })
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+            {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
             <Stack w='full' flexDirection='row' spacing='4' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
+                <Stack>
+                    <Controller
+                        name="select"
+                        control={control}
+                        render={({ field }) => (
+                            <Checkbox
+                                isChecked={field.value}
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
+                                ref={field.ref}
+                                colorScheme="red"
+                                size='lg'
+                            />
+                        )}
+                    />
+                </Stack>
                 <Image maxH='100px' src={product?.image} />
                 <Stack w='full'>
                     <Stack w='full' justifyContent='space-between' flexDirection='row'>
@@ -87,7 +106,7 @@ export const CartItem = ({ cart }: CartItem) => {
                                 <HStack>
                                     <Button size='sm' borderRadius='10px' isDisabled={field.value == 1} onClick={() => field.onChange(field.value - 1)} >-</Button>
                                     <Button variant='unstyled' size='sm' borderRadius='full'>{field.value}</Button>
-                                    <Button size='sm' borderRadius='10px' onClick={() => field.onChange(field.value + 1)}>+</Button>
+                                    <Button size='sm' borderRadius='10px' isDisabled={field.value == product?.amount} onClick={() => field.onChange(field.value + 1)}>+</Button>
                                 </HStack>
                             )}
                         />

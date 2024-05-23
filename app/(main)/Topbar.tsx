@@ -15,6 +15,7 @@ export const Topbar = () => {
     const { toggleColorMode } = useColorMode()
     const { fuser } = useFirebaseUserContext()
     const { items: $carts} = useCollectionData<Cart>('carts')
+    const cart_amount = $carts.reduce((total, item) => total + item.amount, 0)
 
     return (
         <HStack w='full' h='60px' bg='blue.400' color='white' justifyContent='space-between' position='sticky' top='0'>
@@ -38,7 +39,7 @@ export const Topbar = () => {
                     <Link href={'/cart'}>
                         <HStack _hover={{ bg: 'blackAlpha.300' }} px='3' py='1' borderRadius='10px' cursor='pointer'>
                             <BiCartAdd size='25px' />
-                            <Badge fontSize='xs' ml='-13px' mt='-16px' borderRadius='10px' colorScheme='green'>{$carts.length}</Badge>
+                            <Badge fontSize='xs' ml='-13px' mt='-16px' borderRadius='10px' colorScheme='green'>{cart_amount}</Badge>
                             <Text whiteSpace='nowrap' lineHeight='1.3' fontSize='14px'>Giỏ <br /> hàng</Text>
                         </HStack>
                     </Link>
