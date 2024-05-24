@@ -1,16 +1,24 @@
 'use client'
-import { SimpleGrid, Text, VStack } from "@chakra-ui/layout";
+import { HStack, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import { useCollectionData } from "@livequery/react";
-import { Product } from "@/type";
+import { Brand, Product } from "@/type";
 import { ProductItemBox } from "@/app/(main)/ProductItemBox";
-import { BrandList } from "./BrandList";
 import { CategoryList } from "./CategoryList";
 import { MainPageLoading } from "@/components/loading/MainPageLoading";
+import { useState } from "react";
 
 export default function MainPage() {
 
+    const [active_product, set_active_product] = useState<undefined | string>(undefined)
+    const $brands = useCollectionData<Brand>('brands')
     const $products = useCollectionData<Product>('products')
+    const products = $products.items.filter(product => {
+        if (active_product == undefined) return true
+        if (active_product == product.brand_id) {
+            return product.brand_id == active_product
+        }
+    })
 
     return (
         <VStack w='full' spacing='7' py='5'>
@@ -19,14 +27,36 @@ export default function MainPage() {
                 <Image borderRadius='5px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r100.png' />
             </SimpleGrid>
             <CategoryList products={$products} />
-            <BrandList products={$products} />
+            <Stack w='full' spacing='5'>
+                <Text fontWeight='700'>Thương hiệu</Text>
+                <HStack w='full' flexWrap='wrap'>
+                    <Text
+                        px='4' py='2' borderRadius='10px' border='1px' borderColor='blackAlpha.100'
+                        bg={active_product == undefined ? 'blue.200' : 'blackAlpha.50'}
+                        fontWeight='600' cursor='pointer' onClick={() => set_active_product(undefined)}
+                    >
+                        Tất cả
+                    </Text>
+                    {
+                        $brands.items.map(brand => (
+                            <Text
+                                px='4' py='2' key={brand.id} borderRadius='10px' border='1px'
+                                borderColor='blackAlpha.100' bg={brand.id == active_product ? 'blue.200' : 'blackAlpha.50'}
+                                fontWeight='600' cursor='pointer' onClick={() => set_active_product(brand.id)}
+                            >
+                                {brand.name}
+                            </Text>
+                        ))
+                    }
+                </HStack>
+            </Stack>
 
             {$products.loading && <MainPageLoading />}
             {$products.empty && <Text fontWeight='500'>Chưa có sản phẩm...</Text>}
-            
+
             <SimpleGrid w='full' spacing='4' columns={[1, 2, 3, 4]}>
                 {
-                    $products.items.map(product => (
+                    products.map(product => (
                         <ProductItemBox product={product} key={product.id} />
                     ))
                 }

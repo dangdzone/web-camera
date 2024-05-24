@@ -1,3 +1,20 @@
+
+export type Province = {
+    province_id: number;
+    province_name: string;
+    province_type: string;
+}
+
+export type District = {
+    district_id: number;
+    district_name: string;
+}
+
+export type Ward = {
+    ward_id: number;
+    ward_name: string;
+}
+
 export declare class BaseEntity {
     constructor();
     id: string;
@@ -54,7 +71,7 @@ export declare class Product extends BaseEntity {
         content: string
     }> // Thông tin sản phẩm 
     category_id: string // Danh mục sản phẩm
-    outstandings: Array<{ name: string}> // Đặc điểm nổi bật
+    outstandings: Array<{ name: string }> // Đặc điểm nổi bật
     option: Array<Object> // Tùy chọn thêm
 }
 
@@ -65,15 +82,42 @@ export declare class Store extends BaseEntity {
 }
 
 export declare class Order extends BaseEntity {
-    customer_id: string
-    customer_name: string
-    status: string
-    total: number
-    product_amount: number
+    status: string // Trạng thái
+    image: string
+    orrder_item: Array<{
+        product_id: string
+        amount: number
+        select: boolean
+    }>
+    amount: number // Số lượng
+    total: number // Tổng tiền
+    discount: number // Giảm giá
+    pay: number // Tiền thanh toán
+    transport_fee: string | number // Phí vận chuyển
+    customer_id: string // Thông tin khách hàng
+    receiver_info: {
+        receiver_name: string // Tên người nhận
+        receiver_phone: number // sdt người nhận
+        province: string // Tỉnh
+        district: string // huyện
+        ward: string // Phường, xã
+        street: string // Số nhà, tên đường
+        note: string // ghi chú
+    }
 }
 
 export declare class Cart extends BaseEntity {
     product_id: string
     amount: number
     select: boolean
+}
+
+export declare class Address extends BaseEntity {
+    receiver_name: string // Tên người nhận
+    receiver_phone: number // sdt người nhận
+    province: string // Tỉnh
+    district: string // huyện
+    ward: string // Phường, xã
+    street: string // Số nhà, tên đường
+    note: string // ghi chú
 }
