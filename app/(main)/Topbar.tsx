@@ -14,7 +14,7 @@ export const Topbar = () => {
 
     const { toggleColorMode } = useColorMode()
     const { fuser } = useFirebaseUserContext()
-    const { items: $carts} = useCollectionData<Cart>('carts')
+    const { items: $carts } = useCollectionData<Cart>('carts')
     const cart_amount = $carts.reduce((total, item) => total + item.amount, 0)
 
     return (
@@ -31,10 +31,12 @@ export const Topbar = () => {
                     <FiMapPin size='25px' />
                     <Text fontSize='14px' lineHeight='1.3'>Hệ thống <br /> cửa hàng</Text>
                 </HStack>
-                <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
-                    <FaShippingFast size='25px' />
-                    <Text fontSize='14px' lineHeight='1.3'>Tra cứu <br /> đơn hàng</Text>
-                </HStack>
+                <Link href={'/member/orders'}>
+                    <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
+                        <FaShippingFast size='25px' />
+                        <Text fontSize='14px' lineHeight='1.3'>Lịch sử <br /> đơn hàng</Text>
+                    </HStack>
+                </Link>
                 <HStack>
                     <Link href={'/cart'}>
                         <HStack _hover={{ bg: 'blackAlpha.300' }} px='3' py='1' borderRadius='10px' cursor='pointer'>
