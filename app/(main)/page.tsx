@@ -32,7 +32,8 @@ export default function MainPage() {
                 <HStack w='full' flexWrap='wrap'>
                     <Text
                         px='4' py='2' borderRadius='10px' border='1px' borderColor='blackAlpha.100'
-                        bg={active_product == undefined ? 'blue.200' : 'blackAlpha.50'}
+                        bg={active_product == undefined ? 'black' : 'blackAlpha.50'}
+                        color={active_product == undefined ? 'white' : 'black'}
                         fontWeight='600' cursor='pointer' onClick={() => set_active_product(undefined)}
                     >
                         Tất cả
@@ -41,7 +42,8 @@ export default function MainPage() {
                         $brands.items.map(brand => (
                             <Text
                                 px='4' py='2' key={brand.id} borderRadius='10px' border='1px'
-                                borderColor='blackAlpha.100' bg={brand.id == active_product ? 'blue.200' : 'blackAlpha.50'}
+                                borderColor='blackAlpha.100' bg={brand.id == active_product ? 'black' : 'blackAlpha.50'}
+                                color={active_product == brand.id ? 'white' : 'black'}
                                 fontWeight='600' cursor='pointer' onClick={() => set_active_product(brand.id)}
                             >
                                 {brand.name}

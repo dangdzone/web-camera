@@ -36,7 +36,7 @@ export const CategoryList = ({ products }: CategoryList) => {
                     <HStack w='full' color='white' px='2' bg={'blackAlpha.600'} borderTopRadius='10px' justifyContent='space-between'>
                         <Text fontSize='14px' py='2' fontWeight='600'>Tất cả</Text>
                         {
-                            !products.filters.category_id && <Center p='1' borderRadius='10px' bg='#4299E1'><FaCheck /></Center>
+                            !products.filters.category_id && <Center p='1' borderRadius='10px' bg='#E000FF'><FaCheck /></Center>
                         }
                     </HStack>
                 </Stack>
@@ -64,7 +64,7 @@ export const CategoryList = ({ products }: CategoryList) => {
                             <HStack w='full' color='white' px='2' bg={'blackAlpha.600'} borderTopRadius='10px' justifyContent='space-between'>
                                 <Text fontSize='14px' py='2' fontWeight='600'>{category.name}</Text>
                                 {
-                                    products.filters.category_id == category.id && <Center p='1' borderRadius='10px' bg='#4299E1'><FaCheck /></Center>
+                                    products.filters.category_id == category.id && <Center p='1' borderRadius='10px' bg='#E000FF'><FaCheck /></Center>
                                 }
                             </HStack>
                         </Stack>

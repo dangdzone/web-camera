@@ -51,21 +51,22 @@ export default function InfoPage() {
     const img = $products.filter(a => a.id == cart_select[0].product_id).map(b => b.image)
 
     const { transporter } = useLiveQueryContext()
-    const { handleSubmit, control, register, watch, setValue, resetField, } = useForm<Order>()
+    const $order = useForm<Order>()
+    const $cart = useForm<Cart>()
 
     const [provinces, setProvinces] = useState<Province[]>([]);
     const [districts, setDistricts] = useState<District[]>([]);
     const [wards, setWards] = useState<Ward[]>([]);
 
-    const selectedProvince = watch("receiver_info.province");
-    const selectedDistrict = watch("receiver_info.district");
+    const selectedProvince = $order.watch("receiver_info.province");
+    const selectedDistrict = $order.watch("receiver_info.district");
     useEffect(() => {
         const getProvinces = async () => {
             try {
                 const data = await fetchProvinces();
                 setProvinces(data);
                 if (data.length > 0) {
-                    setValue("receiver_info.province", data[0].province_id.toString());
+                    $order.setValue("receiver_info.province", data[0].province_id.toString());
                 }
             } catch (error) {
                 console.error('Lỗi khi tìm tỉnh:', error);
@@ -73,7 +74,7 @@ export default function InfoPage() {
         };
 
         getProvinces();
-    }, [setValue]);
+    }, [$order.setValue]);
 
     useEffect(() => {
         if (selectedProvince) {
@@ -82,7 +83,7 @@ export default function InfoPage() {
                     const data = await fetchDistricts(Number(selectedProvince));
                     setDistricts(data);
                     if (data.length > 0) {
-                        setValue("receiver_info.district", data[0].district_id.toString());
+                        $order.setValue("receiver_info.district", data[0].district_id.toString());
                     }
                 } catch (error) {
                     console.error('Lỗi khi tìm huyện:', error);
@@ -90,16 +91,16 @@ export default function InfoPage() {
             };
 
             getDistricts();
-            resetField("receiver_info.district");
-            resetField("receiver_info.ward");
+            $order.resetField("receiver_info.district");
+            $order.resetField("receiver_info.ward");
             setWards([]);
         } else {
             setDistricts([]);
             setWards([]);
-            resetField("receiver_info.district");
-            resetField("receiver_info.ward");
+            $order.resetField("receiver_info.district");
+            $order.resetField("receiver_info.ward");
         }
-    }, [selectedProvince, setValue, resetField]);
+    }, [selectedProvince, $order.setValue, $order.resetField]);
 
     useEffect(() => {
         if (selectedDistrict) {
@@ -108,7 +109,7 @@ export default function InfoPage() {
                     const data = await fetchWards(Number(selectedDistrict));
                     setWards(data);
                     if (data.length > 0) {
-                        setValue("receiver_info.ward", data[0].ward_id.toString());
+                        $order.setValue("receiver_info.ward", data[0].ward_id.toString());
                     }
                 } catch (error) {
                     console.error('Lỗi khi tìm xã:', error);
@@ -116,12 +117,12 @@ export default function InfoPage() {
             };
 
             getWards();
-            resetField("receiver_info.ward");
+            $order.resetField("receiver_info.ward");
         } else {
             setWards([]);
-            resetField("receiver_info.ward");
+            $order.resetField("receiver_info.ward");
         }
-    }, [selectedDistrict, setValue, resetField]);
+    }, [selectedDistrict, $order.setValue, $order.resetField]);
 
     const toast = useToast()
     const router = useRouter()
@@ -152,11 +153,12 @@ export default function InfoPage() {
             variant: 'subtle',
             position: 'top-right'
         })
+        // await transporter.remove('carts', )
         router.push('/cart/payment')
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+        <form onSubmit={$order.handleSubmit(onSubmit)} style={{ width: '100%' }}>
             <VStack w='full' spacing='5' py='5'>
                 <DirectionalLink directional={[
                     { name: 'Trang chủ', href: '/', icon: <RiHome2Line /> },
@@ -182,11 +184,11 @@ export default function InfoPage() {
                             <HStack w='full' spacing='4'>
                                 <Stack w='full' spacing='0'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TÊN NGƯỜI NHẬN</Text>
-                                    <Input variant='flushed' {...register('receiver_info.receiver_name', { required: true })} onFocus={e => e.target.select()} />
+                                    <Input variant='flushed' {...$order.register('receiver_info.receiver_name', { required: true })} onFocus={e => e.target.select()} />
                                 </Stack>
                                 <Stack w='full' spacing='0'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SĐT NGƯỜI NHẬN</Text>
-                                    <Input variant='flushed' {...register('receiver_info.receiver_phone', { required: true })} onFocus={e => e.target.select()} />
+                                    <Input variant='flushed' {...$order.register('receiver_info.receiver_phone', { required: true })} onFocus={e => e.target.select()} />
                                 </Stack>
                             </HStack>
                             <HStack w='full' spacing='4'>
@@ -194,7 +196,7 @@ export default function InfoPage() {
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TỈNH / THÀNH PHỐ</Text>
                                     <Controller
                                         name="receiver_info.province"
-                                        control={control}
+                                        control={$order.control}
                                         render={({ field }) => (
                                             <Select variant='flushed' {...field}>
                                                 {provinces.map((province) => (
@@ -210,7 +212,7 @@ export default function InfoPage() {
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>QUẬN / HUYỆN</Text>
                                     <Controller
                                         name="receiver_info.district"
-                                        control={control}
+                                        control={$order.control}
                                         render={({ field }) => (
                                             <Select variant='flushed' {...field} isDisabled={!selectedProvince}>
                                                 {districts.map((district) => (
@@ -228,7 +230,7 @@ export default function InfoPage() {
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>PHƯỜNG / XÃ</Text>
                                     <Controller
                                         name="receiver_info.ward"
-                                        control={control}
+                                        control={$order.control}
                                         render={({ field }) => (
                                             <Select variant='flushed' {...field} isDisabled={!selectedDistrict}>
                                                 {wards.map((ward) => (
@@ -242,12 +244,12 @@ export default function InfoPage() {
                                 </Stack>
                                 <Stack w='full' spacing='0'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SỐ NHÀ / TÊN ĐƯỜNG</Text>
-                                    <Input variant='flushed' {...register('receiver_info.street', { required: true })} onFocus={e => e.target.select()} />
+                                    <Input variant='flushed' {...$order.register('receiver_info.street', { required: true })} onFocus={e => e.target.select()} />
                                 </Stack>
                             </HStack>
                             <Stack w='full' spacing='0'>
                                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
-                                <Input variant='flushed' {...register('receiver_info.note')} onFocus={e => e.target.select()} />
+                                <Input variant='flushed' {...$order.register('receiver_info.note')} onFocus={e => e.target.select()} />
                             </Stack>
                         </Stack>
                     </Stack>

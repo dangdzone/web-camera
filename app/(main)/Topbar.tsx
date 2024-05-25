@@ -18,7 +18,7 @@ export const Topbar = () => {
     const cart_amount = $carts.reduce((total, item) => total + item.amount, 0)
 
     return (
-        <HStack w='full' h='60px' bg='blue.400' color='white' justifyContent='space-between' position='sticky' top='0'>
+        <HStack w='full' h='60px' color='white' justifyContent='space-between' position='sticky' top='0'>
             <HStack spacing='4'>
                 <Image maxH='50px' borderRadius='10px' src="https://www.flygo-aviation.com/wp-content/uploads/2021/08/flygo-logo-trp-big.png" />
             </HStack>
@@ -47,7 +47,7 @@ export const Topbar = () => {
                     </Link>
                     {!fuser && (
                         <Link href={'/login'} style={{ width: '100%' }}>
-                            <Button size='sm' >Đăng nhập</Button>
+                            <Button size='sm' borderRadius='10px'>Đăng nhập</Button>
                         </Link>
                     )}
                     {fuser && <UserName />}

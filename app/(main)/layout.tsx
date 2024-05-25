@@ -25,7 +25,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
             overflowY='auto'
             overflowX='hidden'
         >
-            <VStack minH='60px' w='full' bg='blue.400' position='sticky' top='0px' zIndex='999'>
+            <VStack minH='60px' w='full' bg='linear-gradient(to right, #7f00ff, #e100ff)' boxShadow='sm' position='sticky' top='0px' zIndex='999'>
                 <VStack w='full' maxW='6xl' px='4'>
                     <Topbar />
                 </VStack>

@@ -30,7 +30,7 @@ export const ProductItemBox = ({ product }: ProductItemBox) => {
                 <Text lineHeight='1.3' fontWeight='700'>{product.name}</Text>
                 <HStack w='full' justifyContent='space-between'>
                     <Text fontWeight='bold' color='red.500'>{product?.price.toLocaleString()} đ</Text>
-                    <Text fontWeight='bold' textDecoration='line-through' color='blackAlpha.600'>{product?.advertising_price.toLocaleString()} đ</Text>
+                    <Text fontWeight='bold' fontSize='14px' textDecoration='line-through' color='blackAlpha.600'>{product?.advertising_price.toLocaleString()} đ</Text>
                 </HStack>
                 <Text fontSize='14px' p='2' bg='blackAlpha.50' borderRadius='10px' border='1px' borderColor='blackAlpha.100'>{product.description}</Text>
             </Stack>

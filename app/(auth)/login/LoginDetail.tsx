@@ -11,6 +11,7 @@ export const LoginDetail = () => {
             <Button
                 w={{ base: '90%', md: '80%' }}
                 variant={'outline'}
+                borderRadius='10px'
                 leftIcon={<FcGoogle size='20px' />}
                 onClick={() => signInWithPopup(FirebaseAuth, new GoogleAuthProvider)}
             >
