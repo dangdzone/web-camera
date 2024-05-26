@@ -23,8 +23,8 @@ export default function MainPage() {
     return (
         <VStack w='full' spacing='7' py='5'>
             <SimpleGrid w='full' spacing='2' columns={[2]}>
-                <Image borderRadius='5px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r50.png' />
-                <Image borderRadius='5px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r100.png' />
+                <Image borderRadius='10px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r50.png' />
+                <Image borderRadius='10px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r100.png' />
             </SimpleGrid>
             <CategoryList products={$products} />
             <Stack w='full' spacing='5'>

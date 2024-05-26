@@ -3,7 +3,7 @@ import { DirectionalLink } from "@/components/common/DirectionalLink";
 import { Cart, Product } from "@/type";
 import { Center, Divider, HStack, ListItem, Stack, Text, UnorderedList, VStack } from "@chakra-ui/layout";
 import { Button, Image, useToast } from "@chakra-ui/react";
-import { useDocumentData, useLiveQueryContext, useMonitor } from "@livequery/react";
+import { useCollectionData, useDocumentData, useLiveQueryContext, useMonitor } from "@livequery/react";
 import { useParams } from "next/navigation";
 import { BiCartAdd } from "react-icons/bi";
 import { RiHome2Line } from "react-icons/ri";
@@ -17,6 +17,9 @@ export default function ProductIdPage() {
     const toast = useToast()
     const params = useParams()
     const product = useDocumentData<Product>(`products/${params.product_id}`)
+    const $cart = useCollectionData<Cart>(`carts`)
+    // Tìm sản phẩm trong carts có product_id == product_id trong products
+    const cart_item = $cart.items.filter(a => a.product_id == params.product_id).map(b => b.amount)[0]
 
     // const $carts = useCollectionData<Carts>('carts')
     const { register, handleSubmit, control, formState } = useForm<Cart>({
@@ -28,15 +31,29 @@ export default function ProductIdPage() {
 
     const { transporter } = useLiveQueryContext()
     const onSubmit = useMonitor(async data => {
-        await transporter.add(`carts`, { ...data })
-        toast({
-            title: 'Thành công !',
-            description: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
-            status: 'success',
-            duration: 2000,
-            variant: 'subtle',
-            position: 'top-right'
-        })
+        // Check xem số lượng của sản phẩm trong cart so với số lượng trong kho 
+        const check_amount = cart_item < product.item.amount
+        
+        if(check_amount) {
+            await transporter.add(`carts`, { ...data })
+            toast({
+                title: 'Thành công !',
+                description: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
+                status: 'success',
+                duration: 2000,
+                variant: 'subtle',
+                position: 'top-right'
+            })
+        } else {
+            toast({
+                title: 'Thất bại !',
+                description: "Trong giỏ hàng không còn số lượng đủ.",
+                status: 'error',
+                duration: 2000,
+                variant: 'subtle',
+                position: 'top-right'
+            })
+        }
     })
 
     if (product.loading) return <ProductIdPageLoading />

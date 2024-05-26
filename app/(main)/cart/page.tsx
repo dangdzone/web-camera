@@ -14,7 +14,7 @@ export default function CartPage() {
     const { items: $carts } = useCollectionData<Cart>('carts')
     const { items: $products } = useCollectionData<Product>('products')
 
-    // Số lượng sản phẩm trong giỏ hàng
+    // Sản phẩm đã chọn trong giỏ hàng
     const cart_amount = $carts.filter(a => a.select == true).reduce((total, item) => total + item.amount, 0)
     // Tổng tiền tạm tính trong giỏ hàng
     const totalAmount = $carts.filter(a => a.select == true).reduce((total, item) => {
@@ -24,6 +24,9 @@ export default function CartPage() {
         }
         return total
     }, 0)
+
+    
+
 
     return (
         <VStack w='full' spacing='5' py='5'>
@@ -38,7 +41,7 @@ export default function CartPage() {
                         <HStack><Text fontSize='15px'>Sản phẩm đã chọn: </Text><Text>{cart_amount}</Text></HStack>
                         <HStack><Text fontSize='15px'>Tạm tính : </Text><Text fontWeight='700' color='red.500'>{totalAmount.toLocaleString()}đ</Text></HStack>
                     </Stack>
-                    <Link href={'/cart/info'}>
+                    <Link href={cart_amount > 0 ? '/cart/info' : ''}>
                         <Button size='sm' colorScheme="red">Mua ngay</Button>
                     </Link>
                 </HStack>

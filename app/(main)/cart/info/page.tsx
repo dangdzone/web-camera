@@ -27,7 +27,7 @@ export default function InfoPage() {
     const { items: $products } = useCollectionData<Product>('products')
     // sản phẩm được chọn
     const cart_select = $carts.filter(cart => cart.select == true)
-    // Số lượng sản phẩm trong giỏ hàng
+    // SL sản phẩm được chọn trong giỏ hàng
     const cart_amount = cart_select.reduce((total, item) => total + item.amount, 0)
     // Tổng tiền phải thanh toán (tạm tính)
     const totalPaid = cart_select.reduce((total, item) => {
@@ -48,7 +48,7 @@ export default function InfoPage() {
     }, 0)
 
     // Ảnh đại diện đơn hàng
-    const img = $products.filter(a => a.id == cart_select[0].product_id).map(b => b.image)
+    const img = $products.filter(a => a.id == cart_select[0]?.product_id).map(b => b.image)
 
     const { transporter } = useLiveQueryContext()
     const $order = useForm<Order>()
@@ -269,8 +269,11 @@ export default function InfoPage() {
                             <Text fontWeight='600' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
                             <Text fontWeight='800' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
                         </HStack>
-
-                        <Button w='full' borderRadius='10px' colorScheme="red" type="submit">Đặt hàng và thanh toán</Button>
+                        {
+                            cart_amount > 0 && (
+                                <Button w='full' borderRadius='10px' colorScheme="red" type="submit">Đặt hàng và thanh toán</Button>
+                            )
+                        }
                     </VStack>
                 </VStack>
             </VStack>

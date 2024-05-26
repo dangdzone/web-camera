@@ -104,7 +104,7 @@ export const CartItem = ({ cart }: CartItem) => {
                             control={control}
                             render={({ field }) => (
                                 <HStack>
-                                    <Button size='sm' borderRadius='10px' isDisabled={field.value == 1} onClick={() => field.onChange(field.value - 1)} >-</Button>
+                                    <Button size='sm' borderRadius='10px' isDisabled={field.value <= 1} onClick={() => field.onChange(field.value - 1)} >-</Button>
                                     <Button variant='unstyled' size='sm' borderRadius='full'>{field.value}</Button>
                                     <Button size='sm' borderRadius='10px' isDisabled={field.value == product?.amount} onClick={() => field.onChange(field.value + 1)}>+</Button>
                                 </HStack>

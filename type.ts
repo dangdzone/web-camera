@@ -53,6 +53,7 @@ export declare class Brand extends BaseEntity {
 
 export declare class Product extends BaseEntity {
     name: string;
+    status: string // Trạng thái
     image: string // Ảnh
     cost: number // Giá nhập 
     price: number // Giá bán

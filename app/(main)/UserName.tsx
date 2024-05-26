@@ -68,7 +68,7 @@ export const UserName = () => {
                             variant='ghost'
                             justifyContent='flex-start'
                         >
-                            Thông tin cá nhân
+                            Thành viên
                         </Button>
                     </Link>
                     <Link href={`/admin`} style={{ width: '100%' }}>

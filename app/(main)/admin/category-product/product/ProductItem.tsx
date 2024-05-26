@@ -1,8 +1,9 @@
 import { Brand, Category, Product, Resolution } from "@/type"
-import { HStack, Stack, Text } from "@chakra-ui/layout"
+import { Box, HStack, Stack, Text } from "@chakra-ui/layout"
 import { Image, Tag } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData } from "@livequery/react"
+import { MdOutlineRemoveRedEye } from "react-icons/md"
 
 export type ProductItem = {
     product: SmartQueryItem<Product>,
@@ -33,7 +34,9 @@ export const ProductItem = ({ product, onClick }: ProductItem) => {
             onClick={onClick}
         >
             <Stack w='full' flexDirection='row' spacing='3'>
-                <Image p='2' borderRadius='10px' border='1px' borderColor='blackAlpha.100' maxH='150px' src={product.image} />
+                <Box minH='150px' minW='150px'>
+                    <Image p='2' borderRadius='10px' border='1px' borderColor='blackAlpha.100' maxH='150px' src={product.image} />
+                </Box>
                 <Stack fontSize='14px' spacing='3' justifyContent='center'>
                     <Stack spacing='1'>
                         <HStack><Text>Mã:</Text><Text fontWeight='bold'>{product?.code}</Text></HStack>
@@ -45,7 +48,9 @@ export const ProductItem = ({ product, onClick }: ProductItem) => {
                 </Stack>
             </Stack>
             <Stack w='full'>
-                <Text lineHeight='1.3' fontWeight='700' fontSize='14px'>{product.name}</Text>
+                <Text lineHeight='1.3' fontWeight='700' fontSize='14px'>
+                    {/* {product.name}{product?.status == 'active' ? '1' : '3'} */}
+                </Text>
                 <HStack flexWrap='wrap' spacing='1'>
                     <Tag size='sm' colorScheme="red">{category_name}</Tag>
                     <Tag size='sm' colorScheme="orange">{brand_name}</Tag>

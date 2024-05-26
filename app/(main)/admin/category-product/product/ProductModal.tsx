@@ -1,6 +1,6 @@
 import { FileUploader } from "@/components/common/FileUploader"
 import { Brand, Category, Product, Resolution } from "@/type"
-import { Button, FormControl, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, SimpleGrid, Stack, Text, Textarea } from "@chakra-ui/react"
+import { Button, FormControl, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Select, SimpleGrid, Stack, Text, Textarea } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData, useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm, useFieldArray, FormProvider } from "react-hook-form"
@@ -23,6 +23,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
     const form = useForm<Product>({
         defaultValues: {
             name: product?.name,
+            status: product?.status ?? 'active',
             amount: product?.amount,
             cost: product?.cost,
             code: product?.code,
@@ -105,7 +106,30 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                         onFocus={e => e.target.select()}
                                     />
                                 </Stack>
-
+                                <Stack w='full' spacing='3'>
+                                    <Text>Trạng thái</Text>
+                                    <FormControl>
+                                        <Controller
+                                            name="status"
+                                            control={control}
+                                            render={({ field }) => (
+                                                <RadioGroup
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                >
+                                                    <Stack spacing={5} direction='row'>
+                                                        <Radio size='lg' colorScheme='blue' value='active'>
+                                                            Hiển thị
+                                                        </Radio>
+                                                        <Radio size='lg' colorScheme='red' value='inactive'>
+                                                            Đóng
+                                                        </Radio>
+                                                    </Stack>
+                                                </RadioGroup>
+                                            )}
+                                        />
+                                    </FormControl>
+                                </Stack>
                                 <Stack w='full' spacing='3'>
                                     <Text>Danh mục sản phẩm</Text>
                                     {
