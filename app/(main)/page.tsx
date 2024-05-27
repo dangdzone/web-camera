@@ -58,7 +58,7 @@ export default function MainPage() {
 
             <SimpleGrid w='full' spacing='4' columns={[1, 2, 3, 4]}>
                 {
-                    products.map(product => (
+                    products.filter(a => a.status == 'active').map(product => (
                         <ProductItemBox product={product} key={product.id} />
                     ))
                 }

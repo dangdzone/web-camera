@@ -19,9 +19,9 @@ export const Topbar = () => {
 
     return (
         <HStack w='full' h='60px' color='white' justifyContent='space-between' position='sticky' top='0'>
-            <HStack spacing='4'>
+            <Link href='/'>
                 <Image maxH='50px' borderRadius='10px' src="https://www.flygo-aviation.com/wp-content/uploads/2021/08/flygo-logo-trp-big.png" />
-            </HStack>
+            </Link>
             <HStack spacing='5'>
                 <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
                     <MdOutlinePhoneInTalk size='25px' />

@@ -49,9 +49,12 @@ export const ProductItem = ({ product, onClick }: ProductItem) => {
             </Stack>
             <Stack w='full'>
                 <Text lineHeight='1.3' fontWeight='700' fontSize='14px'>
-                    {/* {product.name}{product?.status == 'active' ? '1' : '3'} */}
+                    {product?.name} 
                 </Text>
                 <HStack flexWrap='wrap' spacing='1'>
+                    {
+                        product?.status == 'active' && <Tag size='sm' colorScheme="blue"><MdOutlineRemoveRedEye /></Tag>
+                    }
                     <Tag size='sm' colorScheme="red">{category_name}</Tag>
                     <Tag size='sm' colorScheme="orange">{brand_name}</Tag>
                     <Tag size='sm' colorScheme="green">{resolution_name}</Tag>
