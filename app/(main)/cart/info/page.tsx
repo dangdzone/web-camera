@@ -19,7 +19,7 @@ export default function InfoPage() {
 
     const PaymentInfoLinkMap = [
         { name: '1. Thông tin', href: '/cart/info', active: true },
-        { name: '2. Thanh toán', href: '/cart/payment', active: false },
+        { name: '2. Thanh toán', href: '', active: false },
     ]
 
     const { fuser } = useFirebaseUserContext()

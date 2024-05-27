@@ -61,7 +61,7 @@ export const UserName = () => {
                             }
                         </Stack>
                     </HStack>
-                    <Link href={`/user`} style={{ width: '100%' }}>
+                    <Link href={`/member`} style={{ width: '100%' }}>
                         <Button
                             w='full'
                             leftIcon={<FaRegCircleUser />}

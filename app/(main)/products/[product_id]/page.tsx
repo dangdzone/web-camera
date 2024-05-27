@@ -17,9 +17,12 @@ export default function ProductIdPage() {
     const toast = useToast()
     const params = useParams()
     const product = useDocumentData<Product>(`products/${params.product_id}`)
-    const $cart = useCollectionData<Cart>(`carts`)
+    const $carts = useCollectionData<Cart>(`carts`)
     // Tìm sản phẩm trong carts có product_id == product_id trong products
-    const cart_item = $cart.items.filter(a => a.product_id == params.product_id).map(b => b.amount)[0]
+    const cart_item = $carts.items.filter(a => a.product_id == params.product_id).length
+
+    // Lấy số lượng 1 sản phẩm trong cart
+    const cart_item_amount = $carts.items.filter(a => a.product_id == params.product_id).map(b => b.amount)[0]
 
     // const $carts = useCollectionData<Carts>('carts')
     const { register, handleSubmit, control, formState } = useForm<Cart>({
@@ -31,24 +34,32 @@ export default function ProductIdPage() {
 
     const { transporter } = useLiveQueryContext()
     const onSubmit = useMonitor(async data => {
-        // Check xem số lượng của sản phẩm trong cart so với số lượng trong kho 
-        const check_amount = cart_item < product.item.amount
-        
-        if(check_amount) {
+
+        if (cart_item > 0) {
+            // Check xem số lượng của sản phẩm trong cart so với số lượng trong kho 
+            const check_amount = cart_item_amount < product.item.amount
+
+            if (check_amount) {
+                await transporter.update(`carts/${params.product_id}`, {
+                    ...data,
+                    amount: cart_item_amount + 1
+                })
+            } else {
+                toast({
+                    title: 'Thất bại !',
+                    description: "Trong giỏ hàng không còn số lượng đủ.",
+                    status: 'error',
+                    duration: 2000,
+                    variant: 'subtle',
+                    position: 'top-right'
+                })
+            }
+        } else {
             await transporter.add(`carts`, { ...data })
             toast({
                 title: 'Thành công !',
                 description: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
                 status: 'success',
-                duration: 2000,
-                variant: 'subtle',
-                position: 'top-right'
-            })
-        } else {
-            toast({
-                title: 'Thất bại !',
-                description: "Trong giỏ hàng không còn số lượng đủ.",
-                status: 'error',
                 duration: 2000,
                 variant: 'subtle',
                 position: 'top-right'

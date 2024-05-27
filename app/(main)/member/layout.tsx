@@ -13,7 +13,7 @@ export default function MemberLayout({ children }: PropsWithChildren) {
         <VStack w='full' spacing='5' py='5'>
             <DirectionalLink directional={[
                 { name: 'Trang chủ', href: '/', icon: <RiHome2Line /> },
-                { name: 'Lịch sử đơn hàng' },
+                { name: 'Thành viên' },
             ]} />
             <Stack w='full' flexDirection='row' spacing='5'>
                 <Stack minW='250px'>
