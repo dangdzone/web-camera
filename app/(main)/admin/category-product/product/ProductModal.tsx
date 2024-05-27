@@ -89,7 +89,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                         <ModalCloseButton borderRadius='full' mt='1' />
                         <ModalBody px={{ base: '2', md: '4' }} py='6'>
                             <Stack w='full' spacing='7'>
-                                {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
+                                <pre>{JSON.stringify(watch(), null, 2)}</pre>
                                 <Stack w='full' spacing='3'>
                                     <Text>Tên sản phẩm</Text>
                                     <Input

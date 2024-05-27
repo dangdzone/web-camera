@@ -2,19 +2,16 @@
 
 import { DirectionalLink } from "@/components/common/DirectionalLink"
 import { PaymentInfoLink } from "@/components/common/PaymentInfoLink"
-import { Order } from "@/type"
 import { VStack } from "@chakra-ui/layout"
-import { useCollectionData } from "@livequery/react"
+import { PropsWithChildren } from "react"
 import { RiHome2Line } from "react-icons/ri"
 
-export default function PaymentPage() {
+export default function PaymentLayout({ children }: PropsWithChildren) {
 
     const PaymentInfoLinkMap = [
-        { name: '1. Thông tin', href: '/cart/info', active: false },
-        { name: '2. Thanh toán', href: '/cart/payment', active: true },
+        { name: '1. Thông tin', href: '', active: false },
+        { name: '2. Thanh toán', href: '', active: true },
     ]
-    
-    const $orders = useCollectionData<Order>('orders')
 
     return (
         <VStack w='full' spacing='5' py='5'>
@@ -26,7 +23,7 @@ export default function PaymentPage() {
 
             <VStack w='full' maxW='2xl' spacing='5'>
                 <PaymentInfoLink list={PaymentInfoLinkMap} />
-                
+                {children}
             </VStack>
         </VStack>
     )

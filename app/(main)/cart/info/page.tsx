@@ -52,7 +52,6 @@ export default function InfoPage() {
 
     const { transporter } = useLiveQueryContext()
     const $order = useForm<Order>()
-    const $cart = useForm<Cart>()
 
     const [provinces, setProvinces] = useState<Province[]>([]);
     const [districts, setDistricts] = useState<District[]>([]);
@@ -66,7 +65,7 @@ export default function InfoPage() {
                 const data = await fetchProvinces();
                 setProvinces(data);
                 if (data.length > 0) {
-                    $order.setValue("receiver_info.province", data[0].province_id.toString());
+                    $order.setValue("receiver_info.province", data[0].province_id);
                 }
             } catch (error) {
                 console.error('Lỗi khi tìm tỉnh:', error);
@@ -83,7 +82,7 @@ export default function InfoPage() {
                     const data = await fetchDistricts(Number(selectedProvince));
                     setDistricts(data);
                     if (data.length > 0) {
-                        $order.setValue("receiver_info.district", data[0].district_id.toString());
+                        $order.setValue("receiver_info.district", data[0].district_id);
                     }
                 } catch (error) {
                     console.error('Lỗi khi tìm huyện:', error);
@@ -109,7 +108,7 @@ export default function InfoPage() {
                     const data = await fetchWards(Number(selectedDistrict));
                     setWards(data);
                     if (data.length > 0) {
-                        $order.setValue("receiver_info.ward", data[0].ward_id.toString());
+                        $order.setValue("receiver_info.ward", data[0].ward_id);
                     }
                 } catch (error) {
                     console.error('Lỗi khi tìm xã:', error);
@@ -127,25 +126,30 @@ export default function InfoPage() {
     const toast = useToast()
     const router = useRouter()
     const onSubmit: SubmitHandler<Partial<Order>> = async data => {
-        await transporter.add<Order, { data: { item: Order } }>('orders', {
+        const new_order = await transporter.add<Order, { data: { item: Order } }>('orders', {
             status: 'created', // Đã tạo
             image: img[0], // Ảnh đại diện
-            orrder_item: cart_select, // 
+            order_item: cart_select, // 
             amount: cart_amount, // Số lượng sản phẩm
             total: total, // Tổng tiền
             discount: total - totalPaid, // Giảm giá
             pay: totalPaid, // Tiền thanh toán
+            transport_fee: 0,
             customer_id: fuser?.uid, // ID khách hàng
             receiver_info: {
                 receiver_name: data.receiver_info?.receiver_name || '', // Tên người nhận
                 receiver_phone: data.receiver_info?.receiver_phone || 0, // sdt người nhận
-                province: data.receiver_info?.province || '', // Tỉnh
-                district: data.receiver_info?.district || '', // huyện
-                ward: data.receiver_info?.ward || '', // Phường, xã
-                street: data.receiver_info?.street || '', // Số nhà, tên đường
+                province: data.receiver_info?.province || 0, // Tỉnh
+                district: data.receiver_info?.district || 0, // huyện
+                ward: data.receiver_info?.ward || 0, // Phường, xã
+                street: data.receiver_info?.street || 0, // Số nhà, tên đường
                 note: data.receiver_info?.note || '', // ghi chú
             }
-        }) && toast({
+        }) 
+        const order_id = new_order.data.item.id
+        const ref = `/cart/payment/${order_id}`
+        router.push(ref)
+        toast({
             title: 'Đặt hàng thành công !',
             description: "Vui lòng thanh toán để nhận được hàng.",
             status: 'success',
@@ -153,8 +157,6 @@ export default function InfoPage() {
             variant: 'subtle',
             position: 'top-right'
         })
-        // await transporter.remove('carts', )
-        router.push('/cart/payment')
     }
 
     return (
@@ -165,7 +167,6 @@ export default function InfoPage() {
                     { name: 'Giỏ hàng', href: '/cart' },
                     { name: 'Thông tin' },
                 ]} />
-
                 <VStack w='full' maxW='2xl' spacing='5'>
                     <PaymentInfoLink list={PaymentInfoLinkMap} />
                     {
@@ -180,7 +181,7 @@ export default function InfoPage() {
                     <Stack w='full' spacing='3'>
                         <Text>Thông tin nhận hàng</Text>
                         <Stack w='full' px='4' py='7' borderRadius='10px' spacing='7' border='1px' borderColor='blackAlpha.200'>
-                            {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
+                            <pre>{JSON.stringify($order.watch(), null, 2)}</pre>
                             <HStack w='full' spacing='4'>
                                 <Stack w='full' spacing='0'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TÊN NGƯỜI NHẬN</Text>
@@ -188,7 +189,7 @@ export default function InfoPage() {
                                 </Stack>
                                 <Stack w='full' spacing='0'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SĐT NGƯỜI NHẬN</Text>
-                                    <Input variant='flushed' {...$order.register('receiver_info.receiver_phone', { required: true })} onFocus={e => e.target.select()} />
+                                    <Input variant='flushed' {...$order.register('receiver_info.receiver_phone', { required: true, valueAsNumber: true })} onFocus={e => e.target.select()} />
                                 </Stack>
                             </HStack>
                             <HStack w='full' spacing='4'>

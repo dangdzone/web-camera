@@ -49,7 +49,7 @@ export default function ProductIdPage() {
                     title: 'Thất bại !',
                     description: "Trong giỏ hàng không còn số lượng đủ.",
                     status: 'error',
-                    duration: 2000,
+                    duration: 1000,
                     variant: 'subtle',
                     position: 'top-right'
                 })
@@ -60,7 +60,7 @@ export default function ProductIdPage() {
                 title: 'Thành công !',
                 description: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
                 status: 'success',
-                duration: 2000,
+                duration: 1000,
                 variant: 'subtle',
                 position: 'top-right'
             })
