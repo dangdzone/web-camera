@@ -2,7 +2,6 @@ import { IoMdPhonePortrait } from "react-icons/io";
 import { LuBox, LuUser2 } from "react-icons/lu";
 import { BsShieldCheck } from "react-icons/bs";
 import { RiBankCardLine, RiHome5Line } from "react-icons/ri";
-import { GrServicePlay } from "react-icons/gr";
 import { BiCartAdd, BiShoppingBag } from "react-icons/bi";
 import { FiGrid } from "react-icons/fi";
 
@@ -51,4 +50,20 @@ export const NavLinkList = {
         icon: <LuUser2 />,
         href: 'user'
     }
+}
+
+
+export const OrderStatusMap = {
+    created: {
+        name: 'Đã tạo',
+        color: 'green',
+    },
+    pay: {
+        name: 'Đã thanh toán',
+        color: 'blue',
+    },
+    cancel: {
+        name: 'Đã hủy',
+        color: 'red',
+    },
 }

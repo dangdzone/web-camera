@@ -1,9 +1,52 @@
 'use client'
 
-import { Text } from "@chakra-ui/layout"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
+import { Order } from "@/type"
+import { Box, Center, Divider, HStack, Stack, Text, VStack } from "@chakra-ui/layout"
+import { Button, Image, Tag, useClipboard } from "@chakra-ui/react"
+import { useCollectionData } from "@livequery/react"
+import { FaCheck, FaRegCopy } from "react-icons/fa6"
 
 export default function MemberPage() {
+
+    const { fuser } = useFirebaseUserContext()
+    const { onCopy, hasCopied } = useClipboard(fuser?.uid as any)
+    const { items: $orders} = useCollectionData<Order>('orders')
+    const $$orders = $orders.filter(a => a.customer_id == fuser?.uid)
+    const accumulateMoney = $$orders.filter(a => a.status == 'pay').reduce((total, item) => total + item.pay, 0)
+
+    const statisticalOrder = [
+        { name: 'Đơn hàng', value: $$orders.length, unit: '' },
+        { name: 'Tổng tiền tích lũy', value: accumulateMoney, unit: 'đ' },
+    ]
+
     return (
-        <Text>Tổng quan</Text>
+        <Stack w='full' spacing='7'>
+            <Stack flexDirection='row'>
+                <Image border='2px' borderColor='#8E00FF' maxH='70px' borderRadius='full' src={fuser?.photoURL || ''} />
+                <Stack spacing='0'>
+                    <Text fontSize='18px' fontWeight='700' color='#8D00FF'>{fuser?.displayName}</Text>
+                    <Stack>
+                        <HStack>
+                            <Text color='blackAlpha.700' fontSize='14px'>ID: {fuser?.uid}</Text>
+                            <Button size='xs' variant='outline' onClick={onCopy} colorScheme='messenger'>
+                                {hasCopied ? <FaCheck /> : <FaRegCopy />}
+                            </Button>
+                        </HStack>
+                        <Box><Tag size='sm' colorScheme='red' variant='outline'>Thành viên</Tag></Box>
+                    </Stack>
+                </Stack>
+            </Stack>
+            <HStack w='full' p='5' borderRadius='10px' border='1px' borderColor='blackAlpha.100' divider={<Divider height={'50px'} orientation='vertical' />}>
+                {
+                    statisticalOrder.map((item, i) => (
+                        <VStack w='full' key={i}>
+                            <Text fontSize='25px' fontWeight='800'>{item.value?.toLocaleString()}{item.unit}</Text>
+                            <Text>{item.name}</Text>
+                        </VStack>
+                    ))
+                }
+            </HStack>
+        </Stack>
     )
 }

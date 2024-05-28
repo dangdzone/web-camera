@@ -47,9 +47,6 @@ export default function InfoPage() {
         return total
     }, 0)
 
-    // Ảnh đại diện đơn hàng
-    const img = $products.filter(a => a.id == cart_select[0]?.product_id).map(b => b.image)
-
     const { transporter } = useLiveQueryContext()
     const $order = useForm<Order>()
 
@@ -126,15 +123,16 @@ export default function InfoPage() {
     const toast = useToast()
     const router = useRouter()
     const onSubmit: SubmitHandler<Partial<Order>> = async data => {
+        const date = new Date()
         const new_order = await transporter.add<Order, { data: { item: Order } }>('orders', {
+            code: `FG${date}`, // Mã đơn hàng
             status: 'created', // Đã tạo
-            image: img[0], // Ảnh đại diện
-            order_item: cart_select, // 
+            order_items: cart_select, // 
             amount: cart_amount, // Số lượng sản phẩm
             total: total, // Tổng tiền
             discount: total - totalPaid, // Giảm giá
             pay: totalPaid, // Tiền thanh toán
-            transport_fee: 0,
+            shipping_fee: 0,
             customer_id: fuser?.uid, // ID khách hàng
             receiver_info: {
                 receiver_name: data.receiver_info?.receiver_name || '', // Tên người nhận

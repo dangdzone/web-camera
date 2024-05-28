@@ -11,13 +11,15 @@ import { ProductInfo } from "./ProductInfo";
 import { ProductSpecification } from "./ProductSpecification";
 import { ProductIdPageLoading } from "@/components/loading/ProductIdPageLoading";
 import { useForm } from "react-hook-form";
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser";
 
 export default function ProductIdPage() {
 
     const toast = useToast()
     const params = useParams()
+    const { fuser } = useFirebaseUserContext()
     const product = useDocumentData<Product>(`products/${params.product_id}`)
-    const $carts = useCollectionData<Cart>(`carts`)
+    const $carts = useCollectionData<Cart>(`customers/${fuser?.uid}/carts`)
     // Tìm sản phẩm trong carts có product_id == product_id trong products
     const cart_item = $carts.items.filter(a => a.product_id == params.product_id).length
 
@@ -25,8 +27,9 @@ export default function ProductIdPage() {
     const cart_item_amount = $carts.items.filter(a => a.product_id == params.product_id).map(b => b.amount)[0]
 
     // const $carts = useCollectionData<Carts>('carts')
-    const { register, handleSubmit, control, formState } = useForm<Cart>({
+    const { handleSubmit } = useForm<Cart>({
         defaultValues: {
+            customer_id: fuser?.uid,
             product_id: params.product_id as string,
             amount: 1
         }
@@ -34,13 +37,12 @@ export default function ProductIdPage() {
 
     const { transporter } = useLiveQueryContext()
     const onSubmit = useMonitor(async data => {
-
         if (cart_item > 0) {
             // Check xem số lượng của sản phẩm trong cart so với số lượng trong kho 
             const check_amount = cart_item_amount < product.item.amount
 
             if (check_amount) {
-                await transporter.update(`carts/${params.product_id}`, {
+                await transporter.update(`customers/${fuser?.uid}/carts/${params.product_id}`, {
                     ...data,
                     amount: cart_item_amount + 1
                 })
@@ -55,7 +57,9 @@ export default function ProductIdPage() {
                 })
             }
         } else {
-            await transporter.add(`carts`, { ...data })
+            await transporter.add(`customers/${fuser?.uid}/carts`, {
+                ...data
+            })
             toast({
                 title: 'Thành công !',
                 description: "Bạn đã thêm sản phẩm này vào giỏ hàng.",

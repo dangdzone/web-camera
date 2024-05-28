@@ -2,7 +2,7 @@
 
 import { DirectionalLink } from "@/components/common/DirectionalLink"
 import { MemberLink } from "@/components/common/MemberLink"
-import { Stack, VStack } from "@chakra-ui/layout"
+import { Divider, Stack, VStack } from "@chakra-ui/layout"
 import { PropsWithChildren } from "react"
 import { LuUser2 } from "react-icons/lu"
 import { MdListAlt } from "react-icons/md"
@@ -18,12 +18,15 @@ export default function MemberLayout({ children }: PropsWithChildren) {
             <Stack w='full' flexDirection='row' spacing='5'>
                 <Stack minW='250px'>
                     <MemberLink directional={[
-                        {name: 'Tổng quan', href: '', icon: <RiHome2Line />},
-                        {name: 'Lịch sử đơn hàng', href: 'orders', icon: <MdListAlt />},
-                        {name: 'Tài khoản của bạn', href: 'user', icon: <LuUser2 />}
+                        { name: 'Tổng quan', href: '', icon: <RiHome2Line /> },
+                        { name: 'Lịch sử đơn hàng', href: 'histories', icon: <MdListAlt /> },
+                        { name: 'Tài khoản của bạn', href: 'user', icon: <LuUser2 /> }
                     ]} />
                 </Stack>
-                {children}
+                <Divider height={'100%'} orientation='vertical' />
+                <Stack w='full'>
+                    {children}
+                </Stack>
             </Stack>
         </VStack>
     )

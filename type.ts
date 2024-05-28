@@ -83,9 +83,9 @@ export declare class Store extends BaseEntity {
 }
 
 export declare class Order extends BaseEntity {
+    code: string // Mã đơn hàng
     status: string // Trạng thái
-    image: string
-    order_item: Array<{
+    order_items: Array<{
         product_id: string
         amount: number
         select: boolean
@@ -94,7 +94,7 @@ export declare class Order extends BaseEntity {
     total: number // Tổng tiền
     discount: number // Giảm giá
     pay: number // Tiền thanh toán
-    transport_fee: number // Phí vận chuyển
+    shipping_fee: number // Phí vận chuyển
     customer_id: string // Thông tin khách hàng
     receiver_info: {
         receiver_name: string // Tên người nhận
@@ -108,17 +108,8 @@ export declare class Order extends BaseEntity {
 }
 
 export declare class Cart extends BaseEntity {
+    customer_id: string
     product_id: string
     amount: number
     select: boolean
-}
-
-export declare class Address extends BaseEntity {
-    receiver_name: string // Tên người nhận
-    receiver_phone: number // sdt người nhận
-    province: number // Tỉnh
-    district: number // huyện
-    ward: number // Phường, xã
-    street: number // Số nhà, tên đường
-    note: string // ghi chú
 }

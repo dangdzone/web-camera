@@ -1,7 +1,7 @@
 import { VStack } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/react"
 import Link from "next/link"
-import { useParams, usePathname } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export type MemberLink = {
     directional: Array<{
@@ -19,7 +19,7 @@ export const MemberLink = ({ directional }: MemberLink) => {
         <VStack w='full'>
             {
                 directional.map((item, i) => {
-                    const active = i == 0 ? path == '/member' : path == `/member/${item.href}`
+                    const active = i == 0 ? path == '/member' : path.startsWith(`/member/${item.href}`)
                     return (
                         <Link key={i} href={`/member/${item.href}`} style={{ width: '100%' }}>
                             <Button
@@ -29,7 +29,7 @@ export const MemberLink = ({ directional }: MemberLink) => {
                                 bg={active ? 'red.50' : 'white'}
                                 border={active ? '1px' : '0px'}
                                 borderColor={active ? 'red.500' : 'blackAlpha.300'}
-                                colorScheme="red"
+                                colorScheme={active ? 'red' : 'gray'}
                                 borderRadius='10px'
                             >
                                 {item.name}

@@ -12,18 +12,18 @@ export default function OrderPage() {
 
     const params = useParams()
     const { item: $order } = useDocumentData<Order>(`orders/${params.order_id}`)
-    const total_pay = $order?.pay + $order?.transport_fee
+    const total_pay = $order?.pay + $order?.shipping_fee
     const statistical = [
         { name: 'Số lượng sản phẩm', value: $order?.amount, unit: '' },
         { name: 'Tiền hàng (tạm tính)', value: $order?.pay, unit: 'đ' },
-        { name: 'Phí vận chuyển', value: $order?.transport_fee, unit: 'đ' },
+        { name: 'Phí vận chuyển', value: $order?.shipping_fee, unit: 'đ' },
     ]
 
     return (
         <VStack w='full' spacing='5'>
             <VStack w='full'>
                 {
-                    $order?.order_item.map((order, i) => (
+                    $order?.order_items.map((order, i) => (
                         <OrderItem key={i} order={order} />
                     ))
                 }
