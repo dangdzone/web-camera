@@ -19,13 +19,11 @@ export default function ProductIdPage() {
     const params = useParams()
     const { fuser } = useFirebaseUserContext()
     const product = useDocumentData<Product>(`products/${params.product_id}`)
-    const $carts = useCollectionData<Cart>(`customers/${fuser?.uid}/carts`)
+    const $carts = useCollectionData<Cart>(fuser && `customers/${fuser?.uid}/carts`)
     // Tìm sản phẩm trong carts có product_id == product_id trong products
     const cart_item = $carts.items.filter(a => a.product_id == params.product_id).length
-
     // Lấy số lượng 1 sản phẩm trong cart
     const cart_item_amount = $carts.items.filter(a => a.product_id == params.product_id).map(b => b.amount)[0]
-
     // const $carts = useCollectionData<Carts>('carts')
     const { handleSubmit } = useForm<Cart>({
         defaultValues: {
@@ -42,9 +40,18 @@ export default function ProductIdPage() {
             const check_amount = cart_item_amount < product.item.amount
 
             if (check_amount) {
-                await transporter.update(`customers/${fuser?.uid}/carts/${params.product_id}`, {
+                await transporter.update(`customers/${fuser?.uid}/carts`, {
                     ...data,
+                    customer_id: fuser?.uid,
                     amount: cart_item_amount + 1
+                })
+                toast({
+                    title: 'Thành công !',
+                    description: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
+                    status: 'success',
+                    duration: 1000,
+                    variant: 'subtle',
+                    position: 'top-right'
                 })
             } else {
                 toast({
@@ -61,7 +68,7 @@ export default function ProductIdPage() {
                 ...data
             })
             toast({
-                title: 'Thành công !',
+                title: 'Thêm thành công !',
                 description: "Bạn đã thêm sản phẩm này vào giỏ hàng.",
                 status: 'success',
                 duration: 1000,
@@ -101,7 +108,7 @@ export default function ProductIdPage() {
                                     <Text fontSize='14px' fontWeight='400'>Thanh toán online và giao hàng trong ngày</Text>
                                 </VStack>
                             </Button>
-                            <Button type="submit" size='lg' p='6' variant='outline' colorScheme="red" border='2px' borderColor='red.500' borderRadius='10px'>
+                            <Button type="submit" isDisabled={!fuser} size='lg' p='6' variant='outline' colorScheme="red" border='2px' borderColor='red.500' borderRadius='10px'>
                                 <VStack spacing='1' color='red.500'>
                                     <BiCartAdd size='20px' />
                                     <Text fontSize='12px'>Thêm giỏ hàng</Text>

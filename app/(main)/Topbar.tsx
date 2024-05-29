@@ -14,9 +14,9 @@ export const Topbar = () => {
 
     const { toggleColorMode } = useColorMode()
     const { fuser } = useFirebaseUserContext()
-    const { items: $carts } = useCollectionData<Cart>('carts')
+    const { items: $carts } = useCollectionData<Cart>(fuser && `customers/${fuser?.uid}/carts`)
     const cart_amount = $carts.reduce((total, item) => total + item.amount, 0)
-
+    
     return (
         <HStack w='full' h='60px' color='white' justifyContent='space-between' position='sticky' top='0'>
             <Link href='/'>
