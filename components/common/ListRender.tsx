@@ -51,16 +51,6 @@ export const InViewportDetector = ({ onVisibilityChange, children }: PropsWithCh
 
 export const ListRender = <T extends { created_at: number, id: string }>(props: ListRender<T>) => {
 
-    const Wrapper = props.wrapper || (props => props.children)
-    const formatDate = (date: number, locale: string) => {
-        dayjs.locale(locale);
-        if (locale === 'vi') {
-            return dayjs(date).format('MM/YYYY');
-        } else {
-            return dayjs(date).format('MMMM YYYY');
-        }
-    }
-
     // Lấy số lượng đơn hàng theo tháng
     const ordersByMonth: Record<string, number> = {}
     props.collection.items.forEach((order) => {

@@ -23,7 +23,7 @@ export default function InfoPage() {
     ]
 
     const { fuser } = useFirebaseUserContext()
-    const { items: $carts } = useCollectionData<Cart>('carts')
+    const { items: $carts } = useCollectionData<Cart>(fuser && `customers/${fuser.uid}/carts`)
     const { items: $products } = useCollectionData<Product>('products')
     // sản phẩm được chọn
     const cart_select = $carts.filter(cart => cart.select == true)
@@ -123,8 +123,8 @@ export default function InfoPage() {
     const toast = useToast()
     const router = useRouter()
     const onSubmit: SubmitHandler<Partial<Order>> = async data => {
-        const date = new Date()
-        const new_order = await transporter.add<Order, { data: { item: Order } }>('orders', {
+        const date = Date.now()
+        const data_item = {
             code: `FG${date}`, // Mã đơn hàng
             status: 'created', // Đã tạo
             order_items: cart_select, // 
@@ -143,7 +143,8 @@ export default function InfoPage() {
                 street: data.receiver_info?.street || 0, // Số nhà, tên đường
                 note: data.receiver_info?.note || '', // ghi chú
             }
-        }) 
+        }
+        const new_order = await transporter.add<Order, { data: { item: Order } }>(`orders`,  data_item)
         const order_id = new_order.data.item.id
         const ref = `/cart/payment/${order_id}`
         router.push(ref)
@@ -269,7 +270,7 @@ export default function InfoPage() {
                             <Text fontWeight='800' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
                         </HStack>
                         {
-                            cart_amount > 0 && (
+                            cart_amount > 0 && fuser && (
                                 <Button w='full' borderRadius='10px' colorScheme="red" type="submit">Đặt hàng và thanh toán</Button>
                             )
                         }

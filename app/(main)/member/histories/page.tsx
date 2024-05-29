@@ -13,14 +13,11 @@ import { EmptyBox } from "@/components/empty/EmptyBox";
 export default function HistoryPage() {
 
     const { fuser } = useFirebaseUserContext()
-    const $orders = useCollectionData<Order>('customers/:uid/orders')
+    const $orders = useCollectionData<Order>(fuser && `customers/${fuser.uid}/orders`)
 
-    const $$orders = $orders.items.filter(a => a.customer_id == fuser?.uid)
-    console.log({$orders})
-    console.log({$$orders})
-    const accumulateMoney = $$orders.filter(a => a.status == 'pay').reduce((total, item) => total + item.pay, 0)
+    const accumulateMoney = $orders.items.filter(a => a.status == 'pay').reduce((total, item) => total + item.pay, 0)
     const statisticalOrder = [
-        { name: 'Tổng đơn hàng', value: $$orders.length, unit: '' },
+        { name: 'Tổng đơn hàng', value: $orders.items.length, unit: '' },
         { name: 'Tổng tiền', value: accumulateMoney, unit: 'đ' },
     ]
 

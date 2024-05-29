@@ -20,7 +20,7 @@ export default function OrderIdPage(props: {
     }
 }) {
     const { fuser } = useFirebaseUserContext()
-    const { item: $order_item } = useDocumentData<Order>(`orders/${props.params.order_id}`)
+    const { item: $order_item } = useDocumentData<Order>(fuser && `customers/${fuser.uid}/orders/${props.params.order_id}`)
     const status_order = Object.entries(OrderStatusMap).filter(([status,]) => status == $order_item?.status).map(([status_id, { color, name }]) => [{ name, color }])[0]
 
     const total_pay = $order_item?.pay + $order_item?.shipping_fee
@@ -49,7 +49,7 @@ export default function OrderIdPage(props: {
                 <HStack w='full' justifyContent='space-between'>
                     <HStack>
                         <Text fontSize='15px'>Mã đơn hàng:</Text>
-                        <Text fontWeight='700'>{$order_item?.id}</Text>
+                        <Text fontWeight='700'>{$order_item?.code}</Text>
                     </HStack>
                     <Tag colorScheme={status_order?.map(a => a.color)[0]}>{status_order?.map(a => a.name)[0]}</Tag>
                 </HStack>

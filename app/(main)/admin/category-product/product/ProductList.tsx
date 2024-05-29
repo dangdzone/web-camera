@@ -37,7 +37,7 @@ export const ProductList = () => {
                     <ProductModal onClose={() => set_active_product(null)} product={active_product} />
                 )
             }
-            <SimpleGrid w='full' spacing='4' columns={[2, 3]}>
+            <SimpleGrid w='full' spacing='4' columns={[2, 2, 2, 3]}>
                 {
                     $products.items.map(product => (
                         <ProductItem key={product.id} product={product} onClick={() => set_active_product(product)} />

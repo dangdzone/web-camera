@@ -76,6 +76,7 @@ export const CartItem = ({ cart }: CartItem) => {
                                 onChange={field.onChange}
                                 onBlur={field.onBlur}
                                 ref={field.ref}
+                                isDisabled={cart.amount <= 0}
                                 colorScheme="red"
                                 size='lg'
                             />

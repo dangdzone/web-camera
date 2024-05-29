@@ -2,7 +2,7 @@
 
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Order } from "@/type"
-import { Box, Center, Divider, HStack, Stack, Text, VStack } from "@chakra-ui/layout"
+import { Box, Divider, HStack, Stack, Text, VStack } from "@chakra-ui/layout"
 import { Button, Image, Tag, useClipboard } from "@chakra-ui/react"
 import { useCollectionData } from "@livequery/react"
 import { FaCheck, FaRegCopy } from "react-icons/fa6"
@@ -11,12 +11,11 @@ export default function MemberPage() {
 
     const { fuser } = useFirebaseUserContext()
     const { onCopy, hasCopied } = useClipboard(fuser?.uid as any)
-    const { items: $orders} = useCollectionData<Order>('orders')
-    const $$orders = $orders.filter(a => a.customer_id == fuser?.uid)
-    const accumulateMoney = $$orders.filter(a => a.status == 'pay').reduce((total, item) => total + item.pay, 0)
+    const { items: $orders} = useCollectionData<Order>(fuser && `customers/${fuser.uid}/orders`)
+    const accumulateMoney = $orders.filter(a => a.status == 'pay').reduce((total, item) => total + item.pay, 0)
 
     const statisticalOrder = [
-        { name: 'Đơn hàng', value: $$orders.length, unit: '' },
+        { name: 'Đơn hàng', value: $orders.length, unit: '' },
         { name: 'Tổng tiền tích lũy', value: accumulateMoney, unit: 'đ' },
     ]
 

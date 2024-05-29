@@ -8,10 +8,12 @@ import { RiHome2Line } from "react-icons/ri"
 import { CartItem } from "./CartItem"
 import { Button } from "@chakra-ui/react"
 import Link from "next/link"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 
 export default function CartPage() {
 
-    const { items: $carts } = useCollectionData<Cart>('carts')
+    const { fuser } = useFirebaseUserContext()
+    const { items: $carts } = useCollectionData<Cart>(fuser && `customers/${fuser.uid}/carts`)
     const { items: $products } = useCollectionData<Product>('products')
 
     // Sản phẩm đã chọn trong giỏ hàng
@@ -24,9 +26,6 @@ export default function CartPage() {
         }
         return total
     }, 0)
-
-    
-
 
     return (
         <VStack w='full' spacing='5' py='5'>

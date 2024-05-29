@@ -7,11 +7,14 @@ import { useParams } from "next/navigation"
 import { OrderItem } from "./OrderItem"
 import { Button, Select } from "@chakra-ui/react"
 import { ReceiverInfo } from "./ReceiverInfo"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 
 export default function OrderPage() {
 
     const params = useParams()
-    const { item: $order } = useDocumentData<Order>(`orders/${params.order_id}`)
+    const { fuser } = useFirebaseUserContext()
+    const { item: $order } = useDocumentData<Order>(fuser && `customers/${fuser.uid}/orders/${params.order_id}`)
+
     const total_pay = $order?.pay + $order?.shipping_fee
     const statistical = [
         { name: 'Số lượng sản phẩm', value: $order?.amount, unit: '' },

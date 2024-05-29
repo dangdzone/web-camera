@@ -1,6 +1,6 @@
 import { FileUploader } from "@/components/common/FileUploader"
 import { Brand, Category, Product, Resolution } from "@/type"
-import { Button, FormControl, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Select, SimpleGrid, Stack, Text, Textarea } from "@chakra-ui/react"
+import { Button, FormControl, HStack, IconButton, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Select, SimpleGrid, Stack, Text, Textarea } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
 import { useCollectionData, useLiveQueryContext } from "@livequery/react"
 import { Controller, useForm, useFieldArray, FormProvider } from "react-hook-form"
@@ -89,7 +89,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                         <ModalCloseButton borderRadius='full' mt='1' />
                         <ModalBody px={{ base: '2', md: '4' }} py='6'>
                             <Stack w='full' spacing='7'>
-                                <pre>{JSON.stringify(watch(), null, 2)}</pre>
+                                {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
                                 <Stack w='full' spacing='3'>
                                     <Text>Tên sản phẩm</Text>
                                     <Input
