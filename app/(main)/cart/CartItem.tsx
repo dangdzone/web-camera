@@ -17,9 +17,8 @@ export const CartItem = ({ cart }: CartItem) => {
     const toast = useToast()
     const { transporter } = useLiveQueryContext()
     const { item: product } = useDocumentData<Product>(`products/${cart.product_id}`)
-    // const $carts = useCollectionData<Cart>('carts')
 
-    const { register, handleSubmit, watch, control, formState } = useForm<Cart>({
+    const { handleSubmit, watch, control } = useForm<Cart>({
         defaultValues: {
             id: cart.id,
             amount: cart.amount ?? 1,
@@ -76,7 +75,7 @@ export const CartItem = ({ cart }: CartItem) => {
                                 onChange={field.onChange}
                                 onBlur={field.onBlur}
                                 ref={field.ref}
-                                isDisabled={cart.amount <= 0}
+                                isDisabled={product?.amount <= 0}
                                 colorScheme="red"
                                 size='lg'
                             />
@@ -107,7 +106,7 @@ export const CartItem = ({ cart }: CartItem) => {
                                 <HStack>
                                     <Button size='sm' borderRadius='10px' isDisabled={field.value <= 1} onClick={() => field.onChange(field.value - 1)} >-</Button>
                                     <Button variant='unstyled' size='sm' borderRadius='full'>{field.value}</Button>
-                                    <Button size='sm' borderRadius='10px' isDisabled={field.value == product?.amount} onClick={() => field.onChange(field.value + 1)}>+</Button>
+                                    <Button size='sm' borderRadius='10px' isDisabled={field.value >= product?.amount} onClick={() => field.onChange(field.value + 1)}>+</Button>
                                 </HStack>
                             )}
                         />

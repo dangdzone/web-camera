@@ -21,11 +21,12 @@ export default function MemberPage() {
 
     return (
         <Stack w='full' spacing='7'>
-            <Stack flexDirection='row'>
-                <Image border='2px' borderColor='#8E00FF' maxH='70px' borderRadius='full' src={fuser?.photoURL || ''} />
-                <Stack spacing='0'>
+            <VStack w='full'>
+                <Image border='2px' borderColor='#8E00FF' sizes='90px' borderRadius='full' src={fuser?.photoURL || ''} />
+                <VStack spacing='0'>
                     <Text fontSize='18px' fontWeight='700' color='#8D00FF'>{fuser?.displayName}</Text>
-                    <Stack>
+                    <Text>Email: {fuser?.email}</Text>
+                    <VStack>
                         <HStack>
                             <Text color='blackAlpha.700' fontSize='14px'>ID: {fuser?.uid}</Text>
                             <Button size='xs' variant='outline' onClick={onCopy} colorScheme='messenger'>
@@ -33,9 +34,9 @@ export default function MemberPage() {
                             </Button>
                         </HStack>
                         <Box><Tag size='sm' colorScheme='red' variant='outline'>Thành viên</Tag></Box>
-                    </Stack>
-                </Stack>
-            </Stack>
+                    </VStack>
+                </VStack>
+            </VStack>
             <HStack w='full' p='5' borderRadius='10px' border='1px' borderColor='blackAlpha.100' divider={<Divider height={'50px'} orientation='vertical' />}>
                 {
                     statisticalOrder.map((item, i) => (

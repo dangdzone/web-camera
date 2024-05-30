@@ -17,6 +17,7 @@ export default function OrderPage() {
 
     const total_pay = $order?.pay + $order?.shipping_fee
     const statistical = [
+        { name: 'Mã đơn hàng', value: $order?.code, unit: '' },
         { name: 'Số lượng sản phẩm', value: $order?.amount, unit: '' },
         { name: 'Tiền hàng (tạm tính)', value: $order?.pay, unit: 'đ' },
         { name: 'Phí vận chuyển', value: $order?.shipping_fee, unit: 'đ' },
@@ -32,7 +33,7 @@ export default function OrderPage() {
                 }
             </VStack>
             <Stack w='full'>
-                <Text fontWeight='600'>Thống kê</Text>
+                <Text fontWeight='600'>Thống kê đơn hàng</Text>
                 <VStack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4' spacing='4'>
                     {
                         statistical.map((item, i) => (

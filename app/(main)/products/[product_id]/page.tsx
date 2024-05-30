@@ -23,8 +23,8 @@ export default function ProductIdPage() {
     // Tìm sản phẩm trong carts có product_id == product_id trong products
     const cart_item = $carts.items.filter(a => a.product_id == params.product_id).length
     // Lấy số lượng 1 sản phẩm trong cart
-    const cart_item_amount = $carts.items.filter(a => a.product_id == params.product_id).map(b => b.amount)[0]
-    // const $carts = useCollectionData<Carts>('carts')
+    const cart_item_amount = $carts.items.filter(a => a.product_id == params.product_id)[0]?.amount
+
     const { handleSubmit } = useForm<Cart>({
         defaultValues: {
             customer_id: fuser?.uid,
@@ -42,8 +42,6 @@ export default function ProductIdPage() {
             if (check_amount) {
                 await transporter.update(`customers/${fuser?.uid}/carts`, {
                     ...data,
-                    customer_id: fuser?.uid,
-                    amount: cart_item_amount + 1
                 })
                 toast({
                     title: 'Thành công !',

@@ -2,18 +2,19 @@
 
 import { LivequeryHttpTransporter } from "@/config/livequery";
 import { FirebaseUserContextProvider } from "@/hooks/useFirebaseUser";
+import { PermissionsContextProvider } from "@/hooks/usePermissions";
 import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 import { LiveQueryContextProvider } from "@livequery/react";
 import { PropsWithChildren } from "react";
 
 const theme = extendTheme({
     config: {
-      initialColorMode: "light",
-      useSystemColorMode: false,
+        initialColorMode: "light",
+        useSystemColorMode: false,
     },
-  });
+});
 
-  
+
 export const ClientProviderList = (props: PropsWithChildren) => {
     return (
         <>
@@ -25,7 +26,9 @@ export const ClientProviderList = (props: PropsWithChildren) => {
                         pl='0' pr='0'
                     >
                         <LiveQueryContextProvider transporter={LivequeryHttpTransporter}>
-                            {props.children}
+                            {/* <PermissionsContextProvider> */}
+                                {props.children}
+                            {/* </PermissionsContextProvider> */}
                         </LiveQueryContextProvider>
                     </Container>
                 </FirebaseUserContextProvider>
