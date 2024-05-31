@@ -15,10 +15,10 @@ export default function HistoryPage() {
     const { fuser } = useFirebaseUserContext()
     const $orders = useCollectionData<Order>(fuser && `customers/${fuser.uid}/orders`)
 
-    const accumulateMoney = $orders.items.filter(a => a.status == 'pay').reduce((total, item) => total + item.pay, 0)
+    const accumulateMoney = $orders.items.filter(a => a.status == 'paid').reduce((total, item) => total + item.pay, 0)
     const statisticalOrder = [
         { name: 'Tổng đơn hàng', value: $orders.items.length, unit: '' },
-        { name: 'Tổng tiền', value: accumulateMoney, unit: 'đ' },
+        { name: 'Tổng tiền đã thanh toán', value: accumulateMoney, unit: 'đ' },
     ]
 
     return (

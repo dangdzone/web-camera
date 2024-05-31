@@ -58,7 +58,7 @@ export const OrderStatusMap = {
         name: 'Đã tạo',
         color: 'green',
     },
-    pay: {
+    paid: {
         name: 'Đã thanh toán',
         color: 'blue',
     },

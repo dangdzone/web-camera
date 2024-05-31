@@ -8,11 +8,13 @@ import { Product } from "@/type"
 import { useCollectionData } from "@livequery/react"
 import { ProductModal } from "./ProductModal"
 import { SearchBox } from "@/components/common/SearchBox"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 
 export const ProductList = () => {
 
+    const { fuser } = useFirebaseUserContext()
     const [active_product, set_active_product] = useState<undefined | null | SmartQueryItem<Product>>(null)
-    const $products = useCollectionData<Product>('products')
+    const $products = useCollectionData<Product>(fuser && 'products')
 
     return (
         <Stack w='full' spacing='7'>

@@ -12,7 +12,7 @@ export default function MemberPage() {
     const { fuser } = useFirebaseUserContext()
     const { onCopy, hasCopied } = useClipboard(fuser?.uid as any)
     const { items: $orders} = useCollectionData<Order>(fuser && `customers/${fuser.uid}/orders`)
-    const accumulateMoney = $orders.filter(a => a.status == 'pay').reduce((total, item) => total + item.pay, 0)
+    const accumulateMoney = $orders.filter(a => a.status == 'paid').reduce((total, item) => total + item.pay, 0)
 
     const statisticalOrder = [
         { name: 'Đơn hàng', value: $orders.length, unit: '' },
