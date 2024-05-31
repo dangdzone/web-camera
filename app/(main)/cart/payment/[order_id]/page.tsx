@@ -80,9 +80,9 @@ export default function OrderPage() {
                         <VStack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
                             <Select variant='filled' onChange={(e) => set_type(e.target.value)}>
                                 <option value='momo'>Ví momo</option>
-                                <option value='option2'>Zalo pay</option>
-                                <option value='option3'>Chuyển khoản ngân hàng</option>
+                                <option value='zalopay'>Zalo pay</option>
                                 <option value='option3'>VNPAY</option>
+                                <option value='option3'>Chuyển khoản ngân hàng</option>
                             </Select>
                         </VStack>
                     </Stack>
