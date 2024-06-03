@@ -37,13 +37,12 @@ export default function OrderPage() {
                 }
             }
             if (result?.data.item.url) {
-                window.location.href= result?.data.item.url
+                window.location.href = result?.data.item.url
             }
-        } catch (error) {
-
+        } catch (e) {
+            new Error('Đã xảy ra lỗi, vui lòng thử lại !')
         }
     }
-
 
     return (
 
@@ -80,7 +79,7 @@ export default function OrderPage() {
                         <VStack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
                             <Select variant='filled' onChange={(e) => set_type(e.target.value)}>
                                 <option value='momo'>Ví momo</option>
-                                <option value='zalopay'>Zalo pay</option>
+                                <option value='zalo'>Zalo pay</option>
                                 <option value='option3'>VNPAY</option>
                                 <option value='option3'>Chuyển khoản ngân hàng</option>
                             </Select>
