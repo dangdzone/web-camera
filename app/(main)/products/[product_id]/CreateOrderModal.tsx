@@ -161,7 +161,7 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                         {/* <pre>{JSON.stringify($order.watch(), null, 2)}</pre> */}
                         <Stack w='full' spacing='7'>
                             <Stack w='full' flexDir='row' spacing='4' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
-                                <Image boxSize="70px" src={$product.item?.image} />
+                                <Image boxSize="90px" src={$product.item?.image} />
                                 <Stack w='full' spacing='0'>
                                     <Text fontWeight='700' fontSize='18px'>{$product.item?.name}</Text>
                                     <HStack fontSize='14px'>
@@ -187,7 +187,19 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                                     </Stack>
                                 </Stack>
                             </Stack>
-
+                            <VStack
+                                p='4' w='full'
+                                spacing='5'
+                                boxShadow='sm' // rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
+                                borderRadius='10px'
+                                border='1px'
+                                borderColor='blackAlpha.200'
+                            >
+                                <HStack w='full' justifyContent='space-between'>
+                                    <Text fontWeight='700' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
+                                    <Text fontWeight='800' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
+                                </HStack>
+                            </VStack>
                             <VStack w='full' spacing='5'>
                                 <Stack w='full' spacing='3'>
                                     <Text>Thông tin khách khàng</Text>
@@ -268,23 +280,7 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                                         </Stack>
                                     </Stack>
                                 </Stack>
-                                <VStack
-                                    p='4' w='full'
-                                    spacing='5'
-                                    boxShadow='rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
-                                    borderRadius='10px'
-                                    pos='sticky'
-                                    bottom='0'
-                                    zIndex='999'
-                                    bg='#FFFFFF'
-                                    border='1px'
-                                    borderColor='blackAlpha.200'
-                                >
-                                    <HStack w='full' justifyContent='space-between'>
-                                        <Text fontWeight='600' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
-                                        <Text fontWeight='800' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
-                                    </HStack>
-                                </VStack>
+
                             </VStack>
                         </Stack>
                     </ModalBody>
@@ -296,7 +292,7 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                             </Button>
                             {
                                 fuser && (
-                                    <Button colorScheme='pink' borderRadius='10px' type="submit">Đặt hàng và thanh toán</Button>
+                                    <Button colorScheme='messenger' borderRadius='10px' type="submit">Đặt hàng và thanh toán</Button>
                                 )
                             }
                         </HStack>

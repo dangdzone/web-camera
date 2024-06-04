@@ -1,7 +1,7 @@
 'use client'
 
 import { Order } from "@/type"
-import { Divider, HStack, Stack, Text, VStack } from "@chakra-ui/layout"
+import { Center, Divider, HStack, Stack, Text, VStack } from "@chakra-ui/layout"
 import { useDocumentData } from "@livequery/react"
 import { useParams } from "next/navigation"
 import { OrderItem } from "./OrderItem"
@@ -17,7 +17,11 @@ export default function OrderPage() {
     const { item: order, loading } = useDocumentData<Order>(fuser && `customers/${fuser.uid}/orders/${params.order_id}`)
     const [type, set_type] = useState<string>('momo')
 
-    if (loading || !order) return <Spinner />
+    if (loading || !order) return (
+        <Center w='full' minH='300px'>
+            <Spinner color="pink.500" size='lg' />
+        </Center>
+    )
 
     const total_pay = order.pay + order.shipping_fee
     const statistical = [

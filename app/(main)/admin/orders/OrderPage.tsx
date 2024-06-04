@@ -1,13 +1,14 @@
 
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Order } from "@/type"
-import { Stack, Text, Wrap } from "@chakra-ui/layout"
+import { HStack, Stack, Text, VStack, Wrap } from "@chakra-ui/layout"
 import { useCollectionData } from "@livequery/react"
 import { OrderItem } from "./OrderItem"
 import { ListRender } from "@/components/common/ListRender"
 import { EmptyBox } from "@/components/empty/EmptyBox"
 import { Button } from "@chakra-ui/react"
 import { OrderStatusMap } from "@/text"
+import { SearchBox } from "@/components/common/SearchBox"
 
 export const OrderPage = () => {
 
@@ -15,7 +16,19 @@ export const OrderPage = () => {
     const $orders = useCollectionData<Order>(fuser && 'orders')
 
     return (
-        <Stack w='full' spacing='5'>
+        <VStack w='full' spacing='5'>
+            <HStack w='40%'>
+                <SearchBox
+                    placeholder={'Tìm kiếm đơn hàng...'}
+                    onSearch={value => $orders.filter({
+                        ...$orders.filters,
+                        "_id:like": value,
+                        "status:like": value,
+                        "customer_id:like": value,
+                        "code:like": value,
+                    })}
+                />
+            </HStack>
             <Wrap spacing={{ base: '2', md: '4' }} w='full' >
                 <Button
                     colorScheme={!$orders.filters.status ? 'red' : 'gray'}
@@ -61,6 +74,6 @@ export const OrderPage = () => {
                     )
                 }
             </Stack>
-        </Stack>
+        </VStack>
     )
 }
