@@ -1,8 +1,8 @@
 'use client'
 import { HStack, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/layout";
-import { Image } from "@chakra-ui/react";
+import { Image, Select } from "@chakra-ui/react";
 import { useCollectionData } from "@livequery/react";
-import { Brand, Product } from "@/type";
+import { Brand, Product, Resolution } from "@/type";
 import { ProductItemBox } from "@/app/(main)/ProductItemBox";
 import { CategoryList } from "./CategoryList";
 import { MainPageLoading } from "@/components/loading/MainPageLoading";
@@ -12,6 +12,7 @@ export default function MainPage() {
 
     const [active_product, set_active_product] = useState<undefined | string>(undefined)
     const $brands = useCollectionData<Brand>('brands')
+    const $resolutions = useCollectionData<Resolution>('resolutions')
     const $products = useCollectionData<Product>('products')
     const products = $products.items.filter(product => {
         if (active_product == undefined) return true
@@ -52,7 +53,36 @@ export default function MainPage() {
                     }
                 </HStack>
             </Stack>
-
+            <HStack w='full' spacing='5' flexDir='row'>
+                <Text fontWeight='700'>Độ phân giải</Text>
+                <Select w='30%' borderRadius='10px'
+                    onChange={(e) => {
+                        if (e.target.value == 'all') {
+                            $products.filter({
+                                ...$products.filters,
+                                resolution_id: undefined
+                            })
+                        } else {
+                            $products.filter({
+                                ...$products.filters,
+                                resolution_id: e.target.value
+                            })
+                        }
+                    }}
+                >
+                    <option value='all'>Tất cả</option>
+                    {
+                        $resolutions.items.map(resolution => (
+                            <option
+                                key={resolution.id}
+                                value={resolution.id}
+                            >
+                                {resolution.name}
+                            </option>
+                        ))
+                    }
+                </Select>
+            </HStack>
             {$products.loading && <MainPageLoading />}
             {$products.empty && <Text fontWeight='500'>Chưa có sản phẩm...</Text>}
 

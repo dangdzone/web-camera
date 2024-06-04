@@ -12,12 +12,15 @@ import { ProductSpecification } from "./ProductSpecification";
 import { ProductIdPageLoading } from "@/components/loading/ProductIdPageLoading";
 import { useForm } from "react-hook-form";
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser";
+import { useState } from "react";
+import { CreateOrderModal } from "./CreateOrderModal";
 
 export default function ProductIdPage() {
 
     const toast = useToast()
     const params = useParams()
     const { fuser } = useFirebaseUserContext()
+    const [active_create_order, set_active_create_order] = useState<string | undefined | null>(null)
     const product = useDocumentData<Product>(`products/${params.product_id}`)
     const $carts = useCollectionData<Cart>(fuser && `customers/${fuser?.uid}/carts`)
     // Tìm sản phẩm trong carts có product_id == product_id trong products
@@ -85,6 +88,14 @@ export default function ProductIdPage() {
                     { name: 'Sản phẩm', href: '/' },
                     { name: `${product.item?.code}` },
                 ]} />
+                {
+                    active_create_order !== null && (
+                        <CreateOrderModal
+                            onClose={() => set_active_create_order(null)}
+                            product_id={params.product_id as string}
+                        />
+                    )
+                }
                 <Text fontSize='18px' fontWeight='700'>{product.item?.name}</Text>
                 <Stack w='full' spacing='5' flexDirection='row'>
                     <Center w='full' py='10' borderRadius='20px' border='1px' borderColor='blackAlpha.200'>
@@ -100,7 +111,7 @@ export default function ProductIdPage() {
                             </Text>
                         </HStack>
                         <HStack>
-                            <Button w='full' size='lg' colorScheme="red" borderRadius='10px' p='7'>
+                            <Button w='full' size='lg' colorScheme="red" borderRadius='10px' p='7' onClick={() => set_active_create_order(undefined)}>
                                 <VStack spacing='1'>
                                     <Text fontSize='15px' fontWeight='700'>MUA NGAY</Text>
                                     <Text fontSize='14px' fontWeight='400'>Thanh toán online và giao hàng trong ngày</Text>

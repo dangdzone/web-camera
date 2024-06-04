@@ -95,7 +95,12 @@ export declare class Order extends BaseEntity {
     discount: number // Giảm giá
     pay: number // Tiền thanh toán
     shipping_fee: number // Phí vận chuyển
-    customer_id: string // Thông tin khách hàng
+    customer_id: string // ID khách hàng tạo
+    customer_info: { // Thông tin khách hàng tạo
+        name: string,
+        email: string,
+        img: string
+    }
     receiver_info: {
         receiver_name: string // Tên người nhận
         receiver_phone: number // sdt người nhận

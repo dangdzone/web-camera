@@ -5,7 +5,6 @@ import CategoryProductPage from "./category-product/CategoryProductPage";
 import { ResolutionPage } from "./resolution/ResolutionPage";
 import { BrandPage } from "./brand/BrandPage";
 import { OrderPage } from "./orders/OrderPage";
-import { PaymentPage } from "./payments.tsx/PaymentPage";
 import { useEffect, useState } from "react";
 import { StorePage } from "./stores/StoreInfoPage";
 
@@ -37,17 +36,19 @@ export default function AdminPage() {
         <Tabs w='full' variant='unstyled' position='relative' index={selectedTabIndex} onChange={handleTabChange}>
             <TabList pt='5' w='full' minW='10px' overflowX={{ base: 'scroll', md: 'auto' }}>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Thống kê</Tab>
+                <Tab fontWeight='600' whiteSpace='nowrap'>Đơn hàng</Tab>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Danh mục & sản phẩm</Tab>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Độ phân giải</Tab>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Thương hiệu</Tab>
-                <Tab fontWeight='600' whiteSpace='nowrap'>Đơn hàng</Tab>
-                <Tab fontWeight='600' whiteSpace='nowrap'>Thanh toán</Tab>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Hệ thống cửa hàng</Tab>
             </TabList>
             <TabIndicator mt='-1.5px' height='3px' bg='teal.500' borderRadius='full' />
             <TabPanels p='0'>
                 <TabPanel py='7' px='4'>
                     <StatisticalPage />
+                </TabPanel>
+                <TabPanel py='7' px='4'>
+                    <OrderPage />
                 </TabPanel>
                 <TabPanel py='7' px='4'>
                     <CategoryProductPage />
@@ -57,12 +58,6 @@ export default function AdminPage() {
                 </TabPanel>
                 <TabPanel py='7' px='4'>
                     <BrandPage />
-                </TabPanel>
-                <TabPanel py='7' px='4'>
-                    <OrderPage />
-                </TabPanel>
-                <TabPanel py='7' px='4'>
-                    <PaymentPage />
                 </TabPanel>
                 <TabPanel py='7' px='4'>
                     <StorePage />

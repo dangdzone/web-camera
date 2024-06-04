@@ -31,7 +31,7 @@ export const Topbar = () => {
                     <FiMapPin size='25px' />
                     <Text fontSize='14px' lineHeight='1.3'>Hệ thống <br /> cửa hàng</Text>
                 </HStack>
-                <Link href={'/member/orders'}>
+                <Link href={'/member/histories'}>
                     <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
                         <FaShippingFast size='25px' />
                         <Text fontSize='14px' lineHeight='1.3'>Lịch sử <br /> đơn hàng</Text>

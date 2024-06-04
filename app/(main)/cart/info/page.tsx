@@ -134,6 +134,11 @@ export default function InfoPage() {
             pay: totalPaid, // Tiền thanh toán
             shipping_fee: 0,
             customer_id: fuser?.uid, // ID khách hàng
+            customer_info: { // Thông tin khách hàng tạo
+                name: fuser?.displayName || '',
+                email: fuser?.email || '',
+                img: fuser?.photoURL || ''
+            },
             receiver_info: {
                 receiver_name: data.receiver_info?.receiver_name || '', // Tên người nhận
                 receiver_phone: data.receiver_info?.receiver_phone || 0, // sdt người nhận

@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FaRegCircleUser } from "react-icons/fa6"
 import { MdOutlineAdminPanelSettings } from "react-icons/md"
-import { RiLogoutCircleRLine } from "react-icons/ri"
+import { RiHome4Line, RiLogoutCircleRLine } from "react-icons/ri"
 export const UserName = () => {
 
     const { fuser } = useFirebaseUserContext()
@@ -61,14 +61,14 @@ export const UserName = () => {
                             }
                         </Stack>
                     </HStack>
-                    <Link href={`/member`} style={{ width: '100%' }}>
+                    <Link href={`/`} style={{ width: '100%' }}>
                         <Button
                             w='full'
-                            leftIcon={<FaRegCircleUser />}
+                            leftIcon={<RiHome4Line />}
                             variant='ghost'
                             justifyContent='flex-start'
                         >
-                            Thành viên
+                            Trang chủ
                         </Button>
                     </Link>
                     <Link href={`/admin`} style={{ width: '100%' }}>
@@ -79,6 +79,16 @@ export const UserName = () => {
                             justifyContent='flex-start'
                         >
                             Admin
+                        </Button>
+                    </Link>
+                    <Link href={`/member`} style={{ width: '100%' }}>
+                        <Button
+                            w='full'
+                            leftIcon={<FaRegCircleUser />}
+                            variant='ghost'
+                            justifyContent='flex-start'
+                        >
+                            Thành viên
                         </Button>
                     </Link>
                     {
