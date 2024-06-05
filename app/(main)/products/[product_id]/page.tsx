@@ -20,6 +20,7 @@ export default function ProductIdPage() {
     const toast = useToast()
     const params = useParams()
     const { fuser } = useFirebaseUserContext()
+    
     const [active_create_order, set_active_create_order] = useState<undefined | null | string>(null)
     const product = useDocumentData<Product>(`products/${params.product_id}`)
     const $carts = useCollectionData<Cart>(fuser && `customers/${fuser?.uid}/carts`)
@@ -80,8 +81,8 @@ export default function ProductIdPage() {
     })
 
     if (product.loading) return <ProductIdPageLoading />
-    return (
 
+    return (
         <Stack w='full' spacing='5'>
             <DirectionalLink directional={[
                 { name: 'Trang chủ', href: '/', icon: <RiHome2Line /> },

@@ -48,7 +48,7 @@ export default function OrderPage() {
         }
     }
 
-    return (
+    return fuser && (
 
         <VStack w='full' spacing='5'>
             <VStack w='full'>
@@ -107,8 +107,9 @@ export default function OrderPage() {
                 border='1px'
                 borderColor='blackAlpha.200'
             >
-                {order.status == 'created' && <Button w='full' borderRadius='10px' colorScheme='red' onClick={pay}>Thanh toán</Button>}
-                {order.status == 'paid' && <Button w='full' borderRadius='10px' colorScheme='green'>Đã thanh toán</Button>}
+                {order.status == 'created' && <Button w='full' borderRadius='10px' colorScheme='red' onClick={pay}>Thanh toán ngay</Button>}
+                {order.status == 'paid' && <Button w='full' borderRadius='10px' colorScheme='blue'>Đã thanh toán</Button>}
+                {order.status == 'cancel' && <Button w='full' borderRadius='10px' colorScheme='red'>Đã hủy đơn</Button>}
             </VStack>
         </VStack>
     )

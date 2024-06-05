@@ -9,9 +9,10 @@ import dayjs from "dayjs"
 
 export type OrderItem = {
     order: SmartQueryItem<Order>
+    onClick: () => void
 }
 
-export const OrderItem = ({ order }: OrderItem) => {
+export const OrderItem = ({ order, onClick }: OrderItem) => {
 
     const { fuser } = useFirebaseUserContext()
     const product_id = order.order_items?.[0].product_id
@@ -29,13 +30,13 @@ export const OrderItem = ({ order }: OrderItem) => {
                     <Text fontSize='13px'>{dayjs(order?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
                 </Stack>
                 <HStack>
-                    <Tag size='sm' colorScheme='orange'>ID: {order?.code}</Tag>
+                    <Tag size='sm' colorScheme='orange'>{order?.code}</Tag>
                     <Tag size='sm' colorScheme={status_order?.map(a => a.color)[0]}>{status_order?.map(a => a.name)[0]}</Tag>
                     <Tag size='sm' variant='outline'>{order?.customer_info.email}</Tag>
                 </HStack>
                 <HStack w='full' justifyContent='space-between'>
                     <Text fontWeight='700' color='red.500'>{order?.pay.toLocaleString()}đ</Text>
-                    <Button size='xs' variant='outline' colorScheme='red'>Xem chi tiết</Button>
+                    <Button size='xs' variant='outline' colorScheme='red' onClick={onClick}>Xem chi tiết</Button>
                 </HStack>
             </Stack>
         </Stack>

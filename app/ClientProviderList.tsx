@@ -26,9 +26,9 @@ export const ClientProviderList = (props: PropsWithChildren) => {
                         pl='0' pr='0'
                     >
                         <LiveQueryContextProvider transporter={LivequeryHttpTransporter}>
-                            {/* <PermissionsContextProvider> */}
+                            <PermissionsContextProvider>
                                 {props.children}
-                            {/* </PermissionsContextProvider> */}
+                            </PermissionsContextProvider>
                         </LiveQueryContextProvider>
                     </Container>
                 </FirebaseUserContextProvider>

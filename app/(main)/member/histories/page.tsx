@@ -21,7 +21,7 @@ export default function HistoryPage() {
         { name: 'Tổng tiền đã thanh toán', value: accumulateMoney, unit: 'đ' },
     ]
 
-    return (
+    return fuser && (
         <VStack w='full' spacing='5'>
             <HStack w='full' p='5' borderRadius='10px' border='1px' borderColor='blackAlpha.100' divider={<Divider height={'50px'} orientation='vertical' />}>
                 {

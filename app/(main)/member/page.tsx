@@ -19,7 +19,7 @@ export default function MemberPage() {
         { name: 'Tổng tiền tích lũy', value: accumulateMoney, unit: 'đ' },
     ]
 
-    return (
+    return fuser && (
         <Stack w='full' spacing='7'>
             <VStack w='full'>
                 <Image border='2px' borderColor='#8E00FF' sizes='90px' borderRadius='full' src={fuser?.photoURL || ''} />

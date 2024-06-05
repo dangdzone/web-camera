@@ -8,8 +8,10 @@ export const [
     PermissionsContextProvider
 ] = createContextFromHook(() => {
 
-    const { claims } = useFirebaseUserContext() // Lấy thông tin của user
-    const is_owner = claims['']?.includes('owner')// Chủ cửa hàng
-    
-    return { is_owner }
+    const { fuser } = useFirebaseUserContext() // Lấy thông tin của user
+    const is_owner = ['nguyenvandang.co@gmail.com'].includes(`${fuser?.email}`)
+    const is_editor = ['dangdz10x@gmail.com'].includes(`${fuser?.email}`)
+
+    return { is_owner, is_editor }
+
 })

@@ -24,10 +24,13 @@ export const HistoryItem = ({ order }: HistoryItem) => {
             </Box>
             <Stack w='full'>
                 <Stack w='full' flexDir='row' justifyContent='space-between'>
-                    <Text fontWeight='600'>{$product?.name}</Text>
+                    <Text fontWeight='600'>{$product?.name} - ({order?.amount})</Text>
                     <Text fontSize='13px'>{dayjs(order?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
                 </Stack>
-                <Box><Tag colorScheme={status_order?.map(a => a.color)[0]}>{status_order?.map(a => a.name)[0]}</Tag></Box>
+                <HStack>
+                    <Tag size='sm' colorScheme='orange'>{order?.code}</Tag>
+                    <Tag size='sm' colorScheme={status_order?.map(a => a.color)[0]}>{status_order?.map(a => a.name)[0]}</Tag>
+                </HStack>
                 <HStack w='full' justifyContent='space-between'>
                     <Text fontWeight='700' color='red.500'>{order?.pay.toLocaleString()}đ</Text>
                     <Link href={`/member/histories/${order.id}`}>

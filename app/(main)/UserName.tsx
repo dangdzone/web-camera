@@ -1,5 +1,6 @@
-import { FirebaseAuth } from "@/config/firebase"
+import { auth } from "@/config/firebase"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
+import { usePermissionsContext } from "@/hooks/usePermissions"
 import { Avatar, AvatarBadge, Button, Divider, HStack, Menu, MenuButton, MenuList, Stack, Text, VStack } from "@chakra-ui/react"
 import { signOut } from "firebase/auth"
 import Link from "next/link"
@@ -10,9 +11,10 @@ import { RiHome4Line, RiLogoutCircleRLine } from "react-icons/ri"
 export const UserName = () => {
 
     const { fuser } = useFirebaseUserContext()
+    const { is_owner } = usePermissionsContext()
     const router = useRouter()
     const logout = async () => {
-        await signOut(FirebaseAuth)
+        await signOut(auth)
         router.push(`/login`)
     }
 
@@ -71,16 +73,20 @@ export const UserName = () => {
                             Trang chủ
                         </Button>
                     </Link>
-                    <Link href={`/admin`} style={{ width: '100%' }}>
-                        <Button
-                            w='full'
-                            leftIcon={<MdOutlineAdminPanelSettings />}
-                            variant='ghost'
-                            justifyContent='flex-start'
-                        >
-                            Admin
-                        </Button>
-                    </Link>
+                    {
+                        is_owner && (
+                            <Link href={`/admin`} style={{ width: '100%' }}>
+                                <Button
+                                    w='full'
+                                    leftIcon={<MdOutlineAdminPanelSettings />}
+                                    variant='ghost'
+                                    justifyContent='flex-start'
+                                >
+                                    Admin
+                                </Button>
+                            </Link>
+                        )
+                    }
                     <Link href={`/member`} style={{ width: '100%' }}>
                         <Button
                             w='full'

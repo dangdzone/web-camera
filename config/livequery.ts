@@ -1,8 +1,8 @@
 
 // Cấu hình thư viện livequery dùng để đồng bộ dữ liệu realtime giữa client với server
 import { RestTransporter } from '@livequery/rest'
-import { FirebaseAuth } from './firebase'
-// import { FirebaseAuth } from './firebase'
+import { auth } from './firebase'
+// import { auth } from './firebase'
 
 
 export const LivequeryHttpTransporter = new RestTransporter({
@@ -11,7 +11,7 @@ export const LivequeryHttpTransporter = new RestTransporter({
         websocket_url: typeof window == 'undefined' ? undefined : (() => process.env.NEXT_PUBLIC_WS! as any)
     } as any,
     headers: async () => {
-        const user = FirebaseAuth.currentUser
+        const user = auth.currentUser
         return {
             ...user ? { authorization: await user.getIdToken() } : {}
         }

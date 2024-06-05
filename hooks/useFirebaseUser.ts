@@ -1,7 +1,7 @@
 
 
 import { useEffect, useState } from "react";
-import { FirebaseAuth } from "../config/firebase";
+import { auth } from "../config/firebase";
 import { createContextFromHook } from "@livequery/react";
 import { onAuthStateChanged, onIdTokenChanged, signOut, User } from 'firebase/auth'
 import { useRouter } from "next/navigation";
@@ -22,7 +22,7 @@ export const [useFirebaseUserContext, FirebaseUserContextProvider] = createConte
 
     // Lắng nghe trạng thái đăng nhập hay chưa
     useEffect(() => {
-        onAuthStateChanged(FirebaseAuth, u => {
+        onAuthStateChanged(auth, u => {
             set_fuser(u as any as FirebaseUser)
             set_loading(false)
         }) 
@@ -30,16 +30,16 @@ export const [useFirebaseUserContext, FirebaseUserContextProvider] = createConte
 
     // Lắng nghe sự thay đổi quyền hạn của người dùng mỗi khi set lại quyền
     useEffect(() => {
-        onIdTokenChanged(FirebaseAuth, idtoken => {
+        onIdTokenChanged(auth, idtoken => {
             idtoken?.getIdTokenResult().then(c => set_claims(c.claims.$ || {}))
         })
     }, [])
 
     // Check lại quyền
-    const reload_permissions = () => FirebaseAuth.currentUser?.getIdToken(true)
+    const reload_permissions = () => auth.currentUser?.getIdToken(true)
     const router = useRouter()
     const logout = async () => {
-        await signOut(FirebaseAuth)
+        await signOut(auth)
         router.push(`/login`)
     }
 

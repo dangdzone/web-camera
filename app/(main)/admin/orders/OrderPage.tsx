@@ -1,22 +1,31 @@
 
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Order } from "@/type"
-import { HStack, Stack, Text, VStack, Wrap } from "@chakra-ui/layout"
-import { useCollectionData } from "@livequery/react"
+import { HStack, Stack, VStack, Wrap } from "@chakra-ui/layout"
+import { useCollectionData, useDocumentData } from "@livequery/react"
 import { OrderItem } from "./OrderItem"
 import { ListRender } from "@/components/common/ListRender"
 import { EmptyBox } from "@/components/empty/EmptyBox"
 import { Button } from "@chakra-ui/react"
 import { OrderStatusMap } from "@/text"
 import { SearchBox } from "@/components/common/SearchBox"
+import { useState } from "react"
+import { OrderItemModal } from "./OrderItemModal"
+import { SmartQueryItem } from "@livequery/client"
 
 export const OrderPage = () => {
 
     const { fuser } = useFirebaseUserContext()
     const $orders = useCollectionData<Order>(fuser && 'orders')
-
+    const [active_order, set_active_modal] = useState<SmartQueryItem<Order> | null>(null)
+    
     return (
         <VStack w='full' spacing='5'>
+            {
+                active_order !== null && (
+                    <OrderItemModal onClose={() => set_active_modal(null)} order={active_order} />
+                )
+            }
             <HStack w='40%'>
                 <SearchBox
                     placeholder={'Tìm kiếm đơn hàng...'}
@@ -64,7 +73,7 @@ export const OrderPage = () => {
                         <ListRender
                             collection={$orders}
                             render={order => (
-                                <OrderItem key={order.id} order={order} />
+                                <OrderItem key={order.id} order={order} onClick={() => set_active_modal(order)} />
                             )}
                             day_group
                             empty_alert={<EmptyBox boxSize="50px" />}
