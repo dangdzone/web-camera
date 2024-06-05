@@ -118,3 +118,37 @@ export declare class Cart extends BaseEntity {
     amount: number
     select: boolean
 }
+
+export type Level3 = {
+    level3_id: string;
+    name: string;
+    type: string;
+}
+
+export type Level2 = {
+    level2_id: string;
+    name: string;
+    type: string;
+    level3s: Level3[];
+}
+
+export type Level1 = {
+    level1_id: string;
+    name: string;
+    type: string;
+    level2s: Level2[];
+}
+
+export type DVHCData = {
+    data: Level1[];
+}
+
+export type ReceiverInfo = {
+    receiver_name: string;
+    receiver_phone: number;
+    province: number;
+    district: number;
+    ward: number;
+    street: string;
+    note: string;
+}
