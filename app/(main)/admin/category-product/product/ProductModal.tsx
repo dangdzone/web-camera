@@ -83,7 +83,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
             <ModalContent mx='2'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <FormProvider {...form}>
-                        <ModalHeader p='3' borderBottom='1px solid' borderColor={'gray.200'}>
+                        <ModalHeader p='3'>
                             {product ? 'Cập nhật sản phẩm' : 'Tạo sản phẩm mới'}
                         </ModalHeader>
                         <ModalCloseButton borderRadius='full' mt='1' />

@@ -3,12 +3,26 @@
 import { OrderStatusMap } from "@/text";
 import { Order } from "@/type";
 import { Divider, HStack, Stack, Text, VStack, Wrap } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/react";
+import { Button, Select } from "@chakra-ui/react";
 import { useCollectionData } from "@livequery/react";
 import { HistoryItem } from "./HistoryItem";
 import { ListRender } from "@/components/common/ListRender";
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser";
 import { EmptyBox } from "@/components/empty/EmptyBox";
+import {
+    startOfWeek,
+    endOfWeek,
+    subDays,
+    startOfDay,
+    endOfDay,
+    startOfMonth,
+    endOfMonth,
+    startOfYear,
+    endOfYear,
+    subWeeks,
+    subMonths,
+    subYears
+} from 'date-fns';
 
 export default function HistoryPage() {
 
@@ -21,6 +35,62 @@ export default function HistoryPage() {
         { name: 'Tổng tiền đã thanh toán', value: accumulateMoney, unit: 'đ' },
     ]
 
+    const filter = (group_by: 'all' | 'yesterday' | 'today' | 'this_week' | 'this_month' | 'this_year' | 'last_week' | 'last_month' | 'last_year') => {
+
+        const today = new Date()
+        if (group_by == 'today') { // Hôm nay
+            $orders.filter({
+                "created_at:gte": startOfDay(today).getTime(),
+                "created_at:lt": endOfDay(today).getTime()
+            })
+        }
+        if (group_by == 'yesterday') { // Hôm qua
+            $orders.filter({
+                "created_at:gte": startOfDay(subDays(today, 1)).getTime(),
+                "created_at:lt": endOfDay(subDays(today, 1)).getTime()
+            })
+        }
+        if (group_by == 'this_week') { // Tuần này
+            $orders.filter({
+                "created_at:gte": startOfWeek(today, { weekStartsOn: 1 }).getTime(),
+                "created_at:lt": endOfWeek(today, { weekStartsOn: 1 }).getTime(),
+            })
+        }
+        if (group_by == 'last_week') { // Tuần trước
+            $orders.filter({
+                "created_at:gte": startOfWeek(subWeeks(today, 1), { weekStartsOn: 1 }).getTime(),
+                "created_at:lt": endOfWeek(subWeeks(today, 1), { weekStartsOn: 1 }).getTime(),
+            })
+        }
+        if (group_by == 'this_month') { // Tháng này
+            $orders.filter({
+                "created_at:gte": startOfMonth(today).getTime(),
+                "created_at:lt": endOfMonth(today).getTime(),
+            })
+        }
+        if (group_by == 'last_month') { // Tháng trước
+            $orders.filter({
+                "created_at:gte": startOfMonth(subMonths(today, 1)).getTime(),
+                "created_at:lt": endOfMonth(subMonths(today, 1)).getTime(),
+            })
+        }
+        if (group_by == 'this_year') { // Năm nay
+            $orders.filter({
+                "created_at:gte": startOfYear(today).getTime(),
+                "created_at:lt": endOfYear(today).getTime(),
+            })
+        }
+        if (group_by == 'last_year') { // Năm trước
+            $orders.filter({
+                "created_at:gte": startOfYear(subYears(today, 1)).getTime(),
+                "created_at:lt": endOfYear(subYears(today, 1)).getTime(),
+            })
+        }
+        if (group_by == 'all') { // Tất cả
+            $orders.filter({})
+        }
+    }
+
     return fuser && (
         <VStack w='full' spacing='5'>
             <HStack w='full' p='5' borderRadius='10px' border='1px' borderColor='blackAlpha.100' divider={<Divider height={'50px'} orientation='vertical' />}>
@@ -32,6 +102,19 @@ export default function HistoryPage() {
                         </VStack>
                     ))
                 }
+            </HStack>
+            <HStack w='full' justifyContent='flex-end'>
+                <Select borderRadius='10px' w={{ base: '50%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
+                    <option value='all' >Tất cả các ngày</option>
+                    <option value='today'>Hôm nay</option>
+                    <option value='yesterday'>Hôm qua</option>
+                    <option value='this_week' >Tuần này</option>
+                    <option value='last_week'>Tuần trước</option>
+                    <option value='this_month'>Tháng này</option>
+                    <option value='last_month'>Tháng trước</option>
+                    <option value='this_year'>Năm nay</option>
+                    <option value='last_year'>Năm ngoái</option>
+                </Select>
             </HStack>
             <Wrap spacing={{ base: '2', md: '4' }} w='full' >
                 <Button

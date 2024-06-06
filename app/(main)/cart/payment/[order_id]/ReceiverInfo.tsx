@@ -22,7 +22,6 @@ export const ReceiverInfo = ({ receiver }: ReceiverInfo) => {
 
     const locationNames = FindLocationNames(provinceId, districtId, wardId)
 
-    console.log({provinceId, districtId, wardId})
     const ReceiverList = [
         { name: 'Khách hàng', value: receiver?.receiver_name },
         { name: 'Số điện thoại', value: `0${receiver?.receiver_phone}` },

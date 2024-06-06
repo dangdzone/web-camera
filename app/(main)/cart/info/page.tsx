@@ -50,11 +50,9 @@ export default function InfoPage() {
     const { transporter } = useLiveQueryContext()
     const $order = useForm<Order>()
 
+    const provinces = dvhcvn.data;
     const [districts, setDistricts] = useState<any[]>([]);
     const [wards, setWards] = useState<any[]>([]);
-
-    const provinces = dvhcvn.data;
-
     const selectedProvince = $order.watch("receiver_info.province");
     const selectedDistrict = $order.watch("receiver_info.district");
 

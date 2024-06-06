@@ -1,3 +1,4 @@
+import { FindLocationNames } from "@/components/common/FindLocationNames"
 import { Store } from "@/type"
 import { HStack, Stack, Text } from "@chakra-ui/layout"
 import { SmartQueryItem } from "@livequery/client"
@@ -8,12 +9,18 @@ export type StoreItem = {
     onClick?: () => void
 }
 
-export const StoreItem = ({ store, onClick} : StoreItem) => {
+export const StoreItem = ({ store, onClick }: StoreItem) => {
+
+    const provinceId = `${store?.province}`
+    const districtId = `${store?.district}`
+    const wardId = `${store?.ward}`
+
+    const locationNames = FindLocationNames(provinceId, districtId, wardId)
+
     return (
-        <Stack
+        <HStack
             w='full'
             p='4'
-            spacing='0'
             borderRadius='10px'
             border='1px'
             borderColor='blackAlpha.200'
@@ -21,12 +28,13 @@ export const StoreItem = ({ store, onClick} : StoreItem) => {
                 bg: 'blackAlpha.100'
             }}
             onClick={onClick}
+            spacing='3'
         >
-            <Text fontWeight='700'>{store.name}</Text>
-            <HStack>
-                <FiMapPin />
-                <Text fontSize='14px'>{store.address}</Text>
-            </HStack>
-        </Stack>
+            <FiMapPin size='25px' />
+            <Stack spacing='0'>
+                <Text fontWeight='700'>{store.name}</Text>
+                <Text fontSize='14px'>{`${store?.street}, ${locationNames.wardName}, ${locationNames.districtName}, ${locationNames.provinceName}`}</Text>
+            </Stack>
+        </HStack>
     )
 }

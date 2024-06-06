@@ -45,7 +45,7 @@ export const BrandModal = ({ onClose, brand }: BrandModal) => {
             <ModalOverlay />
             <ModalContent mx='2'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-                    <ModalHeader p='3' borderBottom='1px solid' borderColor={'gray.200'}>
+                    <ModalHeader p='3'>
                         {brand ? 'Cập nhật thương hiệu' : 'Tạo thương hiệu mới'}
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />

@@ -78,7 +78,10 @@ export declare class Product extends BaseEntity {
 
 export declare class Store extends BaseEntity {
     name: string
-    address: string
+    province: number | string // Tỉnh
+    district: number | string// huyện
+    ward: number | string // Phường, xã
+    street: number | string // Số nhà, tên đường
     link_map: string
 }
 

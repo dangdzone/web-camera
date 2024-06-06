@@ -44,7 +44,7 @@ export const CategoryModal = ({ onClose, category }: CategoryModal) => {
             <ModalOverlay />
             <ModalContent mx='2'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
-                    <ModalHeader p='3' borderBottom='1px solid' borderColor={'gray.200'}>
+                    <ModalHeader p='3'>
                         {category ? 'Cập nhật danh mục' : 'Tạo danh mục mới'}
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
