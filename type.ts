@@ -104,10 +104,10 @@ export declare class Order extends BaseEntity {
     receiver_info: {
         receiver_name: string // Tên người nhận
         receiver_phone: number // sdt người nhận
-        province: number // Tỉnh
-        district: number // huyện
-        ward: number // Phường, xã
-        street: number // Số nhà, tên đường
+        province: number | string // Tỉnh
+        district: number | string// huyện
+        ward: number | string // Phường, xã
+        street: number | string // Số nhà, tên đường
         note: string // ghi chú
     }
 }
@@ -117,38 +117,4 @@ export declare class Cart extends BaseEntity {
     product_id: string
     amount: number
     select: boolean
-}
-
-export type Level3 = {
-    level3_id: string;
-    name: string;
-    type: string;
-}
-
-export type Level2 = {
-    level2_id: string;
-    name: string;
-    type: string;
-    level3s: Level3[];
-}
-
-export type Level1 = {
-    level1_id: string;
-    name: string;
-    type: string;
-    level2s: Level2[];
-}
-
-export type DVHCData = {
-    data: Level1[];
-}
-
-export type ReceiverInfo = {
-    receiver_name: string;
-    receiver_phone: number;
-    province: number;
-    district: number;
-    ward: number;
-    street: string;
-    note: string;
 }

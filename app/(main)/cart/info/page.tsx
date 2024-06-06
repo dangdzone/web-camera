@@ -2,17 +2,16 @@
 
 import { DirectionalLink } from "@/components/common/DirectionalLink"
 import { PaymentInfoLink } from "@/components/common/PaymentInfoLink"
-import { Cart, DVHCData, District, Level1, Level2, Level3, Order, Product, Province, Ward } from "@/type"
+import { Cart, Order, Product } from "@/type"
 import { HStack, Stack, Text, VStack } from "@chakra-ui/layout"
 import { useCollectionData, useLiveQueryContext } from "@livequery/react"
 import { RiHome2Line } from "react-icons/ri"
 import { CartItemInfo } from "./CartItemInfo"
 import { UserInfo } from "./UserInfo"
 import { Button, Input, Select, useToast } from "@chakra-ui/react"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { useEffect, useState } from "react"
-import { fetchDistricts, fetchProvinces, fetchWards } from "@/api"
 import { useRouter } from "next/navigation"
 import dvhcvn from '../../../../dvhcvn.json';
 
@@ -51,60 +50,33 @@ export default function InfoPage() {
     const { transporter } = useLiveQueryContext()
     const $order = useForm<Order>()
 
-    const [provinces, setProvinces] = useState<Level1[]>([])
-    const [districts, setDistricts] = useState<Level2[]>([]);
-    const [wards, setWards] = useState<Level3[]>([]);
-    const [selectedProvinceId, setSelectedProvinceId] = useState<string | null>('01');
-    const [selectedDistrictId, setSelectedDistrictId] = useState<string | null>('001');
+    const [districts, setDistricts] = useState<any[]>([]);
+    const [wards, setWards] = useState<any[]>([]);
+
+    const provinces = dvhcvn.data;
+
+    const selectedProvince = $order.watch("receiver_info.province");
+    const selectedDistrict = $order.watch("receiver_info.district");
 
     useEffect(() => {
-        setProvinces(dvhcvn.data);
-    }, []);
-
-    useEffect(() => {
-        if (selectedProvinceId !== null) {
-            const selectedProvince = provinces.find(province => province.level1_id === selectedProvinceId);
-            setDistricts(selectedProvince?.level2s || []);
-            setSelectedDistrictId(null);
-            setWards([]); // Reset danh sách xã khi chọn tỉnh mới
+        if (selectedProvince) {
+            const province = provinces.find(p => p.level1_id === selectedProvince);
+            setDistricts(province?.level2s || []);
+            setWards([]);
+        } else {
+            setDistricts([]);
+            setWards([]);
         }
-    }, [selectedProvinceId, provinces]);
+    }, [selectedProvince]);
 
     useEffect(() => {
-        if (selectedDistrictId !== null) {
-            const selectedDistrict = districts.find(district => district.level2_id === selectedDistrictId);
-            setWards(selectedDistrict?.level3s || []);
+        if (selectedDistrict) {
+            const district = districts.find(d => d.level2_id === selectedDistrict);
+            setWards(district?.level3s || []);
+        } else {
+            setWards([]);
         }
-    }, [selectedDistrictId, districts]);
-
-    // useEffect(() => {
-    //     if (provinces.length > 0) {
-    //         setSelectedProvinceId(provinces[0].level1_id);
-    //     }
-    // }, [provinces]);
-
-    // useEffect(() => {
-    //     if (selectedProvinceId !== null) {
-    //         const selectedProvince = provinces.find(province => province.level1_id === selectedProvinceId);
-    //         setDistricts(selectedProvince?.level2s || []);
-    //         setSelectedDistrictId(null);
-    //         setWards([]);
-    //     }
-    // }, [selectedProvinceId, provinces]);
-
-    // useEffect(() => {
-    //     if (districts.length > 0) {
-    //         setSelectedDistrictId(districts[0].level2_id);
-    //     }
-    // }, [districts]);
-
-    // useEffect(() => {
-    //     if (selectedDistrictId !== null) {
-    //         const selectedDistrict = districts.find(district => district.level2_id === selectedDistrictId);
-    //         setWards(selectedDistrict?.level3s || []);
-    //     }
-    // }, [selectedDistrictId, districts])
-
+    }, [selectedDistrict, districts]);
 
     const toast = useToast()
     const router = useRouter()
@@ -182,114 +154,45 @@ export default function InfoPage() {
                                     <Input variant='flushed' {...$order.register('receiver_info.receiver_phone', { required: true, valueAsNumber: true })} onFocus={e => e.target.select()} />
                                 </Stack>
                             </HStack>
-                            {/* <HStack w='full' spacing='4'>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TỈNH / THÀNH PHỐ</Text>
-                                    <Controller
-                                        name="receiver_info.province"
-                                        control={$order.control}
-                                        render={({ field }) => (
-                                            <Select variant='flushed' {...field}>
-                                                {provinces.map((province) => (
-                                                    <option key={province.province_id} value={province.province_id}>
-                                                        {province.province_name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                        )}
-                                    />
-                                </Stack>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>QUẬN / HUYỆN</Text>
-                                    <Controller
-                                        name="receiver_info.district"
-                                        control={$order.control}
-                                        render={({ field }) => (
-                                            <Select variant='flushed' {...field} isDisabled={!SelectedProvince}>
-                                                {districts.map((district) => (
-                                                    <option key={district.district_id} value={district.district_id}>
-                                                        {district.district_name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                        )}
-                                    />
-                                </Stack>
-                            </HStack>
                             <HStack w='full' spacing='4'>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>PHƯỜNG / XÃ</Text>
-                                    <Controller
-                                        name="receiver_info.ward"
-                                        control={$order.control}
-                                        render={({ field }) => (
-                                            <Select variant='flushed' {...field} isDisabled={!SelectedDistrict}>
-                                                {wards.map((ward) => (
-                                                    <option key={ward.ward_id} value={ward.ward_id}>
-                                                        {ward.ward_name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                        )}
-                                    />
-                                </Stack>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SỐ NHÀ / TÊN ĐƯỜNG</Text>
-                                    <Input variant='flushed' {...$order.register('receiver_info.street', { required: true })} onFocus={e => e.target.Select()} />
-                                </Stack>
-                            </HStack> */}
-                            <Controller
-                                name="receiver_info.province"
-                                control={$order.control}
-                                rules={{ required: true }}
-                                // defaultValue={selectedProvinceId}
-                                render={({ field }) => (
-                                    <Select variant='flushed' {...field} onChange={(e) => {
-                                        field.onChange(e);
-                                        setSelectedProvinceId(e.target.value);
-                                    }}>
+                                <Stack w='full'>
+                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TỈNH / THÀNH PHỐ</Text>
+                                    <Select variant='flushed' placeholder="Chọn Tỉnh/Thành phố" {...$order.register('receiver_info.province', { required: true })}>
                                         {provinces.map((province) => (
                                             <option key={province.level1_id} value={province.level1_id}>
                                                 {province.name}
                                             </option>
                                         ))}
                                     </Select>
-                                )}
-                            />
-
-                            <Controller
-                                name="receiver_info.district"
-                                control={$order.control}
-                                rules={{ required: true }}
-                                render={({ field }) => (
-                                    <Select variant='flushed' {...field} onChange={(e) => {
-                                        field.onChange(e);
-                                        setSelectedDistrictId(e.target.value);
-                                    }}>
+                                </Stack>
+                                <Stack w='full'>
+                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>QUẬN / HUYỆN</Text>
+                                    <Select variant='flushed' placeholder="Chọn Quận/Huyện" {...$order.register('receiver_info.district', { required: true })} disabled={!districts.length}>
                                         {districts.map((district) => (
                                             <option key={district.level2_id} value={district.level2_id}>
                                                 {district.name}
                                             </option>
                                         ))}
                                     </Select>
-                                )}
-                            />
+                                </Stack>
+                            </HStack>
 
-                            <Controller
-                                name="receiver_info.ward"
-                                control={$order.control}
-                                rules={{ required: true }}
-                                render={({ field }) => (
-                                    <Select variant='flushed' {...field}>
+                            <HStack w='full' spacing='4'>
+                                <Stack w='full'>
+                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>PHƯỜNG / XÃ</Text>
+                                    <Select variant='flushed' placeholder="Chọn Phường/Xã" {...$order.register('receiver_info.ward', { required: true })} disabled={!wards.length}>
                                         {wards.map((ward) => (
                                             <option key={ward.level3_id} value={ward.level3_id}>
                                                 {ward.name}
                                             </option>
                                         ))}
                                     </Select>
-                                )}
-                            />
-
+                                </Stack>
+                                <Stack w='full' spacing='0'>
+                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SỐ NHÀ / TÊN ĐƯỜNG</Text>
+                                    <Input variant='flushed' {...$order.register('receiver_info.street', { required: true })} onFocus={e => e.target.select()} />
+                                </Stack>
+                            </HStack>
                             <Stack w='full' spacing='0'>
                                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
                                 <Input variant='flushed' {...$order.register('receiver_info.note')} onFocus={e => e.target.select()} />
