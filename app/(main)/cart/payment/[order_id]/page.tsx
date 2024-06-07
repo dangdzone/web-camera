@@ -84,7 +84,7 @@ export default function OrderPage() {
                             <Select variant='filled' onChange={(e) => set_type(e.target.value)}>
                                 <option value='momo'>Ví momo</option>
                                 <option value='zalo'>Zalo pay</option>
-                                <option value='option3'>VNPAY</option>
+                                <option value='ninepay'>9pay</option>
                                 <option value='option3'>Chuyển khoản ngân hàng</option>
                             </Select>
                         </VStack>
