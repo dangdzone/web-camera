@@ -141,7 +141,7 @@ export default function InfoPage() {
                     <Stack w='full' spacing='3'>
                         <Text>Thông tin nhận hàng</Text>
                         <Stack w='full' px='4' py='7' borderRadius='10px' spacing='7' border='1px' borderColor='blackAlpha.200'>
-                            <pre>{JSON.stringify($order.watch(), null, 2)}</pre>
+                            {/* <pre>{JSON.stringify($order.watch(), null, 2)}</pre> */}
                             <HStack w='full' spacing='4'>
                                 <Stack w='full' spacing='0'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TÊN NGƯỜI NHẬN</Text>
