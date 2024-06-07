@@ -85,7 +85,7 @@ export default function OrderPage() {
                                 <option value='momo'>Ví momo</option>
                                 <option value='zalo'>Zalo pay</option>
                                 <option value='ninepay'>9pay</option>
-                                <option value='option3'>Chuyển khoản ngân hàng</option>
+                                {/* <option value='option3'>Chuyển khoản ngân hàng</option> */}
                             </Select>
                         </VStack>
                     </Stack>
