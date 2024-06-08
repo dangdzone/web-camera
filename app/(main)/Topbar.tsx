@@ -9,7 +9,7 @@ import Link from "next/link"
 import { FaShippingFast } from "react-icons/fa";
 import { useCollectionData } from "@livequery/react"
 import { Cart } from "@/type"
-import { MenuMobile } from "../MenuMobile"
+import { MenuMobile } from "./MenuMobile"
 
 export const Topbar = () => {
 

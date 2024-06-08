@@ -1,7 +1,7 @@
 import { auth } from "@/config/firebase"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { usePermissionsContext } from "@/hooks/usePermissions"
-import { Avatar, AvatarBadge, Button, Divider, HStack, Menu, MenuButton, MenuList, Stack, Text, VStack } from "@chakra-ui/react"
+import { Avatar, AvatarBadge, Button, Divider, HStack, Menu, MenuButton, MenuItem, MenuList, Stack, Text, VStack } from "@chakra-ui/react"
 import { signOut } from "firebase/auth"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -64,50 +64,41 @@ export const UserName = () => {
                         </Stack>
                     </HStack>
                     <Link href={`/`} style={{ width: '100%' }}>
-                        <Button
-                            w='full'
-                            leftIcon={<RiHome4Line />}
-                            variant='ghost'
-                            justifyContent='flex-start'
-                        >
-                            Trang chủ
-                        </Button>
+                        <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
+                            <HStack py='1'>
+                                <RiHome4Line size='20px' />
+                                <Text fontWeight='600'>Trang chủ</Text>
+                            </HStack>
+                        </MenuItem>
                     </Link>
                     {
                         is_editor && (
                             <Link href={`/admin`} style={{ width: '100%' }}>
-                                <Button
-                                    w='full'
-                                    leftIcon={<MdOutlineAdminPanelSettings />}
-                                    variant='ghost'
-                                    justifyContent='flex-start'
-                                >
-                                    Admin
-                                </Button>
+                                <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
+                                    <HStack py='1'>
+                                        <MdOutlineAdminPanelSettings size='22px' />
+                                        <Text fontWeight='600'>Admin</Text>
+                                    </HStack>
+                                </MenuItem>
                             </Link>
                         )
                     }
                     <Link href={`/member`} style={{ width: '100%' }}>
-                        <Button
-                            w='full'
-                            leftIcon={<FaRegCircleUser />}
-                            variant='ghost'
-                            justifyContent='flex-start'
-                        >
-                            Thành viên
-                        </Button>
+                        <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
+                            <HStack py='1'>
+                                <FaRegCircleUser size='18px' />
+                                <Text fontWeight='600'>Thành viên</Text>
+                            </HStack>
+                        </MenuItem>
                     </Link>
                     {
                         fuser && (
-                            <Button
-                                w='full'
-                                leftIcon={<RiLogoutCircleRLine />}
-                                onClick={logout}
-                                variant='ghost'
-                                justifyContent='flex-start'
-                            >
-                                Đăng xuất
-                            </Button>
+                            <MenuItem borderRadius='10px' onClick={logout} color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
+                                <HStack py='1'>
+                                    <RiLogoutCircleRLine size='20px' />
+                                    <Text fontWeight='600'>Đăng xuất</Text>
+                                </HStack>
+                            </MenuItem>
                         )
                     }
                 </Stack>
