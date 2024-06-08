@@ -103,7 +103,6 @@ export const OrderPage = () => {
                         ...$orders.filters,
                         "_id:like": value,
                         "status:like": value,
-                        "customer_id:like": value,
                         "code:like": value,
                     })}
                 />

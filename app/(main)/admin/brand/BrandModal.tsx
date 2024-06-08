@@ -15,7 +15,7 @@ export type BrandModal = {
 export const BrandModal = ({ onClose, brand }: BrandModal) => {
 
     const { transporter } = useLiveQueryContext()
-    const { register, handleSubmit, control, formState } = useForm<Brand>({
+    const { register, handleSubmit, control, formState: { errors, isSubmitting, isDirty } } = useForm<Brand>({
         defaultValues: {
             name: brand?.name,
             image: brand?.image
@@ -43,7 +43,7 @@ export const BrandModal = ({ onClose, brand }: BrandModal) => {
             scrollBehavior={'inside'}
         >
             <ModalOverlay />
-            <ModalContent mx='2'>
+            <ModalContent mx='2' borderRadius='15px'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <ModalHeader p='3'>
                         {brand ? 'Cập nhật thương hiệu' : 'Tạo thương hiệu mới'}
@@ -76,20 +76,25 @@ export const BrandModal = ({ onClose, brand }: BrandModal) => {
                             <HStack>
                                 {
                                     brand && (
-                                        <Button onClick={remove} variant='ghost' colorScheme='red'>Xóa</Button>
+                                        <Button onClick={remove} variant='ghost' borderRadius='10px' colorScheme='red'>Xóa</Button>
                                     )
                                 }
                             </HStack>
                             <HStack>
-                                <Button onClick={onClose} variant='ghost' colorScheme='teal'>Hủy</Button>
-                                <Button
-                                    variant='solid'
-                                    colorScheme='teal'
-                                    type="submit"
-                                    isLoading={formState.isSubmitting}
-                                >
-                                    {brand ? 'Cập nhật' : 'Tạo mới'}
-                                </Button>
+                                <Button onClick={onClose} variant='ghost' borderRadius='10px' colorScheme='messenger'>Hủy</Button>
+                                {
+                                    isDirty && (
+                                        <Button
+                                            variant='solid'
+                                            colorScheme='messenger'
+                                            type="submit"
+                                            borderRadius='10px'
+                                            isLoading={isSubmitting}
+                                        >
+                                            {brand ? 'Cập nhật' : 'Tạo mới'}
+                                        </Button>
+                                    )
+                                }
                             </HStack>
                         </HStack>
                     </ModalFooter>

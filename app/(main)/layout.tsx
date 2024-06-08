@@ -2,7 +2,6 @@
 import { Stack, VStack } from "@chakra-ui/layout";
 import { ReactNode } from "react";
 import { Topbar } from "./Topbar";
-import { NavLink } from "./NavLink";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
     return (

@@ -30,8 +30,8 @@ export const ProductList = () => {
                         })}
                     />
                 </HStack>
-                <Button variant='outline' borderRadius='10px'>Giá giảm dần</Button>
-                <Button variant='outline' borderRadius='10px'>Giá tăng dần</Button>
+                <Button variant='outline' borderRadius='10px' isDisabled>Giá tăng dần</Button>
+                <Button variant='outline' borderRadius='10px' isDisabled>Giá giảm dần</Button>
                 <Button variant='outline' borderRadius='10px' leftIcon={<FiPlus />} onClick={() => set_active_product(undefined)}>Thêm sản phẩm</Button>
             </HStack>
             {

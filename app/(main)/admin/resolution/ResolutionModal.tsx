@@ -13,7 +13,7 @@ export type ResolutionModal = {
 export const ResolutionModal = ({ resolution, onClose }: ResolutionModal) => {
 
     const { transporter } = useLiveQueryContext()
-    const { register, handleSubmit, watch, control, formState } = useForm<Resolution>({
+    const { register, handleSubmit, watch, control, formState: { errors, isSubmitting, isDirty } } = useForm<Resolution>({
         defaultValues: {
             name: resolution?.name,
             size: resolution?.size,
@@ -42,12 +42,12 @@ export const ResolutionModal = ({ resolution, onClose }: ResolutionModal) => {
             scrollBehavior={'inside'}
         >
             <ModalOverlay />
-            <ModalContent mx='2'>
+            <ModalContent mx='2' borderRadius='15px'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <ModalHeader p='3'>
                         {resolution ? 'Cập nhật độ phân giải' : 'Tạo độ phân giải mới'}
                     </ModalHeader>
-                    <ModalCloseButton borderRadius='full' mt='1' />
+                    <ModalCloseButton />
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
                         <Stack w='full' spacing='7'>
                             <Stack w='full' spacing='3'>
@@ -81,20 +81,25 @@ export const ResolutionModal = ({ resolution, onClose }: ResolutionModal) => {
                             <HStack>
                                 {
                                     resolution && (
-                                        <Button onClick={remove} variant='ghost' colorScheme='red'>Xóa</Button>
+                                        <Button onClick={remove} variant='ghost' borderRadius='10px' colorScheme='red'>Xóa</Button>
                                     )
                                 }
                             </HStack>
                             <HStack>
-                                <Button onClick={onClose} variant='ghost' colorScheme='teal'>Hủy</Button>
-                                <Button
-                                    variant='solid'
-                                    colorScheme='teal'
-                                    type="submit"
-                                    isLoading={formState.isSubmitting}
-                                >
-                                    {resolution ? 'Cập nhật' : 'Tạo mới'}
-                                </Button>
+                                <Button onClick={onClose} variant='ghost' borderRadius='10px' colorScheme='messenger'>Hủy</Button>
+                                {
+                                    isDirty && (
+                                        <Button
+                                            variant='solid'
+                                            colorScheme='messenger'
+                                            type="submit"
+                                            borderRadius='10px'
+                                            isLoading={isSubmitting}
+                                        >
+                                            {resolution ? 'Cập nhật' : 'Tạo mới'}
+                                        </Button>
+                                    )
+                                }
                             </HStack>
                         </HStack>
                     </ModalFooter>

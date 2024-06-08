@@ -23,6 +23,7 @@ import {
     subMonths,
     subYears
 } from 'date-fns';
+import { SearchBox } from "@/components/common/SearchBox";
 
 export default function HistoryPage() {
 
@@ -104,6 +105,17 @@ export default function HistoryPage() {
                 }
             </HStack>
             <HStack w='full' justifyContent='flex-end'>
+                <HStack w='40%'>
+                    <SearchBox
+                        placeholder={'Tìm kiếm đơn hàng...'}
+                        onSearch={value => $orders.filter({
+                            ...$orders.filters,
+                            "_id:like": value,
+                            "code:like": value,
+                            "status:like": value
+                        })}
+                    />
+                </HStack>
                 <Select borderRadius='10px' w={{ base: '50%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
                     <option value='all' >Tất cả các ngày</option>
                     <option value='today'>Hôm nay</option>

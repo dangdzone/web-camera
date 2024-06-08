@@ -40,7 +40,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
         }
     })
 
-    const { register, handleSubmit, watch, control, formState, setValue, resetField } = form
+    const { register, handleSubmit, watch, control, formState: { errors, isSubmitting, isDirty }, setValue, resetField } = form
 
     // product_info
     const $specifications = useFieldArray({
@@ -80,7 +80,7 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
             onClose={onClose}
         >
             <ModalOverlay />
-            <ModalContent mx='2'>
+            <ModalContent mx='2' borderRadius='15px'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <FormProvider {...form}>
                         <ModalHeader p='3'>
@@ -336,20 +336,25 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                                 <HStack>
                                     {
                                         product && (
-                                            <Button onClick={onRemove} variant='ghost' colorScheme='red'>Xóa</Button>
+                                            <Button onClick={onRemove} variant='ghost' borderRadius='10px' colorScheme='red'>Xóa</Button>
                                         )
                                     }
                                 </HStack>
                                 <HStack>
-                                    <Button onClick={onClose} variant='ghost' colorScheme='teal'>Hủy</Button>
-                                    <Button
-                                        variant='solid'
-                                        colorScheme='teal'
-                                        type="submit"
-                                        isLoading={formState.isSubmitting}
-                                    >
-                                        {product ? 'Cập nhật' : 'Tạo mới'}
-                                    </Button>
+                                    <Button onClick={onClose} variant='ghost' borderRadius='10px' colorScheme='messenger'>Hủy</Button>
+                                    {
+                                        isDirty && (
+                                            <Button
+                                                variant='solid'
+                                                colorScheme='messenger'
+                                                type="submit"
+                                                borderRadius='10px'
+                                                isLoading={isSubmitting}
+                                            >
+                                                {product ? 'Cập nhật' : 'Tạo mới'}
+                                            </Button>
+                                        )
+                                    }
                                 </HStack>
                             </HStack>
                         </ModalFooter>

@@ -14,7 +14,7 @@ export type StoreModal = {
 export const StoreModal = ({ onClose, store }: StoreModal) => {
 
     const { transporter } = useLiveQueryContext()
-    const { register, handleSubmit, watch, control, formState, reset } = useForm<Store>({
+    const { register, handleSubmit, watch, control, formState: { errors, isSubmitting, isDirty }, reset } = useForm<Store>({
         defaultValues: {
             name: store?.name,
             province: store?.province, // Tỉnh
@@ -73,12 +73,12 @@ export const StoreModal = ({ onClose, store }: StoreModal) => {
             scrollBehavior={'inside'}
         >
             <ModalOverlay />
-            <ModalContent mx='2'>
+            <ModalContent mx='2' borderRadius='15px'>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <ModalHeader p='3'>
                         {store ? 'Cập nhật cửa hàng' : 'Tạo cửa hàng mới'}
                     </ModalHeader>
-                    <ModalCloseButton borderRadius='full' mt='1' />
+                    <ModalCloseButton />
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
                         <Stack w='full' spacing='7'>
                             <Stack w='full' spacing='3'>
@@ -142,20 +142,25 @@ export const StoreModal = ({ onClose, store }: StoreModal) => {
                             <HStack>
                                 {
                                     store && (
-                                        <Button onClick={remove} variant='ghost' colorScheme='red'>Xóa</Button>
+                                        <Button onClick={remove} variant='ghost' borderRadius='10px' colorScheme='red'>Xóa</Button>
                                     )
                                 }
                             </HStack>
                             <HStack>
-                                <Button onClick={onClose} variant='ghost' colorScheme='teal'>Hủy</Button>
-                                <Button
-                                    variant='solid'
-                                    colorScheme='teal'
-                                    type="submit"
-                                    isLoading={formState.isSubmitting}
-                                >
-                                    {store ? 'Cập nhật' : 'Tạo mới'}
-                                </Button>
+                                <Button onClick={onClose} variant='ghost' borderRadius='10px' colorScheme='messenger'>Hủy</Button>
+                                {
+                                    isDirty && (
+                                        <Button
+                                            variant='solid'
+                                            colorScheme='messenger'
+                                            type="submit"
+                                            borderRadius='10px'
+                                            isLoading={isSubmitting}
+                                        >
+                                            {store ? 'Cập nhật' : 'Tạo mới'}
+                                        </Button>
+                                    )
+                                }
                             </HStack>
                         </HStack>
                     </ModalFooter>

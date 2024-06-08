@@ -8,6 +8,7 @@ import { OrderIdItem } from "../../member/histories/[order_id]/OrderIdItem"
 import { ReceiverInfo } from "../../cart/payment/[order_id]/ReceiverInfo"
 import { OrderStatusMap } from "@/text"
 import { MdClose } from "react-icons/md"
+import { usePermissionsContext } from "@/hooks/usePermissions"
 
 
 export type OrderItemModal = {
@@ -18,6 +19,7 @@ export type OrderItemModal = {
 export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
 
     const toast = useToast()
+    const { is_owner } = usePermissionsContext()
     const total_pay = order?.pay + order?.shipping_fee
     const statistical = [
         { name: 'Số lượng sản phẩm', value: order?.amount, unit: '' },
@@ -43,6 +45,11 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
             variant: 'subtle',
             position: 'top-right'
         })
+    }
+
+    function remove() {
+        transporter.remove(`orders/${order.id}`)
+        onClose()
     }
 
     return (
@@ -136,6 +143,11 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                             <Button colorScheme='red' variant='ghost' borderRadius='10px' onClick={onClose}>
                                 Đóng
                             </Button>
+                            {
+                                is_owner && (
+                                    <Button onClick={remove} borderRadius='10px' colorScheme='red'>Xóa</Button>
+                                )
+                            }
                             {/* <Button colorScheme='messenger' borderRadius='10px' type="submit">Cập nhật</Button> */}
                         </HStack>
                     </ModalFooter>

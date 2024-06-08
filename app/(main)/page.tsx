@@ -7,6 +7,7 @@ import { ProductItemBox } from "@/app/(main)/ProductItemBox";
 import { CategoryList } from "./CategoryList";
 import { MainPageLoading } from "@/components/loading/MainPageLoading";
 import { useState } from "react";
+import { SearchBox } from "@/components/common/SearchBox";
 
 export default function MainPage() {
 
@@ -82,6 +83,17 @@ export default function MainPage() {
                         ))
                     }
                 </Select>
+                <HStack w='40%'>
+                    <SearchBox
+                        placeholder={'Tìm kiếm sản phẩm...'}
+                        onSearch={value => $products.filter({
+                            ...$products.filters,
+                            "_id:like": value,
+                            "name:like": value,
+                            "code:like": value,
+                        })}
+                    />
+                </HStack>
             </HStack>
             {$products.loading && <MainPageLoading />}
             {$products.empty && <Text fontWeight='500'>Chưa có sản phẩm...</Text>}
