@@ -94,9 +94,9 @@ export const StatisticalPage = () => {
 
     return (
         <Stack w='full' spacing='7'>
-            <HStack w='full' justifyContent='space-between'>
-                <Text fontWeight='700' fontSize='18px'>Thống kê</Text>
-                <Select borderRadius='10px' w={{ base: '50%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
+            <HStack w='full' justifyContent='space-between' spacing='5'>
+                <Text fontWeight='700' fontSize='18px' whiteSpace='nowrap'>Thống kê</Text>
+                <Select borderRadius='10px' w={{ base: '100%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
                     <option value='all' >Tất cả các ngày</option>
                     <option value='today'>Hôm nay</option>
                     <option value='yesterday'>Hôm qua</option>

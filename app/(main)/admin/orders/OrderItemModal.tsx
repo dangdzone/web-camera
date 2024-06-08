@@ -59,7 +59,7 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
                     <ModalHeader p='3'>
                         <HStack w='full' justifyContent='space-between'>
-                            <Text>Chi tiết đơn hàng</Text>
+                            <Text noOfLines={1}>Chi tiết đơn hàng</Text>
                             <HStack>
                                 {isDirty && <Button size='sm' borderRadius='10px' colorScheme='red' variant='outline' onClick={() => reset()}>Hủy</Button>}
                                 {isDirty && <Button size='sm' borderRadius='10px' colorScheme='messenger' type="submit" isLoading={isSubmitting}>Lưu</Button>}
@@ -69,8 +69,8 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                     </ModalHeader>
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
                         <Stack w='full' spacing='7'>
-                            <Stack w='full'>
-                                <HStack w='full' justifyContent='space-between'>
+                            <Stack w='full' spacing='4'>
+                                <Stack w='full' spacing='4' justifyContent='space-between' flexDirection={{base: 'column', md: 'row'}}>
                                     <HStack>
                                         <Text fontSize='15px'>Mã đơn hàng:</Text>
                                         <Text fontWeight='700'>{order?.code}</Text>
@@ -82,7 +82,7 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                                     }
                                     {
                                         order?.status == 'created' && (
-                                            <FormControl isRequired w='40%'>
+                                            <FormControl isRequired w={{base: '100%', md: '40%'}}>
                                                 <Select
                                                     alignSelf='center'
                                                     borderRadius='10px'
@@ -103,7 +103,7 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                                             </FormControl>
                                         )
                                     }
-                                </HStack>
+                                </Stack>
                                 <HStack>
                                     <Text fontSize='15px'>Tạo lúc:</Text>
                                     <Text fontWeight='600'>{dayjs(order?.created_at).format('DD/MM/YYYY - HH:mm')}</Text>

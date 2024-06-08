@@ -18,8 +18,8 @@ export const ProductList = () => {
 
     return (
         <Stack w='full' spacing='7'>
-            <HStack w='full'>
-                <HStack w='40%'>
+            <Stack w='full' flexDir={{ base: 'column', md: 'row' }}>
+                <HStack w={{ base: '100%', md: '40%' }}>
                     <SearchBox
                         placeholder={'Tìm kiếm sản phẩm...'}
                         onSearch={value => $products.filter({
@@ -30,16 +30,18 @@ export const ProductList = () => {
                         })}
                     />
                 </HStack>
-                <Button variant='outline' borderRadius='10px' isDisabled>Giá tăng dần</Button>
-                <Button variant='outline' borderRadius='10px' isDisabled>Giá giảm dần</Button>
+                <HStack w='full'>
+                    <Button w='full' variant='outline' borderRadius='10px' isDisabled>Giá tăng dần</Button>
+                    <Button w='full' variant='outline' borderRadius='10px' isDisabled>Giá giảm dần</Button>
+                </HStack>
                 <Button variant='outline' borderRadius='10px' leftIcon={<FiPlus />} onClick={() => set_active_product(undefined)}>Thêm sản phẩm</Button>
-            </HStack>
+            </Stack>
             {
                 active_product !== null && (
                     <ProductModal onClose={() => set_active_product(null)} product={active_product} />
                 )
             }
-            <SimpleGrid w='full' spacing='4' columns={[2, 2, 2, 3]}>
+            <SimpleGrid w='full' spacing='4' columns={[1, 1, 2, 3]}>
                 {
                     $products.items.map(product => (
                         <ProductItem key={product.id} product={product} onClick={() => set_active_product(product)} />

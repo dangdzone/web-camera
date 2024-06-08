@@ -21,7 +21,7 @@ export const CartItemInfo = ({ cart }: CartItemInfo) => {
                     <Text fontWeight='700' color='red.500'>{product?.price.toLocaleString()}đ</Text>
                     <Text textDecoration='line-through' color='blackAlpha.700' fontSize='14px'>{product?.advertising_price.toLocaleString()}đ</Text>
                 </HStack>
-                <HStack w='full' justifyContent='space-between'>
+                <Stack w='full' justifyContent='space-between' flexDir={{base: 'column', md: 'row'}}>
                     <HStack fontSize='14px'>
                         <Text>Mã sản phẩm :</Text>
                         <Text>{product?.code}</Text>
@@ -30,7 +30,7 @@ export const CartItemInfo = ({ cart }: CartItemInfo) => {
                         <Text>Số lượng :</Text>
                         <Text fontWeight='700' color='red.500'>{cart?.amount}</Text>
                     </HStack>
-                </HStack>
+                </Stack>
             </Stack>
         </Stack>
     )

@@ -20,7 +20,7 @@ export default function ProductIdPage() {
     const toast = useToast()
     const params = useParams()
     const { fuser } = useFirebaseUserContext()
-    
+
     const [active_create_order, set_active_create_order] = useState<undefined | null | string>(null)
     const product = useDocumentData<Product>(`products/${params.product_id}`)
     const $carts = useCollectionData<Cart>(fuser && `customers/${fuser?.uid}/carts`)
@@ -98,7 +98,7 @@ export default function ProductIdPage() {
                 )
             }
             <Text fontSize='18px' fontWeight='700'>{product.item?.name}</Text>
-            <Stack w='full' spacing='5' flexDirection='row'>
+            <Stack w='full' spacing='5' flexDirection={{ base: 'column', md: 'row' }}>
                 <Center w='full' py='10' borderRadius='20px' border='1px' borderColor='blackAlpha.200'>
                     <Image maxH='250px' src={product.item?.image} />
                 </Center>
@@ -113,9 +113,9 @@ export default function ProductIdPage() {
                     </HStack>
                     <HStack>
                         <Button w='full' size='lg' colorScheme="red" borderRadius='10px' p='7' onClick={() => set_active_create_order(undefined)}>
-                            <VStack spacing='1'>
+                            <VStack spacing='1' px='2'>
                                 <Text fontSize='15px' fontWeight='700'>MUA NGAY</Text>
-                                <Text fontSize='14px' fontWeight='400'>Thanh toán online và giao hàng trong ngày</Text>
+                                <Text fontSize='14px' fontWeight='400' display={{base: 'none', md: 'flex'}}>Thanh toán online và giao hàng trong ngày</Text>
                             </VStack>
                         </Button>
                         <form onSubmit={handleSubmit(onSubmit.excute)}>
@@ -140,8 +140,8 @@ export default function ProductIdPage() {
                 </Stack>
             </Stack>
             <Divider my='5' />
-            <Stack w='full' spacing='5' flexDirection='row'>
-                <Stack w='60%' >
+            <Stack w='full' spacing='5' flexDirection={{ base: 'column', md: 'row' }}>
+                <Stack w={{ base: '100%', md: '60%' }} >
                     <Stack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px'>
                         <Text fontWeight='600' fontSize='18px' p='3' color='red.500' borderTopRadius='10px' bg='red.50'>Đặc điểm nổi bật</Text>
                         <UnorderedList spacing={3} p='3'>
@@ -155,7 +155,7 @@ export default function ProductIdPage() {
                         </UnorderedList>
                     </Stack>
                 </Stack>
-                <Stack w='40%' >
+                <Stack w={{ base: '100%', md: '40%' }}  >
                     <Text fontWeight='600' fontSize='18px' py='3'>Thông số kĩ thuật</Text>
                     <Stack w='full' spacing='5' px='2' py='4' boxShadow='rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' borderRadius='10px'>
                         {

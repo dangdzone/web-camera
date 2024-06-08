@@ -34,8 +34,8 @@ export const ReceiverInfo = ({ receiver }: ReceiverInfo) => {
             {
                 ReceiverList.map((item, i) => (
                     <HStack w='full' key={i} justifyContent='space-between'>
-                        <Text opacity='0.8'>{item.name}</Text>
-                        <Text fontSize='15px' fontWeight='600'>{item.value}</Text>
+                        <Text opacity='0.8' whiteSpace='nowrap'>{item.name}</Text>
+                        <Text fontSize='15px' fontWeight='600' textAlign='end'>{item.value}</Text>
                     </HStack>
                 ))
             }

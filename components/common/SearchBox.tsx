@@ -26,7 +26,7 @@ export const SearchBox = (props: SearchBox) => {
     }, [props.onSearch])
 
     return (
-        <InputGroup w='full' size={{base: 'sm', md: 'md'}}>
+        <InputGroup w='full'>
             <InputLeftElement>
                 <SearchIcon />
             </InputLeftElement>

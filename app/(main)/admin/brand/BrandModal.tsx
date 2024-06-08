@@ -40,7 +40,6 @@ export const BrandModal = ({ onClose, brand }: BrandModal) => {
             isOpen={true}
             size={'2xl'}
             onClose={onClose}
-            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent mx='2' borderRadius='15px'>

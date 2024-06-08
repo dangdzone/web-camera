@@ -9,6 +9,7 @@ import Link from "next/link"
 import { FaShippingFast } from "react-icons/fa";
 import { useCollectionData } from "@livequery/react"
 import { Cart } from "@/type"
+import { MenuMobile } from "../MenuMobile"
 
 export const Topbar = () => {
 
@@ -19,28 +20,33 @@ export const Topbar = () => {
 
     return (
         <HStack w='full' h='60px' color='white' justifyContent='space-between' position='sticky' top='0'>
-            <Link href='/'>
-                <Image maxH='50px' borderRadius='10px' src="https://www.flygo-aviation.com/wp-content/uploads/2021/08/flygo-logo-trp-big.png" />
-            </Link>
+            <HStack>
+                <MenuMobile />
+                <Link href='/'>
+                    <Image maxH='40px' borderRadius='10px' src="https://www.flygo-aviation.com/wp-content/uploads/2021/08/flygo-logo-trp-big.png" />
+                </Link>
+            </HStack>
             <HStack spacing='5'>
-                <Link href={'tel:+0814201002'}>
-                    <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
-                        <MdOutlinePhoneInTalk size='25px' />
-                        <Text fontSize='14px' lineHeight='1.3'>Gọi mua hàng <br /> 1800.6759</Text>
-                    </HStack>
-                </Link>
-                <Link href={'/stores'}>
-                    <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
-                        <FiMapPin size='25px' />
-                        <Text fontSize='14px' lineHeight='1.3'>Hệ thống <br /> cửa hàng</Text>
-                    </HStack>
-                </Link>
-                <Link href={'/member/histories'}>
-                    <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
-                        <FaShippingFast size='25px' />
-                        <Text fontSize='14px' lineHeight='1.3'>Lịch sử <br /> đơn hàng</Text>
-                    </HStack>
-                </Link>
+                <HStack spacing='5' display={{ md: 'flex', base: 'none' }}>
+                    <Link href={'tel:+0814201002'}>
+                        <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
+                            <MdOutlinePhoneInTalk size='25px' />
+                            <Text fontSize='14px' lineHeight='1.3'>Gọi mua hàng <br /> 1800.6759</Text>
+                        </HStack>
+                    </Link>
+                    <Link href={'/stores'}>
+                        <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
+                            <FiMapPin size='25px' />
+                            <Text fontSize='14px' lineHeight='1.3'>Hệ thống <br /> cửa hàng</Text>
+                        </HStack>
+                    </Link>
+                    <Link href={'/member/histories'}>
+                        <HStack _hover={{ bg: 'blackAlpha.300' }} py='1' px='3' borderRadius='10px' cursor='pointer'>
+                            <FaShippingFast size='25px' />
+                            <Text fontSize='14px' lineHeight='1.3'>Lịch sử <br /> đơn hàng</Text>
+                        </HStack>
+                    </Link>
+                </HStack>
                 <HStack>
                     <Link href={'/cart'}>
                         <HStack _hover={{ bg: 'blackAlpha.300' }} px='3' py='1' borderRadius='10px' cursor='pointer'>

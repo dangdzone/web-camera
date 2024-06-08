@@ -39,7 +39,6 @@ export const ResolutionModal = ({ resolution, onClose }: ResolutionModal) => {
             isOpen={true}
             size={'2xl'}
             onClose={onClose}
-            scrollBehavior={'inside'}
         >
             <ModalOverlay />
             <ModalContent mx='2' borderRadius='15px'>

@@ -22,7 +22,7 @@ export const BrandPage = () => {
                     <BrandModal onClose={() => set_active_brand(null)} brand={active_brand} />
                 )
             }
-            <SimpleGrid w='full' spacing='4' columns={[4, 5, 6, 7]}>
+            <SimpleGrid w='full' spacing='4' columns={[2, 4, 5, 6, 7]}>
                 {
                     $brands.items.map(brand => (
                         <BrandItem key={brand.id} brand={brand} onClick={() => set_active_brand(brand)} />

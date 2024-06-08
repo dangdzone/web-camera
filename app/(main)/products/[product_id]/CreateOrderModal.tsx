@@ -56,7 +56,7 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
             setWards([]);
         }
     }, [selectedDistrict, districts]);
-    
+
     // Tổng tiền
     const total = amount * $product.item?.advertising_price
     // Tổng tiền phải thanh toán (tạm tính)
@@ -120,12 +120,12 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                             <Stack w='full' flexDir='row' spacing='4' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
                                 <Image boxSize="90px" src={$product.item?.image} />
                                 <Stack w='full' spacing='0'>
-                                    <Text fontWeight='700' fontSize='18px'>{$product.item?.name}</Text>
+                                    <Text fontWeight='700' fontSize='18px' >{$product.item?.name}</Text>
                                     <HStack fontSize='14px'>
                                         <Text>Mã sản phẩm :</Text>
                                         <Text>{$product.item?.code}</Text>
                                     </HStack>
-                                    <Stack w='full' flexDirection='row' justifyContent='space-between'>
+                                    <Stack w='full' flexDirection={{ base: 'column', md: 'row' }} justifyContent='space-between'>
                                         <HStack>
                                             <Text fontWeight='700' color='red.500'>{$product.item?.price.toLocaleString()}đ</Text>
                                             <Text textDecoration='line-through' color='blackAlpha.700' fontSize='14px'>{$product.item?.advertising_price.toLocaleString()}đ</Text>
@@ -165,7 +165,7 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                                 <Stack w='full' spacing='3'>
                                     <Text>Thông tin nhận hàng</Text>
                                     <Stack w='full' px='4' py='7' borderRadius='10px' spacing='7' border='1px' borderColor='blackAlpha.200'>
-                                        <HStack w='full' spacing='4'>
+                                        <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
                                             <Stack w='full' spacing='0'>
                                                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TÊN NGƯỜI NHẬN</Text>
                                                 <Input variant='flushed' {...$order.register('receiver_info.receiver_name', { required: true })} onFocus={e => e.target.select()} />
@@ -174,46 +174,46 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                                                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SĐT NGƯỜI NHẬN</Text>
                                                 <Input variant='flushed' {...$order.register('receiver_info.receiver_phone', { required: true, valueAsNumber: true })} onFocus={e => e.target.select()} />
                                             </Stack>
-                                        </HStack>
-                                        <HStack w='full' spacing='4'>
-                                <Stack w='full'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TỈNH / THÀNH PHỐ</Text>
-                                    <Select variant='flushed' placeholder="Chọn Tỉnh/Thành phố" {...$order.register('receiver_info.province', { required: true })}>
-                                        {provinces.map((province) => (
-                                            <option key={province.level1_id} value={province.level1_id}>
-                                                {province.name}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                </Stack>
-                                <Stack w='full'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>QUẬN / HUYỆN</Text>
-                                    <Select variant='flushed' placeholder="Chọn Quận/Huyện" {...$order.register('receiver_info.district', { required: true })} disabled={!districts.length}>
-                                        {districts.map((district) => (
-                                            <option key={district.level2_id} value={district.level2_id}>
-                                                {district.name}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                </Stack>
-                            </HStack>
+                                        </Stack>
+                                        <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
+                                            <Stack w='full'>
+                                                <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TỈNH / THÀNH PHỐ</Text>
+                                                <Select variant='flushed' placeholder="Chọn Tỉnh/Thành phố" {...$order.register('receiver_info.province', { required: true })}>
+                                                    {provinces.map((province) => (
+                                                        <option key={province.level1_id} value={province.level1_id}>
+                                                            {province.name}
+                                                        </option>
+                                                    ))}
+                                                </Select>
+                                            </Stack>
+                                            <Stack w='full'>
+                                                <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>QUẬN / HUYỆN</Text>
+                                                <Select variant='flushed' placeholder="Chọn Quận/Huyện" {...$order.register('receiver_info.district', { required: true })} disabled={!districts.length}>
+                                                    {districts.map((district) => (
+                                                        <option key={district.level2_id} value={district.level2_id}>
+                                                            {district.name}
+                                                        </option>
+                                                    ))}
+                                                </Select>
+                                            </Stack>
+                                        </Stack>
 
-                            <HStack w='full' spacing='4'>
-                                <Stack w='full'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>PHƯỜNG / XÃ</Text>
-                                    <Select variant='flushed' placeholder="Chọn Phường/Xã" {...$order.register('receiver_info.ward', { required: true })} disabled={!wards.length}>
-                                        {wards.map((ward) => (
-                                            <option key={ward.level3_id} value={ward.level3_id}>
-                                                {ward.name}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                </Stack>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SỐ NHÀ / TÊN ĐƯỜNG</Text>
-                                    <Input variant='flushed' {...$order.register('receiver_info.street', { required: true })} onFocus={e => e.target.select()} />
-                                </Stack>
-                            </HStack>
+                                        <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
+                                            <Stack w='full'>
+                                                <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>PHƯỜNG / XÃ</Text>
+                                                <Select variant='flushed' placeholder="Chọn Phường/Xã" {...$order.register('receiver_info.ward', { required: true })} disabled={!wards.length}>
+                                                    {wards.map((ward) => (
+                                                        <option key={ward.level3_id} value={ward.level3_id}>
+                                                            {ward.name}
+                                                        </option>
+                                                    ))}
+                                                </Select>
+                                            </Stack>
+                                            <Stack w='full' spacing='0'>
+                                                <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SỐ NHÀ / TÊN ĐƯỜNG</Text>
+                                                <Input variant='flushed' {...$order.register('receiver_info.street', { required: true })} onFocus={e => e.target.select()} />
+                                            </Stack>
+                                        </Stack>
                                         <Stack w='full' spacing='0'>
                                             <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
                                             <Input variant='flushed' {...$order.register('receiver_info.note')} onFocus={e => e.target.select()} />

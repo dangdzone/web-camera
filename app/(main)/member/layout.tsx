@@ -14,14 +14,15 @@ export default function MemberLayout({ children }: PropsWithChildren) {
                 { name: 'Trang chủ', href: '/', icon: <RiHome2Line /> },
                 { name: 'Thành viên' },
             ]} />
-            <Stack w='full' flexDirection='row' spacing='5'>
+            <Stack w='full' flexDir={{base: 'column', md: 'row'}} spacing='5'>
                 <Stack minW='250px'>
                     <MemberLink directional={[
                         { name: 'Tổng quan', href: '', icon: <RiHome2Line /> },
                         { name: 'Lịch sử đơn hàng', href: 'histories', icon: <MdListAlt /> },
                     ]} />
                 </Stack>
-                <Divider height={'100%'} orientation='vertical' />
+                <Divider height={'100%'} display={{base: 'none', md: 'flex'}} orientation='vertical' />
+                <Divider display={{base: 'flex', md: 'none'}} />
                 <Stack w='full'>
                     {children}
                 </Stack>

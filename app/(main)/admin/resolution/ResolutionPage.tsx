@@ -22,7 +22,7 @@ export const ResolutionPage = () => {
                     <ResolutionModal resolution={active_resolution} onClose={() => set_active_resolution(null)} />
                 )
             }
-            <SimpleGrid spacing='4' columns={[4, 5, 6, 7]}>
+            <SimpleGrid spacing='4' columns={[1, 2, 4, 5, 6]}>
                 {
                     $resolutions.items.map(resolution => (
                         <ResolutionItem key={resolution.id} resolution={resolution} onClick={() => set_active_resolution(resolution)} />

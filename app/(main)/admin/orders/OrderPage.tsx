@@ -96,17 +96,19 @@ export const OrderPage = () => {
                     <OrderItemModal onClose={() => set_active_modal(null)} order={active_order} />
                 )
             }
-            <HStack w='full' justifyContent='space-between'>
-                <SearchBox
-                    placeholder={'Tìm kiếm đơn hàng...'}
-                    onSearch={value => $orders.filter({
-                        ...$orders.filters,
-                        "_id:like": value,
-                        "status:like": value,
-                        "code:like": value,
-                    })}
-                />
-                <Select borderRadius='10px' w={{ base: '50%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
+            <Stack w='full' justifyContent='flex-end' spacing='4' flexDir={{ base: 'column', md: 'row' }}>
+                <HStack w={{ base: '100%', md: '40%' }}>
+                    <SearchBox
+                        placeholder={'Tìm kiếm đơn hàng...'}
+                        onSearch={value => $orders.filter({
+                            ...$orders.filters,
+                            "_id:like": value,
+                            "status:like": value,
+                            "code:like": value,
+                        })}
+                    />
+                </HStack>
+                <Select borderRadius='10px' w={{ base: '100%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
                     <option value='all' >Tất cả các ngày</option>
                     <option value='today'>Hôm nay</option>
                     <option value='yesterday'>Hôm qua</option>
@@ -117,7 +119,7 @@ export const OrderPage = () => {
                     <option value='this_year'>Năm nay</option>
                     <option value='last_year'>Năm ngoái</option>
                 </Select>
-            </HStack>
+            </Stack>
             <Wrap spacing={{ base: '2', md: '4' }} w='full' >
                 <Button
                     colorScheme={!$orders.filters.status ? 'red' : 'gray'}

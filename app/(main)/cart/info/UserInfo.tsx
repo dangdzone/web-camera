@@ -7,7 +7,7 @@ export const UserInfo = () => {
     const { fuser } = useFirebaseUserContext()
 
     return (
-        <Stack w='full' p='4' borderRadius='10px' spacing='24' flexDirection='row' border='1px' borderColor='blackAlpha.200' bg='blackAlpha.50'>
+        <Stack w='full' p='4' borderRadius='10px' spacing={{base: '4', md: '24'}} flexDirection={{base: 'column', md: 'row'}} border='1px' borderColor='blackAlpha.200' bg='blackAlpha.50'>
             <Stack spacing='1'>
                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TÊN</Text>
                 <Text fontWeight='600'>{fuser?.displayName}</Text>

@@ -20,20 +20,20 @@ export const OrderItem = ({ order, onClick }: OrderItem) => {
     const status_order = Object.entries(OrderStatusMap).filter(([status,]) => status == order.status).map(([status_id, { color, name }]) => [{ name, color }])[0]
 
     return (
-        <Stack w='full' spacing='4' flexDirection='row' p='4' border='1px' borderColor='blackAlpha.100' borderRadius='10px'>
+        <Stack w='full' spacing='4' flexDir={{ base: 'column', md: 'row' }} p='4' border='1px' borderColor='blackAlpha.100' borderRadius='10px'>
             <Box minW='90px'>
-                <Image maxH='90px' src={$product?.image} />
+                <Image maxH={{ base: '150px', md: '90px' }} src={$product?.image} />
             </Box>
             <Stack w='full'>
-                <Stack w='full' flexDir='row' justifyContent='space-between'>
+                <Stack w='full' flexDir={{ base: 'column', md: 'row' }} justifyContent='space-between'>
                     <Text fontWeight='600'>{$product?.name} - ({order?.amount})</Text>
                     <Text fontSize='13px'>{dayjs(order?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
                 </Stack>
-                <HStack>
-                    <Tag size='sm' colorScheme='orange'>{order?.code}</Tag>
-                    <Tag size='sm' colorScheme={status_order?.map(a => a.color)[0]}>{status_order?.map(a => a.name)[0]}</Tag>
-                    <Tag size='sm' variant='outline'>{order?.customer_info.email}</Tag>
-                </HStack>
+                <Stack flexDir={{ base: 'column', md: 'row' }}>
+                    <HStack><Tag size='sm' colorScheme='orange'>{order?.code}</Tag></HStack>
+                    <HStack><Tag size='sm' colorScheme={status_order?.map(a => a.color)[0]}>{status_order?.map(a => a.name)[0]}</Tag></HStack>
+                    <HStack><Tag size='sm' variant='outline'>{order?.customer_info.email}</Tag></HStack>
+                </Stack>
                 <HStack w='full' justifyContent='space-between'>
                     <Text fontWeight='700' color='red.500'>{order?.pay.toLocaleString()}đ</Text>
                     <Button size='xs' variant='outline' colorScheme='red' onClick={onClick}>Xem chi tiết</Button>

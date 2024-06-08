@@ -99,13 +99,13 @@ export default function HistoryPage() {
                     statisticalOrder.map((item, i) => (
                         <VStack w='full' key={i}>
                             <Text fontSize='25px' fontWeight='800'>{item.value?.toLocaleString()}{item.unit}</Text>
-                            <Text>{item.name}</Text>
+                            <Text textAlign='center'>{item.name}</Text>
                         </VStack>
                     ))
                 }
             </HStack>
-            <HStack w='full' justifyContent='flex-end'>
-                <HStack w='40%'>
+            <Stack w='full' justifyContent={{ base: 'center', md: 'flex-end' }} flexDir={{ base: 'column', md: 'row' }}>
+                <HStack w={{ base: '100%', md: '40%' }}>
                     <SearchBox
                         placeholder={'Tìm kiếm đơn hàng...'}
                         onSearch={value => $orders.filter({
@@ -116,7 +116,7 @@ export default function HistoryPage() {
                         })}
                     />
                 </HStack>
-                <Select borderRadius='10px' w={{ base: '50%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
+                <Select borderRadius='10px' w={{ base: '100%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
                     <option value='all' >Tất cả các ngày</option>
                     <option value='today'>Hôm nay</option>
                     <option value='yesterday'>Hôm qua</option>
@@ -127,7 +127,7 @@ export default function HistoryPage() {
                     <option value='this_year'>Năm nay</option>
                     <option value='last_year'>Năm ngoái</option>
                 </Select>
-            </HStack>
+            </Stack>
             <Wrap spacing={{ base: '2', md: '4' }} w='full' >
                 <Button
                     colorScheme={!$orders.filters.status ? 'red' : 'gray'}

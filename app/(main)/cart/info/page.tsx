@@ -142,7 +142,7 @@ export default function InfoPage() {
                         <Text>Thông tin nhận hàng</Text>
                         <Stack w='full' px='4' py='7' borderRadius='10px' spacing='7' border='1px' borderColor='blackAlpha.200'>
                             {/* <pre>{JSON.stringify($order.watch(), null, 2)}</pre> */}
-                            <HStack w='full' spacing='4'>
+                            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
                                 <Stack w='full' spacing='0'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TÊN NGƯỜI NHẬN</Text>
                                     <Input variant='flushed' {...$order.register('receiver_info.receiver_name', { required: true })} onFocus={e => e.target.select()} />
@@ -151,8 +151,8 @@ export default function InfoPage() {
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SĐT NGƯỜI NHẬN</Text>
                                     <Input variant='flushed' {...$order.register('receiver_info.receiver_phone', { required: true, valueAsNumber: true })} onFocus={e => e.target.select()} />
                                 </Stack>
-                            </HStack>
-                            <HStack w='full' spacing='4'>
+                            </Stack>
+                            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
                                 <Stack w='full'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TỈNH / THÀNH PHỐ</Text>
                                     <Select variant='flushed' placeholder="Chọn Tỉnh/Thành phố" {...$order.register('receiver_info.province', { required: true })}>
@@ -173,9 +173,9 @@ export default function InfoPage() {
                                         ))}
                                     </Select>
                                 </Stack>
-                            </HStack>
+                            </Stack>
 
-                            <HStack w='full' spacing='4'>
+                            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
                                 <Stack w='full'>
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>PHƯỜNG / XÃ</Text>
                                     <Select variant='flushed' placeholder="Chọn Phường/Xã" {...$order.register('receiver_info.ward', { required: true })} disabled={!wards.length}>
@@ -190,7 +190,7 @@ export default function InfoPage() {
                                     <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SỐ NHÀ / TÊN ĐƯỜNG</Text>
                                     <Input variant='flushed' {...$order.register('receiver_info.street', { required: true })} onFocus={e => e.target.select()} />
                                 </Stack>
-                            </HStack>
+                            </Stack>
                             <Stack w='full' spacing='0'>
                                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
                                 <Input variant='flushed' {...$order.register('receiver_info.note')} onFocus={e => e.target.select()} />

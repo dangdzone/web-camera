@@ -53,22 +53,22 @@ export default function AdminPage() {
                 </TabList>
                 <TabIndicator mt='-1.5px' height='3px' bg='teal.500' borderRadius='full' />
                 <TabPanels p='0'>
-                    <TabPanel py='7' px='4'>
+                    <TabPanel py='7' px={{base: '2', md: '4'}}>
                         <StatisticalPage />
                     </TabPanel>
-                    <TabPanel py='7' px='4'>
+                    <TabPanel py='7' px={{base: '2', md: '4'}}>
                         <OrderPage />
                     </TabPanel>
-                    <TabPanel py='7' px='4'>
+                    <TabPanel py='7' px={{base: '2', md: '4'}}>
                         <CategoryProductPage />
                     </TabPanel>
-                    <TabPanel py='7' px='4'>
+                    <TabPanel py='7' px={{base: '2', md: '4'}}>
                         <ResolutionPage />
                     </TabPanel>
-                    <TabPanel py='7' px='4'>
+                    <TabPanel py='7' px={{base: '2', md: '4'}}>
                         <BrandPage />
                     </TabPanel>
-                    <TabPanel py='7' px='4'>
+                    <TabPanel py='7' px={{base: '2', md: '4'}}>
                         <StorePage />
                     </TabPanel>
                 </TabPanels>

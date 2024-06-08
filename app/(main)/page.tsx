@@ -24,7 +24,7 @@ export default function MainPage() {
 
     return (
         <VStack w='full' spacing='7' py='5'>
-            <SimpleGrid w='full' spacing='2' columns={[2]}>
+            <SimpleGrid w='full' spacing='2' columns={[1, 1, 2, 2]}>
                 <Image borderRadius='10px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r50.png' />
                 <Image borderRadius='10px' src='https://cdn2.cellphones.com.vn/insecure/rs:fill:595:100/q:80/plain/https://dashboard.cellphones.com.vn/storage/r100.png' />
             </SimpleGrid>
@@ -54,36 +54,38 @@ export default function MainPage() {
                     }
                 </HStack>
             </Stack>
-            <HStack w='full' spacing='5' flexDir='row'>
-                <Text fontWeight='700'>Độ phân giải</Text>
-                <Select w='30%' borderRadius='10px'
-                    onChange={(e) => {
-                        if (e.target.value == 'all') {
-                            $products.filter({
-                                ...$products.filters,
-                                resolution_id: undefined
-                            })
-                        } else {
-                            $products.filter({
-                                ...$products.filters,
-                                resolution_id: e.target.value
-                            })
+            <HStack w='full' spacing='5' flexDir='row' flexWrap='wrap'>
+                <HStack w='full' spacing='5'>
+                    <Text fontWeight='700' whiteSpace='nowrap'>Độ phân giải</Text>
+                    <Select w={{ base: '100%', md: '30%' }} borderRadius='10px'
+                        onChange={(e) => {
+                            if (e.target.value == 'all') {
+                                $products.filter({
+                                    ...$products.filters,
+                                    resolution_id: undefined
+                                })
+                            } else {
+                                $products.filter({
+                                    ...$products.filters,
+                                    resolution_id: e.target.value
+                                })
+                            }
+                        }}
+                    >
+                        <option value='all'>Tất cả</option>
+                        {
+                            $resolutions.items.map(resolution => (
+                                <option
+                                    key={resolution.id}
+                                    value={resolution.id}
+                                >
+                                    {resolution.name}
+                                </option>
+                            ))
                         }
-                    }}
-                >
-                    <option value='all'>Tất cả</option>
-                    {
-                        $resolutions.items.map(resolution => (
-                            <option
-                                key={resolution.id}
-                                value={resolution.id}
-                            >
-                                {resolution.name}
-                            </option>
-                        ))
-                    }
-                </Select>
-                <HStack w='40%'>
+                    </Select>
+                </HStack>
+                <HStack w={{ base: '100%', md: '40%' }}>
                     <SearchBox
                         placeholder={'Tìm kiếm sản phẩm...'}
                         onSearch={value => $products.filter({
