@@ -13,7 +13,7 @@ export default function AdminPage() {
 
     const [selectedTabIndex, setSelectedTabIndex] = useState(0);
     const [loadedFromStorage, setLoadedFromStorage] = useState(false);
-    const {  is_owner } = usePermissionsContext()
+    const { is_editor } = usePermissionsContext()
 
     useEffect(() => {
         const tabFromStorage = localStorage.getItem('selectedTabIndex');
@@ -34,7 +34,7 @@ export default function AdminPage() {
         setSelectedTabIndex(index);
     };
 
-    return is_owner && (
+    return is_editor && (
         <Tabs w='full' variant='unstyled' position='relative' index={selectedTabIndex} onChange={handleTabChange}>
             <TabList pt='5' w='full' minW='10px' overflowX={{ base: 'scroll', md: 'auto' }}>
                 <Tab fontWeight='600' whiteSpace='nowrap'>Thống kê</Tab>

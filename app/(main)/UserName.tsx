@@ -11,7 +11,7 @@ import { RiHome4Line, RiLogoutCircleRLine } from "react-icons/ri"
 export const UserName = () => {
 
     const { fuser } = useFirebaseUserContext()
-    const { is_owner } = usePermissionsContext()
+    const { is_editor } = usePermissionsContext()
     const router = useRouter()
     const logout = async () => {
         await signOut(auth)
@@ -74,7 +74,7 @@ export const UserName = () => {
                         </Button>
                     </Link>
                     {
-                        is_owner && (
+                        is_editor && (
                             <Link href={`/admin`} style={{ width: '100%' }}>
                                 <Button
                                     w='full'
