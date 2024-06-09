@@ -1,10 +1,10 @@
 import { HStack, SimpleGrid, Stack, VStack } from "@chakra-ui/layout"
-import { Button, Skeleton } from "@chakra-ui/react"
+import { Button, Select, Skeleton } from "@chakra-ui/react"
 import { FiPlus } from "react-icons/fi"
 import { ProductItem } from "./ProductItem"
 import { useState } from "react"
 import { SmartQueryItem } from "@livequery/client"
-import { Product } from "@/type"
+import { Brand, Product } from "@/type"
 import { useCollectionData } from "@livequery/react"
 import { ProductModal } from "./ProductModal"
 import { SearchBox } from "@/components/common/SearchBox"
@@ -15,11 +15,13 @@ export const ProductList = () => {
     const { fuser } = useFirebaseUserContext()
     const [active_product, set_active_product] = useState<undefined | null | SmartQueryItem<Product>>(null)
     const $products = useCollectionData<Product>(fuser && 'products')
+    const $brands = useCollectionData<Brand>('brands')
+    const $categories = useCollectionData<Brand>('categories')
 
     return (
         <Stack w='full' spacing='7'>
             <Stack w='full' flexDir={{ base: 'column', md: 'row' }}>
-                <HStack w={{ base: '100%', md: '40%' }}>
+                <HStack w={{ base: '100%', md: '30%' }}>
                     <SearchBox
                         placeholder={'Tìm kiếm sản phẩm...'}
                         onSearch={value => $products.filter({
@@ -30,12 +32,67 @@ export const ProductList = () => {
                         })}
                     />
                 </HStack>
-                <HStack>
-                    <Button w='full' variant='outline' borderRadius='10px' isDisabled>Giá tăng dần</Button>
-                    <Button w='full' variant='outline' borderRadius='10px' isDisabled>Giá giảm dần</Button>
-                </HStack>
-                <Button variant='outline' borderRadius='10px' leftIcon={<FiPlus />} onClick={() => set_active_product(undefined)}>Thêm sản phẩm</Button>
+                <Select
+                    w={{ base: '100%', md: '25%' }}
+                    borderRadius='10px'
+                    onChange={(e) => {
+                        if (e.target.value == 'all') {
+                            $products.filter({
+                                ...$products.filters,
+                                category_id: undefined
+                            })
+                        } else {
+                            $products.filter({
+                                ...$products.filters,
+                                category_id: e.target.value
+                            })
+                        }
+                    }}
+                >
+                    <option value='all'>Tất cả danh mục</option>
+                    {
+                        $categories.items.map(categorie => (
+                            <option
+                                key={categorie.id}
+                                value={categorie.id}
+                            >
+                                {categorie.name}
+                            </option>
+                        ))
+                    }
+                </Select>
+                <Select
+                    w={{ base: '100%', md: '25%' }}
+                    borderRadius='10px'
+                    onChange={(e) => {
+                        if (e.target.value == 'all') {
+                            $products.filter({
+                                ...$products.filters,
+                                brand_id: undefined
+                            })
+                        } else {
+                            $products.filter({
+                                ...$products.filters,
+                                brand_id: e.target.value
+                            })
+                        }
+                    }}
+                >
+                    <option value='all'>Tất cả thương hiệu</option>
+                    {
+                        $brands.items.map(brand => (
+                            <option
+                                key={brand.id}
+                                value={brand.id}
+                            >
+                                {brand.name}
+                            </option>
+                        ))
+                    }
+                </Select>
+                <Button borderRadius='10px' colorScheme='red' leftIcon={<FiPlus />} onClick={() => set_active_product(undefined)}>Thêm sản phẩm</Button>
             </Stack>
+
             {
                 active_product !== null && (
                     <ProductModal onClose={() => set_active_product(null)} product={active_product} />
