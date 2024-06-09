@@ -54,10 +54,10 @@ export default function MainPage() {
                     }
                 </HStack>
             </Stack>
-            <HStack w='full' spacing='5' flexDir={{base: 'column', md: 'row'}} flexWrap='wrap'>
-                <HStack w='full' spacing='5'>
+            <HStack w='full' spacing='5' flexDir={{base: 'column', md: 'row'}}>
+                <HStack spacing='5' w={{ base: '100%', md: '50%' }}>
                     <Text fontWeight='700' whiteSpace='nowrap'>Độ phân giải</Text>
-                    <Select w={{ base: '100%', md: '30%' }} borderRadius='10px'
+                    <Select borderRadius='10px'
                         onChange={(e) => {
                             if (e.target.value == 'all') {
                                 $products.filter({
@@ -85,7 +85,7 @@ export default function MainPage() {
                         }
                     </Select>
                 </HStack>
-                <HStack w={{ base: '100%', md: '40%' }}>
+                <HStack w={{ base: '100%', md: '50%' }}>
                     <SearchBox
                         placeholder={'Tìm kiếm sản phẩm...'}
                         onSearch={value => $products.filter({
