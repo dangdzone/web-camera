@@ -16,9 +16,9 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <head>
-        <title>Camera - Thương mại điện tử</title>
+        <title>FlyGo - Thương mại điện tử</title>
         <meta name='description' content='Camera - Thương mại điện tử' />
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/7779/7779866.png" />
+        <link rel="icon" href="https://www.flygo-aviation.com/wp-content/uploads/2021/08/flygo-logo-trp-big.png" />
       </head>
       <body className={font.className} suppressHydrationWarning>
         <ClientProviderList>

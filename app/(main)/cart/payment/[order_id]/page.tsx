@@ -44,7 +44,7 @@ export default function OrderPage() {
                 window.location.href = result?.data.item.url
             }
         } catch (e) {
-            new Error('Đã xảy ra lỗi, vui lòng thử lại !')
+            throw new Error('Đã xảy ra lỗi, vui lòng thử lại !')
         }
     }
 
