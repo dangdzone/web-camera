@@ -30,7 +30,7 @@ export const ProductList = () => {
                         })}
                     />
                 </HStack>
-                <HStack w='full'>
+                <HStack>
                     <Button w='full' variant='outline' borderRadius='10px' isDisabled>Giá tăng dần</Button>
                     <Button w='full' variant='outline' borderRadius='10px' isDisabled>Giá giảm dần</Button>
                 </HStack>
