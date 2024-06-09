@@ -54,7 +54,7 @@ export default function MainPage() {
                     }
                 </HStack>
             </Stack>
-            <HStack w='full' spacing='5' flexDir='row' flexWrap='wrap'>
+            <HStack w='full' spacing='5' flexDir={{base: 'column', md: 'row'}} flexWrap='wrap'>
                 <HStack w='full' spacing='5'>
                     <Text fontWeight='700' whiteSpace='nowrap'>Độ phân giải</Text>
                     <Select w={{ base: '100%', md: '30%' }} borderRadius='10px'
