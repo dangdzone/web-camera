@@ -102,16 +102,16 @@ export default function MainPage() {
             {$products.empty && <Text fontWeight='500'>Chưa có sản phẩm...</Text>}
             {
                 $categories.items.map(category => {
-                    const products = $products.items.filter(a => a.category_id == category.id)
-                    return products.length > 0 && (
+                    const $$products = products.filter(a => a.category_id == category.id)
+                    return $$products.length > 0 && (
                         <Stack w='full' spacing='4'>
                             <HStack w='full' justifyContent='space-between'>
-                                <Text fontWeight='700' whiteSpace='nowrap'>{category.name}</Text>
+                                <Text fontWeight='700' whiteSpace='nowrap'>{category.name} ({$$products.length})</Text>
                                 <Divider w='90%' />
                             </HStack>
                             <SimpleGrid w='full' spacing='4' columns={[1, 2, 3, 4]}>
                                 {
-                                    products.map(product => (
+                                    $$products.map(product => (
                                         <ProductItemBox product={product} key={product.id} />
                                     ))
                                 }

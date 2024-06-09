@@ -30,12 +30,15 @@ export const MainPageLoading = () => {
         //         </HStack>
         //     </Stack>
         // </Stack>
-        <SimpleGrid w='full' spacing='4' columns={[1, 2, 3, 4]}>
-            {
-                new Array(4).fill(0).map((_, i) => (
-                    <Skeleton key={i} w='full' height='350px' borderRadius='10px' />
-                ))
-            }
-        </SimpleGrid>
+        <Stack w='full' spacing='4'>
+            <Skeleton w='full' height='25px' borderRadius='10px' />
+            <SimpleGrid w='full' spacing='4' columns={[1, 2, 3, 4]}>
+                {
+                    new Array(4).fill(0).map((_, i) => (
+                        <Skeleton key={i} w='full' height='350px' borderRadius='10px' />
+                    ))
+                }
+            </SimpleGrid>
+        </Stack>
     )
 }
