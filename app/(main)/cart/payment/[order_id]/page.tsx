@@ -59,7 +59,7 @@ export default function OrderPage() {
 
         <VStack w='full' spacing='5'>
             {
-                active_vietqr && <VietQRModal onClose={() => set_active_vietqr(false)} order={order} />
+                active_vietqr && order.status == 'created' &&  <VietQRModal onClose={() => set_active_vietqr(false)} order={order} />
             }
             <VStack w='full'>
                 {

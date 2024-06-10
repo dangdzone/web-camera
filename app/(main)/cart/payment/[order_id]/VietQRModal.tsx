@@ -9,10 +9,10 @@ export type VietQRModal = {
 
 export const VietQRModal = ({ onClose, order }: VietQRModal) => {
 
-    const BANK_ID = 'vietcombank'
+    const BANK_ID = 'VCB'
     const ACCOUNT_NO = '9814201002'
     const ACCOUNT_NAME = 'NGUYEN%VAN%DANG'
-    const DESCRIPTION = order?.id
+    const DESCRIPTION = order?.code
 
     return (
         <Modal isOpen={true} onClose={onClose} size={'2xl'}>
@@ -27,7 +27,7 @@ export const VietQRModal = ({ onClose, order }: VietQRModal) => {
                 </ModalBody>
                 <ModalFooter p={{ base: '2', md: '4' }}>
                     <VStack w='full'>
-                        <Button variant='ghost' colorScheme='red'>Đóng</Button>
+                        <Button variant='ghost' borderRadius='10px' onClick={onClose} colorScheme='red'>Đóng</Button>
                     </VStack>
                 </ModalFooter>
             </ModalContent>
