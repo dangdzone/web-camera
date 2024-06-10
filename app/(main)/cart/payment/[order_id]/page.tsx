@@ -9,6 +9,8 @@ import { Button, Select, Spinner } from "@chakra-ui/react"
 import { ReceiverInfo } from "./ReceiverInfo"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { useState } from "react"
+import { VietQRModal } from "./VietQRModal"
+import { SmartQueryItem } from "@livequery/client"
 
 export default function OrderPage() {
 
@@ -16,6 +18,7 @@ export default function OrderPage() {
     const { fuser } = useFirebaseUserContext()
     const { item: order, loading } = useDocumentData<Order>(fuser && `customers/${fuser.uid}/orders/${params.order_id}`)
     const [type, set_type] = useState<string>('momo')
+    const [active_vietqr, set_active_vietqr] = useState<boolean | SmartQueryItem<Order>>(false)
 
     if (loading || !order) return (
         <Center w='full' minH='300px'>
@@ -33,15 +36,19 @@ export default function OrderPage() {
 
     const pay = async () => {
         try {
-            const result = await order.__trigger('pay', { type }) as {
-                data: {
-                    item: {
-                        url: string
+            if (type == 'vietqr') {
+                set_active_vietqr(true)
+            } else {
+                const result = await order.__trigger('pay', { type }) as {
+                    data: {
+                        item: {
+                            url: string
+                        }
                     }
                 }
-            }
-            if (result?.data.item.url) {
-                window.location.href = result?.data.item.url
+                if (result?.data.item.url) {
+                    window.location.href = result?.data.item.url
+                }
             }
         } catch (e) {
             throw new Error('Đã xảy ra lỗi, vui lòng thử lại !')
@@ -51,6 +58,9 @@ export default function OrderPage() {
     return fuser && (
 
         <VStack w='full' spacing='5'>
+            {
+                active_vietqr && <VietQRModal onClose={() => set_active_vietqr(false)} order={order} />
+            }
             <VStack w='full'>
                 {
                     order.order_items.map((order, i) => (
@@ -85,7 +95,7 @@ export default function OrderPage() {
                                 <option value='momo'>Ví momo</option>
                                 <option value='zalo'>Zalo pay</option>
                                 <option value='ninepay'>9pay</option>
-                                {/* <option value='option3'>Chuyển khoản ngân hàng</option> */}
+                                <option value='vietqr'>Chuyển khoản ngân hàng</option>
                             </Select>
                         </VStack>
                     </Stack>
