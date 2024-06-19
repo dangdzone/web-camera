@@ -67,7 +67,13 @@ export default function OrderIdPage(props: {
             </Stack>
             <Stack w='full'>
                 <Text fontWeight='600'>Thông tin nhận hàng</Text>
-                <ReceiverInfo receiver={$order_item?.receiver_info} />
+                <ReceiverInfo address_id={$order_item?.address_id} />
+            </Stack>
+            <Stack w='full'>
+                <Text fontWeight='600'>Ghi chú</Text>
+                <Stack w='full' border='1px' spacing='4' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
+                    <Text>{$order_item?.note ? $order_item?.note : 'Không có'}</Text>
+                </Stack>
             </Stack>
             <VStack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4' spacing='4'>
                 {

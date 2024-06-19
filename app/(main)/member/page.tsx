@@ -23,16 +23,16 @@ export default function MemberPage() {
         <Stack w='full' spacing='7'>
             <VStack w='full'>
                 <Image border='2px' borderColor='#8E00FF' sizes='90px' borderRadius='full' src={fuser?.photoURL || ''} />
-                <VStack spacing='0'>
+                <VStack >
                     <Text fontSize='18px' fontWeight='700' color='#8D00FF'>{fuser?.displayName}</Text>
                     <Text>Email: {fuser?.email}</Text>
                     <VStack>
-                        <HStack>
+                        {/* <HStack>
                             <Text color='blackAlpha.700' fontSize='14px'>ID: {fuser?.uid}</Text>
                             <Button size='xs' variant='outline' onClick={onCopy} colorScheme='messenger'>
                                 {hasCopied ? <FaCheck /> : <FaRegCopy />}
                             </Button>
-                        </HStack>
+                        </HStack> */}
                         <Box><Tag size='sm' colorScheme='red' variant='outline'>Thành viên</Tag></Box>
                     </VStack>
                 </VStack>

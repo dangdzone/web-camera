@@ -70,7 +70,7 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                     <ModalBody px={{ base: '2', md: '4' }} py='6'>
                         <Stack w='full' spacing='7'>
                             <Stack w='full' spacing='4'>
-                                <Stack w='full' spacing='4' justifyContent='space-between' flexDirection={{base: 'column', md: 'row'}}>
+                                <Stack w='full' spacing='4' justifyContent='space-between' flexDirection={{ base: 'column', md: 'row' }}>
                                     <HStack>
                                         <Text fontSize='15px'>Mã đơn hàng:</Text>
                                         <Text fontWeight='700'>{order?.code}</Text>
@@ -82,7 +82,7 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                                     }
                                     {
                                         order?.status == 'created' && (
-                                            <FormControl isRequired w={{base: '100%', md: '40%'}}>
+                                            <FormControl isRequired w={{ base: '100%', md: '40%' }}>
                                                 <Select
                                                     alignSelf='center'
                                                     borderRadius='10px'
@@ -118,7 +118,13 @@ export const OrderItemModal = ({ onClose, order }: OrderItemModal) => {
                             </Stack>
                             <Stack w='full'>
                                 <Text fontWeight='600'>Thông tin nhận hàng</Text>
-                                <ReceiverInfo receiver={order?.receiver_info} />
+                                <ReceiverInfo address_id={order?.address_id} />
+                            </Stack>
+                            <Stack w='full'>
+                                <Text fontWeight='600'>Ghi chú</Text>
+                                <Stack w='full' border='1px' spacing='4' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
+                                    <Text>{order?.note ? order?.note : 'Không có'}</Text>
+                                </Stack>
                             </Stack>
                             <VStack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4' spacing='4'>
                                 {

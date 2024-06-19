@@ -1,32 +1,29 @@
 
 import { FindLocationNames } from "@/components/common/FindLocationNames"
+import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
+import { Address } from "@/type"
 import { HStack, Text, VStack } from "@chakra-ui/layout"
+import { useDocumentData } from "@livequery/react"
 
 export type ReceiverInfo = {
-    receiver: {
-        receiver_name: string // Tên người nhận
-        receiver_phone: number // sdt người nhận
-        province: number | string // Tỉnh
-        district: number | string // huyện
-        ward: number | string // Phường, xã
-        street: number | string // Số nhà, tên đường
-        note: string // ghi chú
-    }
+    address_id: string
 }
 
-export const ReceiverInfo = ({ receiver }: ReceiverInfo) => {
+export const ReceiverInfo = ({ address_id }: ReceiverInfo) => {
 
-    const provinceId = `${receiver?.province}`
-    const districtId = `${receiver?.district}`
-    const wardId = `${receiver?.ward}`
+    const { fuser } = useFirebaseUserContext()
+    const { item: address } = useDocumentData<Address>(address_id && `customers/${fuser?.uid}/addresses/${address_id}`)
+
+    const provinceId = `${address?.province}`
+    const districtId = `${address?.district}`
+    const wardId = `${address?.ward}`
 
     const locationNames = FindLocationNames(provinceId, districtId, wardId)
 
     const ReceiverList = [
-        { name: 'Khách hàng', value: receiver?.receiver_name },
-        { name: 'Số điện thoại', value: `0${receiver?.receiver_phone}` },
-        { name: 'Nhận hàng tại', value: `${receiver?.street}, ${locationNames.wardName}, ${locationNames.districtName}, ${locationNames.provinceName}` },
-        { name: 'Ghi chú', value: receiver?.note },
+        { name: 'Khách hàng', value: address?.name },
+        { name: 'Số điện thoại', value: `${address?.phone}` },
+        { name: 'Nhận hàng tại', value: `${address?.street}, ${locationNames.wardName}, ${locationNames.districtName}, ${locationNames.provinceName}` },
     ]
 
     return (

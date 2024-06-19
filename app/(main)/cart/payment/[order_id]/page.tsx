@@ -56,10 +56,9 @@ export default function OrderPage() {
     }
 
     return fuser && (
-
         <VStack w='full' spacing='5'>
             {
-                active_vietqr && order.status == 'created' &&  <VietQRModal onClose={() => set_active_vietqr(false)} order={order} />
+                active_vietqr && order.status == 'created' && <VietQRModal onClose={() => set_active_vietqr(false)} order={order} />
             }
             <VStack w='full'>
                 {
@@ -103,7 +102,13 @@ export default function OrderPage() {
             }
             <Stack w='full'>
                 <Text fontWeight='600'>Thông tin nhận hàng</Text>
-                <ReceiverInfo receiver={order.receiver_info} />
+                <ReceiverInfo address_id={order.address_id} />
+            </Stack>
+            <Stack w='full'>
+                <Text fontWeight='600'>Ghi chú</Text>
+                <Stack w='full' border='1px' spacing='4' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
+                    <Text>{order?.note ? order?.note : 'Không có'}</Text>
+                </Stack>
             </Stack>
             <VStack
                 p='4' w='full'

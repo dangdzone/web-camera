@@ -2,18 +2,21 @@
 
 import { DirectionalLink } from "@/components/common/DirectionalLink"
 import { PaymentInfoLink } from "@/components/common/PaymentInfoLink"
-import { Cart, Order, Product } from "@/type"
+import { Address, Cart, Order, Product } from "@/type"
 import { HStack, Stack, Text, VStack } from "@chakra-ui/layout"
-import { useCollectionData, useLiveQueryContext } from "@livequery/react"
+import { useCollectionData, useDocumentData, useLiveQueryContext } from "@livequery/react"
 import { RiHome2Line } from "react-icons/ri"
 import { CartItemInfo } from "./CartItemInfo"
 import { UserInfo } from "./UserInfo"
-import { Button, Input, Select, useToast } from "@chakra-ui/react"
+import { Button, Input, useDisclosure, useToast } from "@chakra-ui/react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
-import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import dvhcvn from '../../../../dvhcvn.json';
+import { FindLocationNames } from "@/components/common/FindLocationNames"
+import { useEffect, useState } from "react"
+import { AddressInfoModal } from "./AddressInfoModal"
+import { AddressModal } from "../../member/addresses/AddressModal"
+import { FiChevronRight, FiPlus } from "react-icons/fi"
 
 export default function InfoPage() {
 
@@ -25,6 +28,36 @@ export default function InfoPage() {
     const { fuser } = useFirebaseUserContext()
     const { items: $carts } = useCollectionData<Cart>(fuser && `customers/${fuser.uid}/carts`)
     const { items: $products } = useCollectionData<Product>('products')
+
+    const { items: $addresses } = useCollectionData<Address>(`customers/${fuser?.uid}/addresses`)
+    const address_id_default = $addresses.find(a => a.default == true)?.id
+    const [address_id, set_address_id] = useState<string>('')
+
+    useEffect(() => {
+        if (address_id_default) {
+            set_address_id(address_id_default)
+        }
+    }, [address_id_default])
+
+    const { item: $$address } = useDocumentData<Address>(address_id && `customers/${fuser?.uid}/addresses/${address_id}`)
+    const provinceId = `${$$address?.province}`
+    const districtId = `${$$address?.district}`
+    const wardId = `${$$address?.ward}`
+    const locationNames = FindLocationNames(provinceId, districtId, wardId)
+
+    const AddressList = [
+        { name: 'Họ và tên', value: $$address?.name },
+        { name: 'Số điện thoại', value: $$address?.phone },
+        { name: 'Địa chỉ', value: `${$$address?.street}, ${locationNames.wardName}, ${locationNames.districtName}, ${locationNames.provinceName}` }
+    ]
+
+    // Modal chọn address_id
+    const $address_modal = useDisclosure()
+    const [active_address_modal, set_active_address_modal] = useState<boolean>(false)
+    const handleSetAddressId = (id: string) => {
+        set_address_id(id);
+    };
+
     // sản phẩm được chọn
     const cart_Select = $carts.filter(cart => cart.select == true)
     // SL sản phẩm được chọn trong giỏ hàng
@@ -50,32 +83,6 @@ export default function InfoPage() {
     const { transporter } = useLiveQueryContext()
     const $order = useForm<Order>()
 
-    const provinces = dvhcvn.data;
-    const [districts, setDistricts] = useState<any[]>([]);
-    const [wards, setWards] = useState<any[]>([]);
-    const selectedProvince = $order.watch("receiver_info.province");
-    const selectedDistrict = $order.watch("receiver_info.district");
-
-    useEffect(() => {
-        if (selectedProvince) {
-            const province = provinces.find(p => p.level1_id === selectedProvince);
-            setDistricts(province?.level2s || []);
-            setWards([]);
-        } else {
-            setDistricts([]);
-            setWards([]);
-        }
-    }, [selectedProvince]);
-
-    useEffect(() => {
-        if (selectedDistrict) {
-            const district = districts.find(d => d.level2_id === selectedDistrict);
-            setWards(district?.level3s || []);
-        } else {
-            setWards([]);
-        }
-    }, [selectedDistrict, districts]);
-
     const toast = useToast()
     const router = useRouter()
     const onSubmit: SubmitHandler<Partial<Order>> = async data => {
@@ -95,16 +102,9 @@ export default function InfoPage() {
                 email: fuser?.email || '',
                 img: fuser?.photoURL || ''
             },
-            receiver_info: {
-                receiver_name: data.receiver_info?.receiver_name || '', // Tên người nhận
-                receiver_phone: data.receiver_info?.receiver_phone || 0, // sdt người nhận
-                province: data.receiver_info?.province || 1, // Tỉnh
-                district: data.receiver_info?.district || 0, // huyện
-                ward: data.receiver_info?.ward || 0, // Phường, xã
-                street: data.receiver_info?.street || 0, // Số nhà, tên đường
-                note: data.receiver_info?.note || '', // ghi chú
-            }
+            address_id: address_id,
         }
+
         const new_order = await transporter.add<Order, { data: { item: Order } }>(`orders`, data_item)
         const order_id = new_order.data.item.id
         const ref = `/cart/payment/${order_id}`
@@ -119,7 +119,8 @@ export default function InfoPage() {
         })
     }
 
-    return (
+    return <>
+        <AddressModal {...$address_modal} />
         <form onSubmit={$order.handleSubmit(onSubmit)} style={{ width: '100%' }}>
             <VStack w='full' spacing='5' py='5'>
                 <DirectionalLink directional={[
@@ -134,6 +135,17 @@ export default function InfoPage() {
                             <CartItemInfo key={cart.id} cart={cart} />
                         ))
                     }
+                    {
+                        active_address_modal && (
+                            <AddressInfoModal
+                                onClose={() => set_active_address_modal(false)}
+                                address={$addresses}
+                                onSetAddressId={handleSetAddressId}
+                                address_id_active={address_id}
+                            />
+                        )
+                    }
+
                     <Stack w='full' spacing='3'>
                         <Text>Thông tin khách khàng</Text>
                         <UserInfo />
@@ -142,58 +154,32 @@ export default function InfoPage() {
                         <Text>Thông tin nhận hàng</Text>
                         <Stack w='full' px='4' py='7' borderRadius='10px' spacing='7' border='1px' borderColor='blackAlpha.200'>
                             {/* <pre>{JSON.stringify($order.watch(), null, 2)}</pre> */}
-                            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TÊN NGƯỜI NHẬN</Text>
-                                    <Input variant='flushed' {...$order.register('receiver_info.receiver_name', { required: true })} onFocus={e => e.target.select()} />
+                            <Stack w='full' spacing='4'>
+                                <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>THÔNG TIN GIAO HÀNG</Text>
+                                <Stack bg='blackAlpha.50' p='2' borderRadius='10px' spacing='1'>
+                                    {
+                                        AddressList.map((item, i) => (
+                                            <Stack fontSize='14px' key={i} flexDir='row'>
+                                                <Text whiteSpace='nowrap'>{item.name} :</Text>
+                                                <Text fontWeight='600' color='red.500'>{item.value}</Text>
+                                            </Stack>
+                                        ))
+                                    }
                                 </Stack>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SĐT NGƯỜI NHẬN</Text>
-                                    <Input variant='flushed' {...$order.register('receiver_info.receiver_phone', { required: true, valueAsNumber: true })} onFocus={e => e.target.select()} />
-                                </Stack>
-                            </Stack>
-                            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
-                                <Stack w='full'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>TỈNH / THÀNH PHỐ</Text>
-                                    <Select variant='flushed' placeholder="Chọn Tỉnh/Thành phố" {...$order.register('receiver_info.province', { required: true })}>
-                                        {provinces.map((province) => (
-                                            <option key={province.level1_id} value={province.level1_id}>
-                                                {province.name}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                </Stack>
-                                <Stack w='full'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>QUẬN / HUYỆN</Text>
-                                    <Select variant='flushed' placeholder="Chọn Quận/Huyện" {...$order.register('receiver_info.district', { required: true })} disabled={!districts.length}>
-                                        {districts.map((district) => (
-                                            <option key={district.level2_id} value={district.level2_id}>
-                                                {district.name}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                </Stack>
-                            </Stack>
-
-                            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
-                                <Stack w='full'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>PHƯỜNG / XÃ</Text>
-                                    <Select variant='flushed' placeholder="Chọn Phường/Xã" {...$order.register('receiver_info.ward', { required: true })} disabled={!wards.length}>
-                                        {wards.map((ward) => (
-                                            <option key={ward.level3_id} value={ward.level3_id}>
-                                                {ward.name}
-                                            </option>
-                                        ))}
-                                    </Select>
-                                </Stack>
-                                <Stack w='full' spacing='0'>
-                                    <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>SỐ NHÀ / TÊN ĐƯỜNG</Text>
-                                    <Input variant='flushed' {...$order.register('receiver_info.street', { required: true })} onFocus={e => e.target.select()} />
-                                </Stack>
+                                {
+                                    $addresses.length > 1 && (
+                                        <Button size='sm' colorScheme='red' rightIcon={<FiChevronRight />} variant='outline' borderRadius='10px' onClick={() => set_active_address_modal(true)}>
+                                            Chọn địa chỉ khác ({$addresses.length})
+                                        </Button>
+                                    )
+                                }
+                                <Button size='sm' variant='outline' leftIcon={<FiPlus />} borderRadius='10px' onClick={$address_modal.onOpen}>
+                                    Thêm địa chỉ mới
+                                </Button>
                             </Stack>
                             <Stack w='full' spacing='0'>
                                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
-                                <Input variant='flushed' {...$order.register('receiver_info.note')} onFocus={e => e.target.select()} />
+                                <Input variant='flushed' {...$order.register('note')} onFocus={e => e.target.select()} />
                             </Stack>
                         </Stack>
                     </Stack>
@@ -221,6 +207,6 @@ export default function InfoPage() {
                     </VStack>
                 </VStack>
             </VStack>
-        </form>
-    )
+        </form >
+    </>
 }
