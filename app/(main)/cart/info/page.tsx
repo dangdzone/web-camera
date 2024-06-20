@@ -174,7 +174,7 @@ export default function InfoPage() {
                                 {
                                     $addresses.length > 1 && (
                                         <Button size='sm' colorScheme='red' rightIcon={<FiChevronRight />} variant='outline' borderRadius='10px' onClick={() => set_active_address_modal(true)}>
-                                            Chọn địa chỉ khác ({$addresses.length - 1})
+                                            Chọn địa chỉ khác ({$addresses.length})
                                         </Button>
                                     )
                                 }

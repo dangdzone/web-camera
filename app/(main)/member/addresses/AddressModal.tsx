@@ -76,15 +76,30 @@ export const AddressModal = ({ onClose, address, isOpen }: AddressModal) => {
             isOpen={!!isOpen}
             size={'2xl'}
             onClose={onClose}
+            scrollBehavior="inside"
         >
             <ModalOverlay />
-            <ModalContent mx='2' borderRadius='15px'>
-                <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+                <ModalContent mx='2' borderRadius='15px'>
                     <ModalHeader p='3'>
                         {address ? 'Cập nhật địa chỉ' : 'Tạo địa chỉ mới'}
                     </ModalHeader>
                     <ModalCloseButton borderRadius='full' mt='1' />
-                    <ModalBody px={{ base: '2', md: '4' }} py='6'>
+                    <ModalBody
+                        px={{ base: '2', md: '4' }} py='6'
+                        sx={{
+                            "::-webkit-scrollbar": {
+                                w: { base: 'none', md: '2' },
+                            },
+                            '&::-webkit-scrollbar-thumb': {
+                                borderRadius: '5',
+                                bg: 'blackAlpha.300',
+                            },
+                            "::-webkit-scrollbar-thumb:hover": {
+                                bg: 'blackAlpha.400'
+                            }
+                        }}
+                    >
                         <Stack w='full' spacing='7'>
                             <Stack w='full' spacing='3'>
                                 <Text>Họ và tên</Text>
@@ -169,8 +184,8 @@ export const AddressModal = ({ onClose, address, isOpen }: AddressModal) => {
                             </HStack>
                         </HStack>
                     </ModalFooter>
-                </form>
-            </ModalContent>
+                </ModalContent>
+            </form>
         </Modal>
     )
 }
