@@ -29,7 +29,7 @@ export const ScrollToTop = () => {
         <HStack w='full' maxW='6xl' justifyContent='flex-end'>
             {
                 isVisible && (
-                    <Button borderRadius='10px' onClick={scrollToTop} zIndex='999' bottom='30px' right='10px' position="fixed" p='1' colorScheme='red'>
+                    <Button borderRadius='10px' onClick={scrollToTop} zIndex='999' bottom={{ base: '100px', md: '30px' }} right='10px' position="fixed" p='1' colorScheme='red'>
                         <VStack spacing='0'>
                             <FiChevronUp />
                             <Text fontSize='10px'>Lên đầu</Text>

@@ -10,27 +10,10 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         <VStack
             h='100vh'
             spacing='0'
-        // sx={{
-        //     "::-webkit-scrollbar": { w: { base: 'none', md: '2' } },
-        //     '&::-webkit-scrollbar-thumb': {
-        //         borderRadius: '5',
-        //         bg: 'blackAlpha.300'
-        //     },
-        //     "::-webkit-scrollbar-track": {
-        //         background: 'white'
-        //     },
-        //     "::-webkit-scrollbar-thumb:hover": {
-        //         bg: 'blackAlpha.400'
-        //     }
-        // }}
-        // overflowY='auto'
-        // overflowX='hidden'
+            minH="100vh"
+            p='0'
         >
-            <VStack minH='60px' w='full' bg='linear-gradient(to right, #7f00ff, #e100ff)' boxShadow='sm' position='sticky' top='0px' zIndex='999'>
-                <VStack w='full' maxW='6xl' px='4'>
-                    <Topbar />
-                </VStack>
-            </VStack>
+            <Topbar />
             <Stack
                 // minH='calc(100vh - 60px)'
                 w='full'
