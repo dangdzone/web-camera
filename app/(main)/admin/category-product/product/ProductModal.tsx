@@ -78,16 +78,30 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
             isOpen={true}
             size={'3xl'}
             onClose={onClose}
+            scrollBehavior="inside"
         >
             <ModalOverlay />
-            <ModalContent mx='2' borderRadius='15px'>
-                <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+                <ModalContent mx='2' borderRadius='15px'>
                     <FormProvider {...form}>
                         <ModalHeader p='3'>
                             {product ? 'Cập nhật sản phẩm' : 'Tạo sản phẩm mới'}
                         </ModalHeader>
                         <ModalCloseButton borderRadius='full' mt='1' />
-                        <ModalBody px={{ base: '2', md: '4' }} py='6'>
+                        <ModalBody px={{ base: '2', md: '4' }} py='6'
+                            sx={{
+                                "::-webkit-scrollbar": {
+                                    w: { base: 'none', md: '2' },
+                                },
+                                '&::-webkit-scrollbar-thumb': {
+                                    borderRadius: '5',
+                                    bg: 'blackAlpha.300',
+                                },
+                                "::-webkit-scrollbar-thumb:hover": {
+                                    bg: 'blackAlpha.400'
+                                }
+                            }}
+                        >
                             <Stack w='full' spacing='7'>
                                 {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
                                 <Stack w='full' spacing='3'>
@@ -359,8 +373,8 @@ export const ProductModal = ({ onClose, product }: ProductModal) => {
                             </HStack>
                         </ModalFooter>
                     </FormProvider>
-                </form>
-            </ModalContent>
+                </ModalContent>
+            </form>
         </Modal>
     )
 }

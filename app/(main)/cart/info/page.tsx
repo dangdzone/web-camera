@@ -158,18 +158,23 @@ export default function InfoPage() {
                                 <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>THÔNG TIN GIAO HÀNG</Text>
                                 <Stack bg='blackAlpha.50' p='2' borderRadius='10px' spacing='1'>
                                     {
-                                        AddressList.map((item, i) => (
+                                        $addresses.length > 0 && AddressList.map((item, i) => (
                                             <Stack fontSize='14px' key={i} flexDir='row'>
                                                 <Text whiteSpace='nowrap'>{item.name} :</Text>
                                                 <Text fontWeight='600' color='red.500'>{item.value}</Text>
                                             </Stack>
                                         ))
                                     }
+                                    {
+                                        $addresses.length == 0 && (
+                                            <Text py='5' fontSize='14px' textAlign='center'>Chưa có địa chỉ</Text>
+                                        )
+                                    }
                                 </Stack>
                                 {
                                     $addresses.length > 1 && (
                                         <Button size='sm' colorScheme='red' rightIcon={<FiChevronRight />} variant='outline' borderRadius='10px' onClick={() => set_active_address_modal(true)}>
-                                            Chọn địa chỉ khác ({$addresses.length})
+                                            Chọn địa chỉ khác ({$addresses.length - 1})
                                         </Button>
                                     )
                                 }

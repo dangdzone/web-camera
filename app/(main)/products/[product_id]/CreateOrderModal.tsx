@@ -108,13 +108,28 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
 
     return <>
         <AddressModal {...$address_modal} />
-        <Modal isOpen={true} onClose={onClose} size='2xl'>
+        <Modal isOpen={true} onClose={onClose} size='2xl' scrollBehavior={'inside'}>
             <ModalOverlay />
             <form onSubmit={$order.handleSubmit(onSubmit)} style={{ width: '100%' }}>
                 <ModalContent mx='2' borderRadius='15px'>
                     <ModalHeader p='3'>Mua ngay</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody px={{ base: '2', md: '4' }} py='6'>
+                    <ModalBody
+                        px={{ base: '2', md: '4' }}
+                        py='6'
+                        sx={{
+                            "::-webkit-scrollbar": {
+                                w: { base: 'none', md: '2' },
+                            },
+                            '&::-webkit-scrollbar-thumb': {
+                                borderRadius: '5',
+                                bg: 'blackAlpha.300',
+                            },
+                            "::-webkit-scrollbar-thumb:hover": {
+                                bg: 'blackAlpha.400'
+                            }
+                        }}
+                    >
                         {/* <pre>{JSON.stringify($order.watch(), null, 2)}</pre> */}
                         <Stack w='full' spacing='7'>
                             {
@@ -179,7 +194,7 @@ export const CreateOrderModal = ({ onClose, product_id }: CreateOrderModal) => {
                                             <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>THÔNG TIN GIAO HÀNG</Text>
                                             <Stack bg='blackAlpha.50' p='2' borderRadius='10px' spacing='1'>
                                                 {
-                                                    AddressList.map((item, i) => (
+                                                    $addresses.length > 0 && AddressList.map((item, i) => (
                                                         <Stack fontSize='14px' key={i} flexDir='row'>
                                                             <Text whiteSpace='nowrap'>{item.name} :</Text>
                                                             <Text fontWeight='600' color='red.500'>{item.value}</Text>
