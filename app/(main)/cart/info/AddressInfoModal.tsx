@@ -66,7 +66,7 @@ export const AddressInfoModal = ({ onClose, address, onSetAddressId, address_id_
                                         p='2'
                                         borderRadius='10px'
                                         border='1px'
-                                        borderColor={addres_id == item.id ? 'red.500' : 'blackAlpha.100'}
+                                        borderColor={addres_id == item.id ? 'red.500' : 'blackAlpha.200'}
                                         bg={addres_id == item.id ? 'red.50' : 'white'}
                                         onClick={() => set_address_id(item.id)}
                                         cursor='pointer'

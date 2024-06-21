@@ -44,13 +44,13 @@ export default function AdminPage() {
     }
 
     return is_editor && (
-        <VStack w='full' spacing='3' py='5'>
+        <VStack w='full' spacing='5' py='5'>
             <DirectionalLink directional={[
                 { name: 'Trang chủ', href: '/', icon: <RiHome2Line /> },
                 { name: 'Admin', href: '' },
             ]} />
             <Tabs w='full' variant='unstyled' position='relative' index={selectedTabIndex} onChange={handleTabChange}>
-                <TabList w='full' minW='10px' overflowX={{ base: 'scroll', md: 'auto' }}>
+                <TabList w='full' minW='10px' overflowX={{ base: 'scroll', md: 'auto' }} pb='2'>
                     <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Thống kê</Tab>
                     <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Đơn hàng</Tab>
                     <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Danh mục & sản phẩm</Tab>
@@ -59,7 +59,7 @@ export default function AdminPage() {
                     <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' {...css_tab}>Hệ thống cửa hàng</Tab>
                 </TabList>
                 <TabPanels p='0'>
-                    <TabPanel py='7' px={{ base: '2', md: '4' }}>  
+                    <TabPanel py='7' px={{ base: '2', md: '0' }}>  
                         <StatisticalPage />
                     </TabPanel>
                     <TabPanel py='7' px={{ base: '2', md: '4' }}>

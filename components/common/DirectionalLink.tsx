@@ -1,6 +1,9 @@
-import { HStack, Text } from "@chakra-ui/layout"
+import { ChevronRightIcon } from "@chakra-ui/icons"
+import { Box, HStack, Stack, Text } from "@chakra-ui/layout"
+import { IconButton } from "@chakra-ui/react"
 import Link from "next/link"
-import { FiChevronRight } from "react-icons/fi"
+import { FiChevronRight, FiChevronsRight } from "react-icons/fi"
+import { MdChevronRight } from "react-icons/md"
 
 export type DirectionalLink = {
     directional: Array<{
@@ -14,10 +17,10 @@ export const DirectionalLink = ({ directional }: DirectionalLink) => {
     return (
         <HStack
             w='full' p='2'
-            divider={<FiChevronRight style={{ marginRight: '7px' }} />}
+            divider={<div><FiChevronRight style={{ marginRight: '7px' }} /></div>}
             bg='blackAlpha.100'
             borderRadius='10px'
-            minW='200px' 
+            minW='200px'
             overflowX={{ base: 'scroll', md: 'auto' }}
         >
             {
