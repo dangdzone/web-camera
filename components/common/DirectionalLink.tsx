@@ -17,6 +17,8 @@ export const DirectionalLink = ({ directional }: DirectionalLink) => {
             divider={<FiChevronRight style={{ marginRight: '7px' }} />}
             bg='blackAlpha.100'
             borderRadius='10px'
+            minW='200px' 
+            overflowX={{ base: 'scroll', md: 'auto' }}
         >
             {
                 directional.map((item, i, arr) => {
@@ -24,7 +26,7 @@ export const DirectionalLink = ({ directional }: DirectionalLink) => {
                         <Link href={item.href || ''} key={i}>
                             <HStack pr='7px' _hover={{ color: arr.length - 1 == i ? 'none' : '#4299E1' }}>
                                 {item.icon}
-                                <Text fontSize='14px'>{item.name}</Text>
+                                <Text fontSize='14px' whiteSpace='nowrap'>{item.name}</Text>
                             </HStack>
                         </Link>
                     )

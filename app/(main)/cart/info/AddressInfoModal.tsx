@@ -30,7 +30,7 @@ export const AddressInfoModal = ({ onClose, address, onSetAddressId, address_id_
             <ModalOverlay />
             <ModalContent mx='2' borderRadius='15px'>
                 <ModalHeader p='3'>
-                    Thông tin giao hàng
+                    Thông tin giao hàng ({address?.length})
                 </ModalHeader>
                 <ModalCloseButton borderRadius='full' mt='1' />
                 <ModalBody

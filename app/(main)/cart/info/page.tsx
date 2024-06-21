@@ -82,10 +82,11 @@ export default function InfoPage() {
 
     const { transporter } = useLiveQueryContext()
     const $order = useForm<Order>()
+    const note = $order.watch("note")
 
     const toast = useToast()
     const router = useRouter()
-    const onSubmit: SubmitHandler<Partial<Order>> = async data => {
+    const onSubmit: SubmitHandler<Partial<Order>> = async () => {
         const date = Date.now()
         const data_item = {
             code: `FG${date}`, // Mã đơn hàng
@@ -103,6 +104,7 @@ export default function InfoPage() {
                 img: fuser?.photoURL || ''
             },
             address_id: address_id,
+            note
         }
 
         const new_order = await transporter.add<Order, { data: { item: Order } }>(`orders`, data_item)
@@ -202,7 +204,7 @@ export default function InfoPage() {
                     >
                         <HStack w='full' justifyContent='space-between'>
                             <Text fontWeight='600' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
-                            <Text fontWeight='800' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
+                            <Text fontWeight='700' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
                         </HStack>
                         {
                             cart_amount > 0 && fuser && (

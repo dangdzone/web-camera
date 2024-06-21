@@ -12,8 +12,7 @@ import { ProductSpecification } from "./ProductSpecification";
 import { ProductIdPageLoading } from "@/components/loading/ProductIdPageLoading";
 import { useForm } from "react-hook-form";
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser";
-import { useState } from "react";
-import { CreateOrderModal } from "./CreateOrderModal";
+import Link from "next/link";
 
 export default function ProductIdPage() {
 
@@ -21,7 +20,6 @@ export default function ProductIdPage() {
     const params = useParams()
     const { fuser } = useFirebaseUserContext()
 
-    const [active_create_order, set_active_create_order] = useState<undefined | null | string>(null)
     const product = useDocumentData<Product>(`products/${params.product_id}`)
     const $carts = useCollectionData<Cart>(fuser && `customers/${fuser?.uid}/carts`)
     // Tìm sản phẩm trong carts có product_id == product_id trong products
@@ -89,14 +87,6 @@ export default function ProductIdPage() {
                 { name: 'Sản phẩm', href: '/' },
                 { name: `${product.item?.code}` },
             ]} />
-            {
-                active_create_order !== null && (
-                    <CreateOrderModal
-                        onClose={() => set_active_create_order(null)}
-                        product_id={params.product_id as string}
-                    />
-                )
-            }
             <Text fontSize='18px' fontWeight='700'>{product.item?.name}</Text>
             <Stack w='full' spacing='5' flexDirection={{ base: 'column', md: 'row' }}>
                 <Center w='full' py='10' borderRadius='20px' border='1px' borderColor='blackAlpha.200'>
@@ -112,12 +102,14 @@ export default function ProductIdPage() {
                         </Text>
                     </HStack>
                     <HStack>
-                        <Button w='full' size='lg' colorScheme="red" borderRadius='10px' p='7' onClick={() => set_active_create_order(undefined)}>
-                            <VStack spacing='1' px='2'>
-                                <Text fontSize='15px' fontWeight='700'>MUA NGAY</Text>
-                                <Text fontSize='14px' fontWeight='400' display={{base: 'none', md: 'flex'}}>Thanh toán online và giao hàng trong ngày</Text>
-                            </VStack>
-                        </Button>
+                        <Link href={`/products/${params.product_id}/create-order`} style={{ width: '100%' }}>
+                            <Button w='full' size='lg' colorScheme="red" borderRadius='10px' py='7' px='1'>
+                                <VStack spacing='1'>
+                                    <Text fontSize='15px' fontWeight='700'>MUA NGAY</Text>
+                                    <Text fontSize={{base: '10px', md: '14px'}} fontWeight='400'>Thanh toán online và giao hàng trong ngày</Text>
+                                </VStack>
+                            </Button>
+                        </Link>
                         <form onSubmit={handleSubmit(onSubmit.excute)}>
                             <Button type="submit" isDisabled={!fuser} size='lg' p='6' variant='outline' colorScheme="red" border='2px' borderColor='red.500' borderRadius='10px'>
                                 <VStack spacing='1' color='red.500'>
