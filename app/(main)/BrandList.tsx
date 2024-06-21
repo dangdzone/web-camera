@@ -12,14 +12,14 @@ export const BrandList = ({ products }: BrandList) => {
 
     return (
         <Stack w='full' spacing='5'>
-            <Text fontWeight='700'>Thương hiệu</Text>
+            <Text fontWeight='600'>Thương hiệu</Text>
             <HStack w='full' flexWrap='wrap'>
                 <Text
                     px='4' py='2'
                     borderRadius='10px'
                     border='1px' borderColor='blackAlpha.100'
                     bg={!products.filters.brand_id ? 'blue.200' : 'blackAlpha.50'}
-                    fontWeight='600'
+                    fontWeight='500'
                     cursor='pointer'
                     onClick={() => products.filter({
                         ...products.filters,
@@ -37,7 +37,7 @@ export const BrandList = ({ products }: BrandList) => {
                             border='1px'
                             borderColor='blackAlpha.100'
                             bg={brand.id == products.filters.brand_id ? 'blue.200' : 'blackAlpha.50'}
-                            fontWeight='600'
+                            fontWeight='500'
                             cursor='pointer'
                             onClick={() => products.filter({
                                 ...products.filters,

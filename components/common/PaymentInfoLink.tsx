@@ -20,7 +20,7 @@ export const PaymentInfoLink = ({ list }: PaymentInfoLink) => {
                             borderRadius='10px'
                             color={item.active ? 'red.500' : 'blackAlpha.700'}
                         >
-                            <Text textTransform='uppercase' fontWeight='700'>{item.name}</Text>
+                            <Text textTransform='uppercase' fontWeight='600'>{item.name}</Text>
                         </VStack>
                     </Link>
                 )

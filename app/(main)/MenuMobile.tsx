@@ -32,7 +32,7 @@ export const MenuMobile = () => {
                         <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }} >
                             <HStack py='1' cursor='pointer' >
                                 <MdOutlinePhoneInTalk size='25px' />
-                                <Text fontWeight='600' lineHeight='1.3'>Gọi mua hàng <br /> 1800.6759</Text>
+                                <Text fontWeight='500' lineHeight='1.3'>Gọi mua hàng <br /> 1800.6759</Text>
                             </HStack>
                         </MenuItem>
                     </Link>
@@ -40,7 +40,7 @@ export const MenuMobile = () => {
                         <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }} >
                             <HStack py='2' cursor='pointer' >
                                 <FiMapPin size='25px' />
-                                <Text fontWeight='600' lineHeight='1.3'>Hệ thống cửa hàng</Text>
+                                <Text fontWeight='500' lineHeight='1.3'>Hệ thống cửa hàng</Text>
                             </HStack>
                         </MenuItem>
                     </Link>
@@ -48,7 +48,7 @@ export const MenuMobile = () => {
                         <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }} >
                             <HStack py='2' cursor='pointer' >
                                 <FaShippingFast size='25px' />
-                                <Text lineHeight='1.3' fontWeight='600'>Lịch sử đơn hàng</Text>
+                                <Text lineHeight='1.3' fontWeight='500'>Lịch sử đơn hàng</Text>
                             </HStack>
                         </MenuItem>
                     </Link>

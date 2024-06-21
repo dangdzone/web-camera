@@ -26,7 +26,7 @@ export const OrderItem = ({ order, onClick }: OrderItem) => {
             </Box>
             <Stack w='full'>
                 <Stack w='full' flexDir={{ base: 'column', md: 'row' }} justifyContent='space-between'>
-                    <Text fontWeight='600'>{$product?.name} - ({order?.amount})</Text>
+                    <Text fontWeight='500'>{$product?.name} - ({order?.amount})</Text>
                     <Text fontSize='13px'>{dayjs(order?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
                 </Stack>
                 <Stack flexDir={{ base: 'column', md: 'row' }}>
@@ -35,7 +35,7 @@ export const OrderItem = ({ order, onClick }: OrderItem) => {
                     <HStack><Tag size='sm' variant='outline'>{order?.customer_info.email}</Tag></HStack>
                 </Stack>
                 <HStack w='full' justifyContent='space-between'>
-                    <Text fontWeight='700' color='red.500'>{order?.pay.toLocaleString()}đ</Text>
+                    <Text fontWeight='600' color='red.500'>{order?.pay.toLocaleString()}đ</Text>
                     <Button size='xs' variant='outline' colorScheme='red' onClick={onClick}>Xem chi tiết</Button>
                 </HStack>
             </Stack>

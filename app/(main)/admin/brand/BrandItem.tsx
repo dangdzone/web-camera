@@ -23,7 +23,7 @@ export const BrandItem = ({ brand, onClick }: BrandItem) => {
                 borderColor: 'blackAlpha.300'
             }}
         >
-            <Text p='2' bg='blackAlpha.100' borderTopRadius='10px' fontWeight='700' >{brand.name}</Text>
+            <Text p='2' bg='blackAlpha.100' borderTopRadius='10px' fontWeight='600' >{brand.name}</Text>
             <Center w='full' h='100%'>
                 <Image src={brand.image} />
             </Center>

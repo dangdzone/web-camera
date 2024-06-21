@@ -19,7 +19,7 @@ export const StorePage = () => {
                     <StoreModal onClose={() => set_store_active(null)} store={store_active} />
                 )
             }
-            <Text fontWeight='700' fontSize='18px'>Hệ thống cửa hàng</Text>
+            <Text fontWeight='600' fontSize='18px'>Hệ thống cửa hàng</Text>
             <Button onClick={() => set_store_active(undefined)}>Thêm cửa hàng mới</Button>
             <SimpleGrid w='full' spacing='4' columns={[1, 2, 3]}>
                 {

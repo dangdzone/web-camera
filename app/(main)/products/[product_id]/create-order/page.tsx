@@ -134,14 +134,14 @@ export default function CreateOrderPage() {
                         <Stack w='full' flexDir='row' spacing='4' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
                             <Image boxSize="90px" src={$product.item?.image} />
                             <Stack w='full' spacing='0'>
-                                <Text fontWeight='700' fontSize='18px' >{$product.item?.name}</Text>
+                                <Text fontWeight='600' fontSize='18px' >{$product.item?.name}</Text>
                                 <HStack fontSize='14px'>
                                     <Text>Mã sản phẩm :</Text>
                                     <Text>{$product.item?.code}</Text>
                                 </HStack>
                                 <Stack w='full' flexDirection={{ base: 'column', md: 'row' }} justifyContent='space-between'>
                                     <HStack>
-                                        <Text fontWeight='700' color='red.500'>{$product.item?.price.toLocaleString()}đ</Text>
+                                        <Text fontWeight='600' color='red.500'>{$product.item?.price.toLocaleString()}đ</Text>
                                         <Text textDecoration='line-through' color='blackAlpha.700' fontSize='14px'>{$product.item?.advertising_price.toLocaleString()}đ</Text>
                                     </HStack>
                                     <Controller
@@ -167,13 +167,13 @@ export default function CreateOrderPage() {
                                 <Text>Thông tin nhận hàng</Text>
                                 <Stack w='full' px='4' py='7' borderRadius='10px' spacing='7' border='1px' borderColor='blackAlpha.200'>
                                     <Stack w='full' spacing='4'>
-                                        <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'>THÔNG TIN GIAO HÀNG</Text>
+                                        <Text fontSize='12px' fontWeight='600' color='blackAlpha.600'>THÔNG TIN GIAO HÀNG</Text>
                                         <Stack bg='blackAlpha.50' p='2' borderRadius='10px' spacing='1'>
                                             {
                                                 $addresses.length > 0 && AddressList.map((item, i) => (
                                                     <Stack fontSize='14px' key={i} flexDir='row'>
                                                         <Text whiteSpace='nowrap'>{item.name} :</Text>
-                                                        <Text fontWeight='600' color='red.500'>{item.value}</Text>
+                                                        <Text fontWeight='500' color='red.500'>{item.value}</Text>
                                                     </Stack>
                                                 ))
                                             }
@@ -190,7 +190,7 @@ export default function CreateOrderPage() {
                                         </Button>
                                     </Stack>
                                     <Stack w='full' spacing='0'>
-                                        <Text fontSize='12px' fontWeight='700' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
+                                        <Text fontSize='12px' fontWeight='600' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
                                         <Input variant='flushed' {...register('note')} onFocus={e => e.target.select()} />
                                     </Stack>
                                 </Stack>
@@ -211,10 +211,10 @@ export default function CreateOrderPage() {
                                     borderColor='blackAlpha.200'
                                 >
                                     <HStack w='full' justifyContent='space-between'>
-                                        <Text fontWeight='600' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
-                                        <Text fontWeight='700' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
+                                        <Text fontWeight='500' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
+                                        <Text fontWeight='600' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
                                     </HStack>
-                                    <Button w='full' colorScheme='messenger' borderRadius='10px' type="submit">
+                                    <Button w='full' colorScheme='red' borderRadius='10px' type="submit">
                                         Đặt hàng và thanh toán
                                     </Button>
                                 </VStack>

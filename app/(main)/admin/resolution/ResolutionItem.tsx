@@ -23,7 +23,7 @@ export const ResolutionItem = ({ resolution, onClick }: ResolutionItem) => {
             cursor='pointer'
         >
             <VStack>
-                <Text fontWeight='700'>{resolution.name}</Text>
+                <Text fontWeight='600'>{resolution.name}</Text>
                 <Text textAlign='center'>{resolution.size}</Text>
             </VStack>
         </Center>

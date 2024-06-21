@@ -29,7 +29,7 @@ export const AddressItem = ({ address, onClick }: AddressItem) => {
         >
             <HStack w='full' justifyContent='space-between'>
                 <HStack fontSize='14px'>
-                    <Text fontWeight='600'>{address?.name}</Text>
+                    <Text fontWeight='500'>{address?.name}</Text>
                     <Text>{address?.phone}</Text>
                 </HStack>
                 {

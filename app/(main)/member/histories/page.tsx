@@ -98,7 +98,7 @@ export default function HistoryPage() {
                 {
                     statisticalOrder.map((item, i) => (
                         <VStack w='full' key={i} p={{ base: '3', md: '5' }} spacing='0' borderRadius='10px' border='1px' borderColor='blackAlpha.200'>
-                            <Text fontSize='25px' fontWeight='800'>{item.value?.toLocaleString()}{item.unit}</Text>
+                            <Text fontSize='25px' fontWeight='700'>{item.value?.toLocaleString()}{item.unit}</Text>
                             <Text textAlign='center'>{item.name}</Text>
                         </VStack>
                     ))

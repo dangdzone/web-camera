@@ -10,7 +10,7 @@ export type ProductSpecification = {
 export const ProductSpecification = ({ specification }: ProductSpecification) => {
     return (
         <Stack w='full'>
-            <Text fontWeight='600'>{specification?.name}</Text>
+            <Text fontWeight='500'>{specification?.name}</Text>
             <Stack w='full' border='1px' spacing='0' borderColor='blackAlpha.200' borderRadius='10px' divider={<Divider />}>
                 {
                     specification?.technicals.map((technical, i, arr) => {

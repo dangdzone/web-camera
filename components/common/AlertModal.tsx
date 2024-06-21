@@ -29,7 +29,7 @@ export const AlertModal = (props: AlertModal) => {
                             <Box p='5' borderRadius='full' bg={colorMode == 'dark' ? 'whiteAlpha.100' : 'blackAlpha.100'}>
                                 <FcCheckmark size='30px' />
                             </Box>
-                            <Text w='full' fontSize='20px' textAlign='center' fontWeight='600'>{props.title}</Text>
+                            <Text w='full' fontSize='20px' textAlign='center' fontWeight='500'>{props.title}</Text>
                         </VStack>
                     </AlertDialogBody>
 

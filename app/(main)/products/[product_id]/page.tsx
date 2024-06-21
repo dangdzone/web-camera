@@ -87,17 +87,17 @@ export default function ProductIdPage() {
                 { name: 'Sản phẩm', href: '/' },
                 { name: `${product.item?.code}` },
             ]} />
-            <Text fontSize='18px' fontWeight='700'>{product.item?.name}</Text>
+            <Text fontSize='18px' fontWeight='600'>{product.item?.name}</Text>
             <Stack w='full' spacing='5' flexDirection={{ base: 'column', md: 'row' }}>
                 <Center w='full' py='10' borderRadius='20px' border='1px' borderColor='blackAlpha.200'>
                     <Image maxH='250px' src={product.item?.image} />
                 </Center>
                 <Stack w='full' spacing='4'>
                     <HStack>
-                        <Text fontWeight='700' fontSize='20px' color='red.600'>
+                        <Text fontWeight='600' fontSize='20px' color='red.600'>
                             {product.item?.price.toLocaleString()}đ
                         </Text>
-                        <Text fontWeight='700' textDecoration='line-through' color='blackAlpha.600'>
+                        <Text fontWeight='600' textDecoration='line-through' color='blackAlpha.600'>
                             {product.item?.advertising_price.toLocaleString()}đ
                         </Text>
                     </HStack>
@@ -105,7 +105,7 @@ export default function ProductIdPage() {
                         <Link href={`/products/${params.product_id}/create-order`} style={{ width: '100%' }}>
                             <Button w='full' size='lg' colorScheme="red" borderRadius='10px' py='7' px='1'>
                                 <VStack spacing='1'>
-                                    <Text fontSize='15px' fontWeight='700'>MUA NGAY</Text>
+                                    <Text fontSize='15px' fontWeight='600'>MUA NGAY</Text>
                                     <Text fontSize={{base: '10px', md: '14px'}} fontWeight='400'>Thanh toán online và giao hàng trong ngày</Text>
                                 </VStack>
                             </Button>
@@ -120,7 +120,7 @@ export default function ProductIdPage() {
                         </form>
                     </HStack>
                     <Stack w='fulll' spacing='4' pt='3'>
-                        <Text fontWeight='600' fontSize='18px'>Thông tin sản phẩm</Text>
+                        <Text fontWeight='500' fontSize='18px'>Thông tin sản phẩm</Text>
                         <Stack w='full'>
                             {
                                 product.item?.infos.map((info, i) => (
@@ -135,7 +135,7 @@ export default function ProductIdPage() {
             <Stack w='full' spacing='5' flexDirection={{ base: 'column', md: 'row' }}>
                 <Stack w={{ base: '100%', md: '60%' }} >
                     <Stack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px'>
-                        <Text fontWeight='600' fontSize='18px' p='3' color='red.500' borderTopRadius='10px' bg='red.50'>Đặc điểm nổi bật</Text>
+                        <Text fontWeight='500' fontSize='18px' p='3' color='red.500' borderTopRadius='10px' bg='red.50'>Đặc điểm nổi bật</Text>
                         <UnorderedList spacing={3} p='3'>
                             {
                                 product.item?.outstandings.map((outstanding, i) => (
@@ -148,7 +148,7 @@ export default function ProductIdPage() {
                     </Stack>
                 </Stack>
                 <Stack w={{ base: '100%', md: '40%' }}  >
-                    <Text fontWeight='600' fontSize='18px' py='3'>Thông số kĩ thuật</Text>
+                    <Text fontWeight='500' fontSize='18px' py='3'>Thông số kĩ thuật</Text>
                     <Stack w='full' spacing='5' px='2' py='4' boxShadow='rgba(99, 99, 99, 0.2) 0px 2px 8px 0px' borderRadius='10px'>
                         {
                             product.item?.specifications.map((specification, i) => (

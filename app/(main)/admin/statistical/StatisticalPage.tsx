@@ -95,7 +95,7 @@ export const StatisticalPage = () => {
     return (
         <Stack w='full' spacing='7'>
             <HStack w='full' justifyContent='space-between' spacing='5'>
-                <Text fontWeight='700' fontSize='18px' whiteSpace='nowrap'>Thống kê</Text>
+                <Text fontWeight='600' fontSize='18px' whiteSpace='nowrap'>Thống kê</Text>
                 <Select borderRadius='10px' w={{ base: '100%', md: '30%' }} onChange={(e) => { filter(e.target.value as any) }}>
                     <option value='all' >Tất cả các ngày</option>
                     <option value='today'>Hôm nay</option>
@@ -116,7 +116,7 @@ export const StatisticalPage = () => {
                             <Divider h='20px' orientation='vertical' />
                             <Stack spacing='0' px='2'>
                                 <Text color={`${item.color}.500`}>{item.name}</Text>
-                                <Text fontWeight='700' fontSize='18px'>{item.value}</Text>
+                                <Text fontWeight='600' fontSize='18px'>{item.value}</Text>
                             </Stack>
                         </HStack>
                     ))

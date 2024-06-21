@@ -72,7 +72,7 @@ export const ListRender = <T extends { created_at: number, id: string }>(props: 
                             {
                                 props.day_group && (i == 0 || (item._date != arr[i - 1]._date)) && (
                                     <HStack w='full'>
-                                        <Text fontWeight='600'>Tháng {dayjs(item.created_at).format('MM/YYYY')}</Text>
+                                        <Text fontWeight='500'>Tháng {dayjs(item.created_at).format('MM/YYYY')}</Text>
                                         <Text opacity='0.8'>({ordersByMonth[item._date]})</Text>
                                     </HStack>
                                 )

@@ -38,7 +38,7 @@ export default function CartPage() {
                 <HStack w='full' px='4' py='2' borderRadius='10px' bg='red.50' justifyContent='space-between' border='1px' borderColor='red.200'>
                     <Stack spacing='0'>
                         <HStack><Text fontSize='15px'>Sản phẩm đã chọn: </Text><Text>{cart_amount}</Text></HStack>
-                        <HStack><Text fontSize='15px'>Tạm tính : </Text><Text fontWeight='700' color='red.500'>{totalAmount.toLocaleString()}đ</Text></HStack>
+                        <HStack><Text fontSize='15px'>Tạm tính : </Text><Text fontWeight='600' color='red.500'>{totalAmount.toLocaleString()}đ</Text></HStack>
                     </Stack>
                     <Link href={cart_amount > 0 ? '/cart/info' : ''}>
                         <Button size='sm' colorScheme="red">Mua ngay</Button>

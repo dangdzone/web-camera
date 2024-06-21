@@ -86,7 +86,7 @@ export const CartItem = ({ cart }: CartItem) => {
                 <Stack w='full'>
                     <Stack w='full' justifyContent='space-between' flexDirection='row'>
                         <Link href={`/products/${product?.id}`} style={{ width: '75%' }}>
-                            <Text fontWeight='600'>{product?.name}</Text>
+                            <Text fontWeight='500'>{product?.name}</Text>
                         </Link>
                         <IconButton size='sm' borderRadius='10px' onClick={remove} aria-label="delete" colorScheme="red" variant='ghost' icon={<RiDeleteBinLine size='20px' />} />
                     </Stack>
@@ -96,7 +96,7 @@ export const CartItem = ({ cart }: CartItem) => {
                     </HStack>
                     <Stack flexDir={{base: 'column', md: 'row'}} justifyContent='space-between'>
                         <HStack>
-                            <Text fontWeight='700' color='red.500'>{product?.price.toLocaleString()}đ</Text>
+                            <Text fontWeight='600' color='red.500'>{product?.price.toLocaleString()}đ</Text>
                             <Text textDecoration='line-through' color='blackAlpha.700' fontSize='14px'>{product?.advertising_price.toLocaleString()}đ</Text>
                         </HStack>
                         <Controller

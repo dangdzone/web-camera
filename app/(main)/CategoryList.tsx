@@ -13,7 +13,7 @@ export const CategoryList = ({ products }: CategoryList) => {
 
     return (
         <Stack w='full' spacing='5'>
-            <Text fontWeight='700'>Danh mục</Text>
+            <Text fontWeight='600'>Danh mục</Text>
             <SimpleGrid w='full' spacing='2' columns={[2, 3, 5, 6, 7, 8]}>
                 <Stack
                     bgImage={'https://thbvn.com/cdn/images/restore-lap-camera-an-ninh-cho-ho-gia-dinh-3optimized.jpeg'}
@@ -34,7 +34,7 @@ export const CategoryList = ({ products }: CategoryList) => {
                     })}
                 >
                     <HStack w='full' color='white' px='2' bg={'blackAlpha.600'} borderTopRadius='10px' justifyContent='space-between'>
-                        <Text fontSize='14px' py='2' fontWeight='600'>Tất cả</Text>
+                        <Text fontSize='14px' py='2' fontWeight='500'>Tất cả</Text>
                         {
                             !products.filters.category_id && <Center p='1' borderRadius='10px' bg='#E000FF'><FaCheck /></Center>
                         }
@@ -62,7 +62,7 @@ export const CategoryList = ({ products }: CategoryList) => {
                             key={category.id}
                         >
                             <HStack w='full' color='white' px='2' bg={'blackAlpha.600'} borderTopRadius='10px' justifyContent='space-between'>
-                                <Text fontSize='14px' py='2' fontWeight='600'>{category.name}</Text>
+                                <Text fontSize='14px' py='2' fontWeight='500'>{category.name}</Text>
                                 {
                                     products.filters.category_id == category.id && <Center p='1' borderRadius='10px' bg='#E000FF'><FaCheck /></Center>
                                 }

@@ -48,7 +48,7 @@ export const ProductItem = ({ product, onClick }: ProductItem) => {
                 </Stack>
             </Stack>
             <Stack w='full'>
-                <Text lineHeight='1.3' fontWeight='700' fontSize='14px'>
+                <Text lineHeight='1.3' fontWeight='600' fontSize='14px'>
                     {product?.name} 
                 </Text>
                 <HStack flexWrap='wrap' spacing='1'>

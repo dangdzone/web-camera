@@ -72,7 +72,7 @@ export const AddressInfoModal = ({ onClose, address, onSetAddressId, address_id_
                                         cursor='pointer'
                                     >
                                         <HStack w='full' justifyContent='space-between'>
-                                            <HStack fontWeight='600'>
+                                            <HStack fontWeight='500'>
                                                 <Text>{item?.name}</Text>
                                                 <Text>{item?.phone}</Text>
                                             </HStack>

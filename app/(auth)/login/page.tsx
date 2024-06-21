@@ -39,7 +39,7 @@ export default function LoginPage() {
             <VStack w='full' maxW='xl' pt='20' spacing='10'>
                 <Image maxH='150px' src='https://www.certifiedfinancialguardian.com/images/blog-wp-login.png' />
                 <VStack w='full' spacing='7'>
-                    <Text fontSize='25px' fontWeight='700'>Đăng nhập</Text>
+                    <Text fontSize='25px' fontWeight='600'>Đăng nhập</Text>
                     <LoginDetail />
                 </VStack>
             </VStack>

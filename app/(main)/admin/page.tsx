@@ -51,12 +51,12 @@ export default function AdminPage() {
             ]} />
             <Tabs w='full' variant='unstyled' position='relative' index={selectedTabIndex} onChange={handleTabChange}>
                 <TabList w='full' minW='10px' overflowX={{ base: 'scroll', md: 'auto' }} pb='2'>
-                    <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Thống kê</Tab>
-                    <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Đơn hàng</Tab>
-                    <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Danh mục & sản phẩm</Tab>
-                    <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Độ phân giải</Tab>
-                    <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Thương hiệu</Tab>
-                    <Tab fontWeight='600' whiteSpace='nowrap' borderRadius='10px' {...css_tab}>Hệ thống cửa hàng</Tab>
+                    <Tab fontWeight='500' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Thống kê</Tab>
+                    <Tab fontWeight='500' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Đơn hàng</Tab>
+                    <Tab fontWeight='500' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Danh mục & sản phẩm</Tab>
+                    <Tab fontWeight='500' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Độ phân giải</Tab>
+                    <Tab fontWeight='500' whiteSpace='nowrap' borderRadius='10px' mr='2' {...css_tab}>Thương hiệu</Tab>
+                    <Tab fontWeight='500' whiteSpace='nowrap' borderRadius='10px' {...css_tab}>Hệ thống cửa hàng</Tab>
                 </TabList>
                 <TabPanels p='0'>
                     <TabPanel py='7' px={{ base: '2', md: '0' }}>  

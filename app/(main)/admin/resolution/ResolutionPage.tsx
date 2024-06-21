@@ -16,7 +16,7 @@ export const ResolutionPage = () => {
 
     return (
         <Stack w='full' spacing='7'>
-            <Text fontWeight='700' fontSize='18px'>Độ phân giải</Text>
+            <Text fontWeight='600' fontSize='18px'>Độ phân giải</Text>
             {
                 active_resolution !== null && (
                     <ResolutionModal resolution={active_resolution} onClose={() => set_active_resolution(null)} />

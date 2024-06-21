@@ -139,7 +139,7 @@ export const ProductList = () => {
                     return products.length > 0 && (
                         <Stack w='full' spacing='4'>
                             <HStack w='full' justifyContent='space-between'>
-                                <Text fontWeight='700' whiteSpace='nowrap'>{category.name} ({products.length})</Text>
+                                <Text fontWeight='600' whiteSpace='nowrap'>{category.name} ({products.length})</Text>
                                 <Divider w='90%' />
                             </HStack>
                             <SimpleGrid w='full' spacing='4' columns={[1, 1, 2, 3]}>

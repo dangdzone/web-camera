@@ -16,7 +16,7 @@ export const BrandPage = () => {
 
     return (
         <Stack w='full' spacing='7'>
-            <Text fontWeight='700' fontSize='18px'>Thương hiệu</Text>
+            <Text fontWeight='600' fontSize='18px'>Thương hiệu</Text>
             {
                 active_brand !== null && (
                     <BrandModal onClose={() => set_active_brand(null)} brand={active_brand} />

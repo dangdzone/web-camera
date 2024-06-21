@@ -67,7 +67,7 @@ export const UserName = () => {
                         <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
                             <HStack py='1'>
                                 <RiHome4Line size='20px' />
-                                <Text fontWeight='600'>Trang chủ</Text>
+                                <Text fontWeight='500'>Trang chủ</Text>
                             </HStack>
                         </MenuItem>
                     </Link>
@@ -77,7 +77,7 @@ export const UserName = () => {
                                 <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
                                     <HStack py='1'>
                                         <MdOutlineAdminPanelSettings size='22px' />
-                                        <Text fontWeight='600'>Admin</Text>
+                                        <Text fontWeight='500'>Admin</Text>
                                     </HStack>
                                 </MenuItem>
                             </Link>
@@ -87,7 +87,7 @@ export const UserName = () => {
                         <MenuItem borderRadius='10px' color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
                             <HStack py='1'>
                                 <FaRegCircleUser size='18px' />
-                                <Text fontWeight='600'>Thành viên</Text>
+                                <Text fontWeight='500'>Thành viên</Text>
                             </HStack>
                         </MenuItem>
                     </Link>
@@ -96,7 +96,7 @@ export const UserName = () => {
                             <MenuItem borderRadius='10px' onClick={logout} color='blackAlpha.800' _hover={{ bg: 'blackAlpha.100' }}>
                                 <HStack py='1'>
                                     <RiLogoutCircleRLine size='20px' />
-                                    <Text fontWeight='600'>Đăng xuất</Text>
+                                    <Text fontWeight='500'>Đăng xuất</Text>
                                 </HStack>
                             </MenuItem>
                         )

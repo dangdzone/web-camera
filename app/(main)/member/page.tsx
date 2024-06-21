@@ -23,7 +23,7 @@ export default function MemberPage() {
             <VStack w='full'>
                 <Image border='2px' borderColor='#8E00FF' sizes='90px' borderRadius='full' src={fuser?.photoURL || ''} />
                 <VStack >
-                    <Text fontSize='18px' fontWeight='700' color='#8D00FF'>{fuser?.displayName}</Text>
+                    <Text fontSize='18px' fontWeight='600' color='#8D00FF'>{fuser?.displayName}</Text>
                     <Text>{fuser?.email}</Text>
                         {/* <HStack>
                             <Text color='blackAlpha.700' fontSize='14px'>ID: {fuser?.uid}</Text>
@@ -38,7 +38,7 @@ export default function MemberPage() {
                 {
                     statisticalOrder.map((item, i) => (
                         <VStack w='full' key={i} p={{ base: '3', md: '5' }} spacing='0' borderRadius='10px' border='1px' borderColor='blackAlpha.200'>
-                            <Text fontSize='25px' fontWeight='800'>{item.value?.toLocaleString()}{item.unit}</Text>
+                            <Text fontSize='25px' fontWeight='700'>{item.value?.toLocaleString()}{item.unit}</Text>
                             <Text>{item.name}</Text>
                         </VStack>
                     ))

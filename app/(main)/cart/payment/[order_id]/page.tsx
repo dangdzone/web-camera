@@ -68,27 +68,27 @@ export default function OrderPage() {
                 }
             </VStack>
             <Stack w='full'>
-                <Text fontWeight='600'>Thống kê đơn hàng</Text>
+                <Text fontWeight='500'>Thống kê đơn hàng</Text>
                 <VStack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4' spacing='4'>
                     {
                         statistical.map((item, i) => (
                             <HStack w='full' key={i} justifyContent='space-between'>
                                 <Text opacity='0.8'>{item.name}</Text>
-                                <Text fontWeight='600'>{item.value?.toLocaleString()}{item.unit}</Text>
+                                <Text fontWeight='500'>{item.value?.toLocaleString()}{item.unit}</Text>
                             </HStack>
                         ))
                     }
                     <Divider />
                     <HStack w='full' justifyContent='space-between'>
                         <Text opacity='0.8'>Tổng tiền thanh toán</Text>
-                        <Text fontWeight='700' color='red.500'>{total_pay.toLocaleString()}đ</Text>
+                        <Text fontWeight='600' color='red.500'>{total_pay.toLocaleString()}đ</Text>
                     </HStack>
                 </VStack>
             </Stack>
             {
                 order.status == 'created' && (
                     <Stack w='full'>
-                        <Text fontWeight='600'>Chọn phương thức thanh toán</Text>
+                        <Text fontWeight='500'>Chọn phương thức thanh toán</Text>
                         <VStack w='full' border='1px' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
                             <Select variant='filled' onChange={(e) => set_type(e.target.value)}>
                                 <option value='momo'>Ví momo</option>
@@ -101,11 +101,11 @@ export default function OrderPage() {
                 )
             }
             <Stack w='full'>
-                <Text fontWeight='600'>Thông tin nhận hàng</Text>
+                <Text fontWeight='500'>Thông tin nhận hàng</Text>
                 <ReceiverInfo address_id={order.address_id} />
             </Stack>
             <Stack w='full'>
-                <Text fontWeight='600'>Ghi chú</Text>
+                <Text fontWeight='500'>Ghi chú</Text>
                 <Stack w='full' border='1px' spacing='4' borderColor='blackAlpha.200' borderRadius='10px' p='4'>
                     <Text>{order?.note ? order?.note : 'Không có'}</Text>
                 </Stack>

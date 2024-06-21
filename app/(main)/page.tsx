@@ -31,13 +31,13 @@ export default function MainPage() {
             </SimpleGrid>
             <CategoryList products={$products} />
             <Stack w='full' spacing='5'>
-                <Text fontWeight='700'>Thương hiệu</Text>
+                <Text fontWeight='600'>Thương hiệu</Text>
                 <HStack w='full' flexWrap='wrap'>
                     <Text
                         px='4' py='2' borderRadius='10px' border='1px' borderColor='blackAlpha.100'
                         bg={active_product == undefined ? 'black' : 'blackAlpha.50'}
                         color={active_product == undefined ? 'white' : 'black'}
-                        fontWeight='600' cursor='pointer' onClick={() => set_active_product(undefined)}
+                        fontWeight='500' cursor='pointer' onClick={() => set_active_product(undefined)}
                     >
                         Tất cả
                     </Text>
@@ -47,7 +47,7 @@ export default function MainPage() {
                                 px='4' py='2' key={brand.id} borderRadius='10px' border='1px'
                                 borderColor='blackAlpha.100' bg={brand.id == active_product ? 'black' : 'blackAlpha.50'}
                                 color={active_product == brand.id ? 'white' : 'black'}
-                                fontWeight='600' cursor='pointer' onClick={() => set_active_product(brand.id)}
+                                fontWeight='500' cursor='pointer' onClick={() => set_active_product(brand.id)}
                             >
                                 {brand.name}
                             </Text>
@@ -57,7 +57,7 @@ export default function MainPage() {
             </Stack>
             <HStack w='full' spacing='5' flexDir={{base: 'column', md: 'row'}}>
                 <HStack spacing='5' w={{ base: '100%', md: '50%' }}>
-                    <Text fontWeight='700' whiteSpace='nowrap'>Độ phân giải</Text>
+                    <Text fontWeight='600' whiteSpace='nowrap'>Độ phân giải</Text>
                     <Select borderRadius='10px'
                         onChange={(e) => {
                             if (e.target.value == 'all') {
@@ -106,7 +106,7 @@ export default function MainPage() {
                     return $$products.length > 0 && (
                         <Stack w='full' spacing='4'>
                             <HStack w='full' justifyContent='space-between'>
-                                <Text fontWeight='700' whiteSpace='nowrap'>{category.name} ({$$products.length})</Text>
+                                <Text fontWeight='600' whiteSpace='nowrap'>{category.name} ({$$products.length})</Text>
                                 <Divider w='90%' />
                             </HStack>
                             <SimpleGrid w='full' spacing='4' columns={[1, 2, 3, 4]}>

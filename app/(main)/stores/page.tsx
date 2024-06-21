@@ -51,7 +51,7 @@ export default function StorePage() {
                             >
                                 <FiMapPin size='25px' />
                                 <Stack spacing='0'>
-                                    <Text fontWeight='700'>{store.name}</Text>
+                                    <Text fontWeight='600'>{store.name}</Text>
                                     <Text fontSize='14px'>{`${store?.street}, ${locationNames.wardName}, ${locationNames.districtName}, ${locationNames.provinceName}`}</Text>
                                 </Stack>
                             </HStack>

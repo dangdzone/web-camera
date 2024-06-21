@@ -24,7 +24,7 @@ export const CategoryItem = ({ category, onClick}: CategoryItem) => {
             onClick={onClick}
             spacing='0'
         >
-            <Text p='2' fontSize='14px' color='white' fontWeight='600' bg='blackAlpha.700' borderTopRadius='10px'>{category.name}</Text>
+            <Text p='2' fontSize='14px' color='white' fontWeight='500' bg='blackAlpha.700' borderTopRadius='10px'>{category.name}</Text>
         </Stack>
     )
 }
