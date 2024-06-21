@@ -25,6 +25,7 @@ export const AddressInfoModal = ({ onClose, address, onSetAddressId, address_id_
             isOpen={true}
             size={'2xl'}
             onClose={onClose}
+            scrollBehavior="inside"
         >
             <ModalOverlay />
             <ModalContent mx='2' borderRadius='15px'>
@@ -32,7 +33,21 @@ export const AddressInfoModal = ({ onClose, address, onSetAddressId, address_id_
                     Thông tin giao hàng
                 </ModalHeader>
                 <ModalCloseButton borderRadius='full' mt='1' />
-                <ModalBody px={{ base: '2', md: '4' }} py='6'>
+                <ModalBody
+                    px={{ base: '2', md: '4' }} py='6'
+                    sx={{
+                        "::-webkit-scrollbar": {
+                            w: { base: 'none', md: '2' },
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            borderRadius: '5',
+                            bg: 'blackAlpha.300',
+                        },
+                        "::-webkit-scrollbar-thumb:hover": {
+                            bg: 'blackAlpha.400'
+                        }
+                    }}
+                >
                     <Stack w='full' spacing='4'>
                         {
                             address.map(item => {
