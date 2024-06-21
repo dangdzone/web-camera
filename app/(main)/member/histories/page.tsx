@@ -2,7 +2,7 @@
 
 import { OrderStatusMap } from "@/text";
 import { Order } from "@/type";
-import { Divider, HStack, Stack, Text, VStack, Wrap } from "@chakra-ui/layout";
+import { HStack, Stack, Text, VStack, Wrap } from "@chakra-ui/layout";
 import { Button, Select } from "@chakra-ui/react";
 import { useCollectionData } from "@livequery/react";
 import { HistoryItem } from "./HistoryItem";
@@ -94,16 +94,16 @@ export default function HistoryPage() {
 
     return fuser && (
         <VStack w='full' spacing='5'>
-            <HStack w='full' p='5' borderRadius='10px' border='1px' borderColor='blackAlpha.100' divider={<Divider height={'50px'} orientation='vertical' />}>
+            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
                 {
                     statisticalOrder.map((item, i) => (
-                        <VStack w='full' key={i}>
+                        <VStack w='full' key={i} p={{ base: '3', md: '5' }} spacing='0' borderRadius='10px' border='1px' borderColor='blackAlpha.200'>
                             <Text fontSize='25px' fontWeight='800'>{item.value?.toLocaleString()}{item.unit}</Text>
                             <Text textAlign='center'>{item.name}</Text>
                         </VStack>
                     ))
                 }
-            </HStack>
+            </Stack>
             <Stack w='full' justifyContent={{ base: 'center', md: 'flex-end' }} flexDir={{ base: 'column', md: 'row' }}>
                 <HStack w={{ base: '100%', md: '40%' }}>
                     <SearchBox

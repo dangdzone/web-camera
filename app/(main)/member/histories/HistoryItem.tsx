@@ -18,7 +18,7 @@ export const HistoryItem = ({ order }: HistoryItem) => {
     const status_order = Object.entries(OrderStatusMap).filter(([status,]) => status == order.status).map(([status_id, { color, name }]) => [{ name, color }])[0]
 
     return (
-        <Stack w='full' spacing='4' flexDirection='row' p='4' border='1px' borderColor='blackAlpha.100' borderRadius='10px'>
+        <Stack w='full' spacing='4' flexDirection='row' p='4' border='1px' borderColor='blackAlpha.200' borderRadius='10px'>
             <Box minW='90px'>
                 <Image maxH='90px' src={$product?.image} />
             </Box>

@@ -1,9 +1,6 @@
-import { ChevronRightIcon } from "@chakra-ui/icons"
-import { Box, HStack, Stack, Text } from "@chakra-ui/layout"
-import { IconButton } from "@chakra-ui/react"
+import { HStack, Text } from "@chakra-ui/layout"
 import Link from "next/link"
-import { FiChevronRight, FiChevronsRight } from "react-icons/fi"
-import { MdChevronRight } from "react-icons/md"
+import { FiChevronRight } from "react-icons/fi"
 
 export type DirectionalLink = {
     directional: Array<{

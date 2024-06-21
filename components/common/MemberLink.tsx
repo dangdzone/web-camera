@@ -1,4 +1,4 @@
-import { VStack } from "@chakra-ui/layout"
+import { Stack } from "@chakra-ui/layout"
 import { Button } from "@chakra-ui/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -16,7 +16,7 @@ export const MemberLink = ({ directional }: MemberLink) => {
     const path = usePathname()
 
     return (
-        <VStack w='full'>
+        <Stack w='full' flexDir={{base: 'row', md: 'column'}} minW='200px' overflowX={{ base: 'scroll', md: 'auto' }}>
             {
                 directional.map((item, i) => {
                     const active = i == 0 ? path == '/member' : path.startsWith(`/member/${item.href}`)
@@ -38,6 +38,6 @@ export const MemberLink = ({ directional }: MemberLink) => {
                     )
                 })
             }
-        </VStack>
+        </Stack>
     )
 }

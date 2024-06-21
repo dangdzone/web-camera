@@ -9,6 +9,7 @@ import { useState } from "react"
 import { AddressModal } from "./AddressModal"
 import { AddressItem } from "./AddressItem"
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
+import { FiPlus } from "react-icons/fi"
 
 export default function AddressesPage() {
 
@@ -24,7 +25,7 @@ export default function AddressesPage() {
                 )
             }
             <HStack w='full' justifyContent='flex-end'>
-                <Button borderRadius='10px' size='sm' colorScheme='red' onClick={() => set_active_address(undefined)}>Thêm địa chỉ</Button>
+                <Button borderRadius='10px' size='sm' leftIcon={<FiPlus />} colorScheme='red' onClick={() => set_active_address(undefined)}>Thêm địa chỉ</Button>
             </HStack>
             <VStack w='full' spacing='4'>
                 {

@@ -13,6 +13,7 @@ import { FiArrowLeft } from "react-icons/fi"
 import { OrderIdItem } from "./OrderIdItem"
 import { ReceiverInfo } from "@/app/(main)/cart/payment/[order_id]/ReceiverInfo"
 import { useEffect, useState } from "react"
+import { FaRegFilePdf } from "react-icons/fa6"
 
 export default function OrderIdPage(props: {
     params: {
@@ -39,11 +40,14 @@ export default function OrderIdPage(props: {
 
     return (
         <Stack w='full' spacing='7'>
-            <HStack spacing='5'>
-                <Link href={'/member/histories'}>
-                    <FiArrowLeft size='20px' />
-                </Link>
-                <Text fontWeight='700' fontSize='18px'>Chi tiết đơn hàng</Text>
+            <HStack w='full' justifyContent='space-between'>
+                <HStack spacing='5'>
+                    <Link href={'/member/histories'}>
+                        <FiArrowLeft size='20px' />
+                    </Link>
+                    <Text fontWeight='700' fontSize='18px'>Chi tiết đơn hàng</Text>
+                </HStack>
+                <Button size='sm' borderRadius='10px' variant='outline' leftIcon={<FaRegFilePdf />}>Xuất pdf</Button>
             </HStack>
             <Stack w='full'>
                 <HStack w='full' justifyContent='space-between'>

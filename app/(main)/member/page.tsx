@@ -2,10 +2,9 @@
 
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Order } from "@/type"
-import { Box, Divider, HStack, Stack, Text, VStack } from "@chakra-ui/layout"
-import { Button, Image, Tag, useClipboard } from "@chakra-ui/react"
+import { Box, Stack, Text, VStack } from "@chakra-ui/layout"
+import { Image, Tag, useClipboard } from "@chakra-ui/react"
 import { useCollectionData } from "@livequery/react"
-import { FaCheck, FaRegCopy } from "react-icons/fa6"
 
 export default function MemberPage() {
 
@@ -25,8 +24,7 @@ export default function MemberPage() {
                 <Image border='2px' borderColor='#8E00FF' sizes='90px' borderRadius='full' src={fuser?.photoURL || ''} />
                 <VStack >
                     <Text fontSize='18px' fontWeight='700' color='#8D00FF'>{fuser?.displayName}</Text>
-                    <Text>Email: {fuser?.email}</Text>
-                    <VStack>
+                    <Text>{fuser?.email}</Text>
                         {/* <HStack>
                             <Text color='blackAlpha.700' fontSize='14px'>ID: {fuser?.uid}</Text>
                             <Button size='xs' variant='outline' onClick={onCopy} colorScheme='messenger'>
@@ -34,19 +32,18 @@ export default function MemberPage() {
                             </Button>
                         </HStack> */}
                         <Box><Tag size='sm' colorScheme='red' variant='outline'>Thành viên</Tag></Box>
-                    </VStack>
                 </VStack>
             </VStack>
-            <HStack w='full' p='5' borderRadius='10px' border='1px' borderColor='blackAlpha.100' divider={<Divider height={'50px'} orientation='vertical' />}>
+            <Stack w='full' spacing='4' flexDir={{base: 'column', md: 'row'}}>
                 {
                     statisticalOrder.map((item, i) => (
-                        <VStack w='full' key={i}>
+                        <VStack w='full' key={i} p={{ base: '3', md: '5' }} spacing='0' borderRadius='10px' border='1px' borderColor='blackAlpha.200'>
                             <Text fontSize='25px' fontWeight='800'>{item.value?.toLocaleString()}{item.unit}</Text>
                             <Text>{item.name}</Text>
                         </VStack>
                     ))
                 }
-            </HStack>
+            </Stack>
         </Stack>
     )
 }
