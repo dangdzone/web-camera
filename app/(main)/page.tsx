@@ -104,7 +104,7 @@ export default function MainPage() {
                 $categories.items.map(category => {
                     const $$products = products.filter(a => a.category_id == category.id)
                     return $$products.length > 0 && (
-                        <Stack w='full' spacing='4'>
+                        <Stack w='full' spacing='4' key={category.id}>
                             <HStack w='full' justifyContent='space-between'>
                                 <Text fontWeight='600' whiteSpace='nowrap'>{category.name} ({$$products.length})</Text>
                                 <Divider w='90%' />
