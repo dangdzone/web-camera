@@ -24,11 +24,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             overflowY='auto'
             overflowX='hidden'
         >
-            <VStack minH='60px' w='full' bg='linear-gradient(to right, #7f00ff, #e100ff)' boxShadow='sm' position='sticky' top='0px' zIndex='999'>
-                <VStack w='full' maxW='6xl' px='4'>
-                    <Topbar />
-                </VStack>
-            </VStack>
+            <Topbar />
             <Stack
                 minH='calc(100vh - 60px)'
                 w='full'
