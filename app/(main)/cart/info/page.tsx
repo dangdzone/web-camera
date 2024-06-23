@@ -207,8 +207,13 @@ export default function InfoPage() {
                             <Text fontWeight='600' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
                         </HStack>
                         {
-                            cart_amount > 0 && fuser && (
+                            cart_amount > 0 && fuser && $addresses.length > 0 && (
                                 <Button w='full' borderRadius='10px' colorScheme="red" type="submit">Đặt hàng và thanh toán</Button>
+                            )
+                        }
+                        {
+                            $addresses.length <= 0 && cart_amount > 0 && fuser && (
+                                <Button w='full' borderRadius='10px' colorScheme="red">Điền thông tin giao hàng</Button>
                             )
                         }
                     </VStack>

@@ -177,17 +177,26 @@ export default function CreateOrderPage() {
                                                     </Stack>
                                                 ))
                                             }
+                                            {
+                                                $addresses.length == 0 && (
+                                                    <Text py='5' fontSize='14px' textAlign='center'>Chưa có địa chỉ</Text>
+                                                )
+                                            }
                                         </Stack>
                                         {
-                                            $addresses.length > 1 && (
+                                            $addresses.length > 1 && fuser && (
                                                 <Button size='sm' colorScheme='red' rightIcon={<FiChevronRight />} variant='outline' borderRadius='10px' onClick={() => set_active_address_modal(true)}>
                                                     Chọn địa chỉ khác ({$addresses.length})
                                                 </Button>
                                             )
                                         }
-                                        <Button size='sm' variant='outline' leftIcon={<FiPlus />} borderRadius='10px' onClick={$address_modal.onOpen}>
-                                            Thêm địa chỉ mới
-                                        </Button>
+                                        {
+                                            fuser && (
+                                                <Button size='sm' variant='outline' leftIcon={<FiPlus />} borderRadius='10px' onClick={$address_modal.onOpen}>
+                                                    Thêm địa chỉ mới
+                                                </Button>
+                                            )
+                                        }
                                     </Stack>
                                     <Stack w='full' spacing='0'>
                                         <Text fontSize='12px' fontWeight='600' color='blackAlpha.600'> GHI CHÚ KHÁC (NẾU CÓ)</Text>
@@ -196,30 +205,37 @@ export default function CreateOrderPage() {
                                 </Stack>
                             </Stack>
                         </VStack>
-                        {
-                            fuser && $addresses.length > 0 && (
-                                <VStack
-                                    p='4' w='full'
-                                    spacing='5'
-                                    boxShadow='rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
-                                    borderRadius='10px'
-                                    pos='sticky'
-                                    bottom='0'
-                                    zIndex='999'
-                                    bg='#FFFFFF'
-                                    border='1px'
-                                    borderColor='blackAlpha.200'
-                                >
-                                    <HStack w='full' justifyContent='space-between'>
-                                        <Text fontWeight='500' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
-                                        <Text fontWeight='600' color='red.500' fontSize='18px'>{totalPaid.toLocaleString()}đ</Text>
-                                    </HStack>
+                        <VStack
+                            p='4' w='full'
+                            spacing='5'
+                            boxShadow='rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
+                            borderRadius='10px'
+                            pos='sticky'
+                            bottom='0'
+                            zIndex='999'
+                            bg='#FFFFFF'
+                            border='1px'
+                            borderColor='blackAlpha.200'
+                        >
+                            <HStack w='full' justifyContent='space-between'>
+                                <Text fontWeight='500' color='blackAlpha.800'>Tổng tiền tạm tính</Text>
+                                <Text fontWeight='600' color='red.500' fontSize='18px'>{totalPaid.toLocaleString() || 0}đ</Text>
+                            </HStack>
+                            {
+                                fuser && $addresses.length > 0 && $product.item && (
                                     <Button w='full' colorScheme='red' borderRadius='10px' type="submit">
                                         Đặt hàng và thanh toán
                                     </Button>
-                                </VStack>
-                            )
-                        }
+                                )
+                            }
+                            {
+                                fuser && $addresses.length <= 0 && (
+                                    <Button w='full' colorScheme='red' borderRadius='10px'>
+                                        Điền thông tin giao hàng
+                                    </Button>
+                                )
+                            }
+                        </VStack>
                     </Stack>
                 </form>
             </VStack>

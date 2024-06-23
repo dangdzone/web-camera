@@ -33,9 +33,7 @@ export default function OrderPage() {
         { name: 'Tiền hàng (tạm tính)', value: order.pay, unit: 'đ' },
         { name: 'Phí vận chuyển', value: order.shipping_fee, unit: 'đ' },
     ]
-
     
-
     const pay = async () => {
         try {
             if (type == 'vietqr') {

@@ -32,7 +32,9 @@ export const ProductItemBox = ({ product }: ProductItemBox) => {
                     <Text fontWeight='bold' color='red.500'>{product?.price.toLocaleString()} đ</Text>
                     <Text fontWeight='bold' fontSize='14px' textDecoration='line-through' color='blackAlpha.600'>{product?.advertising_price.toLocaleString()} đ</Text>
                 </HStack>
-                <Text fontSize='14px' p='2' bg='blackAlpha.50' borderRadius='10px' border='1px' borderColor='blackAlpha.100'>{product.description}</Text>
+                <Text fontSize='14px' p='2' bg='blackAlpha.50' borderRadius='10px' border='1px' borderColor='blackAlpha.100'>
+                    {product.description ? product.description : 'Dễ dàng lắp đặt, sử dụng. Có cung câp dịch vụ lắp đặt tại nhà giá tốt'}
+                </Text>
             </Stack>
         </Link>
     )
