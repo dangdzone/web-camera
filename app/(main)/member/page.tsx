@@ -3,7 +3,7 @@
 import { useFirebaseUserContext } from "@/hooks/useFirebaseUser"
 import { Order } from "@/type"
 import { Box, Stack, Text, VStack } from "@chakra-ui/layout"
-import { Image, Tag, useClipboard } from "@chakra-ui/react"
+import { Button, Image, Tag, useClipboard } from "@chakra-ui/react"
 import { useCollectionData } from "@livequery/react"
 
 export default function MemberPage() {

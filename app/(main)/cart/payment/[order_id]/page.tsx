@@ -20,20 +20,14 @@ export default function OrderPage() {
     const [type, set_type] = useState<string>('momo')
     const [active_vietqr, set_active_vietqr] = useState<boolean | SmartQueryItem<Order>>(false)
 
-    if (loading || !order) return (
-        <Center w='full' minH='300px'>
-            <Spinner color="pink.500" size='lg' />
-        </Center>
-    )
-
-    const total_pay = order.pay + order.shipping_fee
+    const total_pay = order?.pay + order?.shipping_fee
     const statistical = [
-        { name: 'Mã đơn hàng', value: order.code, unit: '' },
-        { name: 'Số lượng sản phẩm', value: order.amount, unit: '' },
-        { name: 'Tiền hàng (tạm tính)', value: order.pay, unit: 'đ' },
-        { name: 'Phí vận chuyển', value: order.shipping_fee, unit: 'đ' },
+        { name: 'Mã đơn hàng', value: order?.code, unit: '' },
+        { name: 'Số lượng sản phẩm', value: order?.amount, unit: '' },
+        { name: 'Tiền hàng (tạm tính)', value: order?.pay, unit: 'đ' },
+        { name: 'Phí vận chuyển', value: order?.shipping_fee, unit: 'đ' },
     ]
-    
+
     const pay = async () => {
         try {
             if (type == 'vietqr') {
@@ -54,6 +48,14 @@ export default function OrderPage() {
             throw new Error('Đã xảy ra lỗi, vui lòng thử lại !')
         }
     }
+
+
+    if (loading || !order) return (
+        <Center w='full' minH='300px'>
+            <Spinner color="pink.500" size='lg' />
+        </Center>
+    )
+
 
     return fuser && (
         <VStack w='full' spacing='5'>

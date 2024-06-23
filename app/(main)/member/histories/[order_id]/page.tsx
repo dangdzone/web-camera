@@ -29,6 +29,7 @@ export default function OrderIdPage(props: {
 
     const [type, set_type] = useState<string>('momo')
     const [active_vietqr, set_active_vietqr] = useState<boolean | SmartQueryItem<Order>>(false)
+
     const pay = async () => {
         try {
             if (type == 'vietqr') {
@@ -58,14 +59,12 @@ export default function OrderIdPage(props: {
     ]
 
     const [time, setTime] = useState<string | null>(null);
-
     useEffect(() => {
         const currentTime = dayjs().format('DD/MM/YYYY - HH:mm');
         setTime(currentTime);
     }, []);
 
     const printRef = useRef<HTMLDivElement>(null);
-
     const handleDownloadPdf = async () => {
         const element = printRef.current;
         if (element) {
@@ -79,7 +78,6 @@ export default function OrderIdPage(props: {
             pdf.save(`donhang_${order.code}.pdf`);
         }
     };
-
 
     return fuser && (
         <Stack w='full' spacing='5'>
@@ -162,14 +160,14 @@ export default function OrderIdPage(props: {
                     >
                         {
                             order.status == 'created' && (
-                                <HStack w='full' flexDir={{base: 'column', md: 'row'}} spacing='4' justifyContent='space-between'>
+                                <HStack w='full' flexDir={{ base: 'column', md: 'row' }} spacing='4' justifyContent='space-between'>
                                     <Text fontWeight='500' whiteSpace='nowrap'>Chọn phương thức thanh toán</Text>
-                                        <Select borderRadius='10px' w={{base: '100%', md: '60%'}} onChange={(e) => set_type(e.target.value)}>
-                                            <option value='momo'>Ví momo</option>
-                                            <option value='zalo'>Zalo pay</option>
-                                            <option value='ninepay'>9pay</option>
-                                            <option value='vietqr'>Chuyển khoản ngân hàng</option>
-                                        </Select>
+                                    <Select borderRadius='10px' w={{ base: '100%', md: '60%' }} onChange={(e) => set_type(e.target.value)}>
+                                        <option value='momo'>Ví momo</option>
+                                        <option value='zalo'>Zalo pay</option>
+                                        <option value='ninepay'>9pay</option>
+                                        <option value='vietqr'>Chuyển khoản ngân hàng</option>
+                                    </Select>
                                 </HStack>
                             )
                         }
