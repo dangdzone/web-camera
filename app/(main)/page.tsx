@@ -102,7 +102,7 @@ export default function MainPage() {
             {$products.empty && <Text fontWeight='500'>Chưa có sản phẩm...</Text>}
             {
                 $categories.items.map(category => {
-                    const $$products = products.filter(a => a.category_id == category.id)
+                    const $$products = products.filter(a => a.category_id == category.id && a.status == 'active')
                     return $$products.length > 0 && (
                         <Stack w='full' spacing='4' key={category.id}>
                             <HStack w='full' justifyContent='space-between'>

@@ -60,6 +60,25 @@ export default function InfoPage() {
 
     // sản phẩm được chọn
     const cart_Select = $carts.filter(cart => cart.select == true)
+    // const product_id_list = cart_Select.map(a => a.product_id)
+
+    const order_item_list = cart_Select.map(cart => {
+        const product_item = $products.filter(product => product.id == cart.product_id).map(item => {
+            return {
+                product_id: item.id,
+                image: item.image,
+                name: item.name,
+                code: item.code,
+                price: item.price,
+                advertising_price: item.advertising_price, // Giá quảng cáo
+                amount: cart.amount,
+                select: true,
+                total_price: cart.amount * item.price
+            }
+        })
+        return product_item[0]
+    })
+
     // SL sản phẩm được chọn trong giỏ hàng
     const cart_amount = cart_Select.reduce((total, item) => total + item.amount, 0)
     // Tổng tiền phải thanh toán (tạm tính)
@@ -91,7 +110,7 @@ export default function InfoPage() {
         const data_item = {
             code: `FG${date}`, // Mã đơn hàng
             status: 'created', // Đã tạo
-            order_items: cart_Select, // 
+            order_items: order_item_list, // 
             amount: cart_amount, // Số lượng sản phẩm
             total: total, // Tổng tiền
             discount: total - totalPaid, // Giảm giá

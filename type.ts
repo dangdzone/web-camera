@@ -90,8 +90,14 @@ export declare class Order extends BaseEntity {
     status: string // Trạng thái
     order_items: Array<{
         product_id: string
+        image: string
+        name: string,
+        code: string
+        price: number
+        advertising_price: number // Giá quảng cáo
         amount: number
         select: boolean
+        total_price: number
     }>
     amount: number // Số lượng
     total: number // Tổng tiền

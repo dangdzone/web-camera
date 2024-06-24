@@ -3,12 +3,8 @@
 import {
     Stack,
     Text,
-    Center,
-    HStack,
     VStack,
     Image,
-    useColorMode,
-    SimpleGrid,
     useToast,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
@@ -24,12 +20,13 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (!loading && fuser) {
-            toast({
-                title: 'Đăng nhập thành công !',
-                position: 'top-right',
-                status: 'success',
-                duration: 3000,
-            })
+            // toast({
+            //     title: 'Đăng nhập thành công !',
+            //     position: 'top-right',
+            //     status: 'success',
+            //     duration: 3000,
+            //     isClosable: true,
+            // })
             router.push(`/`)
         }
     })

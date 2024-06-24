@@ -1,9 +1,8 @@
 import { OrderStatusMap } from "@/text"
-import { Order, Product } from "@/type"
+import { Order } from "@/type"
 import { Box, HStack, Stack, Text } from "@chakra-ui/layout"
 import { Button, Image, Tag } from "@chakra-ui/react"
 import { SmartQueryItem } from "@livequery/client"
-import { useDocumentData } from "@livequery/react"
 import dayjs from "dayjs"
 import Link from "next/link"
 
@@ -13,18 +12,17 @@ export type HistoryItem = {
 
 export const HistoryItem = ({ order }: HistoryItem) => {
 
-    const product_id = order.order_items?.[0].product_id
-    const { item: $product } = useDocumentData<Product>(`products/${product_id}`)
+    const order_item = order?.order_items[0]
     const status_order = Object.entries(OrderStatusMap).filter(([status,]) => status == order.status).map(([status_id, { color, name }]) => [{ name, color }])[0]
 
     return (
         <Stack w='full' spacing='4' flexDirection='row' p='4' border='1px' borderColor='blackAlpha.200' borderRadius='10px'>
             <Box minW='90px'>
-                <Image maxH='90px' src={$product?.image} />
+                <Image maxH='90px' src={order_item?.image} />
             </Box>
             <Stack w='full'>
                 <Stack w='full' flexDir='row' justifyContent='space-between'>
-                    <Text fontWeight='500'>{$product?.name} - ({order?.amount})</Text>
+                    <Text fontWeight='500'>{order_item?.name} - ({order?.amount})</Text>
                     <Text fontSize='13px'>{dayjs(order?.created_at).format('HH:mm - DD/MM/YYYY')}</Text>
                 </Stack>
                 <HStack>

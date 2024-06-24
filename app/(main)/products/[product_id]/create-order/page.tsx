@@ -70,6 +70,7 @@ export default function CreateOrderPage() {
     const total = amount * $product.item?.advertising_price
     // Tổng tiền phải thanh toán (tạm tính)
     const totalPaid = amount * $product.item?.price
+    const { item: product} = $product
 
     const onSubmit: SubmitHandler<Partial<Order>> = async data => {
         const date = Date.now()
@@ -78,8 +79,14 @@ export default function CreateOrderPage() {
             status: 'created', // Đã tạo
             order_items: [{
                 product_id,
+                image: product?.image,
+                name: product?.name,
+                code: product?.code,
+                price: product?.price,
+                advertising_price: product?.advertising_price,
                 amount,
-                select: true
+                select: true,
+                total_price: totalPaid
             }],
             amount,
             total,
